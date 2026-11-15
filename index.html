@@ -224,14 +224,16 @@
                 <div>
                     <label>Relation to Applicant <span style="color:red;">*</span></label>
                     <select id="decRelation">
-                        <option value="father">Father</option>
-                        <option value="mother">Mother</option>
-                        <option value="husband">Husband</option>
-                        <option value="wife">Wife</option>
-                        <option value="son">Son</option>
-                        <option value="daughter">Daughter</option>
-                        <option value="brother">Brother</option>
-                        <option value="sister">Sister</option>
+                        <option value="father">Father (বাবা)</option>
+                        <option value="mother">Mother (মা)</option>
+                        <option value="husband">Husband (স্বামী)</option>
+                        <option value="wife">Wife (স্ত্রী)</option>
+                        <option value="son">Son (ছেলে)</option>
+                        <option value="daughter">Daughter (মেয়ে)</option>
+                        <option value="brother">Brother (ভাই)</option>
+                        <option value="sister">Sister (বোন)</option>
+                        <option value="grandfather">Grandfather (দাদু/ঠাকুরদা)</option>
+                        <option value="grandmother">Grandmother (ঠাকুমা/দিদা)</option>
                     </select>
                 </div>
                 <div>
@@ -879,7 +881,7 @@
             const auth2_name = document.getElementById("auth2_name").value.trim() || "[Name]";
             const auth2_type = document.getElementById("auth2_type").value;
 
-            const pronoun = ['father', 'husband', 'son', 'brother'].includes(rel) ? 'his' : 'her';
+            const pronoun = ['father', 'husband', 'son', 'brother', 'grandfather'].includes(rel) ? 'his' : 'her';
 
             affidavitBody = `
                 <ol style="text-align: justify;">

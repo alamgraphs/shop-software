@@ -224,14 +224,14 @@
                 <div>
                     <label>Relation to Applicant <span style="color:red;">*</span></label>
                     <select id="decRelation">
-                        <option value="father">Father (বাবা)</option>
-                        <option value="mother">Mother (মা)</option>
-                        <option value="husband">Husband (স্বামী)</option>
-                        <option value="wife">Wife (স্ত্রী)</option>
-                        <option value="son">Son (ছেলে)</option>
-                        <option value="daughter">Daughter (মেয়ে)</option>
-                        <option value="brother">Brother (ভাই)</option>
-                        <option value="sister">Sister (বোন)</option>
+                        <option value="father">Father</option>
+                        <option value="mother">Mother</option>
+                        <option value="husband">Husband</option>
+                        <option value="wife">Wife</option>
+                        <option value="son">Son</option>
+                        <option value="daughter">Daughter</option>
+                        <option value="brother">Brother</option>
+                        <option value="sister">Sister</option>
                         <option value="grandfather">Grandfather (দাদু/ঠাকুরদা)</option>
                         <option value="grandmother">Grandmother (ঠাকুমা/দিদা)</option>
                     </select>
@@ -387,6 +387,7 @@
                         <input type="text" id="auth1_name" placeholder="Name" list="panchayatList" style="flex: 1.5;">
                         <select id="auth1_type" style="flex: 1.5;" onchange="updateAuthLevel2()">
                             <option value="Gram Panchayat">Gram Panchayat</option>
+                            <option value="ADC Village">ADC Village</option>
                             <option value="Nagar Panchayat">Nagar Panchayat</option>
                             <option value="Municipal Council">Municipal Council</option>
                         </select>
@@ -478,7 +479,7 @@
         const monthOptions = '<option value="">Month</option>' + Array.from({length: 12}, (_, i) => `<option value="${i+1 < 10 ? '0'+(i+1) : i+1}">${i+1 < 10 ? '0'+(i+1) : i+1}</option>`).join('');
         const yearOptions = '<option value="">Year</option>' + Array.from({length: 101}, (_, i) => `<option value="${2030 - i}">${2030 - i}</option>`).join('');
         const childYearOptions = '<option value="">Year</option>' + Array.from({length: 31}, (_, i) => `<option value="${2030 - i}">${2030 - i}</option>`).join(''); 
-        const dodYearOptions = '<option value="">Year</option>' + Array.from({length: 51}, (_, i) => `<option value="${2030 - i}">${2030 - i}</option>`).join('');
+        const dodYearOptions = '<option value="">Year</option>' + Array.from({length: 81}, (_, i) => `<option value="${2030 - i}">${2030 - i}</option>`).join(''); // Extended to 1950
 
         document.getElementById('dobDay').innerHTML = dayOptions; document.getElementById('dobMonth').innerHTML = monthOptions; document.getElementById('dobYear').innerHTML = yearOptions;
         document.getElementById('c_dobDay').innerHTML = dayOptions; document.getElementById('c_dobMonth').innerHTML = monthOptions; document.getElementById('c_dobYear').innerHTML = childYearOptions;
@@ -556,12 +557,12 @@
         } else if (type === "OBCSelf" || type === "OBCNCLSelf") {
             document.getElementById("obcSection").style.display = "block";
             dobWrapper.style.display = "none";
-            ageInput.readOnly = false; ageInput.style.backgroundColor = "#fff"; ageInput.placeholder = "Age (e.g. 23)";
+            ageInput.readOnly = false; ageInput.style.backgroundColor = "#fff"; ageInput.placeholder = "বয়স লিখুন (e.g. 23)";
         } else if (type === "OBCParents" || type === "OBCNCLParents") {
             document.getElementById("childSection").style.display = "block";
             document.getElementById("obcSection").style.display = "block";
             dobWrapper.style.display = "none";
-            ageInput.readOnly = false; ageInput.style.backgroundColor = "#fff"; ageInput.placeholder = "Age (e.g. 39)";
+            ageInput.readOnly = false; ageInput.style.backgroundColor = "#fff"; ageInput.placeholder = "বয়স লিখুন (e.g. 39)";
         } else {
             // Non-Study
             dobWrapper.style.display = "block";
@@ -605,34 +606,11 @@
             document.getElementById("fatherName").placeholder = "বাবার নাম (ঐচ্ছিক)";
         } else {
             spouseLabel.innerHTML = 'Spouse Name (Optional)';
-            spouseInput.placeholder = "Spouse Name";
+            spouseInput.placeholder = "স্ত্রী'র নাম (ঐচ্ছিক)";
             fatherLabel.innerHTML = 'Father\'s Name <span style="color:red;">*</span>';
             document.getElementById("fatherName").placeholder = "বাবার নাম (বাধ্যতামূলক)";
         }
         generateDraft();
-    }
-
-    // Number to Words Converter Function
-    const numToWordsMap = { 0: 'Zero', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine', 10: 'Ten', 11: 'Eleven', 12: 'Twelve', 13: 'Thirteen', 14: 'Fourteen', 15: 'Fifteen', 16: 'Sixteen', 17: 'Seventeen', 18: 'Eighteen', 19: 'Nineteen', 20: 'Twenty', 30: 'Thirty', 40: 'Forty', 50: 'Fifty', 60: 'Sixty', 70: 'Seventy', 80: 'Eighty', 90: 'Ninety' };
-
-    function numberToWords(num) {
-        if (num === 0) return 'Zero';
-        if (num < 20) return numToWordsMap[num];
-        if (num < 100) return numToWordsMap[Math.floor(num / 10) * 10] + (num % 10 !== 0 ? '-' + numToWordsMap[num % 10] : '');
-        if (num < 1000) return numToWordsMap[Math.floor(num / 100)] + ' Hundred' + (num % 100 !== 0 ? ' ' + numberToWords(num % 100) : '');
-        if (num < 100000) return numberToWords(Math.floor(num / 1000)) + ' Thousand' + (num % 1000 !== 0 ? ' ' + numberToWords(num % 1000) : '');
-        if (num < 10000000) return numberToWords(Math.floor(num / 100000)) + ' Lakh' + (num % 100000 !== 0 ? ' ' + numberToWords(num % 100000) : '');
-        return numberToWords(Math.floor(num / 10000000)) + ' Crore' + (num % 10000000 !== 0 ? ' ' + numberToWords(num % 10000000) : '');
-    }
-
-    function convertNumberToWords() {
-        let numStr = document.getElementById("obcIncomeNum").value;
-        if (!numStr || isNaN(numStr)) {
-            document.getElementById("obcIncomeWords").value = "";
-            return;
-        }
-        let wordStr = numberToWords(parseInt(numStr));
-        document.getElementById("obcIncomeWords").value = wordStr;
     }
 
     function importCustomerData() {
@@ -693,7 +671,11 @@
     function updateAuthLevel2() {
         const type1 = document.getElementById("auth1_type").value;
         const type2 = document.getElementById("auth2_type");
-        if (type1 === "Gram Panchayat") type2.value = "R.D. Block"; else type2.value = "Sub-Division";
+        if (type1 === "Gram Panchayat" || type1 === "ADC Village") {
+            type2.value = "R.D. Block";
+        } else {
+            type2.value = "Sub-Division";
+        }
         generateDraft();
     }
 
@@ -709,6 +691,30 @@
                 target_input.value = field === 'dist' ? 'Sepahijala' : ''; target_input.readOnly = false; target_input.style.backgroundColor = "#fff";
             }
         });
+        generateDraft();
+    }
+
+    // Number to Words Converter Function
+    const numToWordsMap = { 0: 'Zero', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine', 10: 'Ten', 11: 'Eleven', 12: 'Twelve', 13: 'Thirteen', 14: 'Fourteen', 15: 'Fifteen', 16: 'Sixteen', 17: 'Seventeen', 18: 'Eighteen', 19: 'Nineteen', 20: 'Twenty', 30: 'Thirty', 40: 'Forty', 50: 'Fifty', 60: 'Sixty', 70: 'Seventy', 80: 'Eighty', 90: 'Ninety' };
+
+    function numberToWords(num) {
+        if (num === 0) return 'Zero';
+        if (num < 20) return numToWordsMap[num];
+        if (num < 100) return numToWordsMap[Math.floor(num / 10) * 10] + (num % 10 !== 0 ? '-' + numToWordsMap[num % 10] : '');
+        if (num < 1000) return numToWordsMap[Math.floor(num / 100)] + ' Hundred' + (num % 100 !== 0 ? ' ' + numberToWords(num % 100) : '');
+        if (num < 100000) return numberToWords(Math.floor(num / 1000)) + ' Thousand' + (num % 1000 !== 0 ? ' ' + numberToWords(num % 1000) : '');
+        if (num < 10000000) return numberToWords(Math.floor(num / 100000)) + ' Lakh' + (num % 100000 !== 0 ? ' ' + numberToWords(num % 100000) : '');
+        return numberToWords(Math.floor(num / 10000000)) + ' Crore' + (num % 10000000 !== 0 ? ' ' + numberToWords(num % 10000000) : '');
+    }
+
+    function convertNumberToWords() {
+        let numStr = document.getElementById("obcIncomeNum").value;
+        if (!numStr || isNaN(numStr)) {
+            document.getElementById("obcIncomeWords").value = "";
+            return;
+        }
+        let wordStr = numberToWords(parseInt(numStr));
+        document.getElementById("obcIncomeWords").value = wordStr;
         generateDraft();
     }
 
@@ -795,7 +801,7 @@
                     affidavitBody = `
                         <ol style="text-align: justify;">
                             <li>That I was born on <b>${dob}</b> at my parents’ residence located at ${b_vill}, P.O. ${b_po}, P.S. ${b_ps}, Dist. ${b_dist}, Tripura, Pin-${b_pin}.</li>
-                            <li>That my parents could not get my name and date of birth entered in the Birth Register of <b>${auth1_name} ${auth1_type}</b> under <b>${auth2_name} ${auth2_type}</b> in due time due to inadvertence and oversight.</li>
+                            <li>That my parents could not get my name and date of birth entered in the Birth Register of the <b>${auth1_name} ${auth1_type}</b> under <b>${auth2_name} ${auth2_type}</b> in due time due to inadvertence and oversight.</li>
                             <li>That I am swearing this affidavit for the explicit purpose of obtaining my delayed Birth Certificate from the competent authority based on this declaration.</li>
                         </ol>
                     `;

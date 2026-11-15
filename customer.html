@@ -5,48 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Affidavit Form - AYAT GRAPHICS ZONE</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #f4f4f9; padding: 15px; margin: 0; }
-        .container { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .header-title { text-align: center; color: #6f42c1; margin-top: 0; border-bottom: 2px solid #6f42c1; padding-bottom: 10px; margin-bottom: 15px; }
-        .form-purpose { background: #e8f4f8; border-left: 5px solid #17a2b8; padding: 15px; margin-bottom: 20px; border-radius: 4px; text-align: center; }
-        .form-purpose h3 { margin: 0 0 5px 0; color: #0c5460; font-size: 18px; text-transform: uppercase; }
-        .form-purpose p { margin: 0; color: #155724; font-weight: bold; font-size: 15px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px; color: #444;}
-        input[type="text"], input[type="number"], select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 14px;}
-        fieldset { border: 1px solid #ddd; border-radius: 4px; padding: 15px; margin-bottom: 15px; background: #fafafa; }
-        legend { font-weight: bold; font-size: 14px; padding: 0 5px; color: #555; }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .checkbox-group { display: flex; align-items: center; gap: 8px; margin-bottom: 15px; }
-        .btn-whatsapp { background: #25D366; color: white; border: none; padding: 15px 20px; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold; width: 100%; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 8px;}
-        .btn-copy { background: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold; width: 100%; margin-top: 10px; }
-        
-        .type-selector { background: #ffeeba; padding: 15px; border-radius: 4px; border-left: 5px solid #ffc107; margin-bottom: 20px; }
-        
-        #birthAppTypeSection, #birthAddressFieldset, #authorityFieldset, #birthAddressWrapper { display: block; }
-        #childSection, #obcSection, #deathSection, #deathAddressFieldset, #digitalBirthSection { display: none; }
-        #childSection { background: #d4edda; border-color: #c3e6cb; }
-        #obcSection { background: #e2e3f0; border-color: #b7bce1; }
-        #deathSection { background: #fff3cd; border-color: #ffeeba; }
-        #digitalBirthSection { background: #e8f4f8; border-color: #b8daff; }
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+:root{--brand:#6d4aff;--brand2:#9b6bff;--brand-dark:#4a2fd1;--ink:#1f2340;--muted:#6b7090;--line:#e1e4f2;--soft:#f6f7fd;--card:#fff;--ok:#1fb85a;--warn:#f59e0b;--danger:#e5484d}
+*{box-sizing:border-box}
+body{font-family:'Inter','Hind Siliguri','Noto Sans Bengali','Segoe UI',Arial,sans-serif;color:var(--ink);margin:0;-webkit-font-smoothing:antialiased}
+label{display:block;font-weight:600;margin-bottom:6px;font-size:13.5px;color:#3b4064}
+label span{color:var(--danger)}
+input[type="text"],input[type="number"],select,textarea{width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:12px;font-size:14.5px;font-family:inherit;color:var(--ink);background-color:#fff;transition:border-color .2s,box-shadow .2s;outline:none}
+input::placeholder,textarea::placeholder{color:#a3a8c3}
+input:focus,select:focus,textarea:focus{border-color:var(--brand);box-shadow:0 0 0 4px rgba(109,74,255,.15)}
+input[readonly]{color:var(--muted);cursor:not-allowed}
+select{appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:34px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236b7090'><path d='M5 7l5 6 5-6z'/></svg>");background-repeat:no-repeat;background-position:right 12px center;background-size:14px}
+div[style*="display: flex"] select{padding-left:9px;padding-right:22px;background-position:right 6px center;background-size:11px}
+.form-group{margin-bottom:16px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+fieldset{border:1px solid var(--line);border-radius:16px;padding:18px 16px 8px;margin:0 0 18px;background:var(--soft);min-width:0}
+fieldset .grid-2{padding-bottom:10px}
+legend{font-weight:700;font-size:13px;padding:5px 14px;color:var(--brand-dark) !important;background:#fff;border:1px solid var(--line);border-radius:999px;letter-spacing:.2px}
+#childSection{background:#effaf3;border-color:#bfe8cd}
+#obcSection{background:#f0f1ff;border-color:#c9cdf5}
+#deathSection{background:#fff8e8;border-color:#f3dfa8}
+#digitalBirthSection{background:#eef7fd;border-color:#bcdcf2}
+.type-selector{background:linear-gradient(135deg,#fff8e6,#fff3d1) !important;border:1px solid #f4d98b !important;border-left:5px solid var(--warn) !important;border-radius:14px !important;padding:16px !important;margin-bottom:20px}
+.type-selector label{color:#7a5300 !important;font-size:14px !important}
+.type-selector select{font-weight:600 !important;color:#7a5300 !important;border-color:#f0cf74 !important;padding:12px 34px 12px 13px !important}
+#birthAppTypeSection{background:linear-gradient(135deg,#ecfdf3,#dcf7e7) !important;border-color:#a8e3c0 !important;border-left-color:var(--ok) !important}
+#birthAppTypeSection label{color:#14663a !important}
+#birthAppTypeSection select{color:#14663a !important;border-color:#8fd8ae !important}
+.checkbox-group{align-items:center;gap:10px;margin:0 0 14px;padding:12px 14px;background:#fff;border:1.5px dashed #c7cbe6;border-radius:12px}
+.checkbox-group input{width:18px;height:18px;accent-color:var(--brand);flex:none}
+.checkbox-group label{margin:0;font-size:14px}
+.section-title{display:flex;align-items:baseline;gap:8px;margin:24px 0 14px;padding-bottom:10px;border-bottom:2px solid var(--line);font-size:16px;color:var(--ink)}
+.section-title small{font-size:12px;font-weight:500;color:var(--muted)}
+button{font-family:inherit}
+@media screen and (max-width:640px){.grid-2{grid-template-columns:1fr;gap:14px}}
 
-        @media screen and (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; gap: 15px; } }
-    </style>
+body{background:radial-gradient(1200px 500px at 50% -10%,#d9d0ff 0%,transparent 60%),#f1f2fb;padding:18px 12px 48px;min-height:100vh}
+.container{max-width:640px;margin:auto;background:var(--card);border-radius:24px;box-shadow:0 24px 60px rgba(60,40,160,.16);padding:0 24px 28px;overflow:hidden}
+.brand-header{margin:0 -24px 24px;padding:30px 24px 26px;text-align:center;color:#fff;background:linear-gradient(135deg,#4a2fd1 0%,#7a4dff 55%,#a77bff 100%);position:relative}
+.brand-header::after{content:"";position:absolute;inset:0;background:radial-gradient(400px 160px at 85% 0,rgba(255,255,255,.22),transparent 70%);pointer-events:none}
+.brand-logo{width:56px;height:56px;margin:0 auto 12px;border-radius:16px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:28px;backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.35)}
+.brand-header h1{margin:0;font-size:22px;letter-spacing:1.5px;font-weight:700}
+.brand-header .sub{margin:4px 0 14px;font-size:13px;opacity:.9;text-transform:uppercase;letter-spacing:2px}
+.brand-badge{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);padding:7px 16px;border-radius:999px;font-size:13.5px;font-weight:600}
+.btn-whatsapp{background:linear-gradient(135deg,#25D366,#1aa84f);color:#fff;border:none;padding:16px 20px;border-radius:14px;cursor:pointer;font-size:16.5px;font-weight:700;width:100%;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 10px 22px rgba(37,211,102,.35);transition:transform .15s,box-shadow .15s}
+.btn-whatsapp:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(37,211,102,.42)}
+.btn-whatsapp:active{transform:translateY(0)}
+.btn-copy{background:#fff;color:var(--brand-dark);border:1.5px solid var(--brand);padding:13px 20px;border-radius:14px;cursor:pointer;font-size:15px;font-weight:700;width:100%;margin-top:12px;transition:background .2s}
+.btn-copy:hover{background:#f1edff}
+.send-hint{text-align:center;color:var(--muted);font-size:12.5px;margin:12px 0 0}
+
+.container{animation:rise .5s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.btn-whatsapp,.btn-copy{position:sticky;bottom:10px}
+.container::after{content:"🔒 আপনার তথ্য শুধুমাত্র দোকানের WhatsApp-এ পাঠানো হবে";display:block;text-align:center;font-size:12px;color:var(--muted);margin-top:18px}
+</style>
 </head>
 <body>
 
 <div class="container">
-    <h2 class="header-title">AYAT GRAPHICS ZONE</h2>
-    
-    <div class="form-purpose">
-        <h3>Notary Affidavit Form</h3>
-        <p>দয়া করে সঠিক তথ্য দিয়ে ফর্মটি পূরণ করুন</p>
+    <div class="brand-header">
+        <div class="brand-logo">✒️</div>
+        <h1>AYAT GRAPHICS ZONE</h1>
+        <div class="sub">Notary Affidavit Form</div>
+        <span class="brand-badge">দয়া করে সঠিক তথ্য দিয়ে ফর্মটি পূরণ করুন</span>
     </div>
 
     <!-- 1. Affidavit Type Selection -->
     <div class="form-group type-selector">
-        <label style="color: #856404; font-size: 15px;">অ্যাফিডেভিটের ধরণ সিলেক্ট করুন <span style="color:red;">*</span></label>
-        <select id="affidavitType" onchange="toggleAffidavitType()" style="font-weight: bold; color: #856404; border-color: #ffc107; padding: 12px;">
+        <label>অ্যাফিডেভিটের ধরণ সিলেক্ট করুন <span style="color:red;">*</span></label>
+        <select id="affidavitType" onchange="toggleAffidavitType()">
             <option value="Birth">1. Delayed Birth Certificate (জন্ম)</option>
             <option value="DigiBirthSelf">2. Digital Birth Certificate (Self)</option>
             <option value="DigiBirthParents">3. Digital Birth Certificate (Parents)</option>
@@ -62,15 +90,15 @@
     </div>
 
     <!-- 2. Birth Sub-Type -->
-    <div id="birthAppTypeSection" class="form-group type-selector" style="background: #d4edda; border-left: 5px solid #28a745;">
-        <label style="color: #155724; font-size: 14px;">আবেদনটি কার জন্য করছেন? <span style="color:red;">*</span></label>
-        <select id="appType" onchange="toggleAffidavitType()" style="font-weight: bold; color: #155724; border-color: #28a745;">
+    <div id="birthAppTypeSection" class="form-group type-selector">
+        <label>আবেদনটি কার জন্য করছেন? <span style="color:red;">*</span></label>
+        <select id="appType" onchange="toggleAffidavitType()">
             <option value="Self">Self (নিজের)</option>
             <option value="Child">For Child (সন্তানের)</option>
         </select>
     </div>
     
-    <h4 style="margin-bottom: 10px; color: #333; border-bottom: 1px solid #ccc;">আবেদনকারীর তথ্য (Applicant Details):</h4>
+    <h4 class="section-title">👤 আবেদনকারীর তথ্য <small>Applicant Details</small></h4>
     
     <div class="form-group">
         <label>Name of Applicant <span style="color:red;">*</span></label>
@@ -149,7 +177,7 @@
 
     <!-- Child Details Section -->
     <fieldset id="childSection">
-        <legend style="color: #155724;">Child Details (সন্তানের তথ্য)</legend>
+        <legend>Child Details (সন্তানের তথ্য)</legend>
         <div class="form-group">
             <label>Child's Name (সন্তানের নাম) <span style="color:red;">*</span></label>
             <input type="text" id="childName" placeholder="সন্তানের নাম লিখুন">
@@ -175,7 +203,7 @@
 
     <!-- Digital Birth Details Section -->
     <fieldset id="digitalBirthSection">
-        <legend style="color: #0c5460;">Digital Birth Details (পুরনো সার্টিফিকেটের তথ্য)</legend>
+        <legend>Digital Birth Details (পুরনো সার্টিফিকেটের তথ্য)</legend>
         <div class="form-group">
              <label>Place of Birth (কোথায় জন্ম?) <span style="color:red;">*</span></label>
              <select id="pobType" onchange="togglePobType()">
@@ -205,7 +233,7 @@
 
     <!-- Death Details Section -->
     <fieldset id="deathSection">
-        <legend style="color: #856404;">Death Details (মৃত্যুর তথ্য)</legend>
+        <legend>Death Details (মৃত্যুর তথ্য)</legend>
         <div class="grid-2 form-group">
             <div>
                 <label>Relation to Applicant <span style="color:red;">*</span></label>
@@ -256,7 +284,7 @@
 
     <!-- OBC Specific Section -->
     <fieldset id="obcSection">
-        <legend style="color: #1a237e;">OBC/NCL Details (কাস্ট ও ইনকাম তথ্য)</legend>
+        <legend>OBC/NCL Details (কাস্ট ও ইনকাম তথ্য)</legend>
         <div class="grid-2 form-group">
             <div>
                 <label>Category <span style="color:red;">*</span></label>

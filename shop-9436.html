@@ -11,7 +11,7 @@
 body{font-family:'Inter','Hind Siliguri','Noto Sans Bengali','Segoe UI',Arial,sans-serif;color:var(--ink);margin:0;-webkit-font-smoothing:antialiased}
 label{display:block;font-weight:600;margin-bottom:6px;font-size:13.5px;color:#3b4064}
 label span{color:var(--danger)}
-input[type="text"],input[type="number"],select,textarea{width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:12px;font-size:14.5px;font-family:inherit;color:var(--ink);background-color:#fff;transition:border-color .2s,box-shadow .2s;outline:none}
+input[type="text"],input[type="number"],input[type="password"],select,textarea{width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:12px;font-size:14.5px;font-family:inherit;color:var(--ink);background-color:#fff;transition:border-color .2s,box-shadow .2s;outline:none}
 input::placeholder,textarea::placeholder{color:#a3a8c3}
 input:focus,select:focus,textarea:focus{border-color:var(--brand);box-shadow:0 0 0 4px rgba(109,74,255,.15)}
 input[readonly]{color:var(--muted);cursor:not-allowed}
@@ -94,9 +94,34 @@ tbody tr:hover{background:#f1edff}
   @page{size:A4;margin:5cm 1.27cm 1.27cm 3cm}
   #output{box-shadow:none;padding:0;width:100%;min-height:auto;border-radius:0}
 }
+
+/* ===== Password lock ===== */
+body.locked > *:not(#lockScreen):not(script):not(datalist){display:none !important}
+#lockScreen{display:none}
+body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;padding:20px;background:radial-gradient(900px 500px at 50% -10%,#cfc4ff,transparent 60%),#eceefb}
+.lock-card{width:100%;max-width:380px;background:#fff;border-radius:24px;box-shadow:0 24px 60px rgba(60,40,160,.2);padding:34px 28px;text-align:center}
+.lock-icon{width:64px;height:64px;margin:0 auto 14px;border-radius:18px;background:linear-gradient(135deg,#4a2fd1,#9b6bff);display:flex;align-items:center;justify-content:center;font-size:30px}
+.lock-card h3{margin:0 0 4px;font-size:20px}
+.lock-card p{margin:0 0 20px;color:var(--muted);font-size:13.5px}
+.lock-card input{text-align:center;letter-spacing:2px;margin-bottom:12px}
+.lock-card button{width:100%;background:linear-gradient(135deg,#6d4aff,#4a2fd1);box-shadow:0 8px 18px rgba(109,74,255,.3)}
+#lockError{color:var(--danger);font-size:13px;font-weight:600;min-height:18px;margin-top:10px}
+.btn-logout{margin-left:auto;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);padding:8px 14px;font-size:13px;border-radius:10px;box-shadow:none}
+@media print{body.locked *{display:none !important}}
 </style>
 </head>
-<body>
+<body class="locked">
+
+<div id="lockScreen">
+    <form class="lock-card" onsubmit="return unlockApp(event)">
+        <div class="lock-icon">🔒</div>
+        <h3>AYAT GRAPHICS ZONE</h3>
+        <p>এটি শুধু দোকানের ব্যবহারের জন্য। পাসওয়ার্ড দিন।</p>
+        <input type="password" id="lockPass" placeholder="Password" autocomplete="current-password">
+        <button type="submit">🔓 Unlock</button>
+        <div id="lockError"></div>
+    </form>
+</div>
 
 <div class="app-header">
     <div class="app-logo">✒️</div>
@@ -104,6 +129,7 @@ tbody tr:hover{background:#f1edff}
         <div class="app-title">Notary Affidavit Generator</div>
         <div class="app-sub">AYAT GRAPHICS ZONE · Shop Pro</div>
     </div>
+    <button class="btn-logout" onclick="lockApp()">🔒 Lock</button>
 </div>
 
 <div class="container">
@@ -503,6 +529,25 @@ tbody tr:hover{background:#f1edff}
     <option value="Sonapur"><option value="Urmai"><option value="Rabindranagar">
 </datalist>
 
+<script>
+    // ===== Password lock (SHA-256) =====
+    const PASS_HASH = "feb5c7b065f6a847ec8feed2d4fa26f80e9a2dc531b8ca7bc039c3375b4f8bf4";
+    async function sha256(t){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(t));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,"0")).join("");}
+    async function unlockApp(e){
+        e.preventDefault();
+        const v=document.getElementById("lockPass").value;
+        try{
+            if(await sha256(v)===PASS_HASH){
+                try{sessionStorage.setItem("shopUnlocked","1");}catch(_){}
+                document.body.classList.remove("locked");
+                document.getElementById("lockPass").value="";
+            }else{document.getElementById("lockError").textContent="ভুল পাসওয়ার্ড!";}
+        }catch(_){document.getElementById("lockError").textContent="HTTPS/ব্রাউজার সমস্যা: পাসওয়ার্ড যাচাই করা যায়নি।";}
+        return false;
+    }
+    function lockApp(){try{sessionStorage.removeItem("shopUnlocked");}catch(_){}document.body.classList.add("locked");}
+    (function(){try{if(sessionStorage.getItem("shopUnlocked")==="1")document.body.classList.remove("locked");}catch(_){}})();
+</script>
 <!-- ================= 5. Scripts ================= -->
 <script>
     window.onload = function() {

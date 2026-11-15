@@ -3,474 +3,406 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notary Affidavit Generator (Shop Pro Version)</title>
+    <title>Affidavit Form - AYAT GRAPHICS ZONE</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #e0e0e0; padding: 20px; margin: 0; }
-        .container { display: flex; gap: 20px; max-width: 1400px; margin: auto; align-items: flex-start;}
-        h2 { text-align: center; color: #333; margin-top: 0; margin-bottom: 15px; }
-        
-        .import-section { background: #e8f4f8; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px dashed #17a2b8; }
-        .import-section h4 { margin-top: 0; color: #138496; margin-bottom: 10px; }
-        
-        .form-panel { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); flex: 1; position: sticky; top: 20px; max-height: 95vh; overflow-y: auto; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f4f4f9; padding: 15px; margin: 0; }
+        .container { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .header-title { text-align: center; color: #6f42c1; margin-top: 0; border-bottom: 2px solid #6f42c1; padding-bottom: 10px; margin-bottom: 15px; }
+        .form-purpose { background: #e8f4f8; border-left: 5px solid #17a2b8; padding: 15px; margin-bottom: 20px; border-radius: 4px; text-align: center; }
+        .form-purpose h3 { margin: 0 0 5px 0; color: #0c5460; font-size: 18px; text-transform: uppercase; }
+        .form-purpose p { margin: 0; color: #155724; font-weight: bold; font-size: 15px; }
         .form-group { margin-bottom: 15px; }
         label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px; color: #444;}
-        input[type="text"], input[type="number"], select, textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        input[type="text"], input[type="number"], select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 14px;}
         fieldset { border: 1px solid #ddd; border-radius: 4px; padding: 15px; margin-bottom: 15px; background: #fafafa; }
         legend { font-weight: bold; font-size: 14px; padding: 0 5px; color: #555; }
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .checkbox-group { display: flex; align-items: center; gap: 8px; margin-bottom: 15px; }
+        .btn-whatsapp { background: #25D366; color: white; border: none; padding: 15px 20px; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold; width: 100%; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 8px;}
+        .btn-copy { background: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold; width: 100%; margin-top: 10px; }
         
         .type-selector { background: #ffeeba; padding: 15px; border-radius: 4px; border-left: 5px solid #ffc107; margin-bottom: 20px; }
+        
         #birthAppTypeSection, #birthAddressFieldset, #authorityFieldset, #birthAddressWrapper { display: block; }
-        #childSection, #obcSection, #deathSection, #deathAddressFieldset, #deathAddressWrapper, #digitalBirthSection { display: none; }
+        #childSection, #obcSection, #deathSection, #deathAddressFieldset, #digitalBirthSection { display: none; }
         #childSection { background: #d4edda; border-color: #c3e6cb; }
         #obcSection { background: #e2e3f0; border-color: #b7bce1; }
         #deathSection { background: #fff3cd; border-color: #ffeeba; }
         #digitalBirthSection { background: #e8f4f8; border-color: #b8daff; }
 
-        .action-container { margin-top: 20px; width: 21cm; max-width: 100%; text-align: center; }
-        .action-buttons { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px; }
-        button { border: none; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold; transition: 0.3s; color: white;}
-        
-        .btn-fill { background: #17a2b8; width: 100%; margin-top: 10px; }
-        .btn-print { background: #28a745; flex: 1; min-width: 150px; }
-        .btn-word { background: #17a2b8; flex: 1; min-width: 150px; }
-        .btn-record { background: #6f42c1; flex: 1; min-width: 150px; }
-        .btn-sm { padding: 6px 10px; font-size: 13px; border-radius: 3px; margin-right: 5px; min-width: auto; }
-        
-        #warningMsg { color: #dc3545; font-weight: bold; font-size: 15px; padding: 10px; border: 1px dashed #dc3545; border-radius: 4px; background: #f8d7da; }
-
-        .output-panel { flex: 1.5; display: flex; flex-direction: column; align-items: center; padding-bottom: 20px; overflow-x: auto; width: 100%; }
-        #output {
-            width: 21cm; min-height: 29.7cm; background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            padding: 6cm 1.5cm 1cm 3cm; box-sizing: border-box; font-family: "Bookman Old Style", serif;
-            font-size: 11pt; line-height: 1.5; color: #000; outline: none; position: relative; overflow: hidden;
-        }
-
-        ol { margin-top: 10px; margin-bottom: 10px; padding-left: 40px; }
-        li { margin-bottom: 15px; text-align: justify; padding-left: 10px;}
-
-        .history-panel { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); width: 100%; max-width: 1400px; margin: 20px auto; box-sizing: border-box; overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; min-width: 600px; }
-        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; vertical-align: middle; }
-        th { background: #f4f4f9; font-weight: bold; }
-
-        @media screen and (max-width: 768px) {
-            body { padding: 10px; } .container { flex-direction: column; }
-            .form-panel { max-height: none; width: 100%; padding: 15px; }
-            .grid-2 { grid-template-columns: 1fr; gap: 15px; }
-            .output-panel { align-items: flex-start; }
-            .action-buttons { flex-direction: column; }
-        }
-
-        @media print {
-            body { background: white; padding: 0; margin: 0; }
-            .form-panel, .action-container, .history-panel { display: none !important; }
-            .output-panel { padding: 0; display: block; width: 100%; overflow: visible; }
-            @page { size: A4; margin: 6cm 1.5cm 1cm 3cm; }
-            #output { box-shadow: none; padding: 0; width: 100%; min-height: auto; }
-        }
+        @media screen and (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; gap: 15px; } }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <h2 class="header-title">AYAT GRAPHICS ZONE</h2>
     
-    <div class="form-panel">
-        
-        <div class="import-section">
-            <h4>📥 Auto-Fill from WhatsApp</h4>
-            <textarea id="importBox" rows="3" placeholder="কাস্টমারের পাঠানো মেসেজ পেস্ট করুন..."></textarea>
-            <button class="btn-fill" onclick="importCustomerData()">🚀 Auto Fill Form (ম্যাজিক!)</button>
-        </div>
+    <div class="form-purpose">
+        <h3>Notary Affidavit Form</h3>
+        <p>দয়া করে সঠিক তথ্য দিয়ে ফর্মটি পূরণ করুন</p>
+    </div>
 
-        <h2>Enter Details</h2>
+    <!-- 1. Affidavit Type Selection -->
+    <div class="form-group type-selector">
+        <label style="color: #856404; font-size: 15px;">অ্যাফিডেভিটের ধরণ সিলেক্ট করুন <span style="color:red;">*</span></label>
+        <select id="affidavitType" onchange="toggleAffidavitType()" style="font-weight: bold; color: #856404; border-color: #ffc107; padding: 12px;">
+            <option value="Birth">1. Delayed Birth Certificate (জন্ম)</option>
+            <option value="DigiBirthSelf">2. Digital Birth Certificate (Self)</option>
+            <option value="DigiBirthParents">3. Digital Birth Certificate (Parents)</option>
+            <option value="Death">4. Delayed Death Certificate (মৃত্যু)</option>
+            <option value="NonStudyBen">5. Non-Study Affidavit (Bengali)</option>
+            <option value="NonStudyEng">6. Non-Study Affidavit (English)</option>
+            <option value="NonStudyThumb">7. Non-Study Affidavit (Thumb)</option>
+            <option value="OBCSelf">8. Central OBC (Self)</option>
+            <option value="OBCParents">9. Central OBC (Parents)</option>
+            <option value="OBCNCLSelf">10. OBC Non-Creamy Layer (Self)</option>
+            <option value="OBCNCLParents">11. OBC Non-Creamy Layer (Parents)</option>
+        </select>
+    </div>
 
-        <div class="form-group type-selector">
-            <label style="color: #856404; font-size: 15px;">Affidavit Type <span style="color:red;">*</span></label>
-            <select id="affidavitType" onchange="toggleAffidavitType()" style="font-weight: bold; color: #856404; border-color: #ffc107; padding: 12px;">
-                <option value="Birth">1. Delayed Birth Certificate</option>
-                <option value="DigiBirthSelf">2. Digital Birth Certificate (Self)</option>
-                <option value="DigiBirthParents">3. Digital Birth Certificate (Parents)</option>
-                <option value="Death">4. Delayed Death Certificate</option>
-                <option value="NonStudyBen">5. Non-Study Affidavit (Bengali)</option>
-                <option value="NonStudyEng">6. Non-Study Affidavit (English)</option>
-                <option value="NonStudyThumb">7. Non-Study Affidavit (Thumb)</option>
-                <option value="OBCSelf">8. Central OBC (Self)</option>
-                <option value="OBCParents">9. Central OBC (Parents)</option>
-                <option value="OBCNCLSelf">10. OBC Non-Creamy Layer (Self)</option>
-                <option value="OBCNCLParents">11. OBC Non-Creamy Layer (Parents)</option>
+    <!-- 2. Birth Sub-Type -->
+    <div id="birthAppTypeSection" class="form-group type-selector" style="background: #d4edda; border-left: 5px solid #28a745;">
+        <label style="color: #155724; font-size: 14px;">আবেদনটি কার জন্য করছেন? <span style="color:red;">*</span></label>
+        <select id="appType" onchange="toggleAffidavitType()" style="font-weight: bold; color: #155724; border-color: #28a745;">
+            <option value="Self">Self (নিজের)</option>
+            <option value="Child">For Child (সন্তানের)</option>
+        </select>
+    </div>
+    
+    <h4 style="margin-bottom: 10px; color: #333; border-bottom: 1px solid #ccc;">আবেদনকারীর তথ্য (Applicant Details):</h4>
+    
+    <div class="form-group">
+        <label>Name of Applicant <span style="color:red;">*</span></label>
+        <input type="text" id="name" placeholder="আবেদনকারীর নাম">
+    </div>
+    
+    <div class="grid-2 form-group">
+        <div>
+            <label>Gender <span style="color:red;">*</span></label>
+            <select id="gender" onchange="updateSpouseRequirement()">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
             </select>
         </div>
-
-        <div id="birthAppTypeSection" class="form-group type-selector" style="background: #d4edda; border-left: 5px solid #28a745;">
-            <label style="color: #155724; font-size: 14px;">Application Type <span style="color:red;">*</span></label>
-            <select id="appType" onchange="toggleAffidavitType()" style="font-weight: bold; color: #155724; border-color: #28a745;">
-                <option value="Self">Self (নিজের)</option>
-                <option value="Child">For Child (সন্তানের)</option>
-            </select>
-        </div>
-        
-        <h4 style="margin-bottom: 10px; color: #333; border-bottom: 1px solid #ccc;">Applicant Details:</h4>
-        <div class="form-group">
-            <label>Name of Applicant <span style="color:red;">*</span></label>
-            <input type="text" id="name" placeholder="Name">
-        </div>
-        
-        <div class="grid-2 form-group">
-            <div>
-                <label>Gender <span style="color:red;">*</span></label>
-                <select id="gender" onchange="updateSpouseRequirement()">
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                </select>
-            </div>
-            <div>
-                <label>Age <span style="color:red;">*</span></label>
-                <input type="number" id="age" readonly style="background-color: #e9ecef;" placeholder="Auto calculated">
-            </div>
-        </div>
-
-        <div class="form-group" id="dobWrapper">
-            <label>Applicant DOB <span style="color:red;">*</span></label>
-            <div style="display: flex; gap: 5px;">
-                <select id="dobDay" style="flex: 1;"></select>
-                <select id="dobMonth" style="flex: 1;"></select>
-                <select id="dobYear" style="flex: 1.5;"></select>
-            </div>
-        </div>
-
-        <div class="grid-2 form-group">
-            <div>
-                <label id="fatherLabel">Father's Name <span style="color:red;">*</span></label>
-                <input type="text" id="fatherName" placeholder="Father's Name">
-            </div>
-            <div>
-                <label>Mother's Name (Optional)</label>
-                <input type="text" id="motherName" placeholder="Mother's Name">
-            </div>
-        </div>
-
-        <div class="grid-2 form-group">
-            <div>
-                <label>Religion / Faith <span style="color:red;">*</span></label>
-                <select id="religion">
-                    <option value="Muslim">Muslim</option>
-                    <option value="Hindu">Hindu</option>
-                    <option value="Christian">Christian</option>
-                    <option value="Buddhist">Buddhist</option>
-                    <option value="Sikh">Sikh</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-            <div>
-                <label id="spouseLabel">Spouse Name (Optional)</label>
-                <input type="text" id="spouseName" placeholder="Spouse Name">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label>Profession <span style="color:red;">*</span></label>
-            <select id="professionSelect" onchange="checkProfession()">
-                <option value="Student">Student</option>
-                <option value="Housewife">Housewife</option>
-                <option value="Day Labour">Day Labour</option>
-                <option value="Cultivator">Cultivator</option>
-                <option value="Self Employed">Self Employed</option>
-                <option value="Govt. Employee">Govt. Employee</option>
-                <option value="Private Job">Private Job</option>
-                <option value="Un Employed">Un Employed</option>
-                <option value="Driver">Driver</option>
-                <option value="Business">Business</option>
-                <option value="Other">Add Option</option>
-            </select>
-            <input type="text" id="customProfession" placeholder="Write custom profession..." style="display: none; margin-top: 5px;">
-        </div>
-
-        <!-- Digital Birth Details -->
-        <fieldset id="digitalBirthSection">
-            <legend style="color: #0c5460;">Digital Birth Details</legend>
-            <div class="form-group">
-                <label>Place of Birth <span style="color:red;">*</span></label>
-                <select id="pobType" onchange="togglePobType()">
-                    <option value="Home">বাড়ীতে (Home)</option>
-                    <option value="Hospital">হাসপাতালে (Hospital)</option>
-                </select>
-            </div>
-            <div class="form-group" id="hospitalNameWrapper" style="display: none;">
-                <label>Hospital Name <span style="color:red;">*</span></label>
-                <input type="text" id="hospitalName" placeholder="e.g. Melaghar Hospital">
-            </div>
-            <div class="grid-2 form-group">
-                <div>
-                    <label>Registration No <span style="color:red;">*</span></label>
-                    <input type="text" id="oldRegNo" placeholder="e.g. 40/2006">
-                </div>
-                <div>
-                    <label>Date of Registration <span style="color:red;">*</span></label>
-                    <div style="display: flex; gap: 5px;">
-                        <select id="regDay" style="flex: 1;"></select>
-                        <select id="regMonth" style="flex: 1;"></select>
-                        <select id="regYear" style="flex: 1.5;"></select>
-                    </div>
-                </div>
-            </div>
-        </fieldset>
-
-        <!-- Death Details -->
-        <fieldset id="deathSection">
-            <legend style="color: #856404;">Death Details</legend>
-            <div class="grid-2 form-group">
-                <div>
-                    <label>Relation to Applicant <span style="color:red;">*</span></label>
-                    <select id="decRelation">
-                        <option value="father">Father (বাবা)</option>
-                        <option value="mother">Mother (মা)</option>
-                        <option value="husband">Husband (স্বামী)</option>
-                        <option value="wife">Wife (স্ত্রী)</option>
-                        <option value="son">Son (ছেলে)</option>
-                        <option value="daughter">Daughter (মেয়ে)</option>
-                        <option value="brother">Brother (ভাই)</option>
-                        <option value="sister">Sister (বোন)</option>
-                        <option value="grandfather">Grandfather (দাদু/ঠাকুরদা)</option>
-                        <option value="grandmother">Grandmother (ঠাকুমা/দিদা)</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Deceased's Name <span style="color:red;">*</span></label>
-                    <input type="text" id="decName" placeholder="Deceased's Name">
-                </div>
-            </div>
-            <div class="grid-2 form-group">
-                <div>
-                    <label>Relative of Deceased <span style="color:red;">*</span></label>
-                    <div style="display: flex; gap: 5px;">
-                        <select id="decGuardianType" style="flex: 1;">
-                            <option value="S/o">S/o</option>
-                            <option value="D/o">D/o</option>
-                            <option value="W/o">W/o</option>
-                        </select>
-                        <input type="text" id="decGuardianName" placeholder="Name" style="flex: 2;">
-                    </div>
-                </div>
-                <div>
-                    <label>Date of Death <span style="color:red;">*</span></label>
-                    <div style="display: flex; gap: 5px;">
-                        <select id="dodDay" style="flex: 1;"></select>
-                        <select id="dodMonth" style="flex: 1;"></select>
-                        <select id="dodYear" style="flex: 1.5;"></select>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Place of Death Prefix <span style="color:red;">*</span></label>
-                <input type="text" id="podPrefix" value="my own residence" placeholder="e.g. my own residence, ILS Hospital">
-            </div>
-        </fieldset>
-
-        <!-- OBC Details -->
-        <fieldset id="obcSection">
-            <legend style="color: #1a237e;">OBC/NCL Details</legend>
-            <div class="grid-2 form-group">
-                <div>
-                    <label>Category <span style="color:red;">*</span></label>
-                    <input type="text" id="obcCategory" value="OBC" readonly style="background-color: #e9ecef;">
-                </div>
-                <div>
-                    <label>Community (Sub-Caste) <span style="color:red;">*</span></label>
-                    <input type="text" id="obcCommunity" placeholder="e.g. Yadav Community">
-                </div>
-            </div>
-            <div class="grid-2 form-group">
-                <div>
-                    <label>Annual Family Income (Rs.) <span style="color:red;">*</span></label>
-                    <input type="number" id="obcIncomeNum" placeholder="e.g. 108000" oninput="convertNumberToWords()">
-                </div>
-                <div>
-                    <label>Income in Words <span style="color:red;">*</span></label>
-                    <input type="text" id="obcIncomeWords" placeholder="e.g. One Lakh Eight Thousand">
-                </div>
-            </div>
-        </fieldset>
-
-        <!-- Child Details -->
-        <fieldset id="childSection">
-            <legend style="color: #155724;">Child Details</legend>
-            <div class="form-group">
-                <label>Child's Name <span style="color:red;">*</span></label>
-                <input type="text" id="childName" placeholder="Child's Name">
-            </div>
-            <div class="grid-2 form-group">
-                <div>
-                    <label>Child's Gender <span style="color:red;">*</span></label>
-                    <select id="childGender">
-                        <option value="Son">Son</option>
-                        <option value="Daughter">Daughter</option>
-                    </select>
-                </div>
-                <div id="childDobWrapper">
-                    <label>Child's DOB <span style="color:red;">*</span></label>
-                    <div style="display: flex; gap: 5px;">
-                        <select id="c_dobDay" style="flex: 1;"></select>
-                        <select id="c_dobMonth" style="flex: 1;"></select>
-                        <select id="c_dobYear" style="flex: 1.5;"></select>
-                    </div>
-                </div>
-            </div>
-        </fieldset>
-
-        <fieldset>
-            <legend>Present Address</legend>
-            <div class="grid-2">
-                <input type="text" id="p_vill" placeholder="Vill / Ward" list="villageList">
-                <input type="text" id="p_po" placeholder="P.O." list="villageList">
-                <input type="text" id="p_ps" placeholder="P.S.">
-                <select id="p_dist">
-                    <option value="Dhalai">Dhalai</option><option value="Gomati">Gomati</option>
-                    <option value="Khowai">Khowai</option><option value="North Tripura">North Tripura</option>
-                    <option value="Sepahijala" selected>Sepahijala</option><option value="South Tripura">South Tripura</option>
-                    <option value="Unakoti">Unakoti</option><option value="West Tripura">West Tripura</option>
-                </select>
-                <input type="text" id="p_pin" placeholder="PIN Code">
-            </div>
-        </fieldset>
-
-        <div class="checkbox-group" id="birthAddressWrapper">
-            <input type="checkbox" id="sameAddress" onchange="toggleAddress('b')">
-            <label style="margin: 0; cursor: pointer;" for="sameAddress">Birth Place is same as Present Address</label>
-        </div>
-
-        <fieldset id="birthAddressFieldset">
-            <legend>Birth Place Address</legend>
-            <div class="grid-2">
-                <input type="text" id="b_vill" placeholder="Vill / Ward" list="villageList">
-                <input type="text" id="b_po" placeholder="P.O." list="villageList">
-                <input type="text" id="b_ps" placeholder="P.S.">
-                <select id="b_dist">
-                    <option value="Dhalai">Dhalai</option><option value="Gomati">Gomati</option>
-                    <option value="Khowai">Khowai</option><option value="North Tripura">North Tripura</option>
-                    <option value="Sepahijala" selected>Sepahijala</option><option value="South Tripura">South Tripura</option>
-                    <option value="Unakoti">Unakoti</option><option value="West Tripura">West Tripura</option>
-                </select>
-                <input type="text" id="b_pin" placeholder="PIN Code">
-            </div>
-        </fieldset>
-
-        <div class="checkbox-group" id="deathAddressWrapper" style="display: none;">
-            <input type="checkbox" id="sameAddressDeath" onchange="toggleAddress('d')">
-            <label style="margin: 0; cursor: pointer;" for="sameAddressDeath">Place of Death is same as Present Address</label>
-        </div>
-
-        <fieldset id="deathAddressFieldset" style="display: none;">
-            <legend>Place of Death Address</legend>
-            <div class="grid-2">
-                <input type="text" id="d_vill" placeholder="Vill / Ward" list="villageList">
-                <input type="text" id="d_po" placeholder="P.O." list="villageList">
-                <input type="text" id="d_ps" placeholder="P.S.">
-                <select id="d_dist">
-                    <option value="Dhalai">Dhalai</option><option value="Gomati">Gomati</option>
-                    <option value="Khowai">Khowai</option><option value="North Tripura">North Tripura</option>
-                    <option value="Sepahijala" selected>Sepahijala</option><option value="South Tripura">South Tripura</option>
-                    <option value="Unakoti">Unakoti</option><option value="West Tripura">West Tripura</option>
-                </select>
-                <input type="text" id="d_pin" placeholder="PIN Code">
-            </div>
-        </fieldset>
-
-        <!-- Local Authority -->
-        <fieldset id="authorityFieldset">
-            <legend>Local Authority Details</legend>
-            <div class="grid-2">
-                <div>
-                    <label>Level 1 (Panchayat/Council) <span style="color:red;">*</span></label>
-                    <div style="display: flex; gap: 5px;">
-                        <input type="text" id="auth1_name" placeholder="Name" list="panchayatList" style="flex: 1.5;">
-                        <select id="auth1_type" style="flex: 1.5;" onchange="updateAuthLevel2()">
-                            <option value="Gram Panchayat">Gram Panchayat</option>
-                            <option value="Nagar Panchayat">Nagar Panchayat</option>
-                            <option value="Municipal Council">Municipal Council</option>
-                        </select>
-                    </div>
-                </div>
-                <div>
-                    <label>Level 2 (Block/Sub-Div) <span style="color:red;">*</span></label>
-                    <div style="display: flex; gap: 5px;">
-                        <input type="text" id="auth2_name" placeholder="Name" list="blockList" style="flex: 1.5;">
-                        <select id="auth2_type" style="flex: 1.5;">
-                            <option value="R.D. Block">R.D. Block</option>
-                            <option value="Sub-Division">Sub-Division</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </fieldset>
-
-        <div class="form-group" style="margin-top: 15px;">
-            <label>Signing Month & Year <span style="color:red;">*</span></label>
-            <div style="display: flex; gap: 5px;">
-                <select id="signMonth" style="flex: 2;">
-                    <option value="January">January</option><option value="February">February</option>
-                    <option value="March">March</option><option value="April">April</option>
-                    <option value="May">May</option><option value="June">June</option>
-                    <option value="July">July</option><option value="August">August</option>
-                    <option value="September">September</option><option value="October">October</option>
-                    <option value="November" selected>November</option><option value="December">December</option>
-                </select>
-                <input type="number" id="signYear" placeholder="Year" style="flex: 1;">
-            </div>
+        <div>
+            <label>Age <span style="color:red;">*</span></label>
+            <input type="number" id="age" readonly style="background-color: #e9ecef;" placeholder="Auto (১৮+ হতে হবে)">
         </div>
     </div>
 
-    <!-- ================= 2. Output Section ================= -->
-    <div class="output-panel">
-        <div id="output" contenteditable="true"></div>
-        
-        <div class="action-container">
-            <div id="warningMsg" style="margin-top: 15px;">
-                প্রিন্ট বা রেকর্ড সেভ করার জন্য ফর্মের লাল তারা (*) দেওয়া সব বক্স পূরণ করুন।
-            </div>
-
-            <div class="action-buttons" id="actionButtons" style="display: none;">
-                <button class="btn-print" onclick="window.print()">🖨️ Print / PDF</button>
-                <button class="btn-word" onclick="downloadCurrentWord()">📄 Word Download</button>
-                <button class="btn-record" onclick="saveToHistory()">💾 Save to Record</button>
-            </div>
+    <div class="form-group" id="dobWrapper">
+        <label>Applicant's Date of Birth <span style="color:red;">*</span></label>
+        <div style="display: flex; gap: 5px;">
+            <select id="dobDay" style="flex: 1;" onchange="calculateAge()"></select>
+            <select id="dobMonth" style="flex: 1;" onchange="calculateAge()"></select>
+            <select id="dobYear" style="flex: 1.5;" onchange="calculateAge()"></select>
         </div>
     </div>
+
+    <div class="grid-2 form-group">
+        <div>
+            <label id="fatherLabel">Father's Name <span style="color:red;">*</span></label>
+            <input type="text" id="fatherName" placeholder="বাবার নাম">
+        </div>
+        <div>
+            <label>Mother's Name (Optional)</label>
+            <input type="text" id="motherName" placeholder="মায়ের নাম (ঐচ্ছিক)">
+        </div>
+    </div>
+
+    <div class="grid-2 form-group">
+        <div>
+            <label>Religion / Faith <span style="color:red;">*</span></label>
+            <select id="religion">
+                <option value="Muslim">Muslim</option>
+                <option value="Hindu">Hindu</option>
+                <option value="Christian">Christian</option>
+                <option value="Buddhist">Buddhist</option>
+                <option value="Sikh">Sikh</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <div>
+            <label id="spouseLabel">Spouse Name (Optional)</label>
+            <input type="text" id="spouseName" placeholder="স্বামী/স্ত্রীর নাম (ঐচ্ছিক)">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Profession <span style="color:red;">*</span></label>
+        <select id="professionSelect" onchange="checkProfession()">
+            <option value="Student">Student</option>
+            <option value="Housewife">Housewife</option>
+            <option value="Day Labour">Day Labour</option>
+            <option value="Cultivator">Cultivator</option>
+            <option value="Self Employed">Self Employed</option>
+            <option value="Govt. Employee">Govt. Employee</option>
+            <option value="Private Job">Private Job</option>
+            <option value="Un Employed">Un Employed</option>
+            <option value="Driver">Driver</option>
+            <option value="Business">Business</option>
+            <option value="Other">Add Option (Write Custom)</option>
+        </select>
+        <input type="text" id="customProfession" placeholder="Write custom profession..." style="display: none; margin-top: 5px;">
+    </div>
+
+    <!-- Child Details Section -->
+    <fieldset id="childSection">
+        <legend style="color: #155724;">Child Details (সন্তানের তথ্য)</legend>
+        <div class="form-group">
+            <label>Child's Name (সন্তানের নাম) <span style="color:red;">*</span></label>
+            <input type="text" id="childName" placeholder="সন্তানের নাম লিখুন">
+        </div>
+        <div class="grid-2 form-group">
+            <div>
+                <label>Child's Gender <span style="color:red;">*</span></label>
+                <select id="childGender">
+                    <option value="Son">ছেলে (Son)</option>
+                    <option value="Daughter">মেয়ে (Daughter)</option>
+                </select>
+            </div>
+            <div id="childDobWrapper">
+                <label>Child's DOB <span style="color:red;">*</span></label>
+                <div style="display: flex; gap: 5px;">
+                    <select id="c_dobDay" style="flex: 1;"></select>
+                    <select id="c_dobMonth" style="flex: 1;"></select>
+                    <select id="c_dobYear" style="flex: 1.5;"></select>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <!-- Digital Birth Details Section -->
+    <fieldset id="digitalBirthSection">
+        <legend style="color: #0c5460;">Digital Birth Details (পুরনো সার্টিফিকেটের তথ্য)</legend>
+        <div class="form-group">
+             <label>Place of Birth (কোথায় জন্ম?) <span style="color:red;">*</span></label>
+             <select id="pobType" onchange="togglePobType()">
+                 <option value="Home">বাড়ীতে (Home)</option>
+                 <option value="Hospital">হাসপাতালে (Hospital)</option>
+             </select>
+        </div>
+        <div class="form-group" id="hospitalNameWrapper" style="display: none;">
+             <label>Hospital Name <span style="color:red;">*</span></label>
+             <input type="text" id="hospitalName" placeholder="e.g. Melaghar Hospital">
+        </div>
+        <div class="grid-2 form-group">
+            <div>
+                <label>Registration No <span style="color:red;">*</span></label>
+                <input type="text" id="oldRegNo" placeholder="e.g. 40/2006">
+            </div>
+            <div>
+                <label>Date of Registration <span style="color:red;">*</span></label>
+                <div style="display: flex; gap: 5px;">
+                    <select id="regDay" style="flex: 1;"></select>
+                    <select id="regMonth" style="flex: 1;"></select>
+                    <select id="regYear" style="flex: 1.5;"></select>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <!-- Death Details Section -->
+    <fieldset id="deathSection">
+        <legend style="color: #856404;">Death Details (মৃত্যুর তথ্য)</legend>
+        <div class="grid-2 form-group">
+            <div>
+                <label>Relation to Applicant <span style="color:red;">*</span></label>
+                <select id="decRelation">
+                    <option value="father">Father (বাবা)</option>
+                    <option value="mother">Mother (মা)</option>
+                    <option value="husband">Husband (স্বামী)</option>
+                    <option value="wife">Wife (স্ত্রী)</option>
+                    <option value="son">Son (ছেলে)</option>
+                    <option value="daughter">Daughter (মেয়ে)</option>
+                    <option value="brother">Brother (ভাই)</option>
+                    <option value="sister">Sister (বোন)</option>
+                    <option value="grandfather">Grandfather (দাদু/ঠাকুরদা)</option>
+                    <option value="grandmother">Grandmother (ঠাকুমা/দিদা)</option>
+                </select>
+            </div>
+            <div>
+                <label>Deceased's Name <span style="color:red;">*</span></label>
+                <input type="text" id="decName" placeholder="মৃত ব্যক্তির নাম">
+            </div>
+        </div>
+        <div class="grid-2 form-group">
+            <div>
+                <label>Relative of Deceased <span style="color:red;">*</span></label>
+                <div style="display: flex; gap: 5px;">
+                    <select id="decGuardianType" style="flex: 1;">
+                        <option value="S/o">S/o</option>
+                        <option value="D/o">D/o</option>
+                        <option value="W/o">W/o</option>
+                    </select>
+                    <input type="text" id="decGuardianName" placeholder="নাম (e.g. Late Ravi...)" style="flex: 2;">
+                </div>
+            </div>
+            <div>
+                <label>Date of Death <span style="color:red;">*</span></label>
+                <div style="display: flex; gap: 5px;">
+                    <select id="dodDay" style="flex: 1;"></select>
+                    <select id="dodMonth" style="flex: 1;"></select>
+                    <select id="dodYear" style="flex: 1.5;"></select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Place of Death (কোথায় মারা গেছেন?) <span style="color:red;">*</span></label>
+            <input type="text" id="podPrefix" value="my own residence" placeholder="e.g. my own residence, ILS Hospital">
+        </div>
+    </fieldset>
+
+    <!-- OBC Specific Section -->
+    <fieldset id="obcSection">
+        <legend style="color: #1a237e;">OBC/NCL Details (কাস্ট ও ইনকাম তথ্য)</legend>
+        <div class="grid-2 form-group">
+            <div>
+                <label>Category <span style="color:red;">*</span></label>
+                <input type="text" id="obcCategory" value="OBC" readonly style="background-color: #e9ecef;">
+            </div>
+            <div>
+                <label>Community (Sub-Caste) <span style="color:red;">*</span></label>
+                <input type="text" id="obcCommunity" placeholder="e.g. Yadav Community">
+            </div>
+        </div>
+        <div class="grid-2 form-group">
+            <div>
+                <label>Annual Family Income (Rs.) <span style="color:red;">*</span></label>
+                <input type="number" id="obcIncomeNum" placeholder="e.g. 108000" oninput="convertNumberToWords()">
+            </div>
+            <div>
+                <label>Income in Words <span style="color:red;">*</span></label>
+                <input type="text" id="obcIncomeWords" placeholder="e.g. One Lakh Eight Thousand">
+            </div>
+        </div>
+    </fieldset>
+
+    <!-- Addresses -->
+    <fieldset>
+        <legend>Present Address (বর্তমান ঠিকানা)</legend>
+        <div class="grid-2">
+            <input type="text" id="p_vill" placeholder="Vill / Ward *">
+            <input type="text" id="p_po" placeholder="P.O. *">
+            <input type="text" id="p_ps" placeholder="P.S. *">
+            <select id="p_dist">
+                <option value="Dhalai">Dhalai</option>
+                <option value="Gomati">Gomati</option>
+                <option value="Khowai">Khowai</option>
+                <option value="North Tripura">North Tripura</option>
+                <option value="Sepahijala" selected>Sepahijala</option>
+                <option value="South Tripura">South Tripura</option>
+                <option value="Unakoti">Unakoti</option>
+                <option value="West Tripura">West Tripura</option>
+            </select>
+            <input type="text" id="p_pin" placeholder="PIN Code *">
+        </div>
+    </fieldset>
+
+    <div class="checkbox-group" id="birthAddressWrapper">
+        <input type="checkbox" id="sameAddress" onchange="toggleAddress('b')">
+        <label style="margin: 0; cursor: pointer;" for="sameAddress">জন্মস্থান এবং বর্তমান ঠিকানা একই</label>
+    </div>
+
+    <fieldset id="birthAddressFieldset">
+        <legend>Birth Place Address (জন্মস্থানের ঠিকানা)</legend>
+        <div class="grid-2">
+            <input type="text" id="b_vill" placeholder="Vill / Ward *">
+            <input type="text" id="b_po" placeholder="P.O. *">
+            <input type="text" id="b_ps" placeholder="P.S. *">
+            <select id="b_dist">
+                <option value="Dhalai">Dhalai</option>
+                <option value="Gomati">Gomati</option>
+                <option value="Khowai">Khowai</option>
+                <option value="North Tripura">North Tripura</option>
+                <option value="Sepahijala" selected>Sepahijala</option>
+                <option value="South Tripura">South Tripura</option>
+                <option value="Unakoti">Unakoti</option>
+                <option value="West Tripura">West Tripura</option>
+            </select>
+            <input type="text" id="b_pin" placeholder="PIN Code *">
+        </div>
+    </fieldset>
+
+    <div class="checkbox-group" id="deathAddressWrapper" style="display: none;">
+        <input type="checkbox" id="sameAddressDeath" onchange="toggleAddress('d')">
+        <label style="margin: 0; cursor: pointer;" for="sameAddressDeath">মৃত্যুর স্থান এবং বর্তমান ঠিকানা একই</label>
+    </div>
+
+    <fieldset id="deathAddressFieldset" style="display: none;">
+        <legend>Place of Death Address (মৃত্যুর স্থানের ঠিকানা)</legend>
+        <div class="grid-2">
+            <input type="text" id="d_vill" placeholder="Vill / Ward *">
+            <input type="text" id="d_po" placeholder="P.O. *">
+            <input type="text" id="d_ps" placeholder="P.S. *">
+            <select id="d_dist">
+                <option value="Dhalai">Dhalai</option>
+                <option value="Gomati">Gomati</option>
+                <option value="Khowai">Khowai</option>
+                <option value="North Tripura">North Tripura</option>
+                <option value="Sepahijala" selected>Sepahijala</option>
+                <option value="South Tripura">South Tripura</option>
+                <option value="Unakoti">Unakoti</option>
+                <option value="West Tripura">West Tripura</option>
+            </select>
+            <input type="text" id="d_pin" placeholder="PIN Code *">
+        </div>
+    </fieldset>
+
+    <!-- Local Authority -->
+    <fieldset id="authorityFieldset">
+        <legend>Local Authority Details (রেজিস্টার অফিসের তথ্য)</legend>
+        <div class="grid-2">
+            <div>
+                <label>Panchayat/Council Name <span style="color:red;">*</span></label>
+                <div style="display: flex; gap: 5px;">
+                    <input type="text" id="auth1_name" placeholder="Name *" style="flex: 1.5;">
+                    <select id="auth1_type" style="flex: 1.5;" onchange="updateAuthLevel2()">
+                        <option value="Gram Panchayat">Gram Panchayat</option>
+                        <option value="Nagar Panchayat">Nagar Panchayat</option>
+                        <option value="Municipal Council">Municipal Council</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <label>Block/Sub-Division <span style="color:red;">*</span></label>
+                <div style="display: flex; gap: 5px;">
+                    <input type="text" id="auth2_name" placeholder="Name *" style="flex: 1.5;">
+                    <select id="auth2_type" style="flex: 1.5;">
+                        <option value="R.D. Block">R.D. Block</option>
+                        <option value="Sub-Division">Sub-Division</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="form-group">
+        <label>Signing Month & Year <span style="color:red;">*</span></label>
+        <div style="display: flex; gap: 5px;">
+            <select id="signMonth" style="flex: 2;">
+                <option value="January">January</option><option value="February">February</option>
+                <option value="March">March</option><option value="April">April</option>
+                <option value="May">May</option><option value="June">June</option>
+                <option value="July">July</option><option value="August">August</option>
+                <option value="September">September</option><option value="October">October</option>
+                <option value="November" selected>November</option><option value="December">December</option>
+            </select>
+            <input type="number" id="signYear" placeholder="Year" style="flex: 1;">
+        </div>
+    </div>
+
+    <button class="btn-whatsapp" onclick="sendToWhatsApp()">
+        <span>📲</span> Send Data via WhatsApp
+    </button>
+    <button class="btn-copy" onclick="copyData()">📋 Copy Details</button>
+
 </div>
 
-<!-- ================= 3. History Panel ================= -->
-<div class="history-panel">
-    <h2 style="text-align: left; margin-top:0;">Saved Records (আপনার রেকর্ডসমূহ)</h2>
-    <table>
-        <thead>
-            <tr>
-                <th style="width: 20%;">Date & Time</th>
-                <th style="width: 40%;">Subject</th>
-                <th style="width: 40%;">Actions</th>
-            </tr>
-        </thead>
-        <tbody id="historyTableBody"></tbody>
-    </table>
-</div>
-
-<!-- ================= 4. Datalists ================= -->
-<datalist id="panchayatList">
-    <option value="Sonapur"><option value="Urmai"><option value="Kathalia">
-    <option value="Boxanagar"><option value="Nalchar"><option value="Mohanbhog">
-    <option value="Melaghar"><option value="Bishramganj"><option value="Bishalgarh"><option value="Charilam">
-</datalist>
-<datalist id="blockList">
-    <option value="Kathalia"><option value="Boxanagar"><option value="Nalchar">
-    <option value="Mohanbhog"><option value="Melaghar"><option value="Bishalgarh">
-    <option value="Jampuijala"><option value="Bishramganj"><option value="Charilam"><option value="Sonamura">
-</datalist>
-<datalist id="villageList">
-    <option value="Sonapur"><option value="Urmai"><option value="Rabindranagar">
-</datalist>
-
-<!-- ================= 5. Scripts ================= -->
 <script>
+    const SHOP_WHATSAPP_NUMBER = "919436925172";
+
     window.onload = function() {
         document.getElementById("signYear").value = new Date().getFullYear();
         
@@ -488,17 +420,6 @@
 
         updateSpouseRequirement();
         toggleAffidavitType();
-
-        ['dobDay', 'dobMonth', 'dobYear'].forEach(id => { document.getElementById(id).addEventListener('change', calculateAge); });
-
-        const allInputs = document.querySelectorAll('.form-panel input, .form-panel select');
-        allInputs.forEach(input => {
-            input.addEventListener('input', generateDraft);
-            input.addEventListener('change', generateDraft);
-        });
-
-        renderHistory();
-        generateDraft();
     };
 
     function toggleAffidavitType() {
@@ -509,9 +430,11 @@
         document.getElementById("birthAppTypeSection").style.display = "none";
         document.getElementById("birthAddressFieldset").style.display = "none";
         document.getElementById("birthAddressWrapper").style.display = "none";
+        
         document.getElementById("deathSection").style.display = "none";
         document.getElementById("deathAddressFieldset").style.display = "none";
         document.getElementById("deathAddressWrapper").style.display = "none";
+        
         document.getElementById("authorityFieldset").style.display = "none";
         document.getElementById("obcSection").style.display = "none";
         document.getElementById("childSection").style.display = "none";
@@ -556,18 +479,17 @@
         } else if (type === "OBCSelf" || type === "OBCNCLSelf") {
             document.getElementById("obcSection").style.display = "block";
             dobWrapper.style.display = "none";
-            ageInput.readOnly = false; ageInput.style.backgroundColor = "#fff"; ageInput.placeholder = "Age (e.g. 23)";
+            ageInput.readOnly = false; ageInput.style.backgroundColor = "#fff"; ageInput.placeholder = "বয়স লিখুন (e.g. 23)";
         } else if (type === "OBCParents" || type === "OBCNCLParents") {
             document.getElementById("childSection").style.display = "block";
             document.getElementById("obcSection").style.display = "block";
             dobWrapper.style.display = "none";
-            ageInput.readOnly = false; ageInput.style.backgroundColor = "#fff"; ageInput.placeholder = "Age (e.g. 39)";
+            ageInput.readOnly = false; ageInput.style.backgroundColor = "#fff"; ageInput.placeholder = "বয়স লিখুন (e.g. 39)";
         } else {
             // Non-Study
             dobWrapper.style.display = "block";
             ageInput.readOnly = true; ageInput.style.backgroundColor = "#e9ecef";
         }
-        generateDraft();
     }
 
     function togglePobType() {
@@ -589,7 +511,6 @@
                 document.getElementById("birthAddressWrapper").style.display = "flex";
             }
         }
-        generateDraft();
     }
 
     function updateSpouseRequirement() {
@@ -605,11 +526,55 @@
             document.getElementById("fatherName").placeholder = "বাবার নাম (ঐচ্ছিক)";
         } else {
             spouseLabel.innerHTML = 'Spouse Name (Optional)';
-            spouseInput.placeholder = "Spouse Name";
+            spouseInput.placeholder = "স্ত্রী'র নাম (ঐচ্ছিক)";
             fatherLabel.innerHTML = 'Father\'s Name <span style="color:red;">*</span>';
             document.getElementById("fatherName").placeholder = "বাবার নাম (বাধ্যতামূলক)";
         }
-        generateDraft();
+    }
+
+    function calculateAge() {
+        const type = document.getElementById("affidavitType").value;
+        if(type.includes("OBC")) return; // Age is manual
+
+        const dDay = document.getElementById("dobDay").value;
+        const dMonth = document.getElementById("dobMonth").value;
+        const dYear = document.getElementById("dobYear").value;
+        if (dDay && dMonth && dYear) {
+            const birthDate = new Date(`${dYear}-${dMonth}-${dDay}`);
+            const today = new Date();
+            let calculatedAge = today.getFullYear() - birthDate.getFullYear();
+            const m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) calculatedAge--;
+            document.getElementById("age").value = calculatedAge;
+        } else {
+            document.getElementById("age").value = "";
+        }
+    }
+
+    function checkProfession() {
+        const select = document.getElementById("professionSelect");
+        const customInput = document.getElementById("customProfession");
+        if (select.value === "Other") { customInput.style.display = "block"; } else { customInput.style.display = "none"; }
+    }
+
+    function updateAuthLevel2() {
+        const type1 = document.getElementById("auth1_type").value;
+        const type2 = document.getElementById("auth2_type");
+        if (type1 === "Gram Panchayat") type2.value = "R.D. Block"; else type2.value = "Sub-Division";
+    }
+
+    function toggleAddress(prefix) {
+        const isSame = document.getElementById(prefix === 'b' ? "sameAddress" : "sameAddressDeath").checked;
+        const fields = ['vill', 'po', 'ps', 'dist', 'pin'];
+        fields.forEach(field => {
+            let p_val = document.getElementById('p_' + field).value;
+            let target_input = document.getElementById(prefix + '_' + field);
+            if (isSame) {
+                target_input.value = p_val; target_input.readOnly = true; target_input.style.backgroundColor = "#e9ecef";
+            } else {
+                target_input.value = field === 'dist' ? 'Sepahijala' : ''; target_input.readOnly = false; target_input.style.backgroundColor = "#fff";
+            }
+        });
     }
 
     // Number to Words Converter Function
@@ -635,555 +600,194 @@
         document.getElementById("obcIncomeWords").value = wordStr;
     }
 
-    function importCustomerData() {
-        const text = document.getElementById("importBox").value;
-        const match = text.match(/CODE:\[(.*?)\]/);
-        
-        if (match && match[1]) {
-            try {
-                const data = JSON.parse(decodeURIComponent(atob(match[1])));
-                for (const key in data) {
-                    if (document.getElementById(key)) document.getElementById(key).value = data[key];
-                }
-                if(!data.affidavitType) { document.getElementById("affidavitType").value = "Birth"; }
-                
-                toggleAffidavitType();
-                checkProfession();
-                updateAuthLevel2();
-                updateSpouseRequirement();
-                generateDraft();
-                
-                document.getElementById("importBox").value = ""; 
-                alert("ম্যাজিক! কাস্টমারের সব ডেটা ফর্মের ভেতর বসে গেছে।");
-            } catch (e) {
-                alert("ডেটা ইমপোর্ট করতে সমস্যা হয়েছে।");
-            }
-        } else {
-            alert("হোয়াটসঅ্যাপ মেসেজ থেকে সঠিক ম্যাজিক কোড পাওয়া যায়নি!");
-        }
-    }
-
-    function calculateAge() {
-        const type = document.getElementById("affidavitType").value;
-        if(type.includes("OBC")) return; // Age is manual
-
-        const dDay = document.getElementById("dobDay").value;
-        const dMonth = document.getElementById("dobMonth").value;
-        const dYear = document.getElementById("dobYear").value;
-        if (dDay && dMonth && dYear) {
-            const birthDate = new Date(`${dYear}-${dMonth}-${dDay}`);
-            const today = new Date();
-            let calculatedAge = today.getFullYear() - birthDate.getFullYear();
-            const m = today.getMonth() - birthDate.getMonth();
-            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) calculatedAge--;
-            document.getElementById("age").value = calculatedAge;
-        } else {
-            document.getElementById("age").value = "";
-        }
-        generateDraft();
-    }
-
-    function checkProfession() {
-        const select = document.getElementById("professionSelect");
-        const customInput = document.getElementById("customProfession");
-        if (select.value === "Other") { customInput.style.display = "block"; } else { customInput.style.display = "none"; }
-        generateDraft();
-    }
-
-    function updateAuthLevel2() {
-        const type1 = document.getElementById("auth1_type").value;
-        const type2 = document.getElementById("auth2_type");
-        if (type1 === "Gram Panchayat") type2.value = "R.D. Block"; else type2.value = "Sub-Division";
-        generateDraft();
-    }
-
-    function toggleAddress(prefix) {
-        const isSame = document.getElementById(prefix === 'b' ? "sameAddress" : "sameAddressDeath").checked;
-        const fields = ['vill', 'po', 'ps', 'dist', 'pin'];
-        fields.forEach(field => {
-            let p_val = document.getElementById('p_' + field).value;
-            let target_input = document.getElementById(prefix + '_' + field);
-            if (isSame) {
-                target_input.value = p_val; target_input.readOnly = true; target_input.style.backgroundColor = "#e9ecef";
-            } else {
-                target_input.value = field === 'dist' ? 'Sepahijala' : ''; target_input.readOnly = false; target_input.style.backgroundColor = "#fff";
-            }
-        });
-        generateDraft();
-    }
-
-    function generateDraft() {
+    function collectData() {
         const affidavitType = document.getElementById("affidavitType").value;
         const appType = document.getElementById("appType").value;
         const pobType = document.getElementById("pobType").value;
         
-        const nameVal = document.getElementById("name").value.trim();
-        const name = nameVal || "[NAME]";
+        const name = document.getElementById("name").value.trim();
         const gender = document.getElementById("gender").value;
-        const ageRaw = document.getElementById("age").value;
-        const ageVal = parseInt(ageRaw);
-        const age = ageRaw ? ageRaw : "[AGE]";
-        const religion = document.getElementById("religion").value || "[RELIGION]";
-        
-        const fatherVal = document.getElementById("fatherName").value.trim();
-        const motherVal = document.getElementById("motherName").value.trim();
-        const spouseVal = document.getElementById("spouseName").value.trim();
-        
-        let professionVal = document.getElementById("professionSelect").value;
-        if (professionVal === "Other") professionVal = document.getElementById("customProfession").value.trim();
-        const profession = professionVal || "[PROFESSION]";
+        const age = document.getElementById("age").value;
+        const father = document.getElementById("fatherName").value.trim();
+        const mother = document.getElementById("motherName").value.trim();
+        const religion = document.getElementById("religion").value;
+        const spouse = document.getElementById("spouseName").value.trim();
+        let profession = document.getElementById("professionSelect").value;
+        if (profession === "Other") profession = document.getElementById("customProfession").value.trim();
 
-        const dDayVal = document.getElementById("dobDay").value;
-        const dMonthVal = document.getElementById("dobMonth").value;
-        const dYearVal = document.getElementById("dobYear").value;
-        const dob = (dDayVal && dMonthVal && dYearVal) ? `${dDayVal}/${dMonthVal}/${dYearVal}` : "[DD/MM/YYYY]";
-        
-        const childNameVal = document.getElementById("childName").value.trim();
-        const childName = childNameVal || "[CHILD NAME]";
-        const childGender = document.getElementById("childGender").value; 
-        const c_dDay = document.getElementById("c_dobDay").value;
-        const c_dMonth = document.getElementById("c_dobMonth").value;
-        const c_dYear = document.getElementById("c_dobYear").value;
-        const childDob = (c_dDay && c_dMonth && c_dYear) ? `${c_dDay}/${c_dMonth}/${c_dYear}` : "[DD/MM/YYYY]";
-
-        const p_villVal = document.getElementById("p_vill").value.trim(); const p_vill = p_villVal || "[VILL]";
-        const p_poVal = document.getElementById("p_po").value.trim(); const p_po = p_poVal || "[PO]";
-        const p_psVal = document.getElementById("p_ps").value.trim(); const p_ps = p_psVal || "[PS]";
-        const p_dist = document.getElementById("p_dist").value;
-        const p_pinVal = document.getElementById("p_pin").value.trim(); const p_pin = p_pinVal || "[PIN]";
-
-        const signMonth = document.getElementById("signMonth").value;
-        const signYearVal = document.getElementById("signYear").value.trim(); 
-        const signDate = `${signMonth}, ${signYearVal || "[YYYY]"}`;
-
-        // ================= Dynamic Relation Logic =================
-        let relationPart = "";
-        
-        if (gender === "Female") {
-            let s_name = spouseVal || "[HUSBAND NAME]";
-            relationPart = `W/o <b>${s_name}</b>`;
-        } else {
-            let parentsStr = "";
-            if (fatherVal && motherVal) parentsStr = `<b>${fatherVal}</b> & <b>${motherVal}</b>`;
-            else if (fatherVal) parentsStr = `<b>${fatherVal}</b>`;
-            else parentsStr = "[FATHER'S NAME]";
-
-            relationPart = `S/o ${parentsStr}`;
-            if (spouseVal !== "") relationPart += `, H/o-<b>${spouseVal}</b>`;
-        }
-
-        // ================= Affidavit Body Generation =================
-        let affidavitBody = "";
-        let verifyText = `In witness whereof, I affix my signature on this ....................... <b>day of ${signDate}</b>, at the Court premises of Sonamura.`;
-        let verifyNum = "4";
-
-        if (affidavitType === "Birth" || affidavitType.includes("DigiBirth")) {
-            const b_villVal = document.getElementById("b_vill").value.trim(); const b_vill = b_villVal || "[VILL]";
-            const b_poVal = document.getElementById("b_po").value.trim(); const b_po = b_poVal || "[PO]";
-            const b_psVal = document.getElementById("b_ps").value.trim(); const b_ps = b_psVal || "[PS]";
-            const b_dist = document.getElementById("b_dist").value;
-            const b_pinVal = document.getElementById("b_pin").value.trim(); const b_pin = b_pinVal || "[PIN]";
-            
-            const auth1Val = document.getElementById("auth1_name").value.trim(); const auth1_name = auth1Val || "[Name]";
-            const auth1_type = document.getElementById("auth1_type").value;
-            const auth2Val = document.getElementById("auth2_name").value.trim(); const auth2_name = auth2Val || "[Name]";
-            const auth2_type = document.getElementById("auth2_type").value;
-
-            if (affidavitType === "Birth") {
-                if (appType === "Self") {
-                    verifyNum = "3";
-                    affidavitBody = `
-                        <ol style="text-align: justify;">
-                            <li>That I was born on <b>${dob}</b> at my parents’ residence located at ${b_vill}, P.O. ${b_po}, P.S. ${b_ps}, Dist. ${b_dist}, Tripura, Pin-${b_pin}.</li>
-                            <li>That my parents could not get my name and date of birth entered in the Birth Register of <b>${auth1_name} ${auth1_type}</b> under <b>${auth2_name} ${auth2_type}</b> in due time due to inadvertence and oversight.</li>
-                            <li>That I am swearing this affidavit for the explicit purpose of obtaining my delayed Birth Certificate from the competent authority based on this declaration.</li>
-                        </ol>
-                    `;
-                } else {
-                    verifyNum = "3";
-                    const childTerm = childGender.toLowerCase();
-                    const childPronoun = childGender === "Son" ? "his" : "her";
-                    const relStr = childGender === "Son" ? "S/o" : "D/o";
-                    let c_parents = "";
-                    if (fatherVal && motherVal) c_parents = `<b>${fatherVal}</b> & <b>${motherVal}</b>`;
-                    else if (fatherVal) c_parents = `<b>${fatherVal}</b>`;
-                    else if (motherVal) c_parents = `<b>${motherVal}</b>`;
-                    else c_parents = `[PARENTS NAME]`;
-
-                    affidavitBody = `
-                        <ol style="text-align: justify;">
-                            <li>That my ${childTerm}, namely <b>${childName}</b> (${relStr} ${c_parents}), was born on <b>${childDob}</b> at my own residence located at ${b_vill}, P.O. ${b_po}, P.S. ${b_ps}, Dist. ${b_dist}, Tripura, Pin-${b_pin}.</li>
-                            <li>That I could not get ${childPronoun} name and Date of Birth entered in the Birth Register of the <b>${auth1_name} ${auth1_type}</b> under <b>${auth2_name} ${auth2_type}</b> in due time due to inadvertence and oversight.</li>
-                            <li>That I am swearing this affidavit for the explicit purpose of obtaining my ${childTerm}'s delayed Birth Certificate from the competent authority based on this declaration.</li>
-                        </ol>
-                    `;
-                }
-            } else if (affidavitType.includes("DigiBirth")) {
-                verifyNum = "3";
-                const oldRegNo = document.getElementById("oldRegNo").value.trim() || "[REG NO]";
-                const rD = document.getElementById("regDay").value; const rM = document.getElementById("regMonth").value; const rY = document.getElementById("regYear").value;
-                const regDate = (rD && rM && rY) ? `${rD}/${rM}/${rY}` : "[DD/MM/YYYY]";
-                
-                let pobString = "";
-                if (pobType === "Hospital") {
-                    const hName = document.getElementById("hospitalName").value.trim() || "[HOSPITAL NAME]";
-                    pobString = `at <b>${hName}</b>`;
-                } else {
-                    pobString = `at ${b_vill}, P.O. ${b_po}, P.S. ${b_ps}, Dist. ${b_dist}, Tripura, Pin-${b_pin} under <b>${auth1_name} ${auth1_type}</b>, <b>${auth2_name} ${auth2_type}</b>`;
-                }
-
-                if (affidavitType === "DigiBirthSelf") {
-                    affidavitBody = `
-                        <ol style="text-align: justify;">
-                            <li>That I was born on <b>${dob}</b> ${pobString}. Accordingly, a Birth Certificate bearing Registration No: <b>${oldRegNo}</b>, Date of Registration: <b>${regDate}</b>, was issued in my name.</li>
-                            <li>That my existing Birth Certificate is a manually issued (offline) certificate, and I now require a Digitized (Online) Birth Certificate for all official purposes.</li>
-                            <li>That I am swearing this affidavit for the explicit purpose of legally obtaining my updated Digitized (Online) Birth Certificate from the competent registration authorities based on this declaration.</li>
-                        </ol>
-                    `;
-                } else {
-                    const childTerm = childGender === "Son" ? "son" : "daughter";
-                    const childPronoun = childGender === "Son" ? "his" : "her";
-                    const relStr = childGender === "Son" ? "S/o" : "D/o";
-                    let c_parents = "";
-                    if (fatherVal && motherVal) c_parents = `<b>${fatherVal}</b> & <b>${motherVal}</b>`;
-                    else if (fatherVal) c_parents = `<b>${fatherVal}</b>`;
-                    else if (motherVal) c_parents = `<b>${motherVal}</b>`;
-                    else c_parents = `[PARENTS NAME]`;
-
-                    affidavitBody = `
-                        <ol style="text-align: justify;">
-                            <li>That my ${childTerm}, namely <b>${childName}</b> (${relStr} ${c_parents}), was born on <b>${childDob}</b> ${pobString}. Accordingly, a Birth Certificate bearing Registration No: <b>${oldRegNo}</b>, Date of Registration: <b>${regDate}</b>, was issued in ${childPronoun} name.</li>
-                            <li>That my ${childTerm}'s existing Birth Certificate is a manually issued (offline) certificate, and I now require a Digitized (Online) Birth Certificate for all official purposes.</li>
-                            <li>That I am swearing this affidavit for the explicit purpose of legally obtaining my ${childTerm}'s updated Digitized (Online) Birth Certificate from the competent registration authorities based on this declaration.</li>
-                        </ol>
-                    `;
-                }
-            }
-        } else if (affidavitType === "Death") {
-            verifyNum = "3";
-            const rel = document.getElementById("decRelation").value;
-            const decName = document.getElementById("decName").value.trim() || "[DECEASED NAME]";
-            const gType = document.getElementById("decGuardianType").value;
-            const gName = document.getElementById("decGuardianName").value.trim() || "[GUARDIAN NAME]";
-            
-            const dodD = document.getElementById("dodDay").value; const dodM = document.getElementById("dodMonth").value; const dodY = document.getElementById("dodYear").value;
-            const dod = (dodD && dodM && dodY) ? `${dodD}/${dodM}/${dodY}` : "[DD/MM/YYYY]";
-            const podPrefix = document.getElementById("podPrefix").value.trim() || "my own residence";
-
-            const d_vill = document.getElementById("d_vill").value.trim() || "[VILL]";
-            const d_po = document.getElementById("d_po").value.trim() || "[PO]";
-            const d_ps = document.getElementById("d_ps").value.trim() || "[PS]";
-            const d_dist = document.getElementById("d_dist").value;
-            const d_pin = document.getElementById("d_pin").value.trim() || "[PIN]";
-
-            const auth1_name = document.getElementById("auth1_name").value.trim() || "[Name]";
-            const auth1_type = document.getElementById("auth1_type").value;
-            const auth2_name = document.getElementById("auth2_name").value.trim() || "[Name]";
-            const auth2_type = document.getElementById("auth2_type").value;
-
-            const pronoun = ['father', 'husband', 'son', 'brother', 'grandfather'].includes(rel) ? 'his' : 'her';
-
-            affidavitBody = `
-                <ol style="text-align: justify;">
-                    <li>That my late ${rel}, namely <b>${decName}</b> (${gType} <b>${gName}</b>), died on <b>${dod}</b> at ${podPrefix} located at ${d_vill}, P.O. ${d_po}, P.S. ${d_ps}, Dist. ${d_dist}, Tripura, Pin-${d_pin}.</li>
-                    <li>That I could not get ${pronoun} name and date of death entered into the Death Register of the <b>${auth1_name} ${auth1_type}</b>, under <b>${auth2_name} ${auth2_type}</b> in due time, due to inadvertence and oversight.</li>
-                    <li>That I am swearing this affidavit for the explicit purpose of obtaining a delayed Death Certificate for my late ${rel} from the competent authority based on this declaration.</li>
-                </ol>
-            `;
-        } else if (affidavitType === "NonStudyBen") {
-            verifyNum = "4";
-            affidavitBody = `
-                <ol style="text-align: justify;">
-                    <li>That I have been permanently residing at the above-mentioned address, and my true and correct date of birth is <b>${dob}</b>.</li>
-                    <li>That there is no Birth Certificate or School Certificate currently issued in my name.</li>
-                    <li>That I am illiterate; however, I am able to put my signature in the Bengali language through personal practice.</li>
-                    <li>That I am swearing this affidavit to legally declare my age, identity, and educational status for all official purposes.</li>
-                </ol>
-            `;
-        } else if (affidavitType === "NonStudyEng") {
-            verifyNum = "4";
-            affidavitBody = `
-                <ol style="text-align: justify;">
-                    <li>That I have been permanently residing at the above-mentioned address, and my true and correct date of birth is <b>${dob}</b>.</li>
-                    <li>That there is no Birth Certificate or School Certificate currently issued in my name.</li>
-                    <li>That I am illiterate; however, I am able to put my signature in the English language through personal practice.</li>
-                    <li>That I am swearing this affidavit to legally declare my age, identity, and educational status for all official purposes.</li>
-                </ol>
-            `;
-        } else if (affidavitType === "NonStudyThumb") {
-            verifyNum = "4";
-            affidavitBody = `
-                <ol style="text-align: justify;">
-                    <li>That I have been permanently residing at the above-mentioned address, and my true and correct date of birth is <b>${dob}</b>.</li>
-                    <li>That I do not possess any Birth Certificate or School Certificate in my name.</li>
-                    <li>That I am illiterate and cannot read or write; I can only affix my thumb impression.</li>
-                    <li>That I am swearing this affidavit to legally declare my date of birth, to confirm my status as an illiterate person, and to use this declaration for all official and administrative purposes.</li>
-                </ol>
-            `;
-            verifyText = `In witness whereof, I affix my thumb impression on this ....................... <b>day of ${signDate}</b>, at the Court premises of Sonamura.`;
-        } else if (affidavitType.includes("OBC")) {
-            verifyNum = "3";
-            const obcCommunity = document.getElementById("obcCommunity").value.trim() || "[COMMUNITY]";
-            const obcIncomeNum = document.getElementById("obcIncomeNum").value.trim() || "[AMOUNT]";
-            const obcIncomeWords = document.getElementById("obcIncomeWords").value.trim() || "[WORDS]";
-            
-            let formattedIncomeNum = obcIncomeNum;
-            if(!isNaN(obcIncomeNum) && obcIncomeNum !== ""){ formattedIncomeNum = Number(obcIncomeNum).toLocaleString('en-IN'); }
-
-            if(affidavitType === "OBCSelf") {
-                affidavitBody = `
-                    <ol style="text-align: justify;">
-                        <li>That I belong to the <b>OBC</b> category under the <b>${obcCommunity}</b> Community (Sub-Caste) as per Government rules.</li>
-                        <li>That my annual family income from all sources is <b>Rs. ${formattedIncomeNum}/- (Rupees ${obcIncomeWords})</b> only.</li>
-                        <li>That I am swearing this affidavit to formally declare that the above-mentioned facts are true, and to produce it before the competent Sub-Divisional Magistrate (SDM) and administrative authorities for the explicit purpose of obtaining an Income and Caste Certificate in my own name.</li>
-                    </ol>
-                `;
-            } else if (affidavitType === "OBCParents") {
-                const childTerm = childGender === "Son" ? "son" : "daughter";
-                affidavitBody = `
-                    <ol style="text-align: justify;">
-                        <li>That my ${childTerm}, namely <b>${childName}</b>, belongs to the <b>OBC</b> category under the <b>${obcCommunity}</b> Community (Sub-Caste) as per Government rules.</li>
-                        <li>That my annual family income from all sources is <b>Rs. ${formattedIncomeNum}/- (Rupees ${obcIncomeWords})</b> only.</li>
-                        <li>That I am swearing this affidavit to formally declare that the above-mentioned facts are true, and to produce it before the competent authority for the explicit purpose of obtaining an Income and Caste Certificate exclusively in the name of my ${childTerm}, <b>${childName}</b>.</li>
-                    </ol>
-                `;
-            } else if (affidavitType === "OBCNCLSelf") {
-                affidavitBody = `
-                    <ol style="text-align: justify;">
-                        <li>That I belong to the <b>${obcCommunity}</b> Community, which is recognized as a backward class (<b>OBC</b>) under the Government of India.</li>
-                        <li>That my annual family income from all sources is <b>Rs. ${formattedIncomeNum}/- (Rupees ${obcIncomeWords})</b> only.</li>
-                        <li>That I am swearing this affidavit for the explicit purpose of obtaining an <b>OBC Non-Creamy Layer (NCL) Certificate</b> in my name from the competent authority based on this declaration.</li>
-                    </ol>
-                `;
-            } else if (affidavitType === "OBCNCLParents") {
-                const childTerm = childGender === "Son" ? "son" : "daughter";
-                affidavitBody = `
-                    <ol style="text-align: justify;">
-                        <li>That I, along with my ${childTerm}, namely <b>${childName}</b>, belong to the <b>OBC</b> category under the <b>${obcCommunity}</b> community (Sub-Caste) as per Government rules.</li>
-                        <li>That my annual family income from all sources is <b>Rs. ${formattedIncomeNum}/- (Rupees ${obcIncomeWords})</b> only.</li>
-                        <li>That I am swearing this affidavit for the explicit purpose of obtaining an <b>OBC Non-Creamy Layer (NCL) Certificate</b> in my said ${childTerm}’s name from the competent authority based on this declaration.</li>
-                    </ol>
-                `;
-            }
-        }
-
-        const draftHTML = `
-            <div style="text-align: center; font-weight: bold; margin-bottom: 20px;">
-                BEFORE THE NOTARY PUBLIC AT<br>
-                SONAMURA, SEPAHIJALA, TRIPURA.<br>
-                <u>AFFIDAVIT</u>
-            </div>
-
-            <div style="text-align: justify; text-indent: 40px; margin-bottom: 20px;">
-                I, <b>${name}</b>, ${relationPart}, resident of ${p_vill}, P.O. ${p_po}, P.S. ${p_ps}, Dist. ${p_dist}, Tripura, Pin-${p_pin}, aged about ${age} years, by faith ${religion}, by profession ${profession}, a Citizen of India, do hereby solemnly declare and affirm as follows:
-            </div>
-
-            ${affidavitBody}
-
-            <div style="text-align: center; font-weight: bold; margin-top: 30px; margin-bottom: 20px;">
-                <u>VERIFICATION</u>
-            </div>
-
-            <div style="text-align: justify; text-indent: 40px; margin-bottom: 15px;">
-                I, the above-named deponent, do hereby verify that the statements made in paragraphs 1 to ${verifyNum} are true to the best of my knowledge and belief, and nothing material has been concealed therein.
-            </div>
-
-            <div style="text-align: justify; text-indent: 40px; margin-bottom: 40px;">
-                ${verifyText}
-            </div>
-
-            <div style="margin-bottom: 60px;">
-                Deponent is identified by me.
-            </div>
-
-            <div style="display: flex; justify-content: space-between; font-weight: bold;">
-                <div>ADVOCATE</div>
-                <div>DEPONENT</div>
-            </div>
-        `;
-        document.getElementById("output").innerHTML = draftHTML;
+        const dobDay = document.getElementById("dobDay").value;
+        const dobMonth = document.getElementById("dobMonth").value;
+        const dobYear = document.getElementById("dobYear").value;
 
         // Validations
-        let isValid = nameVal && ageRaw && (ageVal >= 18) && professionVal && 
-                      p_villVal && p_poVal && p_psVal && p_pinVal && signYearVal;
-        
-        if (gender === "Male" && !fatherVal) isValid = false;
-        if (gender === "Female" && !spouseVal) isValid = false;
-        
-        if (!affidavitType.includes("OBC")) {
-            isValid = isValid && dDayVal && dMonthVal && dYearVal;
+        if (!name || !age || !profession || parseInt(age) < 18) {
+            alert("আবেদনকারীর নাম, বয়স এবং পেশা সঠিকভাবে পূরণ করুন (বয়স ১৮+ হতে হবে)।"); return null;
         }
+        if (gender === "Male" && !father) { alert("আবেদনকারী পুরুষ হলে বাবার নাম দেওয়া বাধ্যতামূলক!"); return null; }
+        if (gender === "Female" && !spouse) { alert("আবেদনকারী মহিলা হলে স্বামীর নাম দেওয়া বাধ্যতামূলক!"); return null; }
+        if (!affidavitType.includes("OBC")) {
+            if (!dobDay || !dobMonth || !dobYear) { alert("আবেদনকারীর জন্মতারিখ সঠিকভাবে দিন।"); return null; }
+        }
+
+        const p_vill = document.getElementById("p_vill").value.trim(); const p_po = document.getElementById("p_po").value.trim();
+        const p_ps = document.getElementById("p_ps").value.trim(); const p_dist = document.getElementById("p_dist").value;
+        const p_pin = document.getElementById("p_pin").value.trim();
+        if (!p_vill || !p_po || !p_ps || !p_pin) { alert("বর্তমান ঠিকানার তথ্য দিন।"); return null; }
+
+        let b_vill = "", b_po = "", b_ps = "", b_dist = "", b_pin = "";
+        let d_vill = "", d_po = "", d_ps = "", d_dist = "", d_pin = "";
+        let auth1_name = "", auth1_type = "", auth2_name = "", auth2_type = "";
+        let childName = "", childGender = "", c_dobDay = "", c_dobMonth = "", c_dobYear = "";
+        let obcCommunity = "", obcIncomeNum = "", obcIncomeWords = "";
+        let decRelation = "", decName = "", decGuardianType = "", decGuardianName = "", dodDay = "", dodMonth = "", dodYear = "", podPrefix = "";
+        let oldRegNo = "", regDay = "", regMonth = "", regYear = "", hospitalName = "";
 
         if (affidavitType === "Birth" || affidavitType.includes("DigiBirth")) {
-            const pobType = document.getElementById("pobType").value;
             if (pobType === "Hospital" && affidavitType.includes("DigiBirth")) {
-                const hName = document.getElementById("hospitalName").value.trim();
-                isValid = isValid && hName;
+                hospitalName = document.getElementById("hospitalName").value.trim();
+                if (!hospitalName) { alert("হাসপাতালের নাম দিন।"); return null; }
             } else {
-                const b_villVal = document.getElementById("b_vill").value.trim(); const b_poVal = document.getElementById("b_po").value.trim();
-                const b_psVal = document.getElementById("b_ps").value.trim(); const b_pinVal = document.getElementById("b_pin").value.trim();
-                const auth1Val = document.getElementById("auth1_name").value.trim(); const auth2Val = document.getElementById("auth2_name").value.trim();
-                isValid = isValid && b_villVal && b_poVal && b_psVal && b_pinVal && auth1Val && auth2Val;
+                b_vill = document.getElementById("b_vill").value.trim(); b_po = document.getElementById("b_po").value.trim();
+                b_ps = document.getElementById("b_ps").value.trim(); b_dist = document.getElementById("b_dist").value; b_pin = document.getElementById("b_pin").value.trim();
+                if (!b_vill || !b_po || !b_ps || !b_pin) { alert("জন্মস্থানের ঠিকানা দিন।"); return null; }
+
+                auth1_name = document.getElementById("auth1_name").value.trim(); auth1_type = document.getElementById("auth1_type").value;
+                auth2_name = document.getElementById("auth2_name").value.trim(); auth2_type = document.getElementById("auth2_type").value;
+                if (!auth1_name || !auth2_name) { alert("Authority এর তথ্য দিন।"); return null; }
             }
 
-            if (appType === "Child" || affidavitType === "DigiBirthParents") {
-                isValid = isValid && childNameVal && c_dDay && c_dMonth && c_dYear;
+            if (affidavitType === "DigiBirthParents" || (affidavitType === "Birth" && appType === "Child")) {
+                childName = document.getElementById("childName").value.trim(); childGender = document.getElementById("childGender").value;
+                c_dobDay = document.getElementById("c_dobDay").value; c_dobMonth = document.getElementById("c_dobMonth").value; c_dobYear = document.getElementById("c_dobYear").value;
+                if (!childName || !c_dobDay || !c_dobMonth || !c_dobYear) { alert("সন্তানের নাম ও জন্মতারিখ দিন।"); return null; }
             }
+            
             if (affidavitType.includes("DigiBirth")) {
-                const oldRegNo = document.getElementById("oldRegNo").value.trim();
-                const rD = document.getElementById("regDay").value; const rM = document.getElementById("regMonth").value; const rY = document.getElementById("regYear").value;
-                isValid = isValid && oldRegNo && rD && rM && rY;
+                oldRegNo = document.getElementById("oldRegNo").value.trim();
+                regDay = document.getElementById("regDay").value; regMonth = document.getElementById("regMonth").value; regYear = document.getElementById("regYear").value;
+                if (!oldRegNo || !regDay || !regMonth || !regYear) { alert("ডিজিটাল বার্থ এর জন্য পুরনো রেজিস্ট্রেশন তথ্য দিন।"); return null; }
             }
+
         } else if (affidavitType === "Death") {
-            const decName = document.getElementById("decName").value.trim();
-            const decGuardianName = document.getElementById("decGuardianName").value.trim();
-            const dodDay = document.getElementById("dodDay").value;
-            const podPrefix = document.getElementById("podPrefix").value.trim();
-            const d_villVal = document.getElementById("d_vill").value.trim(); const d_poVal = document.getElementById("d_po").value.trim();
-            const d_psVal = document.getElementById("d_ps").value.trim(); const d_pinVal = document.getElementById("d_pin").value.trim();
-            const auth1Val = document.getElementById("auth1_name").value.trim(); const auth2Val = document.getElementById("auth2_name").value.trim();
-
-            isValid = isValid && decName && decGuardianName && dodDay && podPrefix && d_villVal && d_poVal && d_psVal && d_pinVal && auth1Val && auth2Val;
-        } else if (affidavitType.includes("OBC")) {
-            const obcComm = document.getElementById("obcCommunity").value.trim();
-            const obcIncN = document.getElementById("obcIncomeNum").value.trim();
-            const obcIncW = document.getElementById("obcIncomeWords").value.trim();
-            isValid = isValid && obcComm && obcIncN && obcIncW;
-            if (affidavitType.includes("Parents")) isValid = isValid && childNameVal;
-        }
-
-        if (isValid) {
-            document.getElementById("actionButtons").style.display = "flex";
-            document.getElementById("warningMsg").style.display = "none";
-        } else {
-            document.getElementById("actionButtons").style.display = "none";
-            document.getElementById("warningMsg").style.display = "block";
-        }
-    }
-
-    function saveToHistory() {
-        const affidavitType = document.getElementById("affidavitType").value;
-        const appType = document.getElementById("appType").value;
-        const name = document.getElementById("name").value.trim();
-        
-        let subjectTitle = name;
-        if (affidavitType === "Birth" && appType === "Child") {
-            const childName = document.getElementById("childName").value.trim();
-            subjectTitle = `${childName} (Child of ${name})`;
-        } else if (affidavitType === "DigiBirthParents") {
-            const childName = document.getElementById("childName").value.trim();
-            subjectTitle = `${childName} (Digi Birth Parents: ${name})`;
-        } else if (affidavitType === "DigiBirthSelf") {
-            subjectTitle = `${name} (Digi Birth Self)`;
-        } else if (affidavitType === "Death") {
-            const decName = document.getElementById("decName").value.trim();
-            subjectTitle = `${decName} (Death, Rep: ${name})`;
-        } else if (affidavitType.includes("OBC")) {
-            if(affidavitType.includes("Parents")) {
-                const childName = document.getElementById("childName").value.trim();
-                subjectTitle = `${childName} (${affidavitType} - ${name})`;
-            } else {
-                subjectTitle = `${name} (${affidavitType})`;
+            decRelation = document.getElementById("decRelation").value;
+            decName = document.getElementById("decName").value.trim();
+            decGuardianType = document.getElementById("decGuardianType").value;
+            decGuardianName = document.getElementById("decGuardianName").value.trim();
+            dodDay = document.getElementById("dodDay").value; dodMonth = document.getElementById("dodMonth").value; dodYear = document.getElementById("dodYear").value;
+            podPrefix = document.getElementById("podPrefix").value.trim();
+            
+            if(!decName || !decGuardianName || !dodDay || !dodMonth || !dodYear || !podPrefix) {
+                alert("মৃত্যুর তথ্য সম্পূর্ণ করুন।"); return null;
             }
-        } else {
-            subjectTitle = `${name} (${affidavitType})`;
+
+            d_vill = document.getElementById("d_vill").value.trim(); d_po = document.getElementById("d_po").value.trim();
+            d_ps = document.getElementById("d_ps").value.trim(); d_dist = document.getElementById("d_dist").value; d_pin = document.getElementById("d_pin").value.trim();
+            if (!d_vill || !d_po || !d_ps || !d_pin) { alert("মৃত্যুর স্থানের ঠিকানা দিন।"); return null; }
+
+            auth1_name = document.getElementById("auth1_name").value.trim(); auth1_type = document.getElementById("auth1_type").value;
+            auth2_name = document.getElementById("auth2_name").value.trim(); auth2_type = document.getElementById("auth2_type").value;
+            if (!auth1_name || !auth2_name) { alert("Authority এর তথ্য দিন।"); return null; }
+
+        } else if (affidavitType.includes("OBC")) {
+            obcCommunity = document.getElementById("obcCommunity").value.trim();
+            obcIncomeNum = document.getElementById("obcIncomeNum").value.trim();
+            obcIncomeWords = document.getElementById("obcIncomeWords").value.trim();
+            if(!obcCommunity || !obcIncomeNum || !obcIncomeWords){ alert("OBC এর সাব-কাস্ট এবং ইনকাম লিখুন।"); return null; }
+            
+            if (affidavitType.includes("Parents")) {
+                childName = document.getElementById("childName").value.trim();
+                childGender = document.getElementById("childGender").value;
+                if(!childName) { alert("সন্তানের নাম লিখুন।"); return null; }
+            }
+        }
+
+        const signMonth = document.getElementById("signMonth").value;
+        const signYear = document.getElementById("signYear").value.trim();
+
+        // Format Text for WhatsApp
+        let affidavitLabel = document.getElementById("affidavitType").options[document.getElementById("affidavitType").selectedIndex].text;
+
+        let formattedText = `*Affidavit Data For AYAT GRAPHICS ZONE*\n\n`;
+        formattedText += `*Affidavit:* ${affidavitLabel}\n`;
+        if (affidavitType === "Birth") formattedText += `*Type:* ${appType === 'Self' ? 'Self' : 'Child'}\n`;
+        
+        formattedText += `\n*Name:* ${name}\n*Gender:* ${gender}\n*Age:* ${age}\n`;
+        if(!affidavitType.includes("OBC")) formattedText += `*DOB:* ${dobDay}/${dobMonth}/${dobYear}\n`;
+        if (father) formattedText += `*Father:* ${father}\n`;
+        if (mother) formattedText += `*Mother:* ${mother}\n`;
+        formattedText += `*Religion:* ${religion}\n`;
+        if (spouse) formattedText += `*Spouse:* ${spouse}\n`;
+        formattedText += `*Profession:* ${profession}\n\n`;
+
+        if (affidavitType === "Death") {
+            formattedText += `*-- Death Details --*\n*Relation:* ${decRelation}\n*Deceased Name:* ${decName}\n*Guardian:* ${decGuardianType} ${decGuardianName}\n*DOD:* ${dodDay}/${dodMonth}/${dodYear}\n*Place:* ${podPrefix}\n\n`;
+            formattedText += `*Death Address:* Vill: ${d_vill}, PO: ${d_po}, PS: ${d_ps}, Dist: ${d_dist}, PIN: ${d_pin}\n\n`;
+        }
+
+        if (affidavitType.includes("OBC")) {
+            if(affidavitType.includes("Parents")){
+                formattedText += `*-- Child Details --*\n*Name:* ${childName}\n*Gender:* ${childGender}\n\n`;
+            }
+            formattedText += `*-- OBC Details --*\n*Community:* ${obcCommunity}\n*Income:* Rs. ${obcIncomeNum} (${obcIncomeWords})\n\n`;
+        } else if (affidavitType === "Birth" && appType === "Child" || affidavitType === "DigiBirthParents") {
+            formattedText += `*-- Child Details --*\n*Name:* ${childName}\n*Gender:* ${childGender}\n*DOB:* ${c_dobDay}/${c_dobMonth}/${c_dobYear}\n\n`;
+        }
+
+        if (affidavitType.includes("DigiBirth")) {
+            formattedText += `*-- Old Certificate Details --*\n*Place Type:* ${pobType}\n`;
+            if (pobType === "Hospital") formattedText += `*Hospital:* ${hospitalName}\n`;
+            formattedText += `*Reg No:* ${oldRegNo}\n*Reg Date:* ${regDay}/${regMonth}/${regYear}\n\n`;
         }
         
-        const contentHTML = document.getElementById("output").innerHTML;
-        const currentDateTime = new Date().toLocaleString('en-IN'); 
+        formattedText += `*Present Address:* Vill: ${p_vill}, PO: ${p_po}, PS: ${p_ps}, Dist: ${p_dist}, PIN: ${p_pin}\n\n`;
+        
+        if (affidavitType === "Birth" || (affidavitType.includes("DigiBirth") && pobType === "Home")) {
+            formattedText += `*Birth Address:* Vill: ${b_vill}, PO: ${b_po}, PS: ${b_ps}, Dist: ${b_dist}, PIN: ${b_pin}\n\n`;
+        }
+        
+        if (affidavitType === "Birth" || affidavitType === "Death" || (affidavitType.includes("DigiBirth") && pobType === "Home")) {
+            formattedText += `*Authority Details:*\n${auth1_name} (${auth1_type})\n${auth2_name} (${auth2_type})\n\n`;
+        }
+        formattedText += `*Signing Date:* ${signMonth}, ${signYear}`;
 
-        let history = JSON.parse(localStorage.getItem('affidavitHistory')) || [];
-        history.unshift({ name: subjectTitle, rawName: name, date: currentDateTime, content: contentHTML });
-        localStorage.setItem('affidavitHistory', JSON.stringify(history));
-        
-        alert("আপনার কাজ সফলভাবে রেকর্ড খাতায় সেভ হয়েছে!");
-        
-        document.querySelectorAll('.form-panel input').forEach(input => {
-            if(input.type !== 'checkbox' && input.id !== 'signYear' && input.id !== 'podPrefix' && input.id !== 'pobType') { input.value = ''; }
-        });
-        document.getElementById("dobDay").value = ""; document.getElementById("dobMonth").value = ""; document.getElementById("dobYear").value = "";
-        document.getElementById("c_dobDay").value = ""; document.getElementById("c_dobMonth").value = ""; document.getElementById("c_dobYear").value = "";
-        document.getElementById("dodDay").value = ""; document.getElementById("dodMonth").value = ""; document.getElementById("dodYear").value = "";
-        document.getElementById("regDay").value = ""; document.getElementById("regMonth").value = ""; document.getElementById("regYear").value = "";
-        document.getElementById("importBox").value = "";
-        
-        renderHistory();
-        generateDraft();
+        // Secret Magic Code
+        const dataObj = {
+            affidavitType: affidavitType, appType: appType, pobType: pobType, hospitalName: hospitalName,
+            name: name, gender: gender, age: age, fatherName: father, motherName: mother, religion: religion, spouseName: spouse, 
+            professionSelect: document.getElementById("professionSelect").value, customProfession: profession, 
+            dobDay: dobDay, dobMonth: dobMonth, dobYear: dobYear,
+            childName: childName, childGender: childGender, c_dobDay: c_dobDay, c_dobMonth: c_dobMonth, c_dobYear: c_dobYear,
+            oldRegNo: oldRegNo, regDay: regDay, regMonth: regMonth, regYear: regYear,
+            obcCommunity: obcCommunity, obcIncomeNum: obcIncomeNum, obcIncomeWords: obcIncomeWords,
+            decRelation: decRelation, decName: decName, decGuardianType: decGuardianType, decGuardianName: decGuardianName, dodDay: dodDay, dodMonth: dodMonth, dodYear: dodYear, podPrefix: podPrefix,
+            p_vill: p_vill, p_po: p_po, p_ps: p_ps, p_dist: p_dist, p_pin: p_pin,
+            b_vill: b_vill, b_po: b_po, b_ps: b_ps, b_dist: b_dist, b_pin: b_pin,
+            d_vill: d_vill, d_po: d_po, d_ps: d_ps, d_dist: d_dist, d_pin: d_pin,
+            auth1_name: auth1_name, auth1_type: auth1_type, auth2_name: auth2_name, auth2_type: auth2_type,
+            signMonth: signMonth, signYear: signYear
+        };
+
+        const magicCode = btoa(encodeURIComponent(JSON.stringify(dataObj)));
+        formattedText += `\n\n🔒 *দোকানের ব্যবহারের জন্য*\nCODE:[${magicCode}]`;
+
+        return formattedText;
     }
 
-    function renderHistory() {
-        const history = JSON.parse(localStorage.getItem('affidavitHistory')) || [];
-        const tbody = document.getElementById("historyTableBody");
-        tbody.innerHTML = "";
-        if (history.length === 0) { tbody.innerHTML = "<tr><td colspan='3' style='text-align:center; color:#888;'>এখনও কোনো রেকর্ড সেভ করা হয়নি।</td></tr>"; return; }
-
-        history.forEach((record, index) => {
-            tbody.innerHTML += `
-                <tr>
-                    <td>${record.date}</td>
-                    <td><b>${record.name}</b></td>
-                    <td>
-                        <button class="btn-print btn-sm" onclick="printHistory(${index})">🖨️ Print / PDF</button>
-                        <button class="btn-word btn-sm" onclick="downloadHistoryWord(${index})">📄 Word</button>
-                        <button class="btn-sm" style="background:#dc3545; color:white;" onclick="deleteHistory(${index})">🗑️ Delete</button>
-                    </td>
-                </tr>
-            `;
-        });
-    }
-
-    function printHistory(index) {
-        const history = JSON.parse(localStorage.getItem('affidavitHistory')) || [];
-        const record = history[index];
-        if(record) {
-            const outputBox = document.getElementById("output");
-            const originalContent = outputBox.innerHTML; 
-            outputBox.innerHTML = record.content;
-            setTimeout(() => {
-                window.print();
-                outputBox.innerHTML = originalContent;
-            }, 100);
+    function sendToWhatsApp() {
+        const text = collectData();
+        if (text) {
+            const whatsappURL = `https://wa.me/${SHOP_WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+            window.open(whatsappURL, '_blank');
         }
     }
 
-    function deleteHistory(index) {
-        if(confirm("আপনি কি নিশ্চিত যে এই ক্লায়েন্টের রেকর্ডটি মুছে ফেলতে চান?")) {
-            let history = JSON.parse(localStorage.getItem('affidavitHistory')) || [];
-            history.splice(index, 1);
-            localStorage.setItem('affidavitHistory', JSON.stringify(history));
-            renderHistory();
+    function copyData() {
+        const text = collectData();
+        if (text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert("আপনার তথ্য সফলভাবে কপি করা হয়েছে!");
+            }).catch(err => { alert("Failed to copy data."); });
         }
-    }
-
-    function downloadHistoryWord(index) {
-        const history = JSON.parse(localStorage.getItem('affidavitHistory')) || [];
-        const record = history[index];
-        if(record) {
-            exportHTMLToWord(record.content, record.rawName.replace(/\s+/g, '_') + '_Affidavit');
-        }
-    }
-
-    function downloadCurrentWord() {
-        const nameVal = document.getElementById("name").value.trim();
-        const filename = (nameVal ? nameVal.replace(/\s+/g, '_') + '_Affidavit' : 'Notary_Affidavit');
-        exportHTMLToWord(document.getElementById("output").innerHTML, filename);
-    }
-
-    function exportHTMLToWord(htmlContent, filename) {
-        const preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
-        const postHtml = "</body></html>";
-        const html = preHtml + htmlContent + postHtml;
-
-        const blob = new Blob(['\ufeff', html], { type: 'application/msword' });
-        const url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
-        filename = filename + '.doc';
-        
-        const downloadLink = document.createElement("a");
-        document.body.appendChild(downloadLink);
-        
-        if (navigator.msSaveOrOpenBlob) { navigator.msSaveOrOpenBlob(blob, filename); } 
-        else { downloadLink.href = url; downloadLink.download = filename; downloadLink.click(); }
-        document.body.removeChild(downloadLink);
     }
 </script>
 

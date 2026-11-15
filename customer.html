@@ -218,8 +218,6 @@
                     <option value="daughter">Daughter (মেয়ে)</option>
                     <option value="brother">Brother (ভাই)</option>
                     <option value="sister">Sister (বোন)</option>
-                    <option value="grandfather">Grandfather (দাদু/ঠাকুরদা)</option>
-                    <option value="grandmother">Grandmother (ঠাকুমা/দিদা)</option>
                 </select>
             </div>
             <div>
@@ -270,7 +268,7 @@
         <div class="grid-2 form-group">
             <div>
                 <label>Annual Family Income (Rs.) <span style="color:red;">*</span></label>
-                <input type="number" id="obcIncomeNum" placeholder="e.g. 108000" oninput="convertNumberToWords()">
+                <input type="number" id="obcIncomeNum" placeholder="e.g. 108000">
             </div>
             <div>
                 <label>Income in Words <span style="color:red;">*</span></label>
@@ -360,6 +358,7 @@
                     <input type="text" id="auth1_name" placeholder="Name *" style="flex: 1.5;">
                     <select id="auth1_type" style="flex: 1.5;" onchange="updateAuthLevel2()">
                         <option value="Gram Panchayat">Gram Panchayat</option>
+                        <option value="ADC Village">ADC Village</option>
                         <option value="Nagar Panchayat">Nagar Panchayat</option>
                         <option value="Municipal Council">Municipal Council</option>
                     </select>
@@ -410,7 +409,7 @@
         const monthOptions = '<option value="">Month</option>' + Array.from({length: 12}, (_, i) => `<option value="${i+1 < 10 ? '0'+(i+1) : i+1}">${i+1 < 10 ? '0'+(i+1) : i+1}</option>`).join('');
         const yearOptions = '<option value="">Year</option>' + Array.from({length: 101}, (_, i) => `<option value="${2030 - i}">${2030 - i}</option>`).join('');
         const childYearOptions = '<option value="">Year</option>' + Array.from({length: 31}, (_, i) => `<option value="${2030 - i}">${2030 - i}</option>`).join(''); 
-        const dodYearOptions = '<option value="">Year</option>' + Array.from({length: 51}, (_, i) => `<option value="${2030 - i}">${2030 - i}</option>`).join('');
+        const dodYearOptions = '<option value="">Year</option>' + Array.from({length: 81}, (_, i) => `<option value="${2030 - i}">${2030 - i}</option>`).join(''); // Extended to 1950
 
         document.getElementById('dobDay').innerHTML = dayOptions; document.getElementById('dobMonth').innerHTML = monthOptions; document.getElementById('dobYear').innerHTML = yearOptions;
         document.getElementById('c_dobDay').innerHTML = dayOptions; document.getElementById('c_dobMonth').innerHTML = monthOptions; document.getElementById('c_dobYear').innerHTML = childYearOptions;
@@ -426,15 +425,12 @@
         const type = document.getElementById("affidavitType").value;
         const appType = document.getElementById("appType").value;
         
-        // Hide all initially
         document.getElementById("birthAppTypeSection").style.display = "none";
         document.getElementById("birthAddressFieldset").style.display = "none";
         document.getElementById("birthAddressWrapper").style.display = "none";
-        
         document.getElementById("deathSection").style.display = "none";
         document.getElementById("deathAddressFieldset").style.display = "none";
         document.getElementById("deathAddressWrapper").style.display = "none";
-        
         document.getElementById("authorityFieldset").style.display = "none";
         document.getElementById("obcSection").style.display = "none";
         document.getElementById("childSection").style.display = "none";
@@ -560,7 +556,11 @@
     function updateAuthLevel2() {
         const type1 = document.getElementById("auth1_type").value;
         const type2 = document.getElementById("auth2_type");
-        if (type1 === "Gram Panchayat") type2.value = "R.D. Block"; else type2.value = "Sub-Division";
+        if (type1 === "Gram Panchayat" || type1 === "ADC Village") {
+            type2.value = "R.D. Block";
+        } else {
+            type2.value = "Sub-Division";
+        }
     }
 
     function toggleAddress(prefix) {
@@ -575,29 +575,6 @@
                 target_input.value = field === 'dist' ? 'Sepahijala' : ''; target_input.readOnly = false; target_input.style.backgroundColor = "#fff";
             }
         });
-    }
-
-    // Number to Words Converter Function
-    const numToWordsMap = { 0: 'Zero', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine', 10: 'Ten', 11: 'Eleven', 12: 'Twelve', 13: 'Thirteen', 14: 'Fourteen', 15: 'Fifteen', 16: 'Sixteen', 17: 'Seventeen', 18: 'Eighteen', 19: 'Nineteen', 20: 'Twenty', 30: 'Thirty', 40: 'Forty', 50: 'Fifty', 60: 'Sixty', 70: 'Seventy', 80: 'Eighty', 90: 'Ninety' };
-
-    function numberToWords(num) {
-        if (num === 0) return 'Zero';
-        if (num < 20) return numToWordsMap[num];
-        if (num < 100) return numToWordsMap[Math.floor(num / 10) * 10] + (num % 10 !== 0 ? '-' + numToWordsMap[num % 10] : '');
-        if (num < 1000) return numToWordsMap[Math.floor(num / 100)] + ' Hundred' + (num % 100 !== 0 ? ' ' + numberToWords(num % 100) : '');
-        if (num < 100000) return numberToWords(Math.floor(num / 1000)) + ' Thousand' + (num % 1000 !== 0 ? ' ' + numberToWords(num % 1000) : '');
-        if (num < 10000000) return numberToWords(Math.floor(num / 100000)) + ' Lakh' + (num % 100000 !== 0 ? ' ' + numberToWords(num % 100000) : '');
-        return numberToWords(Math.floor(num / 10000000)) + ' Crore' + (num % 10000000 !== 0 ? ' ' + numberToWords(num % 10000000) : '');
-    }
-
-    function convertNumberToWords() {
-        let numStr = document.getElementById("obcIncomeNum").value;
-        if (!numStr || isNaN(numStr)) {
-            document.getElementById("obcIncomeWords").value = "";
-            return;
-        }
-        let wordStr = numberToWords(parseInt(numStr));
-        document.getElementById("obcIncomeWords").value = wordStr;
     }
 
     function collectData() {
@@ -690,8 +667,8 @@
 
         } else if (affidavitType.includes("OBC")) {
             obcCommunity = document.getElementById("obcCommunity").value.trim();
-            obcIncomeNum = document.getElementById("obcIncomeNum").value.trim();
-            obcIncomeWords = document.getElementById("obcIncomeWords").value.trim();
+            const obcIncomeNum = document.getElementById("obcIncomeNum").value.trim();
+            const obcIncomeWords = document.getElementById("obcIncomeWords").value.trim();
             if(!obcCommunity || !obcIncomeNum || !obcIncomeWords){ alert("OBC এর সাব-কাস্ট এবং ইনকাম লিখুন।"); return null; }
             
             if (affidavitType.includes("Parents")) {
@@ -728,6 +705,8 @@
             if(affidavitType.includes("Parents")){
                 formattedText += `*-- Child Details --*\n*Name:* ${childName}\n*Gender:* ${childGender}\n\n`;
             }
+            const obcIncomeNum = document.getElementById("obcIncomeNum").value.trim();
+            const obcIncomeWords = document.getElementById("obcIncomeWords").value.trim();
             formattedText += `*-- OBC Details --*\n*Community:* ${obcCommunity}\n*Income:* Rs. ${obcIncomeNum} (${obcIncomeWords})\n\n`;
         } else if (affidavitType === "Birth" && appType === "Child" || affidavitType === "DigiBirthParents") {
             formattedText += `*-- Child Details --*\n*Name:* ${childName}\n*Gender:* ${childGender}\n*DOB:* ${c_dobDay}/${c_dobMonth}/${c_dobYear}\n\n`;
@@ -758,7 +737,7 @@
             dobDay: dobDay, dobMonth: dobMonth, dobYear: dobYear,
             childName: childName, childGender: childGender, c_dobDay: c_dobDay, c_dobMonth: c_dobMonth, c_dobYear: c_dobYear,
             oldRegNo: oldRegNo, regDay: regDay, regMonth: regMonth, regYear: regYear,
-            obcCommunity: obcCommunity, obcIncomeNum: obcIncomeNum, obcIncomeWords: obcIncomeWords,
+            obcCommunity: obcCommunity, obcIncomeNum: document.getElementById("obcIncomeNum").value.trim(), obcIncomeWords: document.getElementById("obcIncomeWords").value.trim(),
             decRelation: decRelation, decName: decName, decGuardianType: decGuardianType, decGuardianName: decGuardianName, dodDay: dodDay, dodMonth: dodMonth, dodYear: dodYear, podPrefix: podPrefix,
             p_vill: p_vill, p_po: p_po, p_ps: p_ps, p_dist: p_dist, p_pin: p_pin,
             b_vill: b_vill, b_po: b_po, b_ps: b_ps, b_dist: b_dist, b_pin: b_pin,

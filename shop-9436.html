@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notary Affidavit Generator (Shop Pro Version)</title>
-    <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document Generator (Shop Pro) - Affidavit &amp; Marriage</title>
+<style>
 @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 :root{--brand:#6d4aff;--brand2:#9b6bff;--brand-dark:#4a2fd1;--ink:#1f2340;--muted:#6b7090;--line:#e1e4f2;--soft:#f6f7fd;--card:#fff;--ok:#1fb85a;--warn:#f59e0b;--danger:#e5484d}
 *{box-sizing:border-box}
 body{font-family:'Inter','Hind Siliguri','Noto Sans Bengali','Segoe UI',Arial,sans-serif;color:var(--ink);margin:0;-webkit-font-smoothing:antialiased}
+.hidden{display:none !important}
 label{display:block;font-weight:600;margin-bottom:6px;font-size:13.5px;color:#3b4064}
 label span{color:var(--danger)}
 input[type="text"],input[type="number"],input[type="password"],select,textarea{width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:12px;font-size:14.5px;font-family:inherit;color:var(--ink);background-color:#fff;transition:border-color .2s,box-shadow .2s;outline:none}
@@ -32,6 +33,9 @@ legend{font-weight:700;font-size:13px;padding:5px 14px;color:var(--brand-dark) !
 #birthAppTypeSection{background:linear-gradient(135deg,#ecfdf3,#dcf7e7) !important;border-color:#a8e3c0 !important;border-left-color:var(--ok) !important}
 #birthAppTypeSection label{color:#14663a !important}
 #birthAppTypeSection select{color:#14663a !important;border-color:#8fd8ae !important}
+.mode-selector{background:linear-gradient(135deg,#efeaff,#e2d9ff) !important;border-color:#c7b8ff !important;border-left-color:var(--brand) !important}
+.mode-selector label{color:#3b25a8 !important}
+.mode-selector select{color:#3b25a8 !important;border-color:#b9a7ff !important}
 .checkbox-group{align-items:center;gap:10px;margin:0 0 14px;padding:12px 14px;background:#fff;border:1.5px dashed #c7cbe6;border-radius:12px}
 .checkbox-group input{width:18px;height:18px;accent-color:var(--brand);flex:none}
 .checkbox-group label{margin:0;font-size:14px}
@@ -78,6 +82,8 @@ th{background:#f1f2fc;font-weight:700;color:#3b4064;font-size:13px;text-transfor
 tbody tr:last-child td{border-bottom:none}
 tbody tr:nth-child(even){background:#fafbff}
 tbody tr:hover{background:#f1edff}
+.kind-badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;margin-right:6px;color:#fff;background:#6d4aff}
+.kind-badge.m{background:#e0509b}
 @media screen and (max-width:768px){
   .app-header{padding:14px 16px}
   .container{flex-direction:column;padding:14px 10px 0}
@@ -85,14 +91,6 @@ tbody tr:hover{background:#f1edff}
   .output-panel{align-items:flex-start}
   .action-buttons{flex-direction:column}
   .history-panel{width:calc(100% - 20px)}
-}
-@media print{
-  body{background:white;padding:0;margin:0}
-  .app-header,.form-panel,.action-container,.history-panel,.paper-badge{display:none !important}
-  .container{padding:0;display:block}
-  .output-panel{padding:0;display:block;width:100%;overflow:visible}
-  @page{size:A4;margin:5cm 1.27cm 1.27cm 3cm}
-  #output{box-shadow:none;padding:0;width:100%;min-height:auto;border-radius:0}
 }
 
 /* ===== Password lock ===== */
@@ -107,7 +105,32 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
 .lock-card button{width:100%;background:linear-gradient(135deg,#6d4aff,#4a2fd1);box-shadow:0 8px 18px rgba(109,74,255,.3)}
 #lockError{color:var(--danger);font-size:13px;font-weight:600;min-height:18px;margin-top:10px}
 .btn-logout{margin-left:auto;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);padding:8px 14px;font-size:13px;border-radius:10px;box-shadow:none}
-@media print{body.locked *{display:none !important}}
+
+/* ===== Marriage pages (A4 sheets, margins built into each page) ===== */
+#outputM{width:21cm;outline:none}
+.page{position:relative;width:21cm;height:29.7cm;padding:5cm 1.27cm 1.27cm 3cm;box-sizing:border-box;background:#fff;margin:0 auto 22px;box-shadow:0 12px 40px rgba(40,30,110,.22);border-radius:4px;font-family:"Bookman Old Style",serif;font-size:11pt;line-height:1.5;color:#000;overflow:hidden;text-align:justify}
+.page::before{content:"";position:absolute;top:5cm;left:3cm;right:1.27cm;bottom:1.27cm;border:1px dashed #d5d9f0;pointer-events:none}
+.page table{width:100%;min-width:0;border:0;border-radius:0;margin:0;border-collapse:collapse}
+.page tbody tr,.page tbody tr:nth-child(even),.page tbody tr:hover{background:transparent}
+.page td{border:0;padding:0;font-size:inherit;vertical-align:top;text-align:left}
+.page table.photo-box{width:4.5cm;height:2.9cm;margin-top:-4cm}
+.page table.photo-box td{border:1px solid #000;text-align:center;vertical-align:middle}
+.options-grid{margin-bottom:6px}
+
+@media print{
+  body{background:white;padding:0;margin:0}
+  .app-header,.form-panel,.action-container,.history-panel,.paper-badge{display:none !important}
+  .container{padding:0;display:block}
+  .output-panel{padding:0;display:block;width:100%;overflow:visible}
+  @page{size:A4;margin:5cm 1.27cm 1.27cm 3cm}
+  @page mpage{size:A4;margin:0}
+  #output{box-shadow:none;padding:0;width:100%;min-height:auto;border-radius:0}
+  #output::before{display:none}
+  #outputM{page:mpage;width:auto}
+  .page{margin:0;box-shadow:none;border-radius:0;height:296mm}
+  .page::before{display:none}
+  body.locked *{display:none !important}
+}
 </style>
 </head>
 <body class="locked">
@@ -124,24 +147,34 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
 </div>
 
 <div class="app-header">
-    <div class="app-logo">✒️</div>
+    <div class="app-logo">📑</div>
     <div>
-        <div class="app-title">Notary Affidavit Generator</div>
+        <div class="app-title">Affidavit &amp; Marriage Declaration Generator</div>
         <div class="app-sub">AYAT GRAPHICS ZONE · Shop Pro</div>
     </div>
     <button class="btn-logout" onclick="lockApp()">🔒 Lock</button>
 </div>
 
 <div class="container">
-    
+
     <div class="form-panel">
-        
+
         <div class="import-section">
             <h4>📥 Auto-Fill from WhatsApp</h4>
             <textarea id="importBox" rows="3" placeholder="কাস্টমারের পাঠানো মেসেজ পেস্ট করুন..."></textarea>
             <button class="btn-fill" onclick="importCustomerData()">🚀 Auto Fill Form (ম্যাজিক!)</button>
         </div>
 
+        <div class="form-group type-selector mode-selector">
+            <label>ডকুমেন্টের ধরণ (Document Category) <span>*</span></label>
+            <select id="docMode" onchange="setMode()">
+                <option value="affidavit">📝 Notary Affidavit (অ্যাফিডেভিট)</option>
+                <option value="marriage">💍 Marriage Declaration (ম্যারেজ)</option>
+            </select>
+        </div>
+
+        <!-- ================= AFFIDAVIT FORM ================= -->
+        <div id="affForm">
         <h2>Enter Details</h2>
 
         <div class="form-group type-selector">
@@ -168,13 +201,13 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
                 <option value="Child">For Child (সন্তানের)</option>
             </select>
         </div>
-        
+
         <h4 class="section-title">👤 Applicant Details</h4>
         <div class="form-group">
             <label>Name of Applicant <span style="color:red;">*</span></label>
             <input type="text" id="name" placeholder="Name">
         </div>
-        
+
         <div class="grid-2 form-group">
             <div>
                 <label>Gender <span style="color:red;">*</span></label>
@@ -245,13 +278,12 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
             <input type="text" id="customProfession" placeholder="Write custom profession..." style="display: none; margin-top: 5px;">
         </div>
 
-        <!-- Digital Birth Details -->
         <fieldset id="digitalBirthSection">
             <legend>Digital Birth Details</legend>
             <div class="form-group">
                 <label>Place of Birth <span style="color:red;">*</span></label>
                 <select id="pobType" onchange="togglePobType()">
-                    <option value="Home">বাড়ীতে (Home)</option>
+                    <option value="Home">বাড়ীতে (Home)</option>
                     <option value="Hospital">হাসপাতালে (Hospital)</option>
                 </select>
             </div>
@@ -275,7 +307,6 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
             </div>
         </fieldset>
 
-        <!-- Death Details -->
         <fieldset id="deathSection">
             <legend>Death Details</legend>
             <div class="grid-2 form-group">
@@ -326,7 +357,6 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
             </div>
         </fieldset>
 
-        <!-- OBC Details -->
         <fieldset id="obcSection">
             <legend>OBC/NCL Details</legend>
             <div class="grid-2 form-group">
@@ -351,7 +381,6 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
             </div>
         </fieldset>
 
-        <!-- Child Details -->
         <fieldset id="childSection">
             <legend>Child Details</legend>
             <div class="form-group">
@@ -435,7 +464,6 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
             </div>
         </fieldset>
 
-        <!-- Local Authority -->
         <fieldset id="authorityFieldset">
             <legend>Local Authority Details</legend>
             <div class="grid-2">
@@ -465,7 +493,7 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         </fieldset>
 
         <div class="form-group" style="margin-top: 15px;">
-            <label>Signing Month & Year <span style="color:red;">*</span></label>
+            <label>Signing Month &amp; Year <span style="color:red;">*</span></label>
             <div style="display: flex; gap: 5px;">
                 <select id="signMonth" style="flex: 2;">
                     <option value="January">January</option><option value="February">February</option>
@@ -478,34 +506,118 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
                 <input type="number" id="signYear" placeholder="Year" style="flex: 1;">
             </div>
         </div>
+        </div><!-- /affForm -->
+
+        <!-- ================= MARRIAGE FORM ================= -->
+        <div id="marriageForm" class="hidden">
+        <h2>Enter Details</h2>
+        <div class="grid-2 form-group options-grid">
+            <div><label>Document for (কার নামে)</label>
+                <select id="applicant"><option value="Groom">Groom version (বরের নামে)</option><option value="Bride">Bride version (কনের নামে)</option></select></div>
+            <div><label>Certificate Copies</label>
+                <select id="certCopies"><option value="2" selected>2 copies (PDF-এর মতো)</option><option value="1">1 copy</option></select></div>
+        </div>
+
+        <h4 class="section-title">🤵 বরের তথ্য <small>Groom Details</small></h4>
+        <div class="form-group"><label>Groom's Name <span>*</span></label><input type="text" id="gName" placeholder="বরের নাম"></div>
+        <div class="grid-2 form-group">
+            <div><label>Father's Name <span>*</span></label><input type="text" id="gFather" placeholder="বরের বাবার নাম"></div>
+            <div><label>Age <span>*</span></label><input type="number" id="gAge" min="1" placeholder="বয়স (e.g. 38)"></div>
+        </div>
+        <div class="form-group"><label>Profession <span>*</span></label>
+            <select id="gProf" onchange="checkProf('g')"><option value="Student">Student</option><option value="Housewife">Housewife</option><option value="Day Labour">Day Labour</option><option value="Cultivator">Cultivator</option><option value="Self Employed">Self Employed</option><option value="Govt. Employee">Govt. Employee</option><option value="Private Job" selected>Private Job</option><option value="Un Employed">Un Employed</option><option value="Driver">Driver</option><option value="Business">Business</option><option value="Other">Add Option (Write Custom)</option></select>
+            <input type="text" id="gProfCustom" placeholder="Write custom profession..." style="display:none;margin-top:6px"></div>
+        <fieldset id="mgAddrFS">
+            <legend>Groom's Present Address (বরের ঠিকানা)</legend>
+            <div class="grid-2">
+                <input type="text" id="mg_vill" placeholder="Vill / Ward *" list="mVillList">
+                <div style="display: flex; gap: 6px;"><input type="text" id="mg_gp" placeholder="Panchayat / Council *" style="flex:2">
+                    <select id="mg_gpType" style="flex:1"><option value="G.P">G.P</option><option value="V.C">V.C</option><option value="N.P">N.P</option><option value="M.C">M.C</option></select></div>
+                <input type="text" id="mg_po" placeholder="P.O. *">
+                <input type="text" id="mg_ps" placeholder="P.S. *">
+                <input type="text" id="mg_sd" placeholder="Sub-Division *" list="mSdList">
+                <select id="mg_dist"><option value="Dhalai">Dhalai</option><option value="Gomati">Gomati</option><option value="Khowai">Khowai</option><option value="North Tripura">North Tripura</option><option value="Sepahijala" selected>Sepahijala</option><option value="South Tripura">South Tripura</option><option value="Unakoti">Unakoti</option><option value="West Tripura">West Tripura</option></select>
+                <input type="text" id="mg_pin" placeholder="PIN Code *">
+            </div>
+        </fieldset>
+
+        <h4 class="section-title">👰 কনের তথ্য <small>Bride Details</small></h4>
+        <div class="form-group"><label>Bride's Name <span>*</span></label><input type="text" id="bName" placeholder="কনের নাম"></div>
+        <div class="grid-2 form-group">
+            <div><label>Father's Name <span>*</span></label><input type="text" id="bFather" placeholder="কনের বাবার নাম"></div>
+            <div><label>Age <span>*</span></label><input type="number" id="bAge" min="1" placeholder="বয়স (e.g. 34)"></div>
+        </div>
+        <div class="form-group"><label>Profession <span>*</span></label>
+            <select id="bProf" onchange="checkProf('b')"><option value="Student">Student</option><option value="Housewife" selected>Housewife</option><option value="Day Labour">Day Labour</option><option value="Cultivator">Cultivator</option><option value="Self Employed">Self Employed</option><option value="Govt. Employee">Govt. Employee</option><option value="Private Job">Private Job</option><option value="Un Employed">Un Employed</option><option value="Driver">Driver</option><option value="Business">Business</option><option value="Other">Add Option (Write Custom)</option></select>
+            <input type="text" id="bProfCustom" placeholder="Write custom profession..." style="display:none;margin-top:6px"></div>
+        <fieldset id="mbAddrFS">
+            <legend>Bride's Present Address (কনের ঠিকানা)</legend>
+            <div class="grid-2">
+                <input type="text" id="mb_vill" placeholder="Vill / Ward *" list="mVillList">
+                <div style="display: flex; gap: 6px;"><input type="text" id="mb_gp" placeholder="Panchayat / Council *" style="flex:2">
+                    <select id="mb_gpType" style="flex:1"><option value="G.P">G.P</option><option value="V.C">V.C</option><option value="N.P">N.P</option><option value="M.C">M.C</option></select></div>
+                <input type="text" id="mb_po" placeholder="P.O. *">
+                <input type="text" id="mb_ps" placeholder="P.S. *">
+                <input type="text" id="mb_sd" placeholder="Sub-Division *" list="mSdList">
+                <select id="mb_dist"><option value="Dhalai">Dhalai</option><option value="Gomati">Gomati</option><option value="Khowai">Khowai</option><option value="North Tripura">North Tripura</option><option value="Sepahijala" selected>Sepahijala</option><option value="South Tripura">South Tripura</option><option value="Unakoti">Unakoti</option><option value="West Tripura">West Tripura</option></select>
+                <input type="text" id="mb_pin" placeholder="PIN Code *">
+            </div>
+        </fieldset>
+
+        <h4 class="section-title">💍 বিয়ের তথ্য <small>Marriage Details</small></h4>
+        <div class="grid-2 form-group">
+            <div><label>Religion / Faith <span>*</span></label>
+                <select id="mReligion" onchange="checkMReligion()">
+                    <option value="Muslim">Muslim</option><option value="Hindu">Hindu</option><option value="Christian">Christian</option>
+                    <option value="Buddhist">Buddhist</option><option value="Sikh">Sikh</option><option value="Other">Other</option></select>
+                <input type="text" id="mReligionCustom" placeholder="Write religion..." style="display:none;margin-top:6px"></div>
+            <div><label>Marriage Date <span>*</span></label>
+                <div style="display: flex; gap: 5px;"><select id="mDay" style="flex:1"></select><select id="mMonth" style="flex:1.3"></select><select id="mYear" style="flex:1.5"></select></div></div>
+        </div>
+        <div class="form-group"><label>Marriage Place (বিয়ের স্থান) <span>*</span></label>
+        <select id="mPlaceSrc" onchange="toggleMPlace()"><option value="groom">বরের ঠিকানার মতোই (Groom's address)</option><option value="bride">কনের ঠিকানার মতোই (Bride's address)</option><option value="other">অন্য ঠিকানা (Different address)</option></select></div>
+        <fieldset id="mmAddrFS">
+            <legend>Marriage Place Address (বিয়ের স্থানের ঠিকানা)</legend>
+            <div class="grid-2">
+                <input type="text" id="mm_vill" placeholder="Vill / Ward *" list="mVillList">
+                <div style="display: flex; gap: 6px;"><input type="text" id="mm_gp" placeholder="Panchayat / Council *" style="flex:2">
+                    <select id="mm_gpType" style="flex:1"><option value="G.P">G.P</option><option value="V.C">V.C</option><option value="N.P">N.P</option><option value="M.C">M.C</option></select></div>
+                <input type="text" id="mm_po" placeholder="P.O. *">
+                <input type="text" id="mm_ps" placeholder="P.S. *">
+                <input type="text" id="mm_sd" placeholder="Sub-Division *" list="mSdList">
+                <select id="mm_dist"><option value="Dhalai">Dhalai</option><option value="Gomati">Gomati</option><option value="Khowai">Khowai</option><option value="North Tripura">North Tripura</option><option value="Sepahijala" selected>Sepahijala</option><option value="South Tripura">South Tripura</option><option value="Unakoti">Unakoti</option><option value="West Tripura">West Tripura</option></select>
+                <input type="text" id="mm_pin" placeholder="PIN Code *">
+            </div>
+        </fieldset>
+        </div><!-- /marriageForm -->
     </div>
 
-    <!-- ================= 2. Output Section ================= -->
+    <!-- ================= Output Section ================= -->
     <div class="output-panel">
         <div class="paper-badge">📄 <b>A4</b> · Top 5 cm · Left 3 cm · Bottom 1.27 cm · Right 1.27 cm</div>
         <div id="output" contenteditable="true"></div>
-        
+        <div id="outputM" class="hidden" contenteditable="true"></div>
+
         <div class="action-container">
             <div id="warningMsg" style="margin-top: 15px;">
-                প্রিন্ট বা রেকর্ড সেভ করার জন্য ফর্মের লাল তারা (*) দেওয়া সব বক্স পূরণ করুন।
+                প্রিন্ট বা রেকর্ড সেভ করার জন্য ফর্মের লাল তারা (*) দেওয়া সব বক্স পূরণ করুন।
             </div>
-
             <div class="action-buttons" id="actionButtons" style="display: none;">
                 <button class="btn-print" onclick="window.print()">🖨️ Print / PDF</button>
                 <button class="btn-word" onclick="downloadCurrentWord()">📄 Word Download</button>
-                <button class="btn-record" onclick="saveToHistory()">💾 Save to Record</button>
+                <button class="btn-record" onclick="saveCurrent()">💾 Save to Record</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- ================= 3. History Panel ================= -->
+<!-- ================= History Panel ================= -->
 <div class="history-panel">
     <h2 style="text-align: left; margin-top:0;">Saved Records (আপনার রেকর্ডসমূহ)</h2>
     <table>
         <thead>
             <tr>
-                <th style="width: 20%;">Date & Time</th>
+                <th style="width: 20%;">Date &amp; Time</th>
                 <th style="width: 40%;">Subject</th>
                 <th style="width: 40%;">Actions</th>
             </tr>
@@ -514,7 +626,7 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
     </table>
 </div>
 
-<!-- ================= 4. Datalists ================= -->
+<!-- ================= Datalists ================= -->
 <datalist id="panchayatList">
     <option value="Sonapur"><option value="Urmai"><option value="Kathalia">
     <option value="Boxanagar"><option value="Nalchar"><option value="Mohanbhog">
@@ -528,6 +640,8 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
 <datalist id="villageList">
     <option value="Sonapur"><option value="Urmai"><option value="Rabindranagar">
 </datalist>
+<datalist id="mSdList"><option value="Sonamura"><option value="Bishalgarh"><option value="Jampuijala"></datalist>
+<datalist id="mVillList"></datalist>
 
 <script>
     // ===== Password lock (SHA-256) =====
@@ -548,43 +662,63 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
     function lockApp(){try{sessionStorage.removeItem("shopUnlocked");}catch(_){}document.body.classList.add("locked");}
     (function(){try{if(sessionStorage.getItem("shopUnlocked")==="1")document.body.classList.remove("locked");}catch(_){}})();
 </script>
-<!-- ================= 5. Scripts ================= -->
+
 <script>
+    // ================= Common helpers =================
+    function val(id){ const e = document.getElementById(id); return e ? e.value.trim() : ''; }
+    const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    function curMode(){ return document.getElementById('docMode').value; }
+
+    function setMode(){
+        const m = curMode();
+        document.getElementById('affForm').classList.toggle('hidden', m !== 'affidavit');
+        document.getElementById('marriageForm').classList.toggle('hidden', m !== 'marriage');
+        document.getElementById('output').classList.toggle('hidden', m !== 'affidavit');
+        document.getElementById('outputM').classList.toggle('hidden', m !== 'marriage');
+        refresh();
+    }
+    function refresh(){ if (curMode() === 'marriage') generateMarriage(); else generateDraft(); }
+    function saveCurrent(){ if (curMode() === 'marriage') saveMarriage(); else saveToHistory(); }
+
     window.onload = function() {
+        // Affidavit selects
         document.getElementById("signYear").value = new Date().getFullYear();
-        
         const dayOptions = '<option value="">Day</option>' + Array.from({length: 31}, (_, i) => `<option value="${i+1 < 10 ? '0'+(i+1) : i+1}">${i+1 < 10 ? '0'+(i+1) : i+1}</option>`).join('');
         const monthOptions = '<option value="">Month</option>' + Array.from({length: 12}, (_, i) => `<option value="${i+1 < 10 ? '0'+(i+1) : i+1}">${i+1 < 10 ? '0'+(i+1) : i+1}</option>`).join('');
         const yearOptions = '<option value="">Year</option>' + Array.from({length: 101}, (_, i) => `<option value="${2030 - i}">${2030 - i}</option>`).join('');
-        const childYearOptions = '<option value="">Year</option>' + Array.from({length: 31}, (_, i) => `<option value="${2030 - i}">${2030 - i}</option>`).join(''); 
-        const dodYearOptions = '<option value="">Year</option>' + Array.from({length: 81}, (_, i) => `<option value="${2030 - i}">${2030 - i}</option>`).join(''); // Extended to 1950
+        const childYearOptions = '<option value="">Year</option>' + Array.from({length: 31}, (_, i) => `<option value="${2030 - i}">${2030 - i}</option>`).join('');
+        const dodYearOptions = '<option value="">Year</option>' + Array.from({length: 81}, (_, i) => `<option value="${2030 - i}">${2030 - i}</option>`).join('');
 
         document.getElementById('dobDay').innerHTML = dayOptions; document.getElementById('dobMonth').innerHTML = monthOptions; document.getElementById('dobYear').innerHTML = yearOptions;
         document.getElementById('c_dobDay').innerHTML = dayOptions; document.getElementById('c_dobMonth').innerHTML = monthOptions; document.getElementById('c_dobYear').innerHTML = childYearOptions;
         document.getElementById('dodDay').innerHTML = dayOptions; document.getElementById('dodMonth').innerHTML = monthOptions; document.getElementById('dodYear').innerHTML = dodYearOptions;
-        
         document.getElementById('regDay').innerHTML = dayOptions; document.getElementById('regMonth').innerHTML = monthOptions; document.getElementById('regYear').innerHTML = dodYearOptions;
+
+        // Marriage selects
+        document.getElementById('mDay').innerHTML = dayOptions;
+        document.getElementById('mMonth').innerHTML = monthOptions;
+        document.getElementById('mYear').innerHTML = '<option value="">Year</option>' + Array.from({length:81}, (_, i) => `<option value="${2030-i}">${2030-i}</option>`).join('');
 
         updateSpouseRequirement();
         toggleAffidavitType();
+        toggleMPlace(); checkProf('g'); checkProf('b'); checkMReligion();
 
         ['dobDay', 'dobMonth', 'dobYear'].forEach(id => { document.getElementById(id).addEventListener('change', calculateAge); });
 
-        const allInputs = document.querySelectorAll('.form-panel input, .form-panel select');
-        allInputs.forEach(input => {
-            input.addEventListener('input', generateDraft);
-            input.addEventListener('change', generateDraft);
+        document.querySelectorAll('#affForm input, #affForm select, #marriageForm input, #marriageForm select').forEach(el => {
+            el.addEventListener('input', refresh);
+            el.addEventListener('change', refresh);
         });
 
         renderHistory();
-        generateDraft();
+        setMode();
     };
 
+    // ================= AFFIDAVIT =================
     function toggleAffidavitType() {
         const type = document.getElementById("affidavitType").value;
         const appType = document.getElementById("appType").value;
-        
-        // Hide all initially
+
         document.getElementById("birthAppTypeSection").style.display = "none";
         document.getElementById("birthAddressFieldset").style.display = "none";
         document.getElementById("birthAddressWrapper").style.display = "none";
@@ -596,7 +730,7 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         document.getElementById("childSection").style.display = "none";
         document.getElementById("childDobWrapper").style.display = "none";
         document.getElementById("digitalBirthSection").style.display = "none";
-        
+
         const dobWrapper = document.getElementById("dobWrapper");
         const ageInput = document.getElementById("age");
 
@@ -605,26 +739,24 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
             document.getElementById("birthAddressFieldset").style.display = "block";
             document.getElementById("birthAddressWrapper").style.display = "flex";
             document.getElementById("authorityFieldset").style.display = "block";
-            
             if (appType === "Child") {
                 document.getElementById("childSection").style.display = "block";
                 document.getElementById("childDobWrapper").style.display = "block";
             }
-            
             dobWrapper.style.display = "block";
             ageInput.readOnly = true; ageInput.style.backgroundColor = "#e9ecef";
         } else if (type === "DigiBirthSelf") {
             document.getElementById("digitalBirthSection").style.display = "block";
             dobWrapper.style.display = "block";
             ageInput.readOnly = true; ageInput.style.backgroundColor = "#e9ecef";
-            togglePobType(); 
+            togglePobType();
         } else if (type === "DigiBirthParents") {
             document.getElementById("childSection").style.display = "block";
             document.getElementById("childDobWrapper").style.display = "block";
             document.getElementById("digitalBirthSection").style.display = "block";
             dobWrapper.style.display = "block";
             ageInput.readOnly = true; ageInput.style.backgroundColor = "#e9ecef";
-            togglePobType(); 
+            togglePobType();
         } else if (type === "Death") {
             document.getElementById("deathSection").style.display = "block";
             document.getElementById("deathAddressFieldset").style.display = "block";
@@ -642,7 +774,6 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
             dobWrapper.style.display = "none";
             ageInput.readOnly = false; ageInput.style.backgroundColor = "#fff"; ageInput.placeholder = "Age (e.g. 39)";
         } else {
-            // Non-Study
             dobWrapper.style.display = "block";
             ageInput.readOnly = true; ageInput.style.backgroundColor = "#e9ecef";
         }
@@ -652,7 +783,7 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
     function togglePobType() {
         const pobType = document.getElementById("pobType").value;
         const type = document.getElementById("affidavitType").value;
-        
+
         if (pobType === "Hospital") {
             document.getElementById("hospitalNameWrapper").style.display = "block";
             if (type.includes("DigiBirth")) {
@@ -676,7 +807,7 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         const spouseLabel = document.getElementById("spouseLabel");
         const spouseInput = document.getElementById("spouseName");
         const fatherLabel = document.getElementById("fatherLabel");
-        
+
         if (gender === "Female") {
             spouseLabel.innerHTML = 'Spouse Name (স্বামীর নাম) <span style="color:red;">*</span>';
             spouseInput.placeholder = "অবশ্যই স্বামীর নাম লিখুন";
@@ -691,37 +822,9 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         generateDraft();
     }
 
-    function importCustomerData() {
-        const text = document.getElementById("importBox").value;
-        const match = text.match(/CODE:\[(.*?)\]/);
-        
-        if (match && match[1]) {
-            try {
-                const data = JSON.parse(decodeURIComponent(atob(match[1])));
-                for (const key in data) {
-                    if (document.getElementById(key)) document.getElementById(key).value = data[key];
-                }
-                if(!data.affidavitType) { document.getElementById("affidavitType").value = "Birth"; }
-                
-                toggleAffidavitType();
-                checkProfession();
-                updateAuthLevel2();
-                updateSpouseRequirement();
-                generateDraft();
-                
-                document.getElementById("importBox").value = ""; 
-                alert("ম্যাজিক! কাস্টমারের সব ডেটা ফর্মের ভেতর বসে গেছে।");
-            } catch (e) {
-                alert("ডেটা ইমপোর্ট করতে সমস্যা হয়েছে।");
-            }
-        } else {
-            alert("হোয়াটসঅ্যাপ মেসেজ থেকে সঠিক ম্যাজিক কোড পাওয়া যায়নি!");
-        }
-    }
-
     function calculateAge() {
         const type = document.getElementById("affidavitType").value;
-        if(type.includes("OBC")) return; // Age is manual
+        if(type.includes("OBC")) return;
 
         const dDay = document.getElementById("dobDay").value;
         const dMonth = document.getElementById("dobMonth").value;
@@ -742,18 +845,15 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
     function checkProfession() {
         const select = document.getElementById("professionSelect");
         const customInput = document.getElementById("customProfession");
-        if (select.value === "Other") { customInput.style.display = "block"; } else { customInput.style.display = "none"; }
+        customInput.style.display = (select.value === "Other") ? "block" : "none";
         generateDraft();
     }
 
     function updateAuthLevel2() {
         const type1 = document.getElementById("auth1_type").value;
         const type2 = document.getElementById("auth2_type");
-        if (type1 === "Gram Panchayat" || type1 === "ADC Village") {
-            type2.value = "R.D. Block";
-        } else {
-            type2.value = "Sub-Division";
-        }
+        if (type1 === "Gram Panchayat" || type1 === "ADC Village") type2.value = "R.D. Block";
+        else type2.value = "Sub-Division";
         generateDraft();
     }
 
@@ -772,9 +872,7 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         generateDraft();
     }
 
-    // Number to Words Converter Function
     const numToWordsMap = { 0: 'Zero', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine', 10: 'Ten', 11: 'Eleven', 12: 'Twelve', 13: 'Thirteen', 14: 'Fourteen', 15: 'Fifteen', 16: 'Sixteen', 17: 'Seventeen', 18: 'Eighteen', 19: 'Nineteen', 20: 'Twenty', 30: 'Thirty', 40: 'Forty', 50: 'Fifty', 60: 'Sixty', 70: 'Seventy', 80: 'Eighty', 90: 'Ninety' };
-
     function numberToWords(num) {
         if (num === 0) return 'Zero';
         if (num < 20) return numToWordsMap[num];
@@ -784,15 +882,10 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         if (num < 10000000) return numberToWords(Math.floor(num / 100000)) + ' Lakh' + (num % 100000 !== 0 ? ' ' + numberToWords(num % 100000) : '');
         return numberToWords(Math.floor(num / 10000000)) + ' Crore' + (num % 10000000 !== 0 ? ' ' + numberToWords(num % 10000000) : '');
     }
-
     function convertNumberToWords() {
         let numStr = document.getElementById("obcIncomeNum").value;
-        if (!numStr || isNaN(numStr)) {
-            document.getElementById("obcIncomeWords").value = "";
-            return;
-        }
-        let wordStr = numberToWords(parseInt(numStr));
-        document.getElementById("obcIncomeWords").value = wordStr;
+        if (!numStr || isNaN(numStr)) { document.getElementById("obcIncomeWords").value = ""; return; }
+        document.getElementById("obcIncomeWords").value = numberToWords(parseInt(numStr));
         generateDraft();
     }
 
@@ -800,7 +893,7 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         const affidavitType = document.getElementById("affidavitType").value;
         const appType = document.getElementById("appType").value;
         const pobType = document.getElementById("pobType").value;
-        
+
         const nameVal = document.getElementById("name").value.trim();
         const name = nameVal || "[NAME]";
         const gender = document.getElementById("gender").value;
@@ -808,11 +901,11 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         const ageVal = parseInt(ageRaw);
         const age = ageRaw ? ageRaw : "[AGE]";
         const religion = document.getElementById("religion").value || "[RELIGION]";
-        
+
         const fatherVal = document.getElementById("fatherName").value.trim();
         const motherVal = document.getElementById("motherName").value.trim();
         const spouseVal = document.getElementById("spouseName").value.trim();
-        
+
         let professionVal = document.getElementById("professionSelect").value;
         if (professionVal === "Other") professionVal = document.getElementById("customProfession").value.trim();
         const profession = professionVal || "[PROFESSION]";
@@ -821,10 +914,10 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         const dMonthVal = document.getElementById("dobMonth").value;
         const dYearVal = document.getElementById("dobYear").value;
         const dob = (dDayVal && dMonthVal && dYearVal) ? `${dDayVal}/${dMonthVal}/${dYearVal}` : "[DD/MM/YYYY]";
-        
+
         const childNameVal = document.getElementById("childName").value.trim();
         const childName = childNameVal || "[CHILD NAME]";
-        const childGender = document.getElementById("childGender").value; 
+        const childGender = document.getElementById("childGender").value;
         const c_dDay = document.getElementById("c_dobDay").value;
         const c_dMonth = document.getElementById("c_dobMonth").value;
         const c_dYear = document.getElementById("c_dobYear").value;
@@ -837,12 +930,10 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         const p_pinVal = document.getElementById("p_pin").value.trim(); const p_pin = p_pinVal || "[PIN]";
 
         const signMonth = document.getElementById("signMonth").value;
-        const signYearVal = document.getElementById("signYear").value.trim(); 
+        const signYearVal = document.getElementById("signYear").value.trim();
         const signDate = `${signMonth}, ${signYearVal || "[YYYY]"}`;
 
-        // ================= Dynamic Relation Logic =================
         let relationPart = "";
-        
         if (gender === "Female") {
             let s_name = spouseVal || "[HUSBAND NAME]";
             relationPart = `W/o <b>${s_name}</b>`;
@@ -851,12 +942,10 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
             if (fatherVal && motherVal) parentsStr = `<b>${fatherVal}</b> & <b>${motherVal}</b>`;
             else if (fatherVal) parentsStr = `<b>${fatherVal}</b>`;
             else parentsStr = "[FATHER'S NAME]";
-
             relationPart = `S/o ${parentsStr}`;
             if (spouseVal !== "") relationPart += `, H/o-<b>${spouseVal}</b>`;
         }
 
-        // ================= Affidavit Body Generation =================
         let affidavitBody = "";
         let verifyText = `In witness whereof, I affix my signature on this ....................... <b>day of ${signDate}</b>, at the Court premises of Sonamura.`;
         let verifyNum = "4";
@@ -867,7 +956,7 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
             const b_psVal = document.getElementById("b_ps").value.trim(); const b_ps = b_psVal || "[PS]";
             const b_dist = document.getElementById("b_dist").value;
             const b_pinVal = document.getElementById("b_pin").value.trim(); const b_pin = b_pinVal || "[PIN]";
-            
+
             const auth1Val = document.getElementById("auth1_name").value.trim(); const auth1_name = auth1Val || "[Name]";
             const auth1_type = document.getElementById("auth1_type").value;
             const auth2Val = document.getElementById("auth2_name").value.trim(); const auth2_name = auth2Val || "[Name]";
@@ -907,7 +996,7 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
                 const oldRegNo = document.getElementById("oldRegNo").value.trim() || "[REG NO]";
                 const rD = document.getElementById("regDay").value; const rM = document.getElementById("regMonth").value; const rY = document.getElementById("regYear").value;
                 const regDate = (rD && rM && rY) ? `${rD}/${rM}/${rY}` : "[DD/MM/YYYY]";
-                
+
                 let pobString = "";
                 if (pobType === "Hospital") {
                     const hName = document.getElementById("hospitalName").value.trim() || "[HOSPITAL NAME]";
@@ -949,7 +1038,7 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
             const decName = document.getElementById("decName").value.trim() || "[DECEASED NAME]";
             const gType = document.getElementById("decGuardianType").value;
             const gName = document.getElementById("decGuardianName").value.trim() || "[GUARDIAN NAME]";
-            
+
             const dodD = document.getElementById("dodDay").value; const dodM = document.getElementById("dodMonth").value; const dodY = document.getElementById("dodYear").value;
             const dod = (dodD && dodM && dodY) ? `${dodD}/${dodM}/${dodY}` : "[DD/MM/YYYY]";
             const podPrefix = document.getElementById("podPrefix").value.trim() || "my own residence";
@@ -1010,7 +1099,7 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
             const obcCommunity = document.getElementById("obcCommunity").value.trim() || "[COMMUNITY]";
             const obcIncomeNum = document.getElementById("obcIncomeNum").value.trim() || "[AMOUNT]";
             const obcIncomeWords = document.getElementById("obcIncomeWords").value.trim() || "[WORDS]";
-            
+
             let formattedIncomeNum = obcIncomeNum;
             if(!isNaN(obcIncomeNum) && obcIncomeNum !== ""){ formattedIncomeNum = Number(obcIncomeNum).toLocaleString('en-IN'); }
 
@@ -1088,12 +1177,12 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         document.getElementById("output").innerHTML = draftHTML;
 
         // Validations
-        let isValid = nameVal && ageRaw && (ageVal >= 18) && professionVal && 
+        let isValid = nameVal && ageRaw && (ageVal >= 18) && professionVal &&
                       p_villVal && p_poVal && p_psVal && p_pinVal && signYearVal;
-        
+
         if (gender === "Male" && !fatherVal) isValid = false;
         if (gender === "Female" && !spouseVal) isValid = false;
-        
+
         if (!affidavitType.includes("OBC")) {
             isValid = isValid && dDayVal && dMonthVal && dYearVal;
         }
@@ -1126,7 +1215,6 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
             const d_villVal = document.getElementById("d_vill").value.trim(); const d_poVal = document.getElementById("d_po").value.trim();
             const d_psVal = document.getElementById("d_ps").value.trim(); const d_pinVal = document.getElementById("d_pin").value.trim();
             const auth1Val = document.getElementById("auth1_name").value.trim(); const auth2Val = document.getElementById("auth2_name").value.trim();
-
             isValid = isValid && decName && decGuardianName && dodDay && podPrefix && d_villVal && d_poVal && d_psVal && d_pinVal && auth1Val && auth2Val;
         } else if (affidavitType.includes("OBC")) {
             const obcComm = document.getElementById("obcCommunity").value.trim();
@@ -1136,140 +1224,283 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
             if (affidavitType.includes("Parents")) isValid = isValid && childNameVal;
         }
 
-        if (isValid) {
-            document.getElementById("actionButtons").style.display = "flex";
-            document.getElementById("warningMsg").style.display = "none";
-        } else {
-            document.getElementById("actionButtons").style.display = "none";
-            document.getElementById("warningMsg").style.display = "block";
-        }
+        document.getElementById("actionButtons").style.display = isValid ? "flex" : "none";
+        document.getElementById("warningMsg").style.display = isValid ? "none" : "block";
     }
 
     function saveToHistory() {
         const affidavitType = document.getElementById("affidavitType").value;
         const appType = document.getElementById("appType").value;
         const name = document.getElementById("name").value.trim();
-        
+
         let subjectTitle = name;
         if (affidavitType === "Birth" && appType === "Child") {
-            const childName = document.getElementById("childName").value.trim();
-            subjectTitle = `${childName} (Child of ${name})`;
+            subjectTitle = `${document.getElementById("childName").value.trim()} (Child of ${name})`;
         } else if (affidavitType === "DigiBirthParents") {
-            const childName = document.getElementById("childName").value.trim();
-            subjectTitle = `${childName} (Digi Birth Parents: ${name})`;
+            subjectTitle = `${document.getElementById("childName").value.trim()} (Digi Birth Parents: ${name})`;
         } else if (affidavitType === "DigiBirthSelf") {
             subjectTitle = `${name} (Digi Birth Self)`;
         } else if (affidavitType === "Death") {
-            const decName = document.getElementById("decName").value.trim();
-            subjectTitle = `${decName} (Death, Rep: ${name})`;
+            subjectTitle = `${document.getElementById("decName").value.trim()} (Death, Rep: ${name})`;
         } else if (affidavitType.includes("OBC")) {
-            if(affidavitType.includes("Parents")) {
-                const childName = document.getElementById("childName").value.trim();
-                subjectTitle = `${childName} (${affidavitType} - ${name})`;
-            } else {
-                subjectTitle = `${name} (${affidavitType})`;
-            }
+            if(affidavitType.includes("Parents")) subjectTitle = `${document.getElementById("childName").value.trim()} (${affidavitType} - ${name})`;
+            else subjectTitle = `${name} (${affidavitType})`;
         } else {
             subjectTitle = `${name} (${affidavitType})`;
         }
-        
+
         const contentHTML = document.getElementById("output").innerHTML;
-        const currentDateTime = new Date().toLocaleString('en-IN'); 
+        const currentDateTime = new Date().toLocaleString('en-IN');
 
         let history = JSON.parse(localStorage.getItem('affidavitHistory')) || [];
-        history.unshift({ name: subjectTitle, rawName: name, date: currentDateTime, content: contentHTML });
+        history.unshift({ name: subjectTitle, rawName: name, date: currentDateTime, ts: Date.now(), content: contentHTML });
         localStorage.setItem('affidavitHistory', JSON.stringify(history));
-        
-        alert("আপনার কাজ সফলভাবে রেকর্ড খাতায় সেভ হয়েছে!");
-        
-        document.querySelectorAll('.form-panel input').forEach(input => {
-            if(input.type !== 'checkbox' && input.id !== 'signYear' && input.id !== 'podPrefix' && input.id !== 'pobType') { input.value = ''; }
+
+        alert("আপনার কাজ সফলভাবে রেকর্ড খাতায় সেভ হয়েছে!");
+
+        document.querySelectorAll('#affForm input').forEach(input => {
+            if(input.type !== 'checkbox' && !['signYear','podPrefix','pobType','obcCategory'].includes(input.id)) { input.value = ''; }
         });
-        document.getElementById("dobDay").value = ""; document.getElementById("dobMonth").value = ""; document.getElementById("dobYear").value = "";
-        document.getElementById("c_dobDay").value = ""; document.getElementById("c_dobMonth").value = ""; document.getElementById("c_dobYear").value = "";
-        document.getElementById("dodDay").value = ""; document.getElementById("dodMonth").value = ""; document.getElementById("dodYear").value = "";
-        document.getElementById("regDay").value = ""; document.getElementById("regMonth").value = ""; document.getElementById("regYear").value = "";
+        ['dobDay','dobMonth','dobYear','c_dobDay','c_dobMonth','c_dobYear','dodDay','dodMonth','dodYear','regDay','regMonth','regYear'].forEach(id => document.getElementById(id).value = "");
         document.getElementById("importBox").value = "";
-        
+
         renderHistory();
         generateDraft();
     }
 
+    // ================= MARRIAGE =================
+    const ADDR_KEYS = ['vill','gp','gpType','po','ps','sd','dist','pin'];
+    const M_FIELD_IDS = ['gName','gFather','gAge','gProf','gProfCustom','bName','bFather','bAge','bProf','bProfCustom','mReligion','mReligionCustom','mDay','mMonth','mYear','mPlaceSrc']
+        .concat(['mg','mb','mm'].flatMap(p => ADDR_KEYS.map(k => p + '_' + k)));
+
+    function checkProf(p){ document.getElementById(p + 'ProfCustom').style.display = document.getElementById(p + 'Prof').value === 'Other' ? 'block' : 'none'; }
+    function checkMReligion(){ document.getElementById('mReligionCustom').style.display = document.getElementById('mReligion').value === 'Other' ? 'block' : 'none'; }
+    function profOf(p){ let v = document.getElementById(p + 'Prof').value; if (v === 'Other') v = val(p + 'ProfCustom'); return v; }
+    function mRelName(){ const v = document.getElementById('mReligion').value; return v === 'Other' ? val('mReligionCustom') : v; }
+    function toggleMPlace(){
+        document.getElementById('mmAddrFS').style.display = document.getElementById('mPlaceSrc').value === 'other' ? '' : 'none';
+    }
+    // p: 'g' (groom) / 'b' (bride) / 'm' (marriage place) -> element prefix
+    function mPre(p){
+        if (p === 'g') return 'mg';
+        if (p === 'b') return 'mb';
+        const s = document.getElementById('mPlaceSrc').value;
+        return s === 'groom' ? 'mg' : s === 'bride' ? 'mb' : 'mm';
+    }
+    function addrStr(p, ph){
+        const q = mPre(p);
+        const f = (k, d) => val(q + '_' + k) || (ph ? d : '');
+        return `${f('vill','[VILL]')}, (${f('gp','[PANCHAYAT]')} ${val(q + '_gpType')}), Po-${f('po','[PO]')}, Ps-${f('ps','[PS]')}, Sub-Division-${f('sd','[SUB-DIVISION]')}, Dist.-${val(q + '_dist')}, Tripura, Pin-${f('pin','[PIN]')}`;
+    }
+    function addrOk(p){ const q = mPre(p); return ['vill','gp','po','ps','sd','pin'].every(k => val(q + '_' + k)); }
+    function marriageDate(ph){
+        const d = val('mDay'), m = val('mMonth'), y = val('mYear');
+        return (d && m && y) ? `${d}/${m}/${y}` : (ph ? '[DD/MM/YYYY]' : '');
+    }
+    function missingFields(){
+        const m = [];
+        if (!val('gName')) m.push('বরের নাম');
+        if (!val('gFather')) m.push('বরের বাবার নাম');
+        if (!(parseInt(val('gAge')) > 0)) m.push('বরের বয়স');
+        if (!profOf('g')) m.push('বরের পেশা');
+        if (!val('bName')) m.push('কনের নাম');
+        if (!val('bFather')) m.push('কনের বাবার নাম');
+        if (!(parseInt(val('bAge')) > 0)) m.push('কনের বয়স');
+        if (!profOf('b')) m.push('কনের পেশা');
+        if (!mRelName()) m.push('ধর্ম');
+        if (!marriageDate(false)) m.push('বিয়ের তারিখ');
+        if (!addrOk('g')) m.push('বরের ঠিকানা (সব ঘর)');
+        if (!addrOk('b')) m.push('কনের ঠিকানা (সব ঘর)');
+        if (!addrOk('m')) m.push('বিয়ের স্থানের ঠিকানা (সব ঘর)');
+        return m;
+    }
+
+    function generateMarriage(){
+        const E = esc;
+        const rel = E(mRelName() || '[RELIGION]');
+        const gN = E(val('gName') || '[GROOM NAME]'), gF = E(val('gFather') || "[FATHER'S NAME]"), gA = E(val('gAge') || '[AGE]'), gP = E(profOf('g') || '[PROFESSION]');
+        const bN = E(val('bName') || '[BRIDE NAME]'), bF = E(val('bFather') || "[FATHER'S NAME]"), bA = E(val('bAge') || '[AGE]'), bP = E(profOf('b') || '[PROFESSION]');
+        const gAd = E(addrStr('g', true)), bAd = E(addrStr('b', true)), mAd = E(addrStr('m', true));
+        const date = E(marriageDate(true));
+        const copies = parseInt(document.getElementById('certCopies').value) || 1;
+        const applicant = document.getElementById('applicant').value;
+
+        const AND = 'A<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>N<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>D';
+        const useBride = applicant === 'Bride';
+        const groomLine = `${gN}, S/o-${gF}, residence of ${gAd}, by Religion-${rel}, by Profession-${gP}, Aged about ${gA} years, a Citizen of India.`;
+        const brideLine = `${bN}, D/o-${bF}, W/o-${gN}, residence of ${bAd}, by Religion-${rel}, by Profession-${bP}, Aged about ${bA} years, a Citizen of India.`;
+
+        const firstLine = useBride ? brideLine : groomLine;
+        const secondLine = useBride ? groomLine : brideLine;
+        const cert = `
+            <div style="text-align:center;font-weight:bold;font-size:14pt;margin-bottom:26px;">TO WHOM IT MAY CONCERN</div>
+            <div style="margin-bottom:6px;">This is to certify that</div>
+            <div style="text-align:justify;text-indent:40px;">a) ${firstLine}</div>
+            <div style="text-align:center;">${AND}</div>
+            <div style="text-align:justify;text-indent:40px;margin-bottom:28px;">b) ${secondLine}</div>
+            <div style="text-align:justify;text-indent:40px;margin-bottom:28px;">That as per reliable sources I came to know that their marriage was solemnized on <b>${date} A/D at ${mAd}.</b> In presence of their relatives and friends’ well-wishers as per ${rel} Rites &amp; Customs and it is their first Marriage. They have completed the age 18 years &amp; 21 years respectively at the time of their marriage.</div>
+            <div style="margin-bottom:70px;">I wish them every success in their future life.</div>
+            <div style="margin-bottom:6px;">Place:</div>
+            <div>Date:......./......./20.....</div>
+            <div style="margin:44px 0 0 62%;text-align:left;">Signature with seal of<br>Councillor/ Chairman/<br>Commissioner/Pradhan</div>`;
+
+        const decl = `
+            <table class="photo-box" align="right" style="float:right;width:4.5cm;height:2.9cm;border:1px solid #000;border-collapse:collapse;"><tr><td style="text-align:center;font-family:Calibri,Arial,sans-serif;font-size:10pt;line-height:1.9;border:1px solid #000;">ATTACH JOINT<br>PHOTO</td></tr></table>
+            <div style="text-align:center;font-weight:bold;font-size:14pt;margin-bottom:26px;">DECLARATION FOR MARRIAGE</div>
+            <div style="text-align:justify;text-indent:40px;">We, ${firstLine}</div>
+            <div style="text-align:center;margin:10px 0;">${AND}</div>
+            <div style="text-align:justify;text-indent:40px;margin-bottom:22px;">${useBride ? "b) " : ""}${secondLine}</div>
+            <ol style="text-align:justify;">
+                <li>That, our social marriage has duly been solemnized on <b>${date} A/D at ${mAd}.</b> In presence of our relatives and friends’ well-wishers as per ${rel} Rites &amp; Customs and it is our first Marriage.</li>
+                <li>That, since the date of our Marriage we are living together as husband and wife and enjoying our conjugal life.</li>
+                <li>That, we have completed the age 18 years &amp; 21 years respectively at the time of our marriage.</li>
+                <li>That, we are not within the decree of prohibited relationship according to ${rel} Marriage Act.</li>
+            </ol>
+            <table style="width:100%;border-collapse:collapse;margin-top:26px;">
+                <tr><td style="width:62%;padding-bottom:16px;">Witness:-</td><td style="padding-bottom:16px;">Applicants Signature</td></tr>
+                <tr><td style="padding-bottom:16px;">1.</td><td></td></tr>
+                <tr><td style="padding-bottom:16px;">2.</td><td>1.</td></tr>
+                <tr><td style="padding-bottom:16px;">3.</td><td></td></tr>
+                <tr><td style="padding-bottom:16px;">4.</td><td></td></tr>
+                <tr><td style="padding-bottom:16px;">5.</td><td>2.</td></tr>
+            </table>`;
+
+        const aName = useBride ? bN : gN;
+        const aRel = useBride ? `D/o-${bF}, W/o-${gN}` : `S/o-${gF}`;
+        const aAd = useBride ? bAd : gAd;
+        const q = mPre(useBride ? 'b' : 'g');
+        const sdName = E(val(q + '_sd') || '[SUB-DIVISION]'), distName = E(val(q + '_dist'));
+        const sdm = `
+            <div style="text-align:left;line-height:1.6;">To<br>The Sub-Divisional Magistrate<br>${sdName}, ${distName} Tripura</div>
+            <div style="text-align:left;margin:22px 0 18px;">Subject: Declaration by the applicant.</div>
+            <div style="text-align:left;">Sir,</div>
+            <div style="text-align:justify;text-indent:40px;line-height:1.8;margin-bottom:22px;">I, <b>${aName}</b>, ${aRel}, residence of ${aAd}, hereby declare that I have submitted all relevant documents in my application for Marriage Certificate of my name <b>${aName}</b> and I was married on <b>${date}</b> A/D the best of my knowledge.</div>
+            <div style="text-align:justify;text-indent:40px;line-height:1.8;">I also declare that if it is found during my future enquiry that any discrepancy occurred due to my fault, I will be totally responsible for such a mistake and will be liable for any punishment permitted by law.</div>
+            <div style="text-align:right;margin-top:90px;">Signature of the applicant</div>`;
+
+        const pages = [];
+        for (let i = 0; i < copies; i++) pages.push(cert);
+        pages.push(decl, sdm);
+        document.getElementById('outputM').innerHTML = pages.map((p, i) =>
+            `<div class="page"${i < pages.length - 1 ? ' style="page-break-after:always"' : ''}>${p}</div>`).join('');
+
+        const ok = missingFields().length === 0;
+        document.getElementById('actionButtons').style.display = ok ? 'flex' : 'none';
+        document.getElementById('warningMsg').style.display = ok ? 'none' : 'block';
+    }
+
+    function saveMarriage(){
+        const subject = `${val('gName')} & ${val('bName')} (Marriage)`;
+        const history = JSON.parse(localStorage.getItem('marriageHistory')) || [];
+        history.unshift({ name: subject, rawName: val('gName'), date: new Date().toLocaleString('en-IN'), ts: Date.now(), content: document.getElementById('outputM').innerHTML });
+        localStorage.setItem('marriageHistory', JSON.stringify(history));
+        alert("আপনার কাজ সফলভাবে রেকর্ড খাতায় সেভ হয়েছে!");
+        document.querySelectorAll('#marriageForm input[type="text"], #marriageForm input[type="number"]').forEach(i => i.value = '');
+        ['mDay','mMonth','mYear'].forEach(id => document.getElementById(id).value = '');
+        document.getElementById("importBox").value = "";
+        checkProf('g'); checkProf('b'); checkMReligion();
+        renderHistory(); generateMarriage();
+    }
+
+    // ================= Import (auto-detects type) =================
+    function importCustomerData() {
+        const text = document.getElementById("importBox").value;
+        const match = text.match(/CODE:\[(.*?)\]/);
+        if (!(match && match[1])) { alert("হোয়াটসঅ্যাপ মেসেজ থেকে সঠিক ম্যাজিক কোড পাওয়া যায়নি!"); return; }
+        try {
+            const data = JSON.parse(decodeURIComponent(atob(match[1])));
+            if (data.docKind === 'marriage') {
+                document.getElementById('docMode').value = 'marriage';
+                for (const key in data) {
+                    const el = document.getElementById(key);
+                    if (el) el.value = data[key];
+                }
+                toggleMPlace(); checkProf('g'); checkProf('b'); checkMReligion();
+            } else {
+                document.getElementById('docMode').value = 'affidavit';
+                for (const key in data) {
+                    if (document.getElementById(key)) document.getElementById(key).value = data[key];
+                }
+                if (!data.affidavitType) { document.getElementById("affidavitType").value = "Birth"; }
+                toggleAffidavitType(); checkProfession(); updateAuthLevel2(); updateSpouseRequirement();
+            }
+            setMode();
+            document.getElementById("importBox").value = "";
+            alert("ম্যাজিক! কাস্টমারের সব ডেটা ফর্মের ভেতর বসে গেছে।");
+        } catch (e) {
+            alert("ডেটা ইমপোর্ট করতে সমস্যা হয়েছে।");
+        }
+    }
+
+    // ================= History (shared table) =================
     function renderHistory() {
-        const history = JSON.parse(localStorage.getItem('affidavitHistory')) || [];
+        const aff = (JSON.parse(localStorage.getItem('affidavitHistory')) || []).map((r, i) => ({ k: 'a', i, r }));
+        const mar = (JSON.parse(localStorage.getItem('marriageHistory')) || []).map((r, i) => ({ k: 'm', i, r }));
+        const all = aff.concat(mar).sort((x, y) => (y.r.ts || 0) - (x.r.ts || 0));
         const tbody = document.getElementById("historyTableBody");
         tbody.innerHTML = "";
-        if (history.length === 0) { tbody.innerHTML = "<tr><td colspan='3' style='text-align:center; color:#888;'>এখনও কোনো রেকর্ড সেভ করা হয়নি।</td></tr>"; return; }
-
-        history.forEach((record, index) => {
+        if (!all.length) { tbody.innerHTML = "<tr><td colspan='3' style='text-align:center; color:#888;'>এখনও কোনো রেকর্ড সেভ করা হয়নি।</td></tr>"; return; }
+        all.forEach(({ k, i, r }) => {
             tbody.innerHTML += `
                 <tr>
-                    <td>${record.date}</td>
-                    <td><b>${record.name}</b></td>
+                    <td>${esc(r.date)}</td>
+                    <td><span class="kind-badge ${k === 'm' ? 'm' : ''}">${k === 'm' ? 'Marriage' : 'Affidavit'}</span><b>${esc(r.name)}</b></td>
                     <td>
-                        <button class="btn-print btn-sm" onclick="printHistory(${index})">🖨️ Print / PDF</button>
-                        <button class="btn-word btn-sm" onclick="downloadHistoryWord(${index})">📄 Word</button>
-                        <button class="btn-sm" style="background:#dc3545; color:white;" onclick="deleteHistory(${index})">🗑️ Delete</button>
+                        <button class="btn-print btn-sm" onclick="printHistory('${k}',${i})">🖨️ Print / PDF</button>
+                        <button class="btn-word btn-sm" onclick="downloadHistoryWord('${k}',${i})">📄 Word</button>
+                        <button class="btn-sm" style="background:#dc3545; color:white;" onclick="deleteHistory('${k}',${i})">🗑️ Delete</button>
                     </td>
-                </tr>
-            `;
+                </tr>`;
         });
     }
+    const hKey = k => k === 'm' ? 'marriageHistory' : 'affidavitHistory';
+    function getRec(k, i){ return (JSON.parse(localStorage.getItem(hKey(k))) || [])[i]; }
 
-    function printHistory(index) {
-        const history = JSON.parse(localStorage.getItem('affidavitHistory')) || [];
-        const record = history[index];
-        if(record) {
-            const outputBox = document.getElementById("output");
-            const originalContent = outputBox.innerHTML; 
-            outputBox.innerHTML = record.content;
-            setTimeout(() => {
-                window.print();
-                outputBox.innerHTML = originalContent;
-            }, 100);
-        }
+    function printHistory(k, i) {
+        const r = getRec(k, i);
+        if (!r) return;
+        const box = document.getElementById(k === 'm' ? 'outputM' : 'output');
+        const other = document.getElementById(k === 'm' ? 'output' : 'outputM');
+        const orig = box.innerHTML, boxHidden = box.classList.contains('hidden'), otherHidden = other.classList.contains('hidden');
+        box.classList.remove('hidden'); other.classList.add('hidden');
+        box.innerHTML = r.content;
+        setTimeout(() => {
+            window.print();
+            box.innerHTML = orig;
+            box.classList.toggle('hidden', boxHidden);
+            other.classList.toggle('hidden', otherHidden);
+        }, 100);
     }
-
-    function deleteHistory(index) {
-        if(confirm("আপনি কি নিশ্চিত যে এই ক্লায়েন্টের রেকর্ডটি মুছে ফেলতে চান?")) {
-            let history = JSON.parse(localStorage.getItem('affidavitHistory')) || [];
-            history.splice(index, 1);
-            localStorage.setItem('affidavitHistory', JSON.stringify(history));
-            renderHistory();
-        }
+    function deleteHistory(k, i) {
+        if (!confirm("আপনি কি নিশ্চিত যে এই ক্লায়েন্টের রেকর্ডটি মুছে ফেলতে চান?")) return;
+        const h = JSON.parse(localStorage.getItem(hKey(k))) || [];
+        h.splice(i, 1);
+        localStorage.setItem(hKey(k), JSON.stringify(h));
+        renderHistory();
     }
-
-    function downloadHistoryWord(index) {
-        const history = JSON.parse(localStorage.getItem('affidavitHistory')) || [];
-        const record = history[index];
-        if(record) {
-            exportHTMLToWord(record.content, record.rawName.replace(/\s+/g, '_') + '_Affidavit');
-        }
+    function downloadHistoryWord(k, i) {
+        const r = getRec(k, i);
+        if (r) exportHTMLToWord(r.content, (r.rawName || 'Document').replace(/\s+/g, '_') + (k === 'm' ? '_Marriage' : '_Affidavit'));
     }
-
     function downloadCurrentWord() {
-        const nameVal = document.getElementById("name").value.trim();
-        const filename = (nameVal ? nameVal.replace(/\s+/g, '_') + '_Affidavit' : 'Notary_Affidavit');
-        exportHTMLToWord(document.getElementById("output").innerHTML, filename);
+        if (curMode() === 'marriage') {
+            const n = val('gName');
+            exportHTMLToWord(document.getElementById('outputM').innerHTML, (n ? n.replace(/\s+/g, '_') + '_Marriage' : 'Marriage_Declaration'));
+        } else {
+            const n = val('name');
+            exportHTMLToWord(document.getElementById('output').innerHTML, (n ? n.replace(/\s+/g, '_') + '_Affidavit' : 'Notary_Affidavit'));
+        }
     }
-
     function exportHTMLToWord(htmlContent, filename) {
-        const preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Affidavit</title><!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]--><style>@page Section1{size:21cm 29.7cm;margin:5cm 1.27cm 1.27cm 3cm;mso-page-orientation:portrait;} div.Section1{page:Section1;} body{font-family:'Bookman Old Style',serif;font-size:11pt;line-height:1.5;}</style></head><body><div class='Section1'>";
-        const postHtml = "</div></body></html>";
-        const html = preHtml + htmlContent + postHtml;
-
+        const preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Document</title><"+"!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]--><style>@page Section1{size:21cm 29.7cm;margin:5cm 1.27cm 1.27cm 3cm;mso-page-orientation:portrait;} div.Section1{page:Section1;} body{font-family:'Bookman Old Style',serif;font-size:11pt;line-height:1.5;}</style></head><body><div class='Section1'>";
+        const html = preHtml + htmlContent + "</div></body></html>";
         const blob = new Blob(['\ufeff', html], { type: 'application/msword' });
         const url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
         filename = filename + '.doc';
-        
-        const downloadLink = document.createElement("a");
-        document.body.appendChild(downloadLink);
-        
-        if (navigator.msSaveOrOpenBlob) { navigator.msSaveOrOpenBlob(blob, filename); } 
-        else { downloadLink.href = url; downloadLink.download = filename; downloadLink.click(); }
-        document.body.removeChild(downloadLink);
+        const a = document.createElement('a'); document.body.appendChild(a);
+        if (navigator.msSaveOrOpenBlob) navigator.msSaveOrOpenBlob(blob, filename); else { a.href = url; a.download = filename; a.click(); }
+        document.body.removeChild(a);
     }
 </script>
-
 </body>
 </html>

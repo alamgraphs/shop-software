@@ -89,10 +89,10 @@
         <div class="form-group type-selector">
             <label style="color: #856404; font-size: 15px;">Affidavit Type <span style="color:red;">*</span></label>
             <select id="affidavitType" onchange="toggleAffidavitType()" style="font-weight: bold; color: #856404; border-color: #ffc107; padding: 12px;">
-                <option value="Birth">1. Delayed Birth Certificate</option>
+                <option value="Birth">1. Delayed Birth Certificate (জন্ম)</option>
                 <option value="DigiBirthSelf">2. Digital Birth Certificate (Self)</option>
                 <option value="DigiBirthParents">3. Digital Birth Certificate (Parents)</option>
-                <option value="Death">4. Delayed Death Certificate</option>
+                <option value="Death">4. Delayed Death Certificate (মৃত্যু)</option>
                 <option value="NonStudyBen">5. Non-Study Affidavit (Bengali)</option>
                 <option value="NonStudyEng">6. Non-Study Affidavit (English)</option>
                 <option value="NonStudyThumb">7. Non-Study Affidavit (Thumb)</option>
@@ -557,12 +557,12 @@
         } else if (type === "OBCSelf" || type === "OBCNCLSelf") {
             document.getElementById("obcSection").style.display = "block";
             dobWrapper.style.display = "none";
-            ageInput.readOnly = false; ageInput.style.backgroundColor = "#fff"; ageInput.placeholder = "বয়স লিখুন (e.g. 23)";
+            ageInput.readOnly = false; ageInput.style.backgroundColor = "#fff"; ageInput.placeholder = "Age (e.g. 23)";
         } else if (type === "OBCParents" || type === "OBCNCLParents") {
             document.getElementById("childSection").style.display = "block";
             document.getElementById("obcSection").style.display = "block";
             dobWrapper.style.display = "none";
-            ageInput.readOnly = false; ageInput.style.backgroundColor = "#fff"; ageInput.placeholder = "বয়স লিখুন (e.g. 39)";
+            ageInput.readOnly = false; ageInput.style.backgroundColor = "#fff"; ageInput.placeholder = "Age (e.g. 39)";
         } else {
             // Non-Study
             dobWrapper.style.display = "block";
@@ -606,7 +606,7 @@
             document.getElementById("fatherName").placeholder = "বাবার নাম (ঐচ্ছিক)";
         } else {
             spouseLabel.innerHTML = 'Spouse Name (Optional)';
-            spouseInput.placeholder = "স্ত্রী'র নাম (ঐচ্ছিক)";
+            spouseInput.placeholder = "Spouse Name";
             fatherLabel.innerHTML = 'Father\'s Name <span style="color:red;">*</span>';
             document.getElementById("fatherName").placeholder = "বাবার নাম (বাধ্যতামূলক)";
         }
@@ -801,7 +801,7 @@
                     affidavitBody = `
                         <ol style="text-align: justify;">
                             <li>That I was born on <b>${dob}</b> at my parents’ residence located at ${b_vill}, P.O. ${b_po}, P.S. ${b_ps}, Dist. ${b_dist}, Tripura, Pin-${b_pin}.</li>
-                            <li>That my parents could not get my name and date of birth entered in the Birth Register of the <b>${auth1_name} ${auth1_type}</b> under <b>${auth2_name} ${auth2_type}</b> in due time due to inadvertence and oversight.</li>
+                            <li>That my parents could not get my name and date of birth entered in the Birth Register of <b>${auth1_name} ${auth1_type}</b> under <b>${auth2_name} ${auth2_type}</b> in due time due to inadvertence and oversight.</li>
                             <li>That I am swearing this affidavit for the explicit purpose of obtaining my delayed Birth Certificate from the competent authority based on this declaration.</li>
                         </ol>
                     `;
@@ -835,7 +835,7 @@
                     const hName = document.getElementById("hospitalName").value.trim() || "[HOSPITAL NAME]";
                     pobString = `at <b>${hName}</b>`;
                 } else {
-                    pobString = `at ${b_vill}, P.O. ${b_po}, P.S. ${b_ps}, Dist. ${b_dist}, Tripura, Pin-${b_pin} under <b>${auth1_name} ${auth1_type}</b>, <b>${auth2_name} ${auth2_type}</b>`;
+                    pobString = `at my permanent residence under <b>${auth1_name} ${auth1_type}</b>, <b>${auth2_name} ${auth2_type}</b>`;
                 }
 
                 if (affidavitType === "DigiBirthSelf") {

@@ -218,6 +218,8 @@
                     <option value="daughter">Daughter (মেয়ে)</option>
                     <option value="brother">Brother (ভাই)</option>
                     <option value="sister">Sister (বোন)</option>
+                    <option value="grandfather">Grandfather (দাদু/ঠাকুরদা)</option>
+                    <option value="grandmother">Grandmother (ঠাকুমা/দিদা)</option>
                 </select>
             </div>
             <div>
@@ -268,7 +270,7 @@
         <div class="grid-2 form-group">
             <div>
                 <label>Annual Family Income (Rs.) <span style="color:red;">*</span></label>
-                <input type="number" id="obcIncomeNum" placeholder="e.g. 108000">
+                <input type="number" id="obcIncomeNum" placeholder="e.g. 108000" oninput="convertNumberToWords()">
             </div>
             <div>
                 <label>Income in Words <span style="color:red;">*</span></label>
@@ -425,6 +427,7 @@
         const type = document.getElementById("affidavitType").value;
         const appType = document.getElementById("appType").value;
         
+        // Hide all initially
         document.getElementById("birthAppTypeSection").style.display = "none";
         document.getElementById("birthAddressFieldset").style.display = "none";
         document.getElementById("birthAddressWrapper").style.display = "none";
@@ -526,6 +529,29 @@
             fatherLabel.innerHTML = 'Father\'s Name <span style="color:red;">*</span>';
             document.getElementById("fatherName").placeholder = "বাবার নাম (বাধ্যতামূলক)";
         }
+    }
+
+    // Number to Words Converter Function
+    const numToWordsMap = { 0: 'Zero', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine', 10: 'Ten', 11: 'Eleven', 12: 'Twelve', 13: 'Thirteen', 14: 'Fourteen', 15: 'Fifteen', 16: 'Sixteen', 17: 'Seventeen', 18: 'Eighteen', 19: 'Nineteen', 20: 'Twenty', 30: 'Thirty', 40: 'Forty', 50: 'Fifty', 60: 'Sixty', 70: 'Seventy', 80: 'Eighty', 90: 'Ninety' };
+
+    function numberToWords(num) {
+        if (num === 0) return 'Zero';
+        if (num < 20) return numToWordsMap[num];
+        if (num < 100) return numToWordsMap[Math.floor(num / 10) * 10] + (num % 10 !== 0 ? '-' + numToWordsMap[num % 10] : '');
+        if (num < 1000) return numToWordsMap[Math.floor(num / 100)] + ' Hundred' + (num % 100 !== 0 ? ' ' + numberToWords(num % 100) : '');
+        if (num < 100000) return numberToWords(Math.floor(num / 1000)) + ' Thousand' + (num % 1000 !== 0 ? ' ' + numberToWords(num % 1000) : '');
+        if (num < 10000000) return numberToWords(Math.floor(num / 100000)) + ' Lakh' + (num % 100000 !== 0 ? ' ' + numberToWords(num % 100000) : '');
+        return numberToWords(Math.floor(num / 10000000)) + ' Crore' + (num % 10000000 !== 0 ? ' ' + numberToWords(num % 10000000) : '');
+    }
+
+    function convertNumberToWords() {
+        let numStr = document.getElementById("obcIncomeNum").value;
+        if (!numStr || isNaN(numStr)) {
+            document.getElementById("obcIncomeWords").value = "";
+            return;
+        }
+        let wordStr = numberToWords(parseInt(numStr));
+        document.getElementById("obcIncomeWords").value = wordStr;
     }
 
     function calculateAge() {
@@ -667,8 +693,8 @@
 
         } else if (affidavitType.includes("OBC")) {
             obcCommunity = document.getElementById("obcCommunity").value.trim();
-            const obcIncomeNum = document.getElementById("obcIncomeNum").value.trim();
-            const obcIncomeWords = document.getElementById("obcIncomeWords").value.trim();
+            obcIncomeNum = document.getElementById("obcIncomeNum").value.trim();
+            obcIncomeWords = document.getElementById("obcIncomeWords").value.trim();
             if(!obcCommunity || !obcIncomeNum || !obcIncomeWords){ alert("OBC এর সাব-কাস্ট এবং ইনকাম লিখুন।"); return null; }
             
             if (affidavitType.includes("Parents")) {
@@ -705,8 +731,6 @@
             if(affidavitType.includes("Parents")){
                 formattedText += `*-- Child Details --*\n*Name:* ${childName}\n*Gender:* ${childGender}\n\n`;
             }
-            const obcIncomeNum = document.getElementById("obcIncomeNum").value.trim();
-            const obcIncomeWords = document.getElementById("obcIncomeWords").value.trim();
             formattedText += `*-- OBC Details --*\n*Community:* ${obcCommunity}\n*Income:* Rs. ${obcIncomeNum} (${obcIncomeWords})\n\n`;
         } else if (affidavitType === "Birth" && appType === "Child" || affidavitType === "DigiBirthParents") {
             formattedText += `*-- Child Details --*\n*Name:* ${childName}\n*Gender:* ${childGender}\n*DOB:* ${c_dobDay}/${c_dobMonth}/${c_dobYear}\n\n`;

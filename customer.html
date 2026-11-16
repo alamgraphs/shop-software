@@ -5,75 +5,82 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Customer Form - AYAT GRAPHICS ZONE</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap');
 :root{
-  --teal:#0f766e;--teal-d:#0a4f4a;--teal-l:#d9f0ec;--teal-xl:#eef8f6;
-  --amber:#d9822b;--amber-l:#fcefd9;
-  --ink:#16302d;--ink2:#41605c;--muted:#7a8f8b;
-  --line:#e3ddcf;--field:#fcfbf8;--paper:#f3efe6;--card:#fff;
-  --danger:#c8423f;--ok:#17a063;
-  --radius:16px;
-  --shadow:0 1px 2px rgba(22,48,45,.06),0 10px 30px -8px rgba(22,48,45,.18);
+  --navy:#0b1f3a;--navy2:#143663;--navy3:#1d4a85;--navy-xl:#eef2fa;
+  --gold:#c9a24b;--gold-d:#9a762a;--gold-l:#f8f0d9;--gold-xl:#fcf8ec;
+  --ink:#14213a;--ink2:#46526b;--muted:#8791a5;
+  --line:#e2e5ec;--field:#fff;--bg:#eceff6;--card:#fff;
+  --danger:#c93a45;--ok:#1b8a5a;
+  --shadow:0 2px 4px rgba(11,31,58,.05),0 18px 40px -14px rgba(11,31,58,.28);
 }
 *{box-sizing:border-box}
-body{font-family:'Plus Jakarta Sans','Hind Siliguri','Noto Sans Bengali','Segoe UI',Arial,sans-serif;color:var(--ink);margin:0;-webkit-font-smoothing:antialiased;line-height:1.45}
+body{font-family:'Manrope','Hind Siliguri','Noto Sans Bengali','Segoe UI',Arial,sans-serif;color:var(--ink);margin:0;-webkit-font-smoothing:antialiased;line-height:1.45}
 .hidden{display:none !important}
 button{font-family:inherit}
 
-/* ---- form controls ---- */
-label{display:block;font-weight:600;margin-bottom:6px;font-size:13px;color:var(--ink2);letter-spacing:.1px}
+label{display:block;font-weight:700;margin-bottom:7px;font-size:12.5px;color:var(--ink2);letter-spacing:.2px}
 label span{color:var(--danger)}
-input[type="text"],input[type="number"],input[type="password"],select,textarea{width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:12px;font-size:14.5px;font-family:inherit;color:var(--ink);background-color:var(--field);transition:border-color .18s,box-shadow .18s,background-color .18s;outline:none}
-input::placeholder,textarea::placeholder{color:#a9b5b2}
-input:hover,select:hover,textarea:hover{border-color:#cfc7b4}
-input:focus,select:focus,textarea:focus{border-color:var(--teal);background-color:#fff;box-shadow:0 0 0 4px rgba(15,118,110,.14)}
-input[readonly]{color:var(--muted);cursor:not-allowed;background-color:#efece4 !important}
-select{appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:34px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%230f766e'><path d='M5 7l5 6 5-6z'/></svg>");background-repeat:no-repeat;background-position:right 12px center;background-size:14px}
+input[type="text"],input[type="number"],input[type="password"],select,textarea{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font-size:14.5px;font-family:inherit;font-weight:500;color:var(--ink);background-color:var(--field);transition:border-color .18s,box-shadow .18s;outline:none;box-shadow:0 1px 2px rgba(11,31,58,.04)}
+input::placeholder,textarea::placeholder{color:#a8b0c1;font-weight:400}
+input:hover,select:hover,textarea:hover{border-color:#c5cbd9}
+input:focus,select:focus,textarea:focus{border-color:var(--navy3);box-shadow:0 0 0 4px rgba(29,74,133,.14)}
+input[readonly]{color:var(--muted);cursor:not-allowed;background-color:#f1f3f8 !important}
+select{appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:36px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%239a762a'><path d='M5 7l5 6 5-6z'/></svg>");background-repeat:no-repeat;background-position:right 13px center;background-size:14px}
 div[style*="display: flex"] select{padding-left:9px;padding-right:22px;background-position:right 6px center;background-size:11px}
 .form-group{margin-bottom:16px}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-fieldset{border:1px solid var(--line);border-radius:18px;padding:20px 16px 8px;margin:0 0 18px;background:#fff;min-width:0;box-shadow:0 1px 0 rgba(22,48,45,.03)}
+fieldset{border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:6px 6px 16px 16px;padding:22px 16px 8px;margin:0 0 20px;background:#fff;min-width:0;box-shadow:0 6px 18px -12px rgba(11,31,58,.25)}
 fieldset .grid-2{padding-bottom:10px}
-legend{font-weight:700;font-size:12.5px;padding:5px 14px;color:var(--teal-d) !important;background:var(--teal-l);border-radius:999px;letter-spacing:.2px}
-#childSection{background:#f1faf4;border-color:#c5e6d1}
-#obcSection{background:#f4f3fc;border-color:#d3d0f0}
-#deathSection{background:#fdf6ea;border-color:#f0dcb5}
-#digitalBirthSection{background:#eff7fb;border-color:#c4dfec}
-.type-selector{background:var(--amber-l) !important;border:1px solid #f1d6a8 !important;border-left:5px solid var(--amber) !important;border-radius:14px !important;padding:16px !important;margin-bottom:20px}
-.type-selector label{color:#7a4a0f !important;font-size:13.5px !important}
-.type-selector select{font-weight:700 !important;color:#7a4a0f !important;border-color:#eccb93 !important;padding:12px 34px 12px 13px !important;background-color:#fff !important}
-#birthAppTypeSection{background:#e5f6ec !important;border-color:#b6e0c7 !important;border-left-color:var(--ok) !important}
-#birthAppTypeSection label{color:#0f5d38 !important}
-#birthAppTypeSection select{color:#0f5d38 !important;border-color:#9fd3b6 !important}
-.mode-selector{background:linear-gradient(135deg,var(--teal) 0%,#13938a 100%) !important;border:0 !important;border-radius:16px !important;box-shadow:0 10px 24px -10px rgba(15,118,110,.7)}
-.mode-selector label{color:#d9f0ec !important}
-.mode-selector select{color:var(--teal-d) !important;border-color:transparent !important;background-color:#fff !important}
-.checkbox-group{align-items:center;gap:12px;margin:0 0 14px;padding:12px 14px;background:var(--teal-xl);border:1.5px dashed #9ccfc8;border-radius:14px}
-.checkbox-group input{width:19px;height:19px;accent-color:var(--teal);flex:none}
-.checkbox-group label{margin:0;font-size:14px;color:var(--teal-d)}
-.section-title{display:flex;align-items:baseline;gap:8px;margin:28px 0 14px;padding:2px 0 2px 12px;border:0;border-left:4px solid var(--amber);font-size:16px;font-weight:700;color:var(--ink)}
-.section-title small{font-size:12px;font-weight:500;color:var(--muted)}
+legend{font-weight:800;font-size:12px;padding:6px 16px;color:var(--gold-l) !important;background:var(--navy);border-radius:999px;letter-spacing:.5px}
+#childSection{background:#f3f9f6;border-color:#cfe6da;border-top-color:var(--ok)}
+#obcSection{background:#f4f5fc;border-color:#d6d9f0;border-top-color:#5b64c4}
+#deathSection{background:#faf5f1;border-color:#ead9cb;border-top-color:#b0703c}
+#digitalBirthSection{background:#f1f7fc;border-color:#cde0ef;border-top-color:var(--navy3)}
+.type-selector{background:var(--gold-xl) !important;border:1px solid #eadcb4 !important;border-left:6px solid var(--gold) !important;border-radius:12px !important;padding:16px !important;margin-bottom:20px}
+.type-selector label{color:var(--gold-d) !important;font-size:13px !important}
+.type-selector select{font-weight:700 !important;color:var(--navy) !important;border-color:#e3d29c !important;padding:12px 36px 12px 14px !important}
+#birthAppTypeSection{background:var(--navy-xl) !important;border-color:#cdd7ea !important;border-left-color:var(--navy3) !important}
+#birthAppTypeSection label{color:var(--navy3) !important}
+#birthAppTypeSection select{color:var(--navy) !important;border-color:#bccae4 !important}
+.mode-selector{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%) !important;border:0 !important;border-left:6px solid var(--gold) !important;border-radius:12px !important;box-shadow:0 14px 28px -12px rgba(11,31,58,.7)}
+.mode-selector label{color:var(--gold) !important;letter-spacing:.5px}
+.mode-selector select{color:var(--navy) !important;border-color:transparent !important;background-color:#fff !important}
+.checkbox-group{align-items:center;gap:12px;margin:0 0 14px;padding:12px 14px;background:var(--gold-xl);border:1.5px dashed #dcc788;border-radius:12px}
+.checkbox-group input{width:19px;height:19px;accent-color:var(--navy2);flex:none}
+.checkbox-group label{margin:0;font-size:14px;color:var(--gold-d)}
+.section-title{counter-increment:sec;display:flex;align-items:center;gap:10px;margin:30px 0 16px;padding:0 0 10px;border:0;border-bottom:1.5px solid var(--line);font-size:16px;font-weight:800;color:var(--navy);position:relative}
+.section-title::before{content:counter(sec);flex:none;width:28px;height:28px;border-radius:50%;background:var(--navy);color:var(--gold);font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 3px var(--gold-l)}
+.section-title::after{content:"";position:absolute;left:0;bottom:-1.5px;width:64px;height:3px;background:var(--gold);border-radius:3px}
+.section-title small{font-size:12px;font-weight:600;color:var(--muted)}
+.form-panel,.container{counter-reset:sec}
 @media screen and (max-width:640px){.grid-2{grid-template-columns:1fr;gap:14px}}
 
-body{background:var(--paper);background-image:radial-gradient(#dcd5c4 1px,transparent 1px);background-size:22px 22px;padding:22px 12px 56px;min-height:100vh}
-.container{max-width:680px;margin:auto;background:var(--card);border-radius:26px;box-shadow:var(--shadow);padding:0 26px 30px;overflow:hidden;animation:rise .5s ease both}
-.brand-header{margin:0 -26px 26px;padding:34px 24px 30px;text-align:center;color:#fff;background:linear-gradient(150deg,var(--teal-d) 0%,var(--teal) 60%,#1a9d92 100%);position:relative;overflow:hidden}
-.brand-header::before{content:"";position:absolute;width:260px;height:260px;border-radius:50%;right:-80px;top:-110px;background:rgba(255,255,255,.08)}
-.brand-header::after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;left:-60px;bottom:-100px;background:rgba(217,130,43,.35)}
+body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg) 260px);padding:26px 12px 56px;min-height:100vh}
+.container{max-width:680px;margin:auto;background:var(--card);border-radius:22px;box-shadow:var(--shadow);padding:0 26px 30px;overflow:hidden;animation:rise .5s ease both}
+.brand-header{margin:0 -26px 28px;padding:38px 24px 34px;text-align:center;color:#fff;background:radial-gradient(500px 220px at 85% -20%,rgba(201,162,75,.35),transparent 70%),linear-gradient(160deg,var(--navy) 0%,var(--navy2) 100%);position:relative;border-bottom:4px solid var(--gold)}
+.brand-header::before{content:"";position:absolute;inset:12px;border:1px solid rgba(201,162,75,.45);border-radius:14px;pointer-events:none}
 .brand-header > *{position:relative;z-index:1}
-.brand-logo{width:60px;height:60px;margin:0 auto 14px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 8px 20px rgba(0,0,0,.2)}
-.brand-header h1{margin:0;font-family:'Fraunces',Georgia,serif;font-size:25px;letter-spacing:1px;font-weight:700}
-.brand-header .sub{margin:6px 0 16px;font-size:12px;opacity:.85;text-transform:uppercase;letter-spacing:3px;font-weight:600}
-.brand-badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);padding:7px 16px;border-radius:999px;font-size:13px;font-weight:600}
-.btn-whatsapp{background:linear-gradient(135deg,#25D366,#12a150);color:#fff;border:none;padding:16px 20px;border-radius:16px;cursor:pointer;font-size:16.5px;font-weight:800;width:100%;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 12px 24px -8px rgba(18,161,80,.6);transition:transform .15s,box-shadow .15s}
+.brand-logo{width:64px;height:64px;margin:0 auto 14px;border-radius:50%;background:linear-gradient(135deg,#e6c872,var(--gold));display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 0 0 5px rgba(201,162,75,.25),0 12px 24px rgba(0,0,0,.35)}
+.brand-header h1{margin:0;font-family:'Playfair Display',Georgia,serif;font-size:26px;letter-spacing:2px;font-weight:800;color:#fff}
+.brand-header .sub{margin:8px 0 16px;font-size:11.5px;color:var(--gold);text-transform:uppercase;letter-spacing:4px;font-weight:700}
+.brand-badge{display:inline-block;background:rgba(255,255,255,.1);border:1px solid rgba(201,162,75,.55);padding:7px 18px;border-radius:999px;font-size:13px;font-weight:600;color:#f3e6bd}
+.btn-whatsapp{background:linear-gradient(135deg,#27d367,#0f9d4c);color:#fff;border:none;padding:16px 20px;border-radius:14px;cursor:pointer;font-size:16.5px;font-weight:800;width:100%;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 14px 26px -10px rgba(15,157,76,.7);transition:transform .15s}
 .btn-whatsapp:hover{transform:translateY(-2px)}
 .btn-whatsapp:active{transform:translateY(0)}
-.btn-copy{background:#fff;color:var(--teal-d);border:1.5px solid var(--teal);padding:13px 20px;border-radius:16px;cursor:pointer;font-size:15px;font-weight:700;width:100%;margin-top:12px;transition:background .2s}
-.btn-copy:hover{background:var(--teal-xl)}
+.btn-copy{background:#fff;color:var(--navy);border:2px solid var(--navy);padding:13px 20px;border-radius:14px;cursor:pointer;font-size:15px;font-weight:800;width:100%;margin-top:12px;transition:background .2s,color .2s}
+.btn-copy:hover{background:var(--navy);color:var(--gold)}
 .send-hint{text-align:center;color:var(--muted);font-size:12.5px;margin:12px 0 0}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .btn-whatsapp,.btn-copy{position:sticky;bottom:10px}
 .container::after{content:"🔒 আপনার তথ্য শুধুমাত্র দোকানের WhatsApp-এ পাঠানো হবে";display:block;text-align:center;font-size:12px;color:var(--muted);margin-top:18px}
+
+.contact-card{text-align:center;margin-top:26px;padding:18px 16px;background:linear-gradient(160deg,var(--navy),var(--navy2));border-bottom:4px solid var(--gold);border-radius:14px;color:#fff}
+.contact-card .cc-name{font-family:'Playfair Display',Georgia,serif;font-size:19px;font-weight:800;letter-spacing:2px}
+.contact-card .cc-shop{font-size:11px;color:var(--gold);letter-spacing:3px;font-weight:700;margin:3px 0 12px}
+.contact-card .cc-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.contact-card a{color:#f3e6bd;text-decoration:none;font-size:13px;font-weight:600;padding:7px 14px;border:1px solid rgba(201,162,75,.55);border-radius:999px;transition:background .2s,color .2s}
+.contact-card a:hover{background:var(--gold);color:var(--navy)}
 </style>
 </head>
 <body>
@@ -522,6 +529,16 @@ body{background:var(--paper);background-image:radial-gradient(#dcd5c4 1px,transp
     <button class="btn-whatsapp" onclick="sendToWhatsApp()"><span>📲</span> Send Data via WhatsApp</button>
     <p class="send-hint">বাটনে ক্লিক করলে WhatsApp খুলবে — সেখান থেকে মেসেজটি পাঠিয়ে দিন।</p>
     <button class="btn-copy" onclick="copyData()">📋 Copy Details</button>
+
+    <div class="contact-card">
+        <div class="cc-name">ALAM HOSSAIN</div>
+        <div class="cc-shop">AYAT GRAPHICS ZONE</div>
+        <div class="cc-links">
+            <a href="tel:+919436925172">📞 +91 9436925172</a>
+            <a href="https://wa.me/919436925172" target="_blank" rel="noopener">💬 WhatsApp</a>
+            <a href="mailto:alamsnmcsc@gmail.com">✉️ alamsnmcsc@gmail.com</a>
+        </div>
+    </div>
 
 </div>
 

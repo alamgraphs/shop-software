@@ -66,6 +66,7 @@ button:hover{transform:translateY(-1px);filter:brightness(1.06)}
 .btn-word{background:linear-gradient(135deg,#2a8bd6,#1d6fb3);flex:1;min-width:150px;box-shadow:0 6px 14px rgba(42,139,214,.28)}
 .btn-record{background:linear-gradient(135deg,#7a4dff,#5b35e0);flex:1;min-width:150px;box-shadow:0 6px 14px rgba(109,74,255,.3)}
 .btn-sm{padding:7px 12px;font-size:12.5px;border-radius:9px;margin-right:5px;min-width:auto !important;flex:none !important;box-shadow:none !important}
+.btn-edit {background: linear-gradient(135deg, #f39c12, #e67e22); color: white;}
 #warningMsg{color:#a3262b;font-weight:600;font-size:14px;padding:12px 16px;border:1.5px dashed #ef8b90;border-radius:12px;background:#fff1f2}
 .output-panel{flex:1.5;display:flex;flex-direction:column;align-items:center;padding-bottom:20px;overflow-x:auto;width:100%}
 #output{width:21cm;min-height:29.7cm;background:white;box-shadow:0 12px 40px rgba(40,30,110,.22);padding:5cm 1.27cm 1.27cm 3cm;box-sizing:border-box;font-family:"Bookman Old Style",serif;font-size:11pt;line-height:1.5;color:#000;outline:none;position:relative;overflow:hidden;border-radius:4px}
@@ -181,16 +182,15 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
             <label>Affidavit Type <span style="color:red;">*</span></label>
             <select id="affidavitType" onchange="toggleAffidavitType()">
                 <option value="Birth">1. Delayed Birth Certificate (জন্ম)</option>
-                <option value="DigiBirthSelf">2. Digital Birth Certificate (Self)</option>
-                <option value="DigiBirthParents">3. Digital Birth Certificate (Parents)</option>
-                <option value="Death">4. Delayed Death Certificate (মৃত্যু)</option>
-                <option value="NonStudyBen">5. Non-Study Affidavit (Bengali)</option>
-                <option value="NonStudyEng">6. Non-Study Affidavit (English)</option>
-                <option value="NonStudyThumb">7. Non-Study Affidavit (Thumb)</option>
-                <option value="OBCSelf">8. Central OBC (Self)</option>
-                <option value="OBCParents">9. Central OBC (Parents)</option>
-                <option value="OBCNCLSelf">10. OBC Non-Creamy Layer (Self)</option>
-                <option value="OBCNCLParents">11. OBC Non-Creamy Layer (Parents)</option>
+                <option value="DigiBirth">2. Digital Birth Certificate (ডিজিটাল জন্ম)</option>
+                <option value="Death">3. Delayed Death Certificate (মৃত্যু)</option>
+                <option value="NonStudyBen">4. Non-Study Affidavit (Bengali)</option>
+                <option value="NonStudyEng">5. Non-Study Affidavit (English)</option>
+                <option value="NonStudyThumb">6. Non-Study Affidavit (Thumb)</option>
+                <option value="OBCSelf">7. Central OBC (Self)</option>
+                <option value="OBCParents">8. Central OBC (Parents)</option>
+                <option value="OBCNCLSelf">9. OBC Non-Creamy Layer (Self)</option>
+                <option value="OBCNCLParents">10. OBC Non-Creamy Layer (Parents)</option>
             </select>
         </div>
 
@@ -603,7 +603,7 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
                 প্রিন্ট বা রেকর্ড সেভ করার জন্য ফর্মের লাল তারা (*) দেওয়া সব বক্স পূরণ করুন।
             </div>
             <div class="action-buttons" id="actionButtons" style="display: none;">
-                <button class="btn-print" onclick="window.print()">🖨️ Print / PDF</button>
+                <button class="btn-print" onclick="printAndSave()">🖨️ Print / PDF</button>
                 <button class="btn-word" onclick="downloadCurrentWord()">📄 Word Download</button>
                 <button class="btn-record" onclick="saveCurrent()">💾 Save to Record</button>
             </div>
@@ -678,6 +678,11 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         refresh();
     }
     function refresh(){ if (curMode() === 'marriage') generateMarriage(); else generateDraft(); }
+    // Print / PDF: pehle record-e save, tarpor print (form clear hoy na, duplicate-o hoy na)
+    function printAndSave(){
+        try { if (curMode() === 'marriage') saveMarriage(true); else saveToHistory(true); } catch (e) { console.error(e); }
+        window.print();
+    }
     function saveCurrent(){ if (curMode() === 'marriage') saveMarriage(); else saveToHistory(); }
 
     window.onload = function() {
@@ -733,8 +738,9 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
 
         const dobWrapper = document.getElementById("dobWrapper");
         const ageInput = document.getElementById("age");
+        updateSpouseRequirement();
 
-        if (type === "Birth") {
+        if (type === "Birth" || type === "DigiBirth") {
             document.getElementById("birthAppTypeSection").style.display = "block";
             document.getElementById("birthAddressFieldset").style.display = "block";
             document.getElementById("birthAddressWrapper").style.display = "flex";
@@ -743,20 +749,10 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
                 document.getElementById("childSection").style.display = "block";
                 document.getElementById("childDobWrapper").style.display = "block";
             }
+            if (type === "DigiBirth") document.getElementById("digitalBirthSection").style.display = "block";
             dobWrapper.style.display = "block";
             ageInput.readOnly = true; ageInput.style.backgroundColor = "#e9ecef";
-        } else if (type === "DigiBirthSelf") {
-            document.getElementById("digitalBirthSection").style.display = "block";
-            dobWrapper.style.display = "block";
-            ageInput.readOnly = true; ageInput.style.backgroundColor = "#e9ecef";
-            togglePobType();
-        } else if (type === "DigiBirthParents") {
-            document.getElementById("childSection").style.display = "block";
-            document.getElementById("childDobWrapper").style.display = "block";
-            document.getElementById("digitalBirthSection").style.display = "block";
-            dobWrapper.style.display = "block";
-            ageInput.readOnly = true; ageInput.style.backgroundColor = "#e9ecef";
-            togglePobType();
+            if (type === "DigiBirth") togglePobType();
         } else if (type === "Death") {
             document.getElementById("deathSection").style.display = "block";
             document.getElementById("deathAddressFieldset").style.display = "block";
@@ -802,23 +798,26 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         generateDraft();
     }
 
+
+    function isBirthSelf(){ const t = document.getElementById("affidavitType").value; return (t === "Birth" || t === "DigiBirth") && document.getElementById("appType").value === "Self"; }
+    function isBirthChild(){ const t = document.getElementById("affidavitType").value; return (t === "Birth" || t === "DigiBirth") && document.getElementById("appType").value === "Child"; }
+    function spouseRequired(){
+        if (isBirthChild()) return true;
+        if (isBirthSelf()) return false;
+        return document.getElementById("gender").value === "Female";
+    }
+    function fatherRequired(){
+        if (isBirthSelf()) return true;
+        return document.getElementById("gender").value === "Male" && true;
+    }
     function updateSpouseRequirement() {
         const gender = document.getElementById("gender").value;
-        const spouseLabel = document.getElementById("spouseLabel");
-        const spouseInput = document.getElementById("spouseName");
-        const fatherLabel = document.getElementById("fatherLabel");
-
-        if (gender === "Female") {
-            spouseLabel.innerHTML = 'Spouse Name (স্বামীর নাম) <span style="color:red;">*</span>';
-            spouseInput.placeholder = "অবশ্যই স্বামীর নাম লিখুন";
-            fatherLabel.innerHTML = 'Father\'s Name (Optional)';
-            document.getElementById("fatherName").placeholder = "বাবার নাম (ঐচ্ছিক)";
-        } else {
-            spouseLabel.innerHTML = 'Spouse Name (Optional)';
-            spouseInput.placeholder = "Spouse Name";
-            fatherLabel.innerHTML = 'Father\'s Name <span style="color:red;">*</span>';
-            document.getElementById("fatherName").placeholder = "বাবার নাম (বাধ্যতামূলক)";
-        }
+        const star = ' <span style="color:red;">*</span>';
+        const sp = spouseRequired(), fa = fatherRequired();
+        document.getElementById("spouseLabel").innerHTML = (gender === "Female" ? 'Spouse Name (স্বামীর নাম)' : 'Spouse Name (স্ত্রীর নাম)') + (sp ? star : ' (Optional)');
+        document.getElementById("spouseName").placeholder = sp ? (gender === "Female" ? "অবশ্যই স্বামীর নাম লিখুন" : "অবশ্যই স্ত্রীর নাম লিখুন") : "স্বামী/স্ত্রীর নাম (ঐচ্ছিক)";
+        document.getElementById("fatherLabel").innerHTML = "Father's Name" + (fa ? star : ' (Optional)');
+        document.getElementById("fatherName").placeholder = fa ? "বাবার নাম (বাধ্যতামূলক)" : "বাবার নাম (ঐচ্ছিক)";
         generateDraft();
     }
 
@@ -933,15 +932,26 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         const signYearVal = document.getElementById("signYear").value.trim();
         const signDate = `${signMonth}, ${signYearVal || "[YYYY]"}`;
 
+        const isBirthKind = affidavitType === "Birth" || affidavitType === "DigiBirth";
+        const kSelf = isBirthKind && appType === "Self";
+        const kChild = isBirthKind && appType === "Child";
         let relationPart = "";
-        if (gender === "Female") {
-            let s_name = spouseVal || "[HUSBAND NAME]";
-            relationPart = `W/o <b>${s_name}</b>`;
+        const parentsStr = (fatherVal && motherVal) ? `<b>${fatherVal}</b> & <b>${motherVal}</b>` : (fatherVal ? `<b>${fatherVal}</b>` : "[FATHER'S NAME]");
+        if (kSelf) {
+            // Formats: self applicant: self applicant
+            if (gender === "Female") {
+                relationPart = `D/o ${parentsStr}`;
+                if (spouseVal) relationPart += `, W/o <b>${spouseVal}</b>`;
+            } else {
+                relationPart = `S/o ${parentsStr}`;
+            }
+        } else if (kChild) {
+            // Formats: parent applying for child: parent applying for child
+            if (gender === "Female") relationPart = `W/o <b>${spouseVal || "[HUSBAND NAME]"}</b>`;
+            else relationPart = `S/o ${fatherVal ? `<b>${fatherVal}</b>` : "[FATHER'S NAME]"}`;
+        } else if (gender === "Female") {
+            relationPart = `W/o <b>${spouseVal || "[HUSBAND NAME]"}</b>`;
         } else {
-            let parentsStr = "";
-            if (fatherVal && motherVal) parentsStr = `<b>${fatherVal}</b> & <b>${motherVal}</b>`;
-            else if (fatherVal) parentsStr = `<b>${fatherVal}</b>`;
-            else parentsStr = "[FATHER'S NAME]";
             relationPart = `S/o ${parentsStr}`;
             if (spouseVal !== "") relationPart += `, H/o-<b>${spouseVal}</b>`;
         }
@@ -974,24 +984,26 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
                     `;
                 } else {
                     verifyNum = "3";
-                    const childTerm = childGender.toLowerCase();
-                    const childPronoun = childGender === "Son" ? "his" : "her";
-                    const relStr = childGender === "Son" ? "S/o" : "D/o";
-                    let c_parents = "";
-                    if (fatherVal && motherVal) c_parents = `<b>${fatherVal}</b> & <b>${motherVal}</b>`;
-                    else if (fatherVal) c_parents = `<b>${fatherVal}</b>`;
-                    else if (motherVal) c_parents = `<b>${motherVal}</b>`;
-                    else c_parents = `[PARENTS NAME]`;
+                    // Formats 4-7: father / mother applying for son / daughter
+                    const isSon = childGender === "Son";
+                    const childTerm = isSon ? "son" : "daughter";
+                    const childPoss = isSon ? "son's" : "daughter’s";
+                    const relStr = isSon ? "S/o" : "D/o";
+                    const spN = spouseVal || "[SPOUSE NAME]";
+                    const parentA = gender === "Female" ? spN : name;   // father
+                    const parentB = gender === "Female" ? name : spN;   // mother
+                    const c_parents = `<b>${parentA}</b> & <b>${parentB}</b>`;
 
                     affidavitBody = `
                         <ol style="text-align: justify;">
-                            <li>That my ${childTerm}, namely <b>${childName}</b> (${relStr} ${c_parents}), was born on <b>${childDob}</b> at my own residence located at ${b_vill}, P.O. ${b_po}, P.S. ${b_ps}, Dist. ${b_dist}, Tripura, Pin-${b_pin}.</li>
-                            <li>That I could not get ${childPronoun} name and Date of Birth entered in the Birth Register of the <b>${auth1_name} ${auth1_type}</b> under <b>${auth2_name} ${auth2_type}</b> in due time due to inadvertence and oversight.</li>
-                            <li>That I am swearing this affidavit for the explicit purpose of obtaining my ${childTerm}'s delayed Birth Certificate from the competent authority based on this declaration.</li>
+                            <li>That my ${childTerm}, namely <b>${childName}</b>, (${relStr} ${c_parents}) was born on <b>${childDob}</b> at our residence located at ${b_vill}, P.O. ${b_po}, P.S. ${b_ps}, Dist. ${b_dist}, Tripura, Pin-${b_pin}.</li>
+                            <li>That we could not get our ${childPoss} name and date of birth entered in the Birth Register of <b>${auth1_name} ${auth1_type}</b> under <b>${auth2_name} ${auth2_type}</b> in due time due to inadvertence and oversight.</li>
+                            <li>That I am swearing this affidavit for the explicit purpose of obtaining my ${childPoss} delayed Birth Certificate from the competent authority based on this declaration.</li>
                         </ol>
                     `;
                 }
             } else if (affidavitType.includes("DigiBirth")) {
+                // Digital Birth Certificate formats (self / parent for son or daughter, home or hospital birth)
                 verifyNum = "3";
                 const oldRegNo = document.getElementById("oldRegNo").value.trim() || "[REG NO]";
                 const rD = document.getElementById("regDay").value; const rM = document.getElementById("regMonth").value; const rY = document.getElementById("regYear").value;
@@ -1002,32 +1014,32 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
                     const hName = document.getElementById("hospitalName").value.trim() || "[HOSPITAL NAME]";
                     pobString = `at <b>${hName}</b>`;
                 } else {
-                    pobString = `at my permanent residence under <b>${auth1_name} ${auth1_type}</b>, <b>${auth2_name} ${auth2_type}</b>`;
+                    pobString = `at ${b_vill}, P.O. ${b_po}, P.S. ${b_ps}, Dist. ${b_dist}, Tripura, Pin-${b_pin} under <b>${auth1_name} ${auth1_type}</b>, <b>${auth2_name} ${auth2_type}</b>`;
                 }
 
-                if (affidavitType === "DigiBirthSelf") {
+                if (kSelf) {
                     affidavitBody = `
                         <ol style="text-align: justify;">
                             <li>That I was born on <b>${dob}</b> ${pobString}. Accordingly, a Birth Certificate bearing Registration No: <b>${oldRegNo}</b>, Date of Registration: <b>${regDate}</b>, was issued in my name.</li>
                             <li>That my existing Birth Certificate is a manually issued (offline) certificate, and I now require a Digitized (Online) Birth Certificate for all official purposes.</li>
-                            <li>That I am swearing this affidavit for the explicit purpose of legally obtaining my updated Digitized (Online) Birth Certificate from the competent registration authorities based on this declaration.</li>
+                            <li>That I am swearing this affidavit for the explicit purpose of obtaining my updated Digitized (Online) Birth Certificate from the competent registration authority based on this declaration.</li>
                         </ol>
                     `;
                 } else {
-                    const childTerm = childGender === "Son" ? "son" : "daughter";
-                    const childPronoun = childGender === "Son" ? "his" : "her";
-                    const relStr = childGender === "Son" ? "S/o" : "D/o";
-                    let c_parents = "";
-                    if (fatherVal && motherVal) c_parents = `<b>${fatherVal}</b> & <b>${motherVal}</b>`;
-                    else if (fatherVal) c_parents = `<b>${fatherVal}</b>`;
-                    else if (motherVal) c_parents = `<b>${motherVal}</b>`;
-                    else c_parents = `[PARENTS NAME]`;
+                    const isSon = childGender === "Son";
+                    const childTerm = isSon ? "son" : "daughter";
+                    const his = isSon ? "his" : "her";
+                    const relStr = isSon ? "S/o" : "D/o";
+                    const spN = spouseVal || "[SPOUSE NAME]";
+                    const parentA = gender === "Female" ? spN : name;   // father
+                    const parentB = gender === "Female" ? name : spN;   // mother
+                    const c_parents = `<b>${parentA}</b> & <b>${parentB}</b>`;
 
                     affidavitBody = `
                         <ol style="text-align: justify;">
-                            <li>That my ${childTerm}, namely <b>${childName}</b> (${relStr} ${c_parents}), was born on <b>${childDob}</b> ${pobString}. Accordingly, a Birth Certificate bearing Registration No: <b>${oldRegNo}</b>, Date of Registration: <b>${regDate}</b>, was issued in ${childPronoun} name.</li>
-                            <li>That my ${childTerm}'s existing Birth Certificate is a manually issued (offline) certificate, and I now require a Digitized (Online) Birth Certificate for all official purposes.</li>
-                            <li>That I am swearing this affidavit for the explicit purpose of legally obtaining my ${childTerm}'s updated Digitized (Online) Birth Certificate from the competent registration authorities based on this declaration.</li>
+                            <li>That my ${childTerm}, namely <b>${childName}</b>, (${relStr} ${c_parents}) was born on <b>${childDob}</b> ${pobString}. Accordingly, a Birth Certificate bearing Registration No: <b>${oldRegNo}</b>, Date of Registration: <b>${regDate}</b>, was issued in ${his} name.</li>
+                            <li>That ${his} existing Birth Certificate is a manually issued (offline) certificate, and I now require a Digitized (Online) Birth Certificate in ${his} name for all official purposes.</li>
+                            <li>That I am swearing this affidavit for the explicit purpose of obtaining my ${childTerm}'s updated Digitized (Online) Birth Certificate from the competent registration authority based on this declaration.</li>
                         </ol>
                     `;
                 }
@@ -1058,8 +1070,8 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
 
             affidavitBody = `
                 <ol style="text-align: justify;">
-                    <li>That my late ${rel}, namely <b>${decName}</b> (${gType} <b>${gName}</b>), died on <b>${dod}</b> at ${podPrefix} located at ${d_vill}, P.O. ${d_po}, P.S. ${d_ps}, Dist. ${d_dist}, Tripura, Pin-${d_pin}.</li>
-                    <li>That I could not get ${pronoun} name and date of death entered into the Death Register of the <b>${auth1_name} ${auth1_type}</b>, under <b>${auth2_name} ${auth2_type}</b> in due time, due to inadvertence and oversight.</li>
+                    <li>That my late ${rel}, namely <b>${decName}</b> (${gType} ${gName}), died on <b>${dod}</b> at ${podPrefix} located at ${d_vill}, P.O. ${d_po}, P.S. ${d_ps}, Dist. ${d_dist}, Tripura, Pin-${d_pin}.</li>
+                    <li>That I could not get ${pronoun} name and date of death entered into the Death Register of the ${auth1_name} ${auth1_type}, under ${auth2_name} ${auth2_type} in due time, due to inadvertence and oversight.</li>
                     <li>That I am swearing this affidavit for the explicit purpose of obtaining a delayed Death Certificate for my late ${rel} from the competent authority based on this declaration.</li>
                 </ol>
             `;
@@ -1180,8 +1192,8 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         let isValid = nameVal && ageRaw && (ageVal >= 18) && professionVal &&
                       p_villVal && p_poVal && p_psVal && p_pinVal && signYearVal;
 
-        if (gender === "Male" && !fatherVal) isValid = false;
-        if (gender === "Female" && !spouseVal) isValid = false;
+        if (fatherRequired() && !fatherVal) isValid = false;
+        if (spouseRequired() && !spouseVal) isValid = false;
 
         if (!affidavitType.includes("OBC")) {
             isValid = isValid && dDayVal && dMonthVal && dYearVal;
@@ -1199,7 +1211,7 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
                 isValid = isValid && b_villVal && b_poVal && b_psVal && b_pinVal && auth1Val && auth2Val;
             }
 
-            if (appType === "Child" || affidavitType === "DigiBirthParents") {
+            if (kChild) {
                 isValid = isValid && childNameVal && c_dDay && c_dMonth && c_dYear;
             }
             if (affidavitType.includes("DigiBirth")) {
@@ -1228,7 +1240,7 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         document.getElementById("warningMsg").style.display = isValid ? "none" : "block";
     }
 
-    function saveToHistory() {
+    function saveToHistory(keepForm) {
         const affidavitType = document.getElementById("affidavitType").value;
         const appType = document.getElementById("appType").value;
         const name = document.getElementById("name").value.trim();
@@ -1236,9 +1248,9 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         let subjectTitle = name;
         if (affidavitType === "Birth" && appType === "Child") {
             subjectTitle = `${document.getElementById("childName").value.trim()} (Child of ${name})`;
-        } else if (affidavitType === "DigiBirthParents") {
-            subjectTitle = `${document.getElementById("childName").value.trim()} (Digi Birth Parents: ${name})`;
-        } else if (affidavitType === "DigiBirthSelf") {
+        } else if (affidavitType === "DigiBirth" && appType === "Child") {
+            subjectTitle = `${document.getElementById("childName").value.trim()} (Digi Birth, Child of ${name})`;
+        } else if (affidavitType === "DigiBirth") {
             subjectTitle = `${name} (Digi Birth Self)`;
         } else if (affidavitType === "Death") {
             subjectTitle = `${document.getElementById("decName").value.trim()} (Death, Rep: ${name})`;
@@ -1253,8 +1265,30 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         const currentDateTime = new Date().toLocaleString('en-IN');
 
         let history = JSON.parse(localStorage.getItem('affidavitHistory')) || [];
-        history.unshift({ name: subjectTitle, rawName: name, date: currentDateTime, ts: Date.now(), content: contentHTML });
-        localStorage.setItem('affidavitHistory', JSON.stringify(history));
+        
+        const dataObj = {
+            affidavitType: affidavitType, appType: appType, pobType: document.getElementById("pobType").value, hospitalName: document.getElementById("hospitalName").value,
+            name: name, gender: document.getElementById("gender").value, age: document.getElementById("age").value, fatherName: document.getElementById("fatherName").value, motherName: document.getElementById("motherName").value, religion: document.getElementById("religion").value, spouseName: document.getElementById("spouseName").value,
+            professionSelect: document.getElementById("professionSelect").value, customProfession: document.getElementById("customProfession").value,
+            dobDay: document.getElementById("dobDay").value, dobMonth: document.getElementById("dobMonth").value, dobYear: document.getElementById("dobYear").value,
+            childName: document.getElementById("childName").value, childGender: document.getElementById("childGender").value, c_dobDay: document.getElementById("c_dobDay").value, c_dobMonth: document.getElementById("c_dobMonth").value, c_dobYear: document.getElementById("c_dobYear").value,
+            oldRegNo: document.getElementById("oldRegNo").value, regDay: document.getElementById("regDay").value, regMonth: document.getElementById("regMonth").value, regYear: document.getElementById("regYear").value,
+            obcCommunity: document.getElementById("obcCommunity").value, obcIncomeNum: document.getElementById("obcIncomeNum").value.trim(), obcIncomeWords: document.getElementById("obcIncomeWords").value.trim(),
+            decRelation: document.getElementById("decRelation").value, decName: document.getElementById("decName").value, decGuardianType: document.getElementById("decGuardianType").value, decGuardianName: document.getElementById("decGuardianName").value, dodDay: document.getElementById("dodDay").value, dodMonth: document.getElementById("dodMonth").value, dodYear: document.getElementById("dodYear").value, podPrefix: document.getElementById("podPrefix").value,
+            p_vill: document.getElementById("p_vill").value, p_po: document.getElementById("p_po").value, p_ps: document.getElementById("p_ps").value, p_dist: document.getElementById("p_dist").value, p_pin: document.getElementById("p_pin").value,
+            b_vill: document.getElementById("b_vill").value, b_po: document.getElementById("b_po").value, b_ps: document.getElementById("b_ps").value, b_dist: document.getElementById("b_dist").value, b_pin: document.getElementById("b_pin").value,
+            d_vill: document.getElementById("d_vill").value, d_po: document.getElementById("d_po").value, d_ps: document.getElementById("d_ps").value, d_dist: document.getElementById("d_dist").value, d_pin: document.getElementById("d_pin").value,
+            auth1_name: document.getElementById("auth1_name").value, auth1_type: document.getElementById("auth1_type").value, auth2_name: document.getElementById("auth2_name").value, auth2_type: document.getElementById("auth2_type").value,
+            signMonth: document.getElementById("signMonth").value, signYear: document.getElementById("signYear").value
+        };
+
+        // same content already saved -> don't create a duplicate
+        if (!history.some(r => r.content === contentHTML)) {
+            history.unshift({ name: subjectTitle, rawName: name, date: currentDateTime, ts: Date.now(), content: contentHTML, data: dataObj });
+            localStorage.setItem('affidavitHistory', JSON.stringify(history));
+        }
+
+        if (keepForm) { renderHistory(); return; }
 
         alert("আপনার কাজ সফলভাবে রেকর্ড খাতায় সেভ হয়েছে!");
 
@@ -1389,11 +1423,18 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         document.getElementById('warningMsg').style.display = ok ? 'none' : 'block';
     }
 
-    function saveMarriage(){
+    function saveMarriage(keepForm){
         const subject = `${val('gName')} & ${val('bName')} (Marriage)`;
         const history = JSON.parse(localStorage.getItem('marriageHistory')) || [];
-        history.unshift({ name: subject, rawName: val('gName'), date: new Date().toLocaleString('en-IN'), ts: Date.now(), content: document.getElementById('outputM').innerHTML });
-        localStorage.setItem('marriageHistory', JSON.stringify(history));
+        const dataObj = { docKind: 'marriage' };
+        M_FIELD_IDS.forEach(id => { dataObj[id] = document.getElementById(id).value; });
+
+        const contentHTML = document.getElementById('outputM').innerHTML;
+        if (!history.some(r => r.content === contentHTML)) {
+            history.unshift({ name: subject, rawName: val('gName'), date: new Date().toLocaleString('en-IN'), ts: Date.now(), content: contentHTML, data: dataObj });
+            localStorage.setItem('marriageHistory', JSON.stringify(history));
+        }
+        if (keepForm) { renderHistory(); return; }
         alert("আপনার কাজ সফলভাবে রেকর্ড খাতায় সেভ হয়েছে!");
         document.querySelectorAll('#marriageForm input[type="text"], #marriageForm input[type="number"]').forEach(i => i.value = '');
         ['mDay','mMonth','mYear'].forEach(id => document.getElementById(id).value = '');
@@ -1409,27 +1450,34 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         if (!(match && match[1])) { alert("হোয়াটসঅ্যাপ মেসেজ থেকে সঠিক ম্যাজিক কোড পাওয়া যায়নি!"); return; }
         try {
             const data = JSON.parse(decodeURIComponent(atob(match[1])));
-            if (data.docKind === 'marriage') {
-                document.getElementById('docMode').value = 'marriage';
-                for (const key in data) {
-                    const el = document.getElementById(key);
-                    if (el) el.value = data[key];
-                }
-                toggleMPlace(); checkProf('g'); checkProf('b'); checkMReligion();
-            } else {
-                document.getElementById('docMode').value = 'affidavit';
-                for (const key in data) {
-                    if (document.getElementById(key)) document.getElementById(key).value = data[key];
-                }
-                if (!data.affidavitType) { document.getElementById("affidavitType").value = "Birth"; }
-                toggleAffidavitType(); checkProfession(); updateAuthLevel2(); updateSpouseRequirement();
-            }
-            setMode();
+            loadFormData(data);
             document.getElementById("importBox").value = "";
             alert("ম্যাজিক! কাস্টমারের সব ডেটা ফর্মের ভেতর বসে গেছে।");
         } catch (e) {
             alert("ডেটা ইমপোর্ট করতে সমস্যা হয়েছে।");
         }
+    }
+
+    function loadFormData(data) {
+        // old records / old customer codes used two separate Digital Birth types
+        if (data.affidavitType === 'DigiBirthSelf') { data.affidavitType = 'DigiBirth'; data.appType = 'Self'; }
+        else if (data.affidavitType === 'DigiBirthParents') { data.affidavitType = 'DigiBirth'; data.appType = 'Child'; }
+        if (data.docKind === 'marriage') {
+            document.getElementById('docMode').value = 'marriage';
+            for (const key in data) {
+                const el = document.getElementById(key);
+                if (el) el.value = data[key];
+            }
+            toggleMPlace(); checkProf('g'); checkProf('b'); checkMReligion();
+        } else {
+            document.getElementById('docMode').value = 'affidavit';
+            for (const key in data) {
+                if (document.getElementById(key)) document.getElementById(key).value = data[key];
+            }
+            if (!data.affidavitType) { document.getElementById("affidavitType").value = "Birth"; }
+            toggleAffidavitType(); checkProfession(); updateAuthLevel2(); updateSpouseRequirement();
+        }
+        setMode();
     }
 
     // ================= History (shared table) =================
@@ -1446,7 +1494,8 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
                     <td>${esc(r.date)}</td>
                     <td><span class="kind-badge ${k === 'm' ? 'm' : ''}">${k === 'm' ? 'Marriage' : 'Affidavit'}</span><b>${esc(r.name)}</b></td>
                     <td>
-                        <button class="btn-print btn-sm" onclick="printHistory('${k}',${i})">🖨️ Print / PDF</button>
+                        <button class="btn-print btn-sm" onclick="printHistory('${k}',${i})">🖨️ Print</button>
+                        <button class="btn-edit btn-sm" onclick="editHistory('${k}',${i})">✏️ Edit</button>
                         <button class="btn-word btn-sm" onclick="downloadHistoryWord('${k}',${i})">📄 Word</button>
                         <button class="btn-sm" style="background:#dc3545; color:white;" onclick="deleteHistory('${k}',${i})">🗑️ Delete</button>
                     </td>
@@ -1471,6 +1520,17 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
             other.classList.toggle('hidden', otherHidden);
         }, 100);
     }
+    
+    function editHistory(k, i) {
+        const r = getRec(k, i);
+        if (!r || !r.data) {
+            alert("এই রেকর্ডের এডিট ডেটা পাওয়া যায়নি (সম্ভবত পুরোনো রেকর্ড)।");
+            return;
+        }
+        loadFormData(r.data);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     function deleteHistory(k, i) {
         if (!confirm("আপনি কি নিশ্চিত যে এই ক্লায়েন্টের রেকর্ডটি মুছে ফেলতে চান?")) return;
         const h = JSON.parse(localStorage.getItem(hKey(k))) || [];

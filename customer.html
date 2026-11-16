@@ -89,16 +89,15 @@ body{background:radial-gradient(1200px 500px at 50% -10%,#d9d0ff 0%,transparent 
         <label>অ্যাফিডেভিটের ধরণ সিলেক্ট করুন <span style="color:red;">*</span></label>
         <select id="affidavitType" onchange="toggleAffidavitType()">
             <option value="Birth">1. Delayed Birth Certificate (জন্ম)</option>
-            <option value="DigiBirthSelf">2. Digital Birth Certificate (Self)</option>
-            <option value="DigiBirthParents">3. Digital Birth Certificate (Parents)</option>
-            <option value="Death">4. Delayed Death Certificate (মৃত্যু)</option>
-            <option value="NonStudyBen">5. Non-Study Affidavit (Bengali)</option>
-            <option value="NonStudyEng">6. Non-Study Affidavit (English)</option>
-            <option value="NonStudyThumb">7. Non-Study Affidavit (Thumb)</option>
-            <option value="OBCSelf">8. Central OBC (Self)</option>
-            <option value="OBCParents">9. Central OBC (Parents)</option>
-            <option value="OBCNCLSelf">10. OBC Non-Creamy Layer (Self)</option>
-            <option value="OBCNCLParents">11. OBC Non-Creamy Layer (Parents)</option>
+            <option value="DigiBirth">2. Digital Birth Certificate (ডিজিটাল জন্ম)</option>
+            <option value="Death">3. Delayed Death Certificate (মৃত্যু)</option>
+            <option value="NonStudyBen">4. Non-Study Affidavit (Bengali)</option>
+            <option value="NonStudyEng">5. Non-Study Affidavit (English)</option>
+            <option value="NonStudyThumb">6. Non-Study Affidavit (Thumb)</option>
+            <option value="OBCSelf">7. Central OBC (Self)</option>
+            <option value="OBCParents">8. Central OBC (Parents)</option>
+            <option value="OBCNCLSelf">9. OBC Non-Creamy Layer (Self)</option>
+            <option value="OBCNCLParents">10. OBC Non-Creamy Layer (Parents)</option>
         </select>
     </div>
 
@@ -568,8 +567,9 @@ body{background:radial-gradient(1200px 500px at 50% -10%,#d9d0ff 0%,transparent 
 
         const dobWrapper = document.getElementById("dobWrapper");
         const ageInput = document.getElementById("age");
+        updateSpouseRequirement();
 
-        if (type === "Birth") {
+        if (type === "Birth" || type === "DigiBirth") {
             document.getElementById("birthAppTypeSection").style.display = "block";
             document.getElementById("birthAddressFieldset").style.display = "block";
             document.getElementById("birthAddressWrapper").style.display = "flex";
@@ -578,20 +578,10 @@ body{background:radial-gradient(1200px 500px at 50% -10%,#d9d0ff 0%,transparent 
                 document.getElementById("childSection").style.display = "block";
                 document.getElementById("childDobWrapper").style.display = "block";
             }
+            if (type === "DigiBirth") document.getElementById("digitalBirthSection").style.display = "block";
             dobWrapper.style.display = "block";
             ageInput.readOnly = true; ageInput.style.backgroundColor = "#e9ecef";
-        } else if (type === "DigiBirthSelf") {
-            document.getElementById("digitalBirthSection").style.display = "block";
-            dobWrapper.style.display = "block";
-            ageInput.readOnly = true; ageInput.style.backgroundColor = "#e9ecef";
-            togglePobType();
-        } else if (type === "DigiBirthParents") {
-            document.getElementById("childSection").style.display = "block";
-            document.getElementById("childDobWrapper").style.display = "block";
-            document.getElementById("digitalBirthSection").style.display = "block";
-            dobWrapper.style.display = "block";
-            ageInput.readOnly = true; ageInput.style.backgroundColor = "#e9ecef";
-            togglePobType();
+            if (type === "DigiBirth") togglePobType();
         } else if (type === "Death") {
             document.getElementById("deathSection").style.display = "block";
             document.getElementById("deathAddressFieldset").style.display = "block";
@@ -634,22 +624,26 @@ body{background:radial-gradient(1200px 500px at 50% -10%,#d9d0ff 0%,transparent 
         }
     }
 
+
+    function isBirthSelf(){ const t = document.getElementById("affidavitType").value; return (t === "Birth" || t === "DigiBirth") && document.getElementById("appType").value === "Self"; }
+    function isBirthChild(){ const t = document.getElementById("affidavitType").value; return (t === "Birth" || t === "DigiBirth") && document.getElementById("appType").value === "Child"; }
+    function spouseRequired(){
+        if (isBirthChild()) return true;
+        if (isBirthSelf()) return false;
+        return document.getElementById("gender").value === "Female";
+    }
+    function fatherRequired(){
+        if (isBirthSelf()) return true;
+        return document.getElementById("gender").value === "Male" && true;
+    }
     function updateSpouseRequirement() {
         const gender = document.getElementById("gender").value;
-        const spouseLabel = document.getElementById("spouseLabel");
-        const spouseInput = document.getElementById("spouseName");
-        const fatherLabel = document.getElementById("fatherLabel");
-        if (gender === "Female") {
-            spouseLabel.innerHTML = 'Spouse Name (স্বামীর নাম) <span style="color:red;">*</span>';
-            spouseInput.placeholder = "অবশ্যই স্বামীর নাম লিখুন";
-            fatherLabel.innerHTML = 'Father\'s Name (Optional)';
-            document.getElementById("fatherName").placeholder = "বাবার নাম (ঐচ্ছিক)";
-        } else {
-            spouseLabel.innerHTML = 'Spouse Name (Optional)';
-            spouseInput.placeholder = "স্ত্রী'র নাম (ঐচ্ছিক)";
-            fatherLabel.innerHTML = 'Father\'s Name <span style="color:red;">*</span>';
-            document.getElementById("fatherName").placeholder = "বাবার নাম (বাধ্যতামূলক)";
-        }
+        const star = ' <span style="color:red;">*</span>';
+        const sp = spouseRequired(), fa = fatherRequired();
+        document.getElementById("spouseLabel").innerHTML = (gender === "Female" ? 'Spouse Name (স্বামীর নাম)' : 'Spouse Name (স্ত্রীর নাম)') + (sp ? star : ' (Optional)');
+        document.getElementById("spouseName").placeholder = sp ? (gender === "Female" ? "অবশ্যই স্বামীর নাম লিখুন" : "অবশ্যই স্ত্রীর নাম লিখুন") : "স্বামী/স্ত্রীর নাম (ঐচ্ছিক)";
+        document.getElementById("fatherLabel").innerHTML = "Father's Name" + (fa ? star : ' (Optional)');
+        document.getElementById("fatherName").placeholder = fa ? "বাবার নাম (বাধ্যতামূলক)" : "বাবার নাম (ঐচ্ছিক)";
     }
 
     const numToWordsMap = { 0: 'Zero', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine', 10: 'Ten', 11: 'Eleven', 12: 'Twelve', 13: 'Thirteen', 14: 'Fourteen', 15: 'Fifteen', 16: 'Sixteen', 17: 'Seventeen', 18: 'Eighteen', 19: 'Nineteen', 20: 'Twenty', 30: 'Thirty', 40: 'Forty', 50: 'Fifty', 60: 'Sixty', 70: 'Seventy', 80: 'Eighty', 90: 'Ninety' };
@@ -731,8 +725,8 @@ body{background:radial-gradient(1200px 500px at 50% -10%,#d9d0ff 0%,transparent 
         if (!name || !age || !profession || parseInt(age) < 18) {
             alert("আবেদনকারীর নাম, বয়স এবং পেশা সঠিকভাবে পূরণ করুন (বয়স ১৮+ হতে হবে)।"); return null;
         }
-        if (gender === "Male" && !father) { alert("আবেদনকারী পুরুষ হলে বাবার নাম দেওয়া বাধ্যতামূলক!"); return null; }
-        if (gender === "Female" && !spouse) { alert("আবেদনকারী মহিলা হলে স্বামীর নাম দেওয়া বাধ্যতামূলক!"); return null; }
+        if (fatherRequired() && !father) { alert("বাবার নাম দেওয়া বাধ্যতামূলক!"); return null; }
+        if (spouseRequired() && !spouse) { alert("স্বামী/স্ত্রীর নাম দেওয়া বাধ্যতামূলক!"); return null; }
         if (!affidavitType.includes("OBC")) {
             if (!dobDay || !dobMonth || !dobYear) { alert("আবেদনকারীর জন্মতারিখ সঠিকভাবে দিন।"); return null; }
         }
@@ -764,7 +758,7 @@ body{background:radial-gradient(1200px 500px at 50% -10%,#d9d0ff 0%,transparent 
                 if (!auth1_name || !auth2_name) { alert("Authority এর তথ্য দিন।"); return null; }
             }
 
-            if (affidavitType === "DigiBirthParents" || (affidavitType === "Birth" && appType === "Child")) {
+            if (appType === "Child") {
                 childName = document.getElementById("childName").value.trim(); childGender = document.getElementById("childGender").value;
                 c_dobDay = document.getElementById("c_dobDay").value; c_dobMonth = document.getElementById("c_dobMonth").value; c_dobYear = document.getElementById("c_dobYear").value;
                 if (!childName || !c_dobDay || !c_dobMonth || !c_dobYear) { alert("সন্তানের নাম ও জন্মতারিখ দিন।"); return null; }
@@ -836,7 +830,7 @@ body{background:radial-gradient(1200px 500px at 50% -10%,#d9d0ff 0%,transparent 
                 formattedText += `*-- Child Details --*\n*Name:* ${childName}\n*Gender:* ${childGender}\n\n`;
             }
             formattedText += `*-- OBC Details --*\n*Community:* ${obcCommunity}\n*Income:* Rs. ${obcIncomeNum} (${obcIncomeWords})\n\n`;
-        } else if (affidavitType === "Birth" && appType === "Child" || affidavitType === "DigiBirthParents") {
+        } else if ((affidavitType === "Birth" || affidavitType === "DigiBirth") && appType === "Child") {
             formattedText += `*-- Child Details --*\n*Name:* ${childName}\n*Gender:* ${childGender}\n*DOB:* ${c_dobDay}/${c_dobMonth}/${c_dobYear}\n\n`;
         }
 

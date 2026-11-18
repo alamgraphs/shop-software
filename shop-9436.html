@@ -1117,7 +1117,7 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
 
             affidavitBody = `
                 <ol style="text-align: justify;">
-                    <li>That my late ${rel}, namely <b>${decName}</b> (${gType} ${gName}), died on <b>${dod}</b> at ${podPrefix} located at ${d_vill}, P.O. ${d_po}, P.S. ${d_ps}, Dist. ${d_dist}, Tripura, Pin-${d_pin}.</li>
+                    <li>That my late ${rel}, namely <b>${decName}</b> (<b>${gType} ${gName}</b>), died on <b>${dod}</b> at ${podPrefix} located at ${d_vill}, P.O. ${d_po}, P.S. ${d_ps}, Dist. ${d_dist}, Tripura, Pin-${d_pin}.</li>
                     <li>That I could not get ${pronoun} name and date of death entered into the Death Register of the ${auth1_name} ${auth1_type}, under ${auth2_name} ${auth2_type} in due time, due to inadvertence and oversight.</li>
                     <li>That I am swearing this affidavit for the explicit purpose of obtaining a delayed Death Certificate for my late ${rel} from the competent authority based on this declaration.</li>
                 </ol>
@@ -1598,9 +1598,29 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
             exportHTMLToWord(document.getElementById('output').innerHTML, (n ? n.replace(/\s+/g, '_') + '_Affidavit' : 'Notary_Affidavit'));
         }
     }
+    
     function exportHTMLToWord(htmlContent, filename) {
-        const preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Document</title><"+"!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]--><style>@page Section1{size:21cm 29.7cm;margin:5cm 1.27cm 1.27cm 3cm;mso-page-orientation:portrait;} div.Section1{page:Section1;} body{font-family:'Bookman Old Style',serif;font-size:11pt;line-height:1.5;}</style></head><body><div class='Section1'>";
-        const html = preHtml + htmlContent + "</div></body></html>";
+        // MS Word px থেকে pt (points) ভালো বোঝে, তাই Word ফাইলে সেভ করার সময় px কে pt তে রূপান্তর করা হচ্ছে
+        let wordFriendlyHTML = htmlContent
+            .replace(/10px/g, '8pt')
+            .replace(/15px/g, '11pt')
+            .replace(/16px/g, '12pt')
+            .replace(/18px/g, '14pt')
+            .replace(/20px/g, '15pt')
+            .replace(/22px/g, '16pt')
+            .replace(/26px/g, '20pt')
+            .replace(/28px/g, '21pt')
+            .replace(/30px/g, '22pt')
+            .replace(/40px/g, '30pt')
+            .replace(/44px/g, '33pt')
+            .replace(/60px/g, '45pt')
+            .replace(/70px/g, '52pt')
+            .replace(/90px/g, '68pt');
+
+        // line-height: 150% এবং mso-line-height-rule: exactly যোগ করা হয়েছে
+        const preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Document</title><"+"!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]--><style>@page Section1{size:21cm 29.7cm;margin:5cm 1.27cm 1.27cm 3cm;mso-page-orientation:portrait;} div.Section1{page:Section1;} body, div, p, li, ol {font-family:'Bookman Old Style',serif;font-size:11pt;line-height:150%;mso-line-height-rule:exactly;}</style></head><body><div class='Section1'>";
+        
+        const html = preHtml + wordFriendlyHTML + "</div></body></html>";
         const blob = new Blob(['\ufeff', html], { type: 'application/msword' });
         const url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
         filename = filename + '.doc';

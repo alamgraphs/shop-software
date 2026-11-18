@@ -656,19 +656,25 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
 
     function isBirthSelf(){ const t = document.getElementById("affidavitType").value; return (t === "Birth" || t === "DigiBirth") && document.getElementById("appType").value === "Self"; }
     function isBirthChild(){ const t = document.getElementById("affidavitType").value; return (t === "Birth" || t === "DigiBirth") && document.getElementById("appType").value === "Child"; }
+    function isNonStudy(){ return document.getElementById("affidavitType").value.indexOf("NonStudy") === 0; }
     function spouseRequired(){
+        if (isNonStudy()) return document.getElementById("gender").value === "Female";
         if (isBirthChild()) return true;
         if (isBirthSelf()) return false;
         return document.getElementById("gender").value === "Female";
     }
     function fatherRequired(){
-        if (isBirthSelf()) return true;
+        if (isBirthSelf() || isNonStudy()) return true;
         return document.getElementById("gender").value === "Male" && true;
     }
     function updateSpouseRequirement() {
         const gender = document.getElementById("gender").value;
         const star = ' <span style="color:red;">*</span>';
         const sp = spouseRequired(), fa = fatherRequired();
+        // Non-Study: male has no spouse field at all
+        const hideSpouse = isNonStudy() && gender === "Male";
+        document.getElementById("spouseName").parentElement.style.display = hideSpouse ? "none" : "";
+        if (hideSpouse) document.getElementById("spouseName").value = "";
         document.getElementById("spouseLabel").innerHTML = (gender === "Female" ? 'Spouse Name (স্বামীর নাম)' : 'Spouse Name (স্ত্রীর নাম)') + (sp ? star : ' (Optional)');
         document.getElementById("spouseName").placeholder = sp ? (gender === "Female" ? "অবশ্যই স্বামীর নাম লিখুন" : "অবশ্যই স্ত্রীর নাম লিখুন") : "স্বামী/স্ত্রীর নাম (ঐচ্ছিক)";
         document.getElementById("fatherLabel").innerHTML = "Father's Name" + (fa ? star : ' (Optional)');

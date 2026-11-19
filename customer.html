@@ -73,7 +73,7 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
 .send-hint{text-align:center;color:var(--muted);font-size:12.5px;margin:12px 0 0}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .btn-whatsapp,.btn-copy{position:sticky;bottom:10px}
-.container::after{content:"🔒 আপনার তথ্য শুধুমাত্র দোকানের WhatsApp-এ পাঠানো হবে";display:block;text-align:center;font-size:12px;color:var(--muted);margin-top:18px}
+.container::after{content:"🔒 আপনার তথ্য নিরাপদে শুধুমাত্র AYAT GRAPHICS ZONE-এ পাঠানো হবে";display:block;text-align:center;font-size:12px;color:var(--muted);margin-top:18px}
 
 .contact-card{text-align:center;margin-top:26px;padding:18px 16px;background:linear-gradient(160deg,var(--navy),var(--navy2));border-bottom:4px solid var(--gold);border-radius:14px;color:#fff}
 .contact-card .cc-name{font-family:'Playfair Display',Georgia,serif;font-size:19px;font-weight:800;letter-spacing:2px}
@@ -620,6 +620,8 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
     <datalist id="mSdList"><option value="Sonamura"><option value="Bishalgarh"><option value="Jampuijala"></datalist>
     <datalist id="mVillList"></datalist>
 
+    <button class="btn-whatsapp" id="btnSheetSend" onclick="sendToSheet()" style="background:linear-gradient(135deg,#0b1f3a,#1d4a85); box-shadow:0 14px 26px -10px rgba(11,31,58,.7); animation:none; position:static; margin-bottom:10px;"><span>🚀</span> সরাসরি দোকানে পাঠান (Direct Submit)</button>
+    <p class="send-hint" style="margin-top:0; margin-bottom:14px;">WhatsApp ছাড়াই সরাসরি দোকানের কম্পিউটারে ডাটা পাঠাতে ওপরের বাটনে ক্লিক করুন।</p>
     <button class="btn-whatsapp" onclick="sendToWhatsApp()"><span>📲</span> Send Data via WhatsApp</button>
     <p class="send-hint">বাটনে ক্লিক করলে WhatsApp খুলবে — সেখান থেকে মেসেজটি পাঠিয়ে দিন।</p>
     <button class="btn-copy" onclick="copyData()">📋 Copy Details</button>
@@ -1290,6 +1292,42 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         const text = collectData();
         if (text) window.open(`https://wa.me/${SHOP_WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
     }
+    const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbwsXh37QDHtNg27DaTTWRYTB_5pCI3_Ya8zuDI0csOKneKEUDFiTBYUkQA6UkapKYCI/exec";
+
+    async function sendToSheet() {
+        const text = collectData();
+        if (!text) return;
+
+        const match = text.match(/CODE:\[(.*?)\]/);
+        if (!match || !match[1]) { alert("ডাটা তৈরি করতে সমস্যা হয়েছে।"); return; }
+
+        const btn = document.getElementById("btnSheetSend");
+        btn.disabled = true;
+        btn.innerHTML = "⏳ পাঠানো হচ্ছে, অপেক্ষা করুন...";
+
+        const isMar = curMode() === 'marriage';
+        const payload = {
+            name: isMar ? (val('gName') + " & " + val('bName')) : val('name'),
+            docType: isMar ? "Marriage Declaration" : document.getElementById("affidavitType").value,
+            code: match[1]
+        };
+
+        try {
+            const res = await fetch(SHEET_API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify(payload)
+            });
+            if (!res.ok) throw new Error("HTTP " + res.status);
+            alert("✅ আপনার তথ্য সফলভাবে AYAT GRAPHICS ZONE-এ পৌঁছে গেছে!");
+        } catch (err) {
+            alert("❌ সরাসরি পাঠাতে সমস্যা হয়েছে। ইন্টারনেট চেক করুন অথবা নিচের WhatsApp বাটন ব্যবহার করুন।");
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = "<span>🚀</span> সরাসরি দোকানে পাঠান (Direct Submit)";
+        }
+    }
+
     function copyData() {
         const text = collectData();
         if (text) {

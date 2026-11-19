@@ -81,6 +81,51 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
 .contact-card .cc-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
 .contact-card a{color:#f3e6bd;text-decoration:none;font-size:13px;font-weight:600;padding:7px 14px;border:1px solid rgba(201,162,75,.55);border-radius:999px;transition:background .2s,color .2s}
 .contact-card a:hover{background:var(--gold);color:var(--navy)}
+    .easy-date input { width:100%; font-size:18px; letter-spacing:1px; text-align:center; font-weight:600; }
+    .easy-date-hint { min-height:20px; margin-top:4px; font-size:13px; text-align:center; color:#666; }
+    .easy-date-hint.ok { color:#1a7f37; font-weight:600; }
+    .easy-date-hint.bad { color:#c62828; font-weight:600; }
+/* ===== ✨ Animations (screen only, motion-reduced users unaffected) ===== */
+@media screen and (prefers-reduced-motion:no-preference){
+  html{scroll-behavior:smooth}
+  @keyframes fxUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  @keyframes fxPop{0%{opacity:0;transform:scale(.92)}60%{transform:scale(1.03)}100%{opacity:1;transform:none}}
+  @keyframes fxFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  @keyframes fxShine{0%{left:-60%}55%,100%{left:130%}}
+  @keyframes fxPulse{0%{box-shadow:0 0 0 0 rgba(39,211,103,.55)}70%{box-shadow:0 0 0 14px rgba(39,211,103,0)}100%{box-shadow:0 0 0 0 rgba(39,211,103,0)}}
+  @keyframes fxLine{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes fxIn{from{opacity:0}to{opacity:1}}
+
+  fieldset{animation:fxUp .55s cubic-bezier(.2,.7,.2,1) both}
+  .form-group{animation:fxIn .5s ease both}
+  .form-panel>*:nth-child(2){animation-delay:.05s}
+  .form-panel>*:nth-child(3){animation-delay:.1s}
+  .form-panel>*:nth-child(4){animation-delay:.15s}
+
+  input,select,textarea{transition:border-color .25s,box-shadow .25s,background-color .25s,transform .2s}
+  input:focus,select:focus,textarea:focus{box-shadow:0 0 0 4px rgba(201,162,39,.25);transform:translateY(-1px)}
+
+  button{position:relative;overflow:hidden}
+  button:active{transform:scale(.97) !important}
+  .btn-print::after,.btn-fill::after,.btn-whatsapp::after,.btn-record::after,.btn-word::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);animation:fxShine 3.8s ease-in-out infinite;pointer-events:none}
+  .btn-whatsapp{animation:fxPulse 2.4s infinite}
+  #actionButtons{animation:fxPop .5s ease both}
+  #warningMsg{animation:fxIn .4s ease both}
+
+  .app-header,.brand-header{position:relative}
+  .app-header::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:3px;background:linear-gradient(90deg,transparent,#f1d98a,transparent);transform-origin:left;animation:fxLine 1.2s .2s ease both}
+  .brand-header{animation:fxIn .8s ease both}
+  .brand-header>*{animation:fxUp .7s cubic-bezier(.2,.7,.2,1) both}
+  .brand-header>*:nth-child(2){animation-delay:.12s}
+  .brand-header>*:nth-child(3){animation-delay:.24s}
+
+  .lock-card{animation:fxPop .7s cubic-bezier(.2,.7,.2,1) both}
+  .lock-icon{display:inline-block;animation:fxFloat 3s ease-in-out infinite}
+
+  .easy-date-hint.ok,.easy-date-hint.bad{animation:fxPop .35s ease both}
+  .history-panel tr,.history-panel li,.history-item{animation:fxUp .4s ease both}
+  #output,#outputM{animation:fxIn .6s ease both}
+}
 </style>
 </head>
 <body>
@@ -106,7 +151,21 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
 
     <div class="form-group type-selector">
         <label>অ্যাফিডেভিটের ধরণ সিলেক্ট করুন <span style="color:red;">*</span></label>
-        <select id="affidavitType" onchange="toggleAffidavitType()">
+        <select id="affidavitGroup" onchange="onAffGroupChange()">
+                <option value="Birth">1. Delayed Birth Certificate (জন্ম)</option>
+                <option value="DigiBirth">2. Digital Birth Certificate (ডিজিটাল জন্ম)</option>
+                <option value="Death">3. Delayed Death Certificate (মৃত্যু)</option>
+                <option value="NonStudy">4. Non-Study Affidavit (নন-স্টাডি)</option>
+                <option value="OBC">5. Central OBC (সেন্ট্রাল ওবিসি)</option>
+                <option value="OBCNCL">6. OBC Non-Creamy Layer (এনসিএল)</option>
+                <option value="SamePerson">7. Same Person Affidavit (এক ও অভিন্ন ব্যক্তি)</option>
+                <option value="OwnershipTransfer">8. Ownership Transfer (গাড়ি বিক্রি / মালিকানা হস্তান্তর)</option>
+            </select>
+            <div id="affVariantWrap" style="display:none;margin-top:10px;">
+                <label>ধরণ (Sub-type) <span style="color:red;">*</span></label>
+                <select id="affidavitVariant" onchange="onAffVariantChange()"></select>
+            </div>
+            <select id="affidavitType" onchange="toggleAffidavitType()" style="display:none;">
             <option value="Birth">1. Delayed Birth Certificate (জন্ম)</option>
             <option value="DigiBirth">2. Digital Birth Certificate (ডিজিটাল জন্ম)</option>
             <option value="Death">3. Delayed Death Certificate (মৃত্যু)</option>
@@ -114,9 +173,11 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
             <option value="NonStudyEng">5. Non-Study Affidavit (English)</option>
             <option value="NonStudyThumb">6. Non-Study Affidavit (Thumb)</option>
             <option value="OBCSelf">7. Central OBC (Self)</option>
-            <option value="OBCParents">8. Central OBC (Parents)</option>
+            <option value="OBCParents">8. Central OBC (Child)</option>
             <option value="OBCNCLSelf">9. OBC Non-Creamy Layer (Self)</option>
-            <option value="OBCNCLParents">10. OBC Non-Creamy Layer (Parents)</option>
+            <option value="OBCNCLParents">10. OBC Non-Creamy Layer (Child)</option>
+            <option value="SamePerson">11. Same Person Affidavit (এক ও অভিন্ন ব্যক্তি)</option>
+            <option value="OwnershipTransfer">12. Ownership Transfer (গাড়ি বিক্রি / মালিকানা হস্তান্তর)</option>
         </select>
     </div>
 
@@ -330,6 +391,39 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
                 <label>Income in Words <span style="color:red;">*</span></label>
                 <input type="text" id="obcIncomeWords" placeholder="e.g. One Lakh Eight Thousand">
             </div>
+        </div>
+    </fieldset>
+
+    <fieldset id="ownershipSection" style="display:none;">
+        <legend>Vehicle Ownership Transfer (গাড়ির মালিকানা হস্তান্তর)</legend>
+        <div class="form-group"><label>Registration No. <span style="color:red;">*</span></label><input type="text" id="ot_vehicleNo" placeholder="e.g. TR07J9217"></div>
+        <div class="grid-2 form-group">
+            <div><label>Engine No. <span style="color:red;">*</span></label><input type="text" id="ot_engineNo" placeholder="Engine No."></div>
+            <div><label>Chassis No. <span style="color:red;">*</span></label><input type="text" id="ot_chassisNo" placeholder="Chassis No."></div>
+        </div>
+        <div class="form-group"><label>বিক্রির কারণ (Reason for sale)</label><input type="text" id="ot_reason" placeholder="my deplorable financial condition"><small style="color:#777;">ফাঁকা রাখলে "my deplorable financial condition" বসবে।</small></div>
+        <div class="form-group"><label>ক্রেতার নাম (Buyer Name) <span style="color:red;">*</span></label><input type="text" id="ot_buyerName" placeholder="e.g. Rachul Mia"></div>
+        <div class="grid-2 form-group">
+            <div><label>সম্পর্ক <span style="color:red;">*</span></label><select id="ot_buyerRelType"><option value="S/o">S/o (পুত্র)</option><option value="D/o">D/o (কন্যা)</option><option value="W/o">W/o (স্ত্রী)</option></select></div>
+            <div><label>বাবা / স্বামীর নাম <span style="color:red;">*</span></label><input type="text" id="ot_buyerRelName" placeholder="e.g. Arab Ali"></div>
+        </div>
+        <label>ক্রেতার ঠিকানা (Buyer Address) <span style="color:red;">*</span></label>
+        <div class="grid-2">
+            <input type="text" id="ot_vill" placeholder="Vill / Ward">
+            <input type="text" id="ot_po" placeholder="P.O.">
+            <input type="text" id="ot_ps" placeholder="P.S.">
+            <select id="ot_dist"><option value="Dhalai">Dhalai</option><option value="Gomati">Gomati</option><option value="Khowai">Khowai</option><option value="North Tripura">North Tripura</option><option value="Sepahijala" selected>Sepahijala</option><option value="South Tripura">South Tripura</option><option value="Unakoti">Unakoti</option><option value="West Tripura">West Tripura</option></select>
+            <input type="text" id="ot_pin" placeholder="PIN Code">
+        </div>
+        <div class="form-group" style="margin-top:12px;"><label>গাড়ি হস্তান্তরের তারিখ (Date of handing over) <span style="color:red;">*</span></label><input type="date" id="ot_date"></div>
+    </fieldset>
+
+    <fieldset id="samePersonSection" style="display:none;">
+        <legend>Same Person Details (এক ও অভিন্ন ব্যক্তি)</legend>
+        <div class="form-group">
+            <label>যাঁদের নাম ভুল হয়েছে <span style="color:red;">*</span> <small style="font-weight:normal;">(একটি অ্যাফিডেভিটে এক বা একাধিক ব্যক্তি যোগ করা যায়)</small></label>
+            <div id="spPersons"></div>
+            <button type="button" onclick="addSpPerson(); spChanged();" style="background:var(--navy,#0b1f3a);color:#fff;border:none;border-radius:8px;padding:10px 14px;cursor:pointer;font-weight:800;">👥 আরেকজনের নাম যোগ করুন</button>
         </div>
     </fieldset>
 
@@ -556,13 +650,14 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
     }
 
     window.onload = function() {
+        renderSpPersons();
         document.getElementById("signYear").value = new Date().getFullYear();
 
         const two = n => (n < 10 ? '0' + n : '' + n);
         const dayOptions = '<option value="">Day</option>' + Array.from({length: 31}, (_, i) => `<option value="${two(i+1)}">${two(i+1)}</option>`).join('');
         const monthOptions = '<option value="">Month</option>' + Array.from({length: 12}, (_, i) => `<option value="${two(i+1)}">${two(i+1)}</option>`).join('');
         const yearOptions = '<option value="">Year</option>' + Array.from({length: 101}, (_, i) => `<option value="${2030 - i}">${2030 - i}</option>`).join('');
-        const childYearOptions = '<option value="">Year</option>' + Array.from({length: 31}, (_, i) => `<option value="${2030 - i}">${2030 - i}</option>`).join('');
+        const childYearOptions = '<option value="">Year</option>' + Array.from({length: 81}, (_, i) => `<option value="${2030 - i}">${2030 - i}</option>`).join('');
         const dodYearOptions = '<option value="">Year</option>' + Array.from({length: 81}, (_, i) => `<option value="${2030 - i}">${2030 - i}</option>`).join('');
 
         document.getElementById('dobDay').innerHTML = dayOptions; document.getElementById('dobMonth').innerHTML = monthOptions; document.getElementById('dobYear').innerHTML = yearOptions;
@@ -571,14 +666,201 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         document.getElementById('regDay').innerHTML = dayOptions; document.getElementById('regMonth').innerHTML = monthOptions; document.getElementById('regYear').innerHTML = dodYearOptions;
         document.getElementById('mDay').innerHTML = dayOptions; document.getElementById('mMonth').innerHTML = monthOptions; document.getElementById('mYear').innerHTML = dodYearOptions;
 
+        // ---- সহজ তারিখ ইনপুট: একটি ঘরে শুধু সংখ্যা লিখলেই হবে (DDMMYYYY), নিচে স্বয়ংক্রিয় যাচাই ----
+        (function(){
+            const MN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            const trios = [['dobDay','dobMonth','dobYear'],['c_dobDay','c_dobMonth','c_dobYear'],['dodDay','dodMonth','dodYear'],['regDay','regMonth','regYear'],['mDay','mMonth','mYear']];
+            trios.forEach(([d,m,y]) => {
+                const sd = document.getElementById(d), sm = document.getElementById(m), sy = document.getElementById(y);
+                if (!sd || !sm || !sy) return;
+                const wrap = document.createElement('div'); wrap.className = 'easy-date';
+                const inp = document.createElement('input');
+                inp.type = 'text'; inp.inputMode = 'numeric'; inp.autocomplete = 'off'; inp.maxLength = 10;
+                inp.placeholder = 'DD / MM / YYYY  (যেমন 15/08/1995)';
+                const hint = document.createElement('div'); hint.className = 'easy-date-hint';
+                wrap.appendChild(inp); wrap.appendChild(hint);
+                const row = sd.parentElement;
+                if (row.children.length === 3) { row.style.display = 'none'; row.parentElement.insertBefore(wrap, row); }
+                else { [sd, sm, sy].forEach(e => e.style.display = 'none'); sd.parentElement.insertBefore(wrap, sd); }
+                const yrs = Array.from(sy.options).map(o => +o.value).filter(Boolean);
+                const minY = Math.min.apply(null, yrs), maxY = Math.max.apply(null, yrs);
+                const set = (el, v) => { if (el.value !== v) { el.value = v; el.dispatchEvent(new Event('change', {bubbles:true})); } };
+                const show = (msg, cls) => { hint.textContent = msg; hint.className = 'easy-date-hint ' + (cls || ''); };
+                function fromInput(){
+                    const digits = inp.value.replace(/\D/g, '').slice(0, 8);
+                    let out = digits.slice(0, 2); if (digits.length > 2) out += '/' + digits.slice(2, 4); if (digits.length > 4) out += '/' + digits.slice(4);
+                    inp.value = out;
+                    if (digits.length < 8) { set(sd, ''); set(sm, ''); set(sy, ''); show(digits.length ? 'সংখ্যা লিখতে থাকুন…  (দিন / মাস / সাল)' : '', ''); return; }
+                    const dd = +digits.slice(0, 2), mm = +digits.slice(2, 4), yy = +digits.slice(4);
+                    const dim = new Date(yy, mm, 0).getDate();
+                    if (mm < 1 || mm > 12 || dd < 1 || dd > dim) { set(sd, ''); set(sm, ''); set(sy, ''); show('❌ তারিখ ঠিক নয়, আবার দেখুন', 'bad'); return; }
+                    if (yy < minY || yy > maxY) { set(sd, ''); set(sm, ''); set(sy, ''); show('❌ সাল ' + minY + ' থেকে ' + maxY + ' এর মধ্যে হতে হবে', 'bad'); return; }
+                    const p = n => (n < 10 ? '0' : '') + n;
+                    set(sd, p(dd)); set(sm, p(mm)); set(sy, '' + yy);
+                    show('✅ ' + dd + ' ' + MN[mm-1] + ' ' + yy, 'ok');
+                }
+                inp.addEventListener('input', fromInput);
+                // অন্য কোড (রিসেট ইত্যাদি) সিলেক্ট বদলালে ঘরটি মিলিয়ে নেওয়া
+                setInterval(() => {
+                    if (document.activeElement === inp) return;
+                    const want = (sd.value && sm.value && sy.value) ? sd.value + '/' + sm.value + '/' + sy.value : '';
+                    if (inp.value !== want && (want || /^\d\d\/\d\d\/\d{4}$/.test(inp.value) === false)) { if (want || !sd.value) { inp.value = want; show(want ? '✅ ' + (+sd.value) + ' ' + MN[+sm.value-1] + ' ' + sy.value : '', want ? 'ok' : ''); } }
+                }, 600);
+            });
+        })();
+
         updateSpouseRequirement();
         toggleAffidavitType();
         toggleMPlace(); checkProf('g'); checkProf('b'); checkMReligion();
         setMode();
     };
 
+    // ================= SAME PERSON helpers =================
+    const SP_RELS = {
+        self:        { ref: '',            poss: 'my',  obj: 'me'  },
+        father:      { ref: 'father',      poss: 'his', obj: 'him' },
+        mother:      { ref: 'mother',      poss: 'her', obj: 'her' },
+        husband:     { ref: 'husband',     poss: 'his', obj: 'him' },
+        wife:        { ref: 'wife',        poss: 'her', obj: 'her' },
+        son:         { ref: 'son',         poss: 'his', obj: 'him' },
+        daughter:    { ref: 'daughter',    poss: 'her', obj: 'her' },
+        brother:     { ref: 'brother',     poss: 'his', obj: 'him' },
+        sister:      { ref: 'sister',      poss: 'her', obj: 'her' },
+        grandfather: { ref: 'grandfather', poss: 'his', obj: 'him' },
+        grandmother: { ref: 'grandmother', poss: 'her', obj: 'her' }
+    };
+    const SP_REL_OPTS = '<option value="self">Self (আমার নিজের নাম)</option><option value="father">Father (বাবা)</option><option value="mother">Mother (মা)</option><option value="husband">Husband (স্বামী)</option><option value="wife">Wife (স্ত্রী)</option><option value="son">Son (ছেলে)</option><option value="daughter">Daughter (মেয়ে)</option><option value="brother">Brother (ভাই)</option><option value="sister">Sister (বোন)</option><option value="grandfather">Grandfather (দাদা/ঠাকুরদা)</option><option value="grandmother">Grandmother (দাদি/ঠাকুমা)</option>';
+    const SP_OWNER_OPTS = '<option value="same">যাঁর নাম, তাঁর নিজের ডকুমেন্ট</option><option value="self">আবেদনকারীর (আমার) ডকুমেন্ট</option><option value="father">বাবা-এর ডকুমেন্ট</option><option value="mother">মা-এর ডকুমেন্ট</option><option value="husband">স্বামী-এর ডকুমেন্ট</option><option value="wife">স্ত্রী-এর ডকুমেন্ট</option><option value="son">ছেলে-এর ডকুমেন্ট</option><option value="daughter">মেয়ে-এর ডকুমেন্ট</option><option value="brother">ভাই-এর ডকুমেন্ট</option><option value="sister">বোন-এর ডকুমেন্ট</option><option value="grandfather">দাদা/ঠাকুরদা-এর ডকুমেন্ট</option><option value="grandmother">দাদি/ঠাকুমা-এর ডকুমেন্ট</option><option value="late_father">মৃত বাবা-এর ডকুমেন্ট</option><option value="late_mother">মৃত মা-এর ডকুমেন্ট</option><option value="late_husband">মৃত স্বামী-এর ডকুমেন্ট</option><option value="late_wife">মৃত স্ত্রী-এর ডকুমেন্ট</option><option value="late_son">মৃত ছেলে-এর ডকুমেন্ট</option><option value="late_daughter">মৃত মেয়ে-এর ডকুমেন্ট</option><option value="late_brother">মৃত ভাই-এর ডকুমেন্ট</option><option value="late_sister">মৃত বোন-এর ডকুমেন্ট</option><option value="late_grandfather">মৃত দাদা/ঠাকুরদা-এর ডকুমেন্ট</option><option value="late_grandmother">মৃত দাদি/ঠাকুমা-এর ডকুমেন্ট</option>';
+    const SP_BTN = 'border:none;border-radius:8px;padding:9px 13px;cursor:pointer;font-weight:800;color:#fff;';
+    function addSpPerson(p) {
+        const box = document.getElementById('spPersons');
+        if (!box) return;
+        p = p || {};
+        const el = document.createElement('div');
+        el.className = 'sp-person';
+        el.style.cssText = 'border:2px dashed #c9a24b;border-radius:12px;padding:12px;margin-bottom:14px;background:#fffdf7;';
+        el.innerHTML =
+            '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">' +
+                '<b class="sp-title">👤 ব্যক্তি</b>' +
+                '<button type="button" class="sp-del" onclick="removeSpPerson(this)" style="' + SP_BTN + 'background:#c0392b;padding:6px 11px;">✕ বাদ দিন</button>' +
+            '</div>' +
+            '<div class="grid-2 form-group">' +
+                '<div><label>কার নাম ভুল? <span style="color:red;">*</span></label><select class="sp-rel" onchange="spRelChanged(this)">' + SP_REL_OPTS + '</select></div>' +
+                '<div class="sp-status-wrap"><label>জীবিত / মৃত</label><select class="sp-status" onchange="spChanged()"><option value="No">জীবিত (Alive)</option><option value="Yes">মৃত (Late)</option></select></div>' +
+            '</div>' +
+            '<div class="form-group sp-correct-wrap"><label>সঠিক নাম (Correct Name) <span style="color:red;">*</span></label><input type="text" class="sp-correct" placeholder="যাঁর নাম ভুল হয়েছে তাঁর সঠিক নাম" oninput="spChanged()"></div>' +
+            '<label>ভুল নাম ও ডকুমেন্ট <span style="color:red;">*</span> <small style="font-weight:normal;">(একাধিক ডকুমেন্টে ভুল থাকলে লাইন যোগ করুন)</small></label>' +
+            '<div class="sp-rows"></div>' +
+            '<button type="button" onclick="addSpRow(this.closest(\'.sp-person\')); spChanged();" style="' + SP_BTN + 'background:#34495e;">➕ আরেকটি ডকুমেন্ট</button>';
+        box.appendChild(el);
+        el.querySelector('.sp-rel').value = p.rel || 'self';
+        el.querySelector('.sp-status').value = p.status || 'No';
+        el.querySelector('.sp-correct').value = p.correct || '';
+        (p.rows && p.rows.length ? p.rows : [{}]).forEach(r => addSpRow(el, r.wrong, r.doc, r.owner));
+        spRelChanged(el.querySelector('.sp-rel'), true);
+        renumberSp();
+    }
+    function addSpRow(person, wrong, doc, owner) {
+        const box = person.querySelector('.sp-rows');
+        const row = document.createElement('div');
+        row.className = 'sp-row';
+        row.style.cssText = 'display:flex;gap:6px;margin-bottom:8px;align-items:center;flex-wrap:wrap;';
+        row.innerHTML = '<input type="text" class="sp-wrong" placeholder="ভুল নাম (যেভাবে লেখা আছে)" style="flex:1 1 100%;" oninput="spChanged()">' +
+            '<select class="sp-owner" style="flex:1 1 100%;" onchange="spChanged()">' + SP_OWNER_OPTS + '</select>' +
+            '<input type="text" class="sp-doc" placeholder="ডকুমেন্টের নাম (e.g. 1971 Voter List)" style="flex:1 1 220px;" oninput="spChanged()">' +
+            '<button type="button" onclick="removeSpRow(this)" title="মুছুন" style="' + SP_BTN + 'background:#c0392b;">✕</button>';
+        row.querySelector('.sp-wrong').value = wrong || '';
+        row.querySelector('.sp-doc').value = doc || '';
+        row.querySelector('.sp-owner').value = owner || 'same';
+        box.appendChild(row);
+    }
+    function renderSpPersons(arr) {
+        const box = document.getElementById('spPersons');
+        if (!box) return;
+        box.innerHTML = '';
+        (arr && arr.length ? arr : [{}]).forEach(p => addSpPerson(p));
+        renumberSp();
+    }
+    function removeSpRow(btn) {
+        const row = btn.closest('.sp-row'), box = row.parentElement;
+        if (box.children.length > 1) row.remove();
+        else { row.querySelector('.sp-wrong').value = ''; row.querySelector('.sp-doc').value = ''; }
+        spChanged();
+    }
+    function removeSpPerson(btn) {
+        const el = btn.closest('.sp-person');
+        if (document.querySelectorAll('#spPersons .sp-person').length > 1) el.remove();
+        renumberSp(); spChanged();
+    }
+    function renumberSp() {
+        const all = document.querySelectorAll('#spPersons .sp-person');
+        all.forEach((el, i) => {
+            el.querySelector('.sp-title').textContent = '👤 ব্যক্তি ' + (i + 1);
+            el.querySelector('.sp-del').style.display = all.length > 1 ? '' : 'none';
+        });
+    }
+    function spRelChanged(sel, silent) {
+        const el = sel.closest('.sp-person'), self = sel.value === 'self';
+        el.querySelector('.sp-status-wrap').style.display = self ? 'none' : '';
+        el.querySelector('.sp-correct-wrap').style.display = self ? 'none' : '';
+        if (self) el.querySelector('.sp-status').value = 'No';
+        if (!silent) spChanged();
+    }
+    function getSpPersons() {
+        return Array.from(document.querySelectorAll('#spPersons .sp-person')).map(el => ({
+            rel: el.querySelector('.sp-rel').value,
+            status: el.querySelector('.sp-status').value,
+            correct: el.querySelector('.sp-correct').value.trim(),
+            rows: Array.from(el.querySelectorAll('.sp-row')).map(r => ({ wrong: r.querySelector('.sp-wrong').value.trim(), owner: r.querySelector('.sp-owner').value, doc: r.querySelector('.sp-doc').value.trim() })).filter(r => r.wrong || r.doc)
+        }));
+    }
+    function spPersonsValid() {
+        const ps = getSpPersons();
+        return ps.length > 0 && ps.every(p => (p.rel === 'self' || p.correct) && p.rows.length > 0 && p.rows.every(r => r.wrong && r.doc));
+    }
+    function spFromRecord(d) {   // new records + old single-person records
+        try { if (d.spPersonsData) return JSON.parse(d.spPersonsData); } catch (e) {}
+        try { if (d.spRowsData) return [{ rel: d.spRelation || 'self', status: d.spStatus || 'No', correct: d.spCorrectName || '', rows: JSON.parse(d.spRowsData) }]; } catch (e) {}
+        return [];
+    }
+    function spChanged() { }
+
     // ================= AFFIDAVIT =================
+    // ================= AFFIDAVIT TYPE GROUPS =================
+    const AFF_GROUPS = {
+        NonStudy: [["NonStudyBen","Bengali (বাংলা)"],["NonStudyEng","English (ইংরেজি)"],["NonStudyThumb","Thumb (টিপসই)"]],
+        OBC:      [["OBCSelf","Self (নিজের)"],["OBCParents","For Child (সন্তানের)"]],
+        OBCNCL:   [["OBCNCLSelf","Self (নিজের)"],["OBCNCLParents","For Child (সন্তানের)"]]
+    };
+    function affGroupOf(t) { for (const g in AFF_GROUPS) if (AFF_GROUPS[g].some(v => v[0] === t)) return g; return t; }
+    function syncAffUI() {
+        const t = document.getElementById("affidavitType").value, g = affGroupOf(t);
+        document.getElementById("affidavitGroup").value = g;
+        const wrap = document.getElementById("affVariantWrap"), sel = document.getElementById("affidavitVariant");
+        if (AFF_GROUPS[g]) {
+            sel.innerHTML = AFF_GROUPS[g].map(v => `<option value="${v[0]}">${v[1]}</option>`).join("");
+            sel.value = t; wrap.style.display = "block";
+        } else { wrap.style.display = "none"; }
+    }
+    function onAffGroupChange() {
+        const g = document.getElementById("affidavitGroup").value;
+        document.getElementById("affidavitType").value = AFF_GROUPS[g] ? AFF_GROUPS[g][0][0] : g;
+        toggleAffidavitType();
+    }
+    function onAffVariantChange() {
+        document.getElementById("affidavitType").value = document.getElementById("affidavitVariant").value;
+        toggleAffidavitType();
+    }
+    const OT_IDS = ['ot_vehicleNo','ot_engineNo','ot_chassisNo','ot_reason','ot_buyerName','ot_buyerRelType','ot_buyerRelName','ot_vill','ot_po','ot_ps','ot_dist','ot_pin','ot_date'];
+    function otFields() { const o = {}; OT_IDS.forEach(id => { o[id] = document.getElementById(id).value; }); return o; }
+    function otValid() {
+        const v = id => document.getElementById(id).value.trim();
+        return ['ot_vehicleNo','ot_engineNo','ot_chassisNo','ot_buyerName','ot_buyerRelName','ot_vill','ot_ps','ot_date'].every(v);
+    }
+    function otDateStr() { const d = document.getElementById("ot_date").value; return d ? d.split("-").reverse().join("/") : ""; }
+
     function toggleAffidavitType() {
+        syncAffUI();
         const type = document.getElementById("affidavitType").value;
         const appType = document.getElementById("appType").value;
 
@@ -593,6 +875,8 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         document.getElementById("childSection").style.display = "none";
         document.getElementById("childDobWrapper").style.display = "none";
         document.getElementById("digitalBirthSection").style.display = "none";
+        document.getElementById("samePersonSection").style.display = (type === "SamePerson") ? "block" : "none";
+        document.getElementById("ownershipSection").style.display = (type === "OwnershipTransfer") ? "block" : "none";
 
         const dobWrapper = document.getElementById("dobWrapper");
         const ageInput = document.getElementById("age");
@@ -657,6 +941,11 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
     function isBirthSelf(){ const t = document.getElementById("affidavitType").value; return (t === "Birth" || t === "DigiBirth") && document.getElementById("appType").value === "Self"; }
     function isBirthChild(){ const t = document.getElementById("affidavitType").value; return (t === "Birth" || t === "DigiBirth") && document.getElementById("appType").value === "Child"; }
     function isNonStudy(){ return document.getElementById("affidavitType").value.indexOf("NonStudy") === 0; }
+    function poPinRequired(){ const t = document.getElementById("affidavitType").value; return t === "Birth" || t.indexOf("DigiBirth") === 0 || t === "Death"; }
+    function updatePoPinUI(){
+        const m = poPinRequired() ? " *" : " (ঐচ্ছিক)";
+        ["p","ot"].forEach(q => { const a = document.getElementById(q+"_po"), b = document.getElementById(q+"_pin"); if(a) a.placeholder = "P.O." + m; if(b) b.placeholder = "PIN Code" + m; });
+    }
     function spouseRequired(){
         if (isNonStudy()) return document.getElementById("gender").value === "Female";
         if (isBirthChild()) return true;
@@ -668,6 +957,7 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         return document.getElementById("gender").value === "Male" && true;
     }
     function updateSpouseRequirement() {
+        updatePoPinUI();
         const gender = document.getElementById("gender").value;
         const star = ' <span style="color:red;">*</span>';
         const sp = spouseRequired(), fa = fatherRequired();
@@ -769,7 +1059,7 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         const p_vill = document.getElementById("p_vill").value.trim(); const p_po = document.getElementById("p_po").value.trim();
         const p_ps = document.getElementById("p_ps").value.trim(); const p_dist = document.getElementById("p_dist").value;
         const p_pin = document.getElementById("p_pin").value.trim();
-        if (!p_vill || !p_po || !p_ps || !p_pin) { alert("বর্তমান ঠিকানার তথ্য দিন।"); return null; }
+        if (!p_vill || !p_ps || (poPinRequired() && (!p_po || !p_pin))) { alert("বর্তমান ঠিকানার তথ্য দিন।"); return null; }
 
         let b_vill = "", b_po = "", b_ps = "", b_dist = "", b_pin = "";
         let d_vill = "", d_po = "", d_ps = "", d_dist = "", d_pin = "";
@@ -838,6 +1128,14 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
             }
         }
 
+        let spPersonsData = "";
+        if (affidavitType === "SamePerson") {
+            if (!spPersonsValid()) { alert("প্রত্যেক ব্যক্তির জন্য সঠিক নাম (নিজের ছাড়া), এবং কমপক্ষে একটি ভুল নাম + ডকুমেন্টের নাম দিন (প্রতিটি লাইনে দুটোই লিখতে হবে)।"); return null; }
+            spPersonsData = JSON.stringify(getSpPersons());
+        }
+
+        if (affidavitType === "OwnershipTransfer" && !otValid()) { alert("গাড়ির তথ্য (Reg/Engine/Chassis নং), ক্রেতার নাম, বাবা/স্বামীর নাম, ঠিকানা এবং হস্তান্তরের তারিখ সব দিন।"); return null; }
+
         const signMonth = document.getElementById("signMonth").value;
         const signYear = document.getElementById("signYear").value.trim();
 
@@ -857,7 +1155,7 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
 
         if (affidavitType === "Death") {
             formattedText += `*-- Death Details --*\n*Relation:* ${decRelation}\n*Deceased Name:* ${decName}\n*Guardian:* ${decGuardianType} ${decGuardianName}\n*DOD:* ${dodDay}/${dodMonth}/${dodYear}\n*Place:* ${podPrefix}\n\n`;
-            formattedText += `*Death Address:* Vill: ${d_vill}, PO: ${d_po}, PS: ${d_ps}, Dist: ${d_dist}, PIN: ${d_pin}\n\n`;
+            formattedText += `*Death Address:* Vill: ${d_vill}, ${d_po ? 'PO: ' + d_po + ', ' : ''}PS: ${d_ps}, Dist: ${d_dist}${d_pin ? ", PIN: " + d_pin : ""}\n\n`;
         }
 
         if (affidavitType.includes("OBC")) {
@@ -875,10 +1173,31 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
             formattedText += `*Reg No:* ${oldRegNo}\n*Reg Date:* ${regDay}/${regMonth}/${regYear}\n\n`;
         }
 
-        formattedText += `*Present Address:* Vill: ${p_vill}, PO: ${p_po}, PS: ${p_ps}, Dist: ${p_dist}, PIN: ${p_pin}\n\n`;
+        if (affidavitType === "SamePerson") {
+            formattedText += `*-- Same Person Details --*\n`;
+            JSON.parse(spPersonsData).forEach((pr, i) => {
+                const relLabel = (document.querySelector('#spPersons .sp-rel option[value="' + pr.rel + '"]') || {}).textContent || pr.rel;
+                formattedText += `*Person ${i + 1}:* ${relLabel}\n`;
+                if (pr.rel !== "self") formattedText += `*Status:* ${pr.status === "Yes" ? "Late (মৃত)" : "Alive (জীবিত)"}\n*Correct Name:* ${pr.correct}\n`;
+                pr.rows.forEach((r, j) => {
+                    const ow = (document.querySelector('#spPersons .sp-owner option[value="' + (r.owner || 'same') + '"]') || {}).textContent || r.owner;
+                    formattedText += `*Wrong Name ${j + 1}:* ${r.wrong}  →  *Document:* ${r.doc} (${ow})\n`;
+                });
+                formattedText += `\n`;
+            });
+        }
+
+        if (affidavitType === "OwnershipTransfer") {
+            const ov = id => document.getElementById(id).value.trim();
+            formattedText += `*-- Vehicle Transfer Details --*\n*Registration No:* ${ov("ot_vehicleNo")}\n*Engine No:* ${ov("ot_engineNo")}\n*Chassis No:* ${ov("ot_chassisNo")}\n`;
+            if (ov("ot_reason")) formattedText += `*Reason:* ${ov("ot_reason")}\n`;
+            formattedText += `*Buyer:* ${ov("ot_buyerName")}, ${document.getElementById("ot_buyerRelType").value} ${ov("ot_buyerRelName")}\n*Buyer Address:* Vill: ${ov("ot_vill")}, ${ov("ot_po") ? 'PO: ' + ov("ot_po") + ', ' : ''}PS: ${ov("ot_ps")}, Dist: ${document.getElementById("ot_dist").value}${ov("ot_pin") ? ", PIN: " + ov("ot_pin") : ""}\n*Handover Date:* ${otDateStr()}\n\n`;
+        }
+
+        formattedText += `*Present Address:* Vill: ${p_vill}, ${p_po ? 'PO: ' + p_po + ', ' : ''}PS: ${p_ps}, Dist: ${p_dist}${p_pin ? ", PIN: " + p_pin : ""}\n\n`;
 
         if (affidavitType === "Birth" || (affidavitType.includes("DigiBirth") && pobType === "Home")) {
-            formattedText += `*Birth Address:* Vill: ${b_vill}, PO: ${b_po}, PS: ${b_ps}, Dist: ${b_dist}, PIN: ${b_pin}\n\n`;
+            formattedText += `*Birth Address:* Vill: ${b_vill}, ${b_po ? 'PO: ' + b_po + ', ' : ''}PS: ${b_ps}, Dist: ${b_dist}${b_pin ? ", PIN: " + b_pin : ""}\n\n`;
         }
 
         if (affidavitType === "Birth" || affidavitType === "Death" || (affidavitType.includes("DigiBirth") && pobType === "Home")) {
@@ -899,7 +1218,9 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
             b_vill: b_vill, b_po: b_po, b_ps: b_ps, b_dist: b_dist, b_pin: b_pin,
             d_vill: d_vill, d_po: d_po, d_ps: d_ps, d_dist: d_dist, d_pin: d_pin,
             auth1_name: auth1_name, auth1_type: auth1_type, auth2_name: auth2_name, auth2_type: auth2_type,
-            signMonth: signMonth, signYear: signYear
+            signMonth: signMonth, signYear: signYear,
+            spPersonsData: spPersonsData,
+            ...otFields()
         };
 
         formattedText += `\n\n🔒 *দোকানের ব্যবহারের জন্য*\nCODE:[${btoa(encodeURIComponent(JSON.stringify(dataObj)))}]`;

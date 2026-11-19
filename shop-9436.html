@@ -158,18 +158,113 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
   .page::before{display:none}
   body.locked *{display:none !important}
 }
+    .easy-date input { width:100%; font-size:18px; letter-spacing:1px; text-align:center; font-weight:600; }
+    .easy-date-hint { min-height:20px; margin-top:4px; font-size:13px; text-align:center; color:#666; }
+    .easy-date-hint.ok { color:#1a7f37; font-weight:600; }
+    .easy-date-hint.bad { color:#c62828; font-weight:600; }
+/* ===== ✨ Animations (screen only, motion-reduced users unaffected) ===== */
+@media screen and (prefers-reduced-motion:no-preference){
+  html{scroll-behavior:smooth}
+  @keyframes fxUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  @keyframes fxPop{0%{opacity:0;transform:scale(.92)}60%{transform:scale(1.03)}100%{opacity:1;transform:none}}
+  @keyframes fxFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  @keyframes fxShine{0%{left:-60%}55%,100%{left:130%}}
+  @keyframes fxPulse{0%{box-shadow:0 0 0 0 rgba(39,211,103,.55)}70%{box-shadow:0 0 0 14px rgba(39,211,103,0)}100%{box-shadow:0 0 0 0 rgba(39,211,103,0)}}
+  @keyframes fxLine{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes fxIn{from{opacity:0}to{opacity:1}}
+
+  fieldset{animation:fxUp .55s cubic-bezier(.2,.7,.2,1) both}
+  .form-group{animation:fxIn .5s ease both}
+  .form-panel>*:nth-child(2){animation-delay:.05s}
+  .form-panel>*:nth-child(3){animation-delay:.1s}
+  .form-panel>*:nth-child(4){animation-delay:.15s}
+
+  input,select,textarea{transition:border-color .25s,box-shadow .25s,background-color .25s,transform .2s}
+  input:focus,select:focus,textarea:focus{box-shadow:0 0 0 4px rgba(201,162,39,.25);transform:translateY(-1px)}
+
+  button{position:relative;overflow:hidden}
+  button:active{transform:scale(.97) !important}
+  .btn-print::after,.btn-fill::after,.btn-whatsapp::after,.btn-record::after,.btn-word::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);animation:fxShine 3.8s ease-in-out infinite;pointer-events:none}
+  .btn-whatsapp{animation:fxPulse 2.4s infinite}
+  #actionButtons{animation:fxPop .5s ease both}
+  #warningMsg{animation:fxIn .4s ease both}
+
+  .app-header,.brand-header{position:relative}
+  .app-header::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:3px;background:linear-gradient(90deg,transparent,#f1d98a,transparent);transform-origin:left;animation:fxLine 1.2s .2s ease both}
+  .brand-header{animation:fxIn .8s ease both}
+  .brand-header>*{animation:fxUp .7s cubic-bezier(.2,.7,.2,1) both}
+  .brand-header>*:nth-child(2){animation-delay:.12s}
+  .brand-header>*:nth-child(3){animation-delay:.24s}
+
+  .lock-card{animation:fxPop .7s cubic-bezier(.2,.7,.2,1) both}
+  .lock-icon{display:inline-block;animation:fxFloat 3s ease-in-out infinite}
+
+  .easy-date-hint.ok,.easy-date-hint.bad{animation:fxPop .35s ease both}
+  .history-panel tr,.history-panel li,.history-item{animation:fxUp .4s ease both}
+  #output,#outputM{animation:fxIn .6s ease both}
+}
+
+/* ===== 🔐 New lock screen ===== */
+body.locked #lockScreen{background:radial-gradient(900px 520px at 50% -10%,rgba(201,162,75,.35),transparent 60%),radial-gradient(700px 500px at 100% 100%,rgba(47,106,192,.35),transparent 60%),linear-gradient(160deg,#050f1f,#0b1f3a 55%,#10294d) !important;overflow:hidden}
+.lk-orb{position:absolute;border-radius:50%;filter:blur(2px);pointer-events:none}
+.lk-orb.o1{width:260px;height:260px;left:-70px;top:12%;background:radial-gradient(circle at 30% 30%,rgba(241,217,138,.55),rgba(201,162,75,0) 70%)}
+.lk-orb.o2{width:340px;height:340px;right:-110px;bottom:-60px;background:radial-gradient(circle at 40% 40%,rgba(74,130,220,.5),rgba(74,130,220,0) 70%)}
+.lk-orb.o3{width:120px;height:120px;right:18%;top:10%;background:radial-gradient(circle,rgba(241,217,138,.4),rgba(201,162,75,0) 70%)}
+#lockScreen .lock-card{position:relative;max-width:400px;background:rgba(255,255,255,.07);-webkit-backdrop-filter:blur(20px) saturate(140%);backdrop-filter:blur(20px) saturate(140%);border:1px solid rgba(255,255,255,.18);border-top:1px solid rgba(241,217,138,.6);border-radius:26px;box-shadow:0 40px 90px -25px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.15);padding:40px 30px 26px;color:#fff}
+#lockScreen .lock-card h3{color:#fff;font-size:24px;letter-spacing:2px;margin:2px 0 6px}
+#lockScreen .lock-card p{color:#b9c6dd;line-height:1.6;margin:0 0 22px}
+.lk-tag{font-size:10.5px;letter-spacing:5px;color:#e6c872;font-weight:700;margin-top:8px}
+.lk-emblem{position:relative;width:96px;height:96px;margin:0 auto 6px}
+.lk-ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,#f1d98a,transparent 30%,#c9a24b 55%,transparent 80%,#f1d98a);-webkit-mask:radial-gradient(circle,transparent 60%,#000 62%);mask:radial-gradient(circle,transparent 60%,#000 62%)}
+#lockScreen .lock-icon{position:absolute;inset:12px;width:auto;height:auto;margin:0;background:linear-gradient(145deg,#173a69,#0b1f3a);font-size:32px;box-shadow:0 10px 26px -6px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.2)}
+.lk-field{position:relative;margin-bottom:14px}
+.lk-key{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:16px;opacity:.85}
+#lockScreen .lock-card input{width:100%;background:rgba(5,15,31,.55);border:1.5px solid rgba(255,255,255,.2);color:#fff;border-radius:14px;padding:14px 46px;margin:0;text-align:center;letter-spacing:4px;font-size:16px}
+#lockScreen .lock-card input::placeholder{color:#7f92b2;letter-spacing:2px}
+#lockScreen .lock-card input:focus{border-color:#e6c872;box-shadow:0 0 0 4px rgba(230,200,114,.2);outline:none}
+.lk-eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:auto !important;background:transparent !important;box-shadow:none !important;border:none;padding:8px 10px !important;font-size:17px;color:#e6c872;cursor:pointer;filter:none}
+#lockScreen .lk-go{width:100%;background:linear-gradient(135deg,#f1d98a,#c9a24b) !important;color:#0b1f3a !important;border-radius:14px;padding:14px;font-size:16px;letter-spacing:1px;box-shadow:0 14px 28px -10px rgba(201,162,75,.7) !important}
+#lockScreen #lockError{color:#ff8a8a;min-height:20px}
+.lk-foot{margin-top:14px;font-size:11px;letter-spacing:1.5px;color:#7f92b2}
+@media screen and (prefers-reduced-motion:no-preference){
+  @keyframes lkSpin{to{transform:rotate(360deg)}}
+  @keyframes lkDrift{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-40px)}}
+  @keyframes lkShake{0%,100%{transform:none}20%{transform:translateX(-12px)}40%{transform:translateX(10px)}60%{transform:translateX(-7px)}80%{transform:translateX(4px)}}
+  @keyframes lkUnlock{0%{transform:none;opacity:1}40%{transform:scale(1.04)}100%{transform:scale(.9) translateY(-24px);opacity:0}}
+  @keyframes lkGlow{0%,100%{box-shadow:0 0 0 0 rgba(241,217,138,.0)}50%{box-shadow:0 0 34px 6px rgba(241,217,138,.35)}}
+  .lk-ring{animation:lkSpin 5s linear infinite}
+  .lk-orb.o1{animation:lkDrift 11s ease-in-out infinite}
+  .lk-orb.o2{animation:lkDrift 14s ease-in-out infinite reverse}
+  .lk-orb.o3{animation:lkDrift 8s ease-in-out infinite}
+  #lockScreen .lock-icon{animation:lkGlow 3s ease-in-out infinite}
+  #lockScreen .lock-card.shake{animation:lkShake .5s}
+  #lockScreen.unlocking .lock-card{animation:lkUnlock .75s ease forwards}
+  #lockScreen .lock-card > *{animation:fxUp .6s cubic-bezier(.2,.7,.2,1) both}
+  #lockScreen .lock-card > *:nth-child(2){animation-delay:.08s}
+  #lockScreen .lock-card > *:nth-child(3){animation-delay:.16s}
+  #lockScreen .lock-card > *:nth-child(4){animation-delay:.24s}
+  #lockScreen .lock-card > *:nth-child(5){animation-delay:.32s}
+  #lockScreen .lock-card > *:nth-child(6){animation-delay:.4s}
+}
 </style>
 </head>
 <body class="locked">
 
 <div id="lockScreen">
+    <i class="lk-orb o1"></i><i class="lk-orb o2"></i><i class="lk-orb o3"></i>
     <form class="lock-card" onsubmit="return unlockApp(event)">
-        <div class="lock-icon">🔒</div>
+        <div class="lk-emblem"><span class="lk-ring"></span><div class="lock-icon" id="lockIcon">🔒</div></div>
+        <div class="lk-tag">SECURE ACCESS</div>
         <h3>AYAT GRAPHICS ZONE</h3>
-        <p>এটি শুধু দোকানের ব্যবহারের জন্য। পাসওয়ার্ড দিন।</p>
-        <input type="password" id="lockPass" placeholder="Password" autocomplete="current-password">
-        <button type="submit">🔓 Unlock</button>
+        <p>এটি শুধু দোকানের ব্যবহারের জন্য।<br>পাসওয়ার্ড দিয়ে প্রবেশ করুন।</p>
+        <div class="lk-field">
+            <span class="lk-key">🔑</span>
+            <input type="password" id="lockPass" placeholder="Password" autocomplete="current-password">
+            <button type="button" class="lk-eye" id="lkEye" aria-label="Show password" onclick="toggleLockEye()">👁</button>
+        </div>
+        <button type="submit" class="lk-go">🔓 Unlock</button>
         <div id="lockError"></div>
+        <div class="lk-foot">© AYAT GRAPHICS ZONE · Tripura</div>
     </form>
 </div>
 
@@ -207,7 +302,21 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
 
         <div class="form-group type-selector">
             <label>Affidavit Type <span style="color:red;">*</span></label>
-            <select id="affidavitType" onchange="toggleAffidavitType()">
+            <select id="affidavitGroup" onchange="onAffGroupChange()">
+                <option value="Birth">1. Delayed Birth Certificate (জন্ম)</option>
+                <option value="DigiBirth">2. Digital Birth Certificate (ডিজিটাল জন্ম)</option>
+                <option value="Death">3. Delayed Death Certificate (মৃত্যু)</option>
+                <option value="NonStudy">4. Non-Study Affidavit (নন-স্টাডি)</option>
+                <option value="OBC">5. Central OBC (সেন্ট্রাল ওবিসি)</option>
+                <option value="OBCNCL">6. OBC Non-Creamy Layer (এনসিএল)</option>
+                <option value="SamePerson">7. Same Person Affidavit (এক ও অভিন্ন ব্যক্তি)</option>
+                <option value="OwnershipTransfer">8. Ownership Transfer (গাড়ি বিক্রি / মালিকানা হস্তান্তর)</option>
+            </select>
+            <div id="affVariantWrap" style="display:none;margin-top:10px;">
+                <label>ধরণ (Sub-type) <span style="color:red;">*</span></label>
+                <select id="affidavitVariant" onchange="onAffVariantChange()"></select>
+            </div>
+            <select id="affidavitType" onchange="toggleAffidavitType()" style="display:none;">
                 <option value="Birth">1. Delayed Birth Certificate (জন্ম)</option>
                 <option value="DigiBirth">2. Digital Birth Certificate (ডিজিটাল জন্ম)</option>
                 <option value="Death">3. Delayed Death Certificate (মৃত্যু)</option>
@@ -215,9 +324,11 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
                 <option value="NonStudyEng">5. Non-Study Affidavit (English)</option>
                 <option value="NonStudyThumb">6. Non-Study Affidavit (Thumb)</option>
                 <option value="OBCSelf">7. Central OBC (Self)</option>
-                <option value="OBCParents">8. Central OBC (Parents)</option>
+                <option value="OBCParents">8. Central OBC (Child)</option>
                 <option value="OBCNCLSelf">9. OBC Non-Creamy Layer (Self)</option>
-                <option value="OBCNCLParents">10. OBC Non-Creamy Layer (Parents)</option>
+                <option value="OBCNCLParents">10. OBC Non-Creamy Layer (Child)</option>
+            <option value="SamePerson">11. Same Person Affidavit (এক ও অভিন্ন ব্যক্তি)</option>
+            <option value="OwnershipTransfer">12. Ownership Transfer (গাড়ি বিক্রি / মালিকানা হস্তান্তর)</option>
             </select>
         </div>
 
@@ -433,7 +544,40 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
             </div>
         </fieldset>
 
-        <fieldset>
+        <fieldset id="ownershipSection" style="display:none;">
+        <legend>Vehicle Ownership Transfer (গাড়ির মালিকানা হস্তান্তর)</legend>
+        <div class="form-group"><label>Registration No. <span style="color:red;">*</span></label><input type="text" id="ot_vehicleNo" placeholder="e.g. TR07J9217"></div>
+        <div class="grid-2 form-group">
+            <div><label>Engine No. <span style="color:red;">*</span></label><input type="text" id="ot_engineNo" placeholder="Engine No."></div>
+            <div><label>Chassis No. <span style="color:red;">*</span></label><input type="text" id="ot_chassisNo" placeholder="Chassis No."></div>
+        </div>
+        <div class="form-group"><label>বিক্রির কারণ (Reason for sale)</label><input type="text" id="ot_reason" placeholder="my deplorable financial condition"><small style="color:#777;">ফাঁকা রাখলে "my deplorable financial condition" বসবে।</small></div>
+        <div class="form-group"><label>ক্রেতার নাম (Buyer Name) <span style="color:red;">*</span></label><input type="text" id="ot_buyerName" placeholder="e.g. Rachul Mia"></div>
+        <div class="grid-2 form-group">
+            <div><label>সম্পর্ক <span style="color:red;">*</span></label><select id="ot_buyerRelType"><option value="S/o">S/o (পুত্র)</option><option value="D/o">D/o (কন্যা)</option><option value="W/o">W/o (স্ত্রী)</option></select></div>
+            <div><label>বাবা / স্বামীর নাম <span style="color:red;">*</span></label><input type="text" id="ot_buyerRelName" placeholder="e.g. Arab Ali"></div>
+        </div>
+        <label>ক্রেতার ঠিকানা (Buyer Address) <span style="color:red;">*</span></label>
+        <div class="grid-2">
+            <input type="text" id="ot_vill" placeholder="Vill / Ward">
+            <input type="text" id="ot_po" placeholder="P.O.">
+            <input type="text" id="ot_ps" placeholder="P.S.">
+            <select id="ot_dist"><option value="Dhalai">Dhalai</option><option value="Gomati">Gomati</option><option value="Khowai">Khowai</option><option value="North Tripura">North Tripura</option><option value="Sepahijala" selected>Sepahijala</option><option value="South Tripura">South Tripura</option><option value="Unakoti">Unakoti</option><option value="West Tripura">West Tripura</option></select>
+            <input type="text" id="ot_pin" placeholder="PIN Code">
+        </div>
+        <div class="form-group" style="margin-top:12px;"><label>গাড়ি হস্তান্তরের তারিখ (Date of handing over) <span style="color:red;">*</span></label><input type="date" id="ot_date"></div>
+    </fieldset>
+
+    <fieldset id="samePersonSection" style="display:none;">
+        <legend>Same Person Details (এক ও অভিন্ন ব্যক্তি)</legend>
+        <div class="form-group">
+            <label>যাঁদের নাম ভুল হয়েছে <span style="color:red;">*</span> <small style="font-weight:normal;">(একটি অ্যাফিডেভিটে এক বা একাধিক ব্যক্তি যোগ করা যায়)</small></label>
+            <div id="spPersons"></div>
+            <button type="button" onclick="addSpPerson(); spChanged();" style="background:var(--navy,#0b1f3a);color:#fff;border:none;border-radius:8px;padding:10px 14px;cursor:pointer;font-weight:800;">👥 আরেকজনের নাম যোগ করুন</button>
+        </div>
+    </fieldset>
+
+    <fieldset>
             <legend>Present Address</legend>
             <div class="grid-2">
                 <input type="text" id="p_vill" placeholder="Vill / Ward" list="villageList">
@@ -690,12 +834,19 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         try{
             if(await sha256(v)===PASS_HASH){
                 try{sessionStorage.setItem("shopUnlocked","1");}catch(_){}
-                document.body.classList.remove("locked");
                 document.getElementById("lockPass").value="";
-            }else{document.getElementById("lockError").textContent="ভুল পাসওয়ার্ড!";}
+                try{window.SFX&&SFX.play("unlock");}catch(_){}
+                const sc=document.getElementById("lockScreen"); document.getElementById("lockIcon").textContent="🔓"; sc.classList.add("unlocking");
+                setTimeout(()=>{document.body.classList.remove("locked"); sc.classList.remove("unlocking"); document.getElementById("lockIcon").textContent="🔒";},750);
+            }else{
+                document.getElementById("lockError").textContent="❌ ভুল পাসওয়ার্ড! আবার চেষ্টা করুন।";
+                try{window.SFX&&SFX.play("error");}catch(_){}
+                const c=document.querySelector(".lock-card"); c.classList.remove("shake"); void c.offsetWidth; c.classList.add("shake");
+            }
         }catch(_){document.getElementById("lockError").textContent="HTTPS/ব্রাউজার সমস্যা: পাসওয়ার্ড যাচাই করা যায়নি।";}
         return false;
     }
+    function toggleLockEye(){const i=document.getElementById("lockPass"),show=i.type==="password";i.type=show?"text":"password";document.getElementById("lkEye").textContent=show?"🙈":"👁";}
     function lockApp(){try{sessionStorage.removeItem("shopUnlocked");}catch(_){}document.body.classList.add("locked");}
     (function(){try{if(sessionStorage.getItem("shopUnlocked")==="1")document.body.classList.remove("locked");}catch(_){}})();
 </script>
@@ -723,12 +874,13 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
     function saveCurrent(){ if (curMode() === 'marriage') saveMarriage(); else saveToHistory(); }
 
     window.onload = function() {
+        renderSpPersons();
         // Affidavit selects
         document.getElementById("signYear").value = new Date().getFullYear();
         const dayOptions = '<option value="">Day</option>' + Array.from({length: 31}, (_, i) => `<option value="${i+1 < 10 ? '0'+(i+1) : i+1}">${i+1 < 10 ? '0'+(i+1) : i+1}</option>`).join('');
         const monthOptions = '<option value="">Month</option>' + Array.from({length: 12}, (_, i) => `<option value="${i+1 < 10 ? '0'+(i+1) : i+1}">${i+1 < 10 ? '0'+(i+1) : i+1}</option>`).join('');
         const yearOptions = '<option value="">Year</option>' + Array.from({length: 101}, (_, i) => `<option value="${2030 - i}">${2030 - i}</option>`).join('');
-        const childYearOptions = '<option value="">Year</option>' + Array.from({length: 31}, (_, i) => `<option value="${2030 - i}">${2030 - i}</option>`).join('');
+        const childYearOptions = '<option value="">Year</option>' + Array.from({length: 81}, (_, i) => `<option value="${2030 - i}">${2030 - i}</option>`).join('');
         const dodYearOptions = '<option value="">Year</option>' + Array.from({length: 81}, (_, i) => `<option value="${2030 - i}">${2030 - i}</option>`).join('');
 
         document.getElementById('dobDay').innerHTML = dayOptions; document.getElementById('dobMonth').innerHTML = monthOptions; document.getElementById('dobYear').innerHTML = yearOptions;
@@ -740,6 +892,49 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         document.getElementById('mDay').innerHTML = dayOptions;
         document.getElementById('mMonth').innerHTML = monthOptions;
         document.getElementById('mYear').innerHTML = '<option value="">Year</option>' + Array.from({length:81}, (_, i) => `<option value="${2030-i}">${2030-i}</option>`).join('');
+
+        // ---- সহজ তারিখ ইনপুট: একটি ঘরে শুধু সংখ্যা লিখলেই হবে (DDMMYYYY), নিচে স্বয়ংক্রিয় যাচাই ----
+        (function(){
+            const MN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            const trios = [['dobDay','dobMonth','dobYear'],['c_dobDay','c_dobMonth','c_dobYear'],['dodDay','dodMonth','dodYear'],['regDay','regMonth','regYear'],['mDay','mMonth','mYear']];
+            trios.forEach(([d,m,y]) => {
+                const sd = document.getElementById(d), sm = document.getElementById(m), sy = document.getElementById(y);
+                if (!sd || !sm || !sy) return;
+                const wrap = document.createElement('div'); wrap.className = 'easy-date';
+                const inp = document.createElement('input');
+                inp.type = 'text'; inp.inputMode = 'numeric'; inp.autocomplete = 'off'; inp.maxLength = 10;
+                inp.placeholder = 'DD / MM / YYYY  (যেমন 15/08/1995)';
+                const hint = document.createElement('div'); hint.className = 'easy-date-hint';
+                wrap.appendChild(inp); wrap.appendChild(hint);
+                const row = sd.parentElement;
+                if (row.children.length === 3) { row.style.display = 'none'; row.parentElement.insertBefore(wrap, row); }
+                else { [sd, sm, sy].forEach(e => e.style.display = 'none'); sd.parentElement.insertBefore(wrap, sd); }
+                const yrs = Array.from(sy.options).map(o => +o.value).filter(Boolean);
+                const minY = Math.min.apply(null, yrs), maxY = Math.max.apply(null, yrs);
+                const set = (el, v) => { if (el.value !== v) { el.value = v; el.dispatchEvent(new Event('change', {bubbles:true})); } };
+                const show = (msg, cls) => { hint.textContent = msg; hint.className = 'easy-date-hint ' + (cls || ''); };
+                function fromInput(){
+                    const digits = inp.value.replace(/\D/g, '').slice(0, 8);
+                    let out = digits.slice(0, 2); if (digits.length > 2) out += '/' + digits.slice(2, 4); if (digits.length > 4) out += '/' + digits.slice(4);
+                    inp.value = out;
+                    if (digits.length < 8) { set(sd, ''); set(sm, ''); set(sy, ''); show(digits.length ? 'সংখ্যা লিখতে থাকুন…  (দিন / মাস / সাল)' : '', ''); return; }
+                    const dd = +digits.slice(0, 2), mm = +digits.slice(2, 4), yy = +digits.slice(4);
+                    const dim = new Date(yy, mm, 0).getDate();
+                    if (mm < 1 || mm > 12 || dd < 1 || dd > dim) { set(sd, ''); set(sm, ''); set(sy, ''); show('❌ তারিখ ঠিক নয়, আবার দেখুন', 'bad'); return; }
+                    if (yy < minY || yy > maxY) { set(sd, ''); set(sm, ''); set(sy, ''); show('❌ সাল ' + minY + ' থেকে ' + maxY + ' এর মধ্যে হতে হবে', 'bad'); return; }
+                    const p = n => (n < 10 ? '0' : '') + n;
+                    set(sd, p(dd)); set(sm, p(mm)); set(sy, '' + yy);
+                    show('✅ ' + dd + ' ' + MN[mm-1] + ' ' + yy, 'ok');
+                }
+                inp.addEventListener('input', fromInput);
+                // অন্য কোড (রিসেট ইত্যাদি) সিলেক্ট বদলালে ঘরটি মিলিয়ে নেওয়া
+                setInterval(() => {
+                    if (document.activeElement === inp) return;
+                    const want = (sd.value && sm.value && sy.value) ? sd.value + '/' + sm.value + '/' + sy.value : '';
+                    if (inp.value !== want && (want || /^\d\d\/\d\d\/\d{4}$/.test(inp.value) === false)) { if (want || !sd.value) { inp.value = want; show(want ? '✅ ' + (+sd.value) + ' ' + MN[+sm.value-1] + ' ' + sy.value : '', want ? 'ok' : ''); } }
+                }, 600);
+            });
+        })();
 
         updateSpouseRequirement();
         toggleAffidavitType();
@@ -756,8 +951,152 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         setMode();
     };
 
+    // ================= SAME PERSON helpers =================
+    const SP_RELS = {
+        self:        { ref: '',            poss: 'my',  obj: 'me'  },
+        father:      { ref: 'father',      poss: 'his', obj: 'him' },
+        mother:      { ref: 'mother',      poss: 'her', obj: 'her' },
+        husband:     { ref: 'husband',     poss: 'his', obj: 'him' },
+        wife:        { ref: 'wife',        poss: 'her', obj: 'her' },
+        son:         { ref: 'son',         poss: 'his', obj: 'him' },
+        daughter:    { ref: 'daughter',    poss: 'her', obj: 'her' },
+        brother:     { ref: 'brother',     poss: 'his', obj: 'him' },
+        sister:      { ref: 'sister',      poss: 'her', obj: 'her' },
+        grandfather: { ref: 'grandfather', poss: 'his', obj: 'him' },
+        grandmother: { ref: 'grandmother', poss: 'her', obj: 'her' }
+    };
+    const SP_REL_OPTS = '<option value="self">Self (আমার নিজের নাম)</option><option value="father">Father (বাবা)</option><option value="mother">Mother (মা)</option><option value="husband">Husband (স্বামী)</option><option value="wife">Wife (স্ত্রী)</option><option value="son">Son (ছেলে)</option><option value="daughter">Daughter (মেয়ে)</option><option value="brother">Brother (ভাই)</option><option value="sister">Sister (বোন)</option><option value="grandfather">Grandfather (দাদা/ঠাকুরদা)</option><option value="grandmother">Grandmother (দাদি/ঠাকুমা)</option>';
+    const SP_OWNER_OPTS = '<option value="same">যাঁর নাম, তাঁর নিজের ডকুমেন্ট</option><option value="self">আবেদনকারীর (আমার) ডকুমেন্ট</option><option value="father">বাবা-এর ডকুমেন্ট</option><option value="mother">মা-এর ডকুমেন্ট</option><option value="husband">স্বামী-এর ডকুমেন্ট</option><option value="wife">স্ত্রী-এর ডকুমেন্ট</option><option value="son">ছেলে-এর ডকুমেন্ট</option><option value="daughter">মেয়ে-এর ডকুমেন্ট</option><option value="brother">ভাই-এর ডকুমেন্ট</option><option value="sister">বোন-এর ডকুমেন্ট</option><option value="grandfather">দাদা/ঠাকুরদা-এর ডকুমেন্ট</option><option value="grandmother">দাদি/ঠাকুমা-এর ডকুমেন্ট</option><option value="late_father">মৃত বাবা-এর ডকুমেন্ট</option><option value="late_mother">মৃত মা-এর ডকুমেন্ট</option><option value="late_husband">মৃত স্বামী-এর ডকুমেন্ট</option><option value="late_wife">মৃত স্ত্রী-এর ডকুমেন্ট</option><option value="late_son">মৃত ছেলে-এর ডকুমেন্ট</option><option value="late_daughter">মৃত মেয়ে-এর ডকুমেন্ট</option><option value="late_brother">মৃত ভাই-এর ডকুমেন্ট</option><option value="late_sister">মৃত বোন-এর ডকুমেন্ট</option><option value="late_grandfather">মৃত দাদা/ঠাকুরদা-এর ডকুমেন্ট</option><option value="late_grandmother">মৃত দাদি/ঠাকুমা-এর ডকুমেন্ট</option>';
+    const SP_BTN = 'border:none;border-radius:8px;padding:9px 13px;cursor:pointer;font-weight:800;color:#fff;';
+    function addSpPerson(p) {
+        const box = document.getElementById('spPersons');
+        if (!box) return;
+        p = p || {};
+        const el = document.createElement('div');
+        el.className = 'sp-person';
+        el.style.cssText = 'border:2px dashed #c9a24b;border-radius:12px;padding:12px;margin-bottom:14px;background:#fffdf7;';
+        el.innerHTML =
+            '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">' +
+                '<b class="sp-title">👤 ব্যক্তি</b>' +
+                '<button type="button" class="sp-del" onclick="removeSpPerson(this)" style="' + SP_BTN + 'background:#c0392b;padding:6px 11px;">✕ বাদ দিন</button>' +
+            '</div>' +
+            '<div class="grid-2 form-group">' +
+                '<div><label>কার নাম ভুল? <span style="color:red;">*</span></label><select class="sp-rel" onchange="spRelChanged(this)">' + SP_REL_OPTS + '</select></div>' +
+                '<div class="sp-status-wrap"><label>জীবিত / মৃত</label><select class="sp-status" onchange="spChanged()"><option value="No">জীবিত (Alive)</option><option value="Yes">মৃত (Late)</option></select></div>' +
+            '</div>' +
+            '<div class="form-group sp-correct-wrap"><label>সঠিক নাম (Correct Name) <span style="color:red;">*</span></label><input type="text" class="sp-correct" placeholder="যাঁর নাম ভুল হয়েছে তাঁর সঠিক নাম" oninput="spChanged()"></div>' +
+            '<label>ভুল নাম ও ডকুমেন্ট <span style="color:red;">*</span> <small style="font-weight:normal;">(একাধিক ডকুমেন্টে ভুল থাকলে লাইন যোগ করুন)</small></label>' +
+            '<div class="sp-rows"></div>' +
+            '<button type="button" onclick="addSpRow(this.closest(\'.sp-person\')); spChanged();" style="' + SP_BTN + 'background:#34495e;">➕ আরেকটি ডকুমেন্ট</button>';
+        box.appendChild(el);
+        el.querySelector('.sp-rel').value = p.rel || 'self';
+        el.querySelector('.sp-status').value = p.status || 'No';
+        el.querySelector('.sp-correct').value = p.correct || '';
+        (p.rows && p.rows.length ? p.rows : [{}]).forEach(r => addSpRow(el, r.wrong, r.doc, r.owner));
+        spRelChanged(el.querySelector('.sp-rel'), true);
+        renumberSp();
+    }
+    function addSpRow(person, wrong, doc, owner) {
+        const box = person.querySelector('.sp-rows');
+        const row = document.createElement('div');
+        row.className = 'sp-row';
+        row.style.cssText = 'display:flex;gap:6px;margin-bottom:8px;align-items:center;flex-wrap:wrap;';
+        row.innerHTML = '<input type="text" class="sp-wrong" placeholder="ভুল নাম (যেভাবে লেখা আছে)" style="flex:1 1 100%;" oninput="spChanged()">' +
+            '<select class="sp-owner" style="flex:1 1 100%;" onchange="spChanged()">' + SP_OWNER_OPTS + '</select>' +
+            '<input type="text" class="sp-doc" placeholder="ডকুমেন্টের নাম (e.g. 1971 Voter List)" style="flex:1 1 220px;" oninput="spChanged()">' +
+            '<button type="button" onclick="removeSpRow(this)" title="মুছুন" style="' + SP_BTN + 'background:#c0392b;">✕</button>';
+        row.querySelector('.sp-wrong').value = wrong || '';
+        row.querySelector('.sp-doc').value = doc || '';
+        row.querySelector('.sp-owner').value = owner || 'same';
+        box.appendChild(row);
+    }
+    function renderSpPersons(arr) {
+        const box = document.getElementById('spPersons');
+        if (!box) return;
+        box.innerHTML = '';
+        (arr && arr.length ? arr : [{}]).forEach(p => addSpPerson(p));
+        renumberSp();
+    }
+    function removeSpRow(btn) {
+        const row = btn.closest('.sp-row'), box = row.parentElement;
+        if (box.children.length > 1) row.remove();
+        else { row.querySelector('.sp-wrong').value = ''; row.querySelector('.sp-doc').value = ''; }
+        spChanged();
+    }
+    function removeSpPerson(btn) {
+        const el = btn.closest('.sp-person');
+        if (document.querySelectorAll('#spPersons .sp-person').length > 1) el.remove();
+        renumberSp(); spChanged();
+    }
+    function renumberSp() {
+        const all = document.querySelectorAll('#spPersons .sp-person');
+        all.forEach((el, i) => {
+            el.querySelector('.sp-title').textContent = '👤 ব্যক্তি ' + (i + 1);
+            el.querySelector('.sp-del').style.display = all.length > 1 ? '' : 'none';
+        });
+    }
+    function spRelChanged(sel, silent) {
+        const el = sel.closest('.sp-person'), self = sel.value === 'self';
+        el.querySelector('.sp-status-wrap').style.display = self ? 'none' : '';
+        el.querySelector('.sp-correct-wrap').style.display = self ? 'none' : '';
+        if (self) el.querySelector('.sp-status').value = 'No';
+        if (!silent) spChanged();
+    }
+    function getSpPersons() {
+        return Array.from(document.querySelectorAll('#spPersons .sp-person')).map(el => ({
+            rel: el.querySelector('.sp-rel').value,
+            status: el.querySelector('.sp-status').value,
+            correct: el.querySelector('.sp-correct').value.trim(),
+            rows: Array.from(el.querySelectorAll('.sp-row')).map(r => ({ wrong: r.querySelector('.sp-wrong').value.trim(), owner: r.querySelector('.sp-owner').value, doc: r.querySelector('.sp-doc').value.trim() })).filter(r => r.wrong || r.doc)
+        }));
+    }
+    function spPersonsValid() {
+        const ps = getSpPersons();
+        return ps.length > 0 && ps.every(p => (p.rel === 'self' || p.correct) && p.rows.length > 0 && p.rows.every(r => r.wrong && r.doc));
+    }
+    function spFromRecord(d) {   // new records + old single-person records
+        try { if (d.spPersonsData) return JSON.parse(d.spPersonsData); } catch (e) {}
+        try { if (d.spRowsData) return [{ rel: d.spRelation || 'self', status: d.spStatus || 'No', correct: d.spCorrectName || '', rows: JSON.parse(d.spRowsData) }]; } catch (e) {}
+        return [];
+    }
+    function spChanged() { refresh(); }
+
     // ================= AFFIDAVIT =================
+    // ================= AFFIDAVIT TYPE GROUPS =================
+    const AFF_GROUPS = {
+        NonStudy: [["NonStudyBen","Bengali (বাংলা)"],["NonStudyEng","English (ইংরেজি)"],["NonStudyThumb","Thumb (টিপসই)"]],
+        OBC:      [["OBCSelf","Self (নিজের)"],["OBCParents","For Child (সন্তানের)"]],
+        OBCNCL:   [["OBCNCLSelf","Self (নিজের)"],["OBCNCLParents","For Child (সন্তানের)"]]
+    };
+    function affGroupOf(t) { for (const g in AFF_GROUPS) if (AFF_GROUPS[g].some(v => v[0] === t)) return g; return t; }
+    function syncAffUI() {
+        const t = document.getElementById("affidavitType").value, g = affGroupOf(t);
+        document.getElementById("affidavitGroup").value = g;
+        const wrap = document.getElementById("affVariantWrap"), sel = document.getElementById("affidavitVariant");
+        if (AFF_GROUPS[g]) {
+            sel.innerHTML = AFF_GROUPS[g].map(v => `<option value="${v[0]}">${v[1]}</option>`).join("");
+            sel.value = t; wrap.style.display = "block";
+        } else { wrap.style.display = "none"; }
+    }
+    function onAffGroupChange() {
+        const g = document.getElementById("affidavitGroup").value;
+        document.getElementById("affidavitType").value = AFF_GROUPS[g] ? AFF_GROUPS[g][0][0] : g;
+        toggleAffidavitType();
+    }
+    function onAffVariantChange() {
+        document.getElementById("affidavitType").value = document.getElementById("affidavitVariant").value;
+        toggleAffidavitType();
+    }
+    const OT_IDS = ['ot_vehicleNo','ot_engineNo','ot_chassisNo','ot_reason','ot_buyerName','ot_buyerRelType','ot_buyerRelName','ot_vill','ot_po','ot_ps','ot_dist','ot_pin','ot_date'];
+    function otFields() { const o = {}; OT_IDS.forEach(id => { o[id] = document.getElementById(id).value; }); return o; }
+    function otValid() {
+        const v = id => document.getElementById(id).value.trim();
+        return ['ot_vehicleNo','ot_engineNo','ot_chassisNo','ot_buyerName','ot_buyerRelName','ot_vill','ot_ps','ot_date'].every(v);
+    }
+    function otDateStr() { const d = document.getElementById("ot_date").value; return d ? d.split("-").reverse().join("/") : ""; }
+
     function toggleAffidavitType() {
+        syncAffUI();
         const type = document.getElementById("affidavitType").value;
         const appType = document.getElementById("appType").value;
 
@@ -772,6 +1111,8 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         document.getElementById("childSection").style.display = "none";
         document.getElementById("childDobWrapper").style.display = "none";
         document.getElementById("digitalBirthSection").style.display = "none";
+        document.getElementById("samePersonSection").style.display = (type === "SamePerson") ? "block" : "none";
+        document.getElementById("ownershipSection").style.display = (type === "OwnershipTransfer") ? "block" : "none";
 
         const dobWrapper = document.getElementById("dobWrapper");
         const ageInput = document.getElementById("age");
@@ -838,6 +1179,13 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
 
     function isBirthSelf(){ const t = document.getElementById("affidavitType").value; return (t === "Birth" || t === "DigiBirth") && document.getElementById("appType").value === "Self"; }
     function isBirthChild(){ const t = document.getElementById("affidavitType").value; return (t === "Birth" || t === "DigiBirth") && document.getElementById("appType").value === "Child"; }
+    function poPinRequired(){ const t = document.getElementById("affidavitType").value; return t === "Birth" || t.indexOf("DigiBirth") === 0 || t === "Death"; }
+    function PO(v){ return v ? `P.O. ${v}, ` : ""; }
+    function PIN(v){ return v ? `, Pin-${v}` : ""; }
+    function updatePoPinUI(){
+        const r = poPinRequired(), m = r ? " *" : " (ঐচ্ছিক)";
+        ["p","ot"].forEach(q => { const a = document.getElementById(q+"_po"), b = document.getElementById(q+"_pin"); if(a) a.placeholder = "P.O." + m; if(b) b.placeholder = "PIN Code" + m; });
+    }
     function isNonStudy(){ return document.getElementById("affidavitType").value.indexOf("NonStudy") === 0; }
     function spouseRequired(){
         if (isNonStudy()) return document.getElementById("gender").value === "Female";
@@ -850,6 +1198,7 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         return document.getElementById("gender").value === "Male" && true;
     }
     function updateSpouseRequirement() {
+        updatePoPinUI();
         const gender = document.getElementById("gender").value;
         const star = ' <span style="color:red;">*</span>';
         const sp = spouseRequired(), fa = fatherRequired();
@@ -966,10 +1315,10 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         const childDob = (c_dDay && c_dMonth && c_dYear) ? `${c_dDay}/${c_dMonth}/${c_dYear}` : "[DD/MM/YYYY]";
 
         const p_villVal = document.getElementById("p_vill").value.trim(); const p_vill = p_villVal || "[VILL]";
-        const p_poVal = document.getElementById("p_po").value.trim(); const p_po = p_poVal || "[PO]";
+        const p_poVal = document.getElementById("p_po").value.trim(); const p_po = p_poVal || (poPinRequired() ? "[PO]" : "");
         const p_psVal = document.getElementById("p_ps").value.trim(); const p_ps = p_psVal || "[PS]";
         const p_dist = document.getElementById("p_dist").value;
-        const p_pinVal = document.getElementById("p_pin").value.trim(); const p_pin = p_pinVal || "[PIN]";
+        const p_pinVal = document.getElementById("p_pin").value.trim(); const p_pin = p_pinVal || (poPinRequired() ? "[PIN]" : "");
 
         const signMonth = document.getElementById("signMonth").value;
         const signYearVal = document.getElementById("signYear").value.trim();
@@ -1024,7 +1373,7 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
                     verifyNum = "3";
                     affidavitBody = `
                         <ol style="text-align: justify;">
-                            <li>That I was born on <b>${dob}</b> at my parents’ residence located at ${b_vill}, P.O. ${b_po}, P.S. ${b_ps}, Dist. ${b_dist}, Tripura, Pin-${b_pin}.</li>
+                            <li>That I was born on <b>${dob}</b> at my parents’ residence located at ${b_vill}, ${PO(b_po)}P.S. ${b_ps}, Dist. ${b_dist}, Tripura${PIN(b_pin)}.</li>
                             <li>That my parents could not get my name and date of birth entered in the Birth Register of <b>${auth1_name} ${auth1_type}</b> under <b>${auth2_name} ${auth2_type}</b> in due time due to inadvertence and oversight.</li>
                             <li>That I am swearing this affidavit for the explicit purpose of obtaining my delayed Birth Certificate from the competent authority based on this declaration.</li>
                         </ol>
@@ -1043,7 +1392,7 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
 
                     affidavitBody = `
                         <ol style="text-align: justify;">
-                            <li>That my ${childTerm}, namely <b>${childName}</b>, (${relStr} ${c_parents}) was born on <b>${childDob}</b> at our residence located at ${b_vill}, P.O. ${b_po}, P.S. ${b_ps}, Dist. ${b_dist}, Tripura, Pin-${b_pin}.</li>
+                            <li>That my ${childTerm}, namely <b>${childName}</b>, (${relStr} ${c_parents}) was born on <b>${childDob}</b> at our residence located at ${b_vill}, ${PO(b_po)}P.S. ${b_ps}, Dist. ${b_dist}, Tripura${PIN(b_pin)}.</li>
                             <li>That we could not get our ${childPoss} name and date of birth entered in the Birth Register of <b>${auth1_name} ${auth1_type}</b> under <b>${auth2_name} ${auth2_type}</b> in due time due to inadvertence and oversight.</li>
                             <li>That I am swearing this affidavit for the explicit purpose of obtaining my ${childPoss} delayed Birth Certificate from the competent authority based on this declaration.</li>
                         </ol>
@@ -1061,7 +1410,7 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
                     const hName = document.getElementById("hospitalName").value.trim() || "[HOSPITAL NAME]";
                     pobString = `at <b>${hName}</b>`;
                 } else {
-                    pobString = `at ${b_vill}, P.O. ${b_po}, P.S. ${b_ps}, Dist. ${b_dist}, Tripura, Pin-${b_pin} under <b>${auth1_name} ${auth1_type}</b>, <b>${auth2_name} ${auth2_type}</b>`;
+                    pobString = `at ${b_vill}, ${PO(b_po)}P.S. ${b_ps}, Dist. ${b_dist}, Tripura${PIN(b_pin)} under <b>${auth1_name} ${auth1_type}</b>, <b>${auth2_name} ${auth2_type}</b>`;
                 }
 
                 if (kSelf) {
@@ -1117,8 +1466,8 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
 
             affidavitBody = `
                 <ol style="text-align: justify;">
-                    <li>That my late ${rel}, namely <b>${decName}</b> (${gType} <b>${gName}</b>), died on <b>${dod}</b> at ${podPrefix} located at ${d_vill}, P.O. ${d_po}, P.S. ${d_ps}, Dist. ${d_dist}, Tripura, Pin-${d_pin}.</li>
-                    <li>That I could not get ${pronoun} name and date of death entered into the Death Register of the <b>${auth1_name}</b> <b>${auth1_type}</b>, under <b>${auth2_name}</b> <b>${auth2_type}</b> in due time, due to inadvertence and oversight.</li>
+                    <li>That my late ${rel}, namely <b>${decName}</b> (${gType} <b>${gName}</b>), died on <b>${dod}</b> at ${podPrefix} located at ${d_vill}, ${PO(d_po)}P.S. ${d_ps}, Dist. ${d_dist}, Tripura${PIN(d_pin)}.</li>
+                    <li>That I could not get ${pronoun} name and date of death entered into the Death Register of the <b>${auth1_name} ${auth1_type}</b>, under <b>${auth2_name} ${auth2_type}</b> in due time, due to inadvertence and oversight.</li>
                     <li>That I am swearing this affidavit for the explicit purpose of obtaining a delayed Death Certificate for my late ${rel} from the competent authority based on this declaration.</li>
                 </ol>
             `;
@@ -1199,6 +1548,87 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
             }
         }
 
+        if (affidavitType === "SamePerson") {
+            const persons = getSpPersons();
+            const joinList = a => a.length < 2 ? a.join("") : a.slice(0, -1).join(", ") + " and " + a[a.length - 1];
+            const items = [];
+            persons.forEach((pr, idx) => {
+                const rel = SP_RELS[pr.rel] || SP_RELS.self;
+                const isSelf = !rel.ref;
+                const late = !isSelf && pr.status === "Yes";
+                const relWord = isSelf ? "" : `my ${late ? "late " : ""}${rel.ref}`;
+                const subjPoss = isSelf ? "my" : `${relWord}’s`;
+                const poss = rel.poss, objPron = rel.obj;
+                const correct = esc(isSelf ? name : (pr.correct || "[CORRECT NAME]"));
+
+                const groups = [];
+                (pr.rows.length ? pr.rows : [{ wrong: "", doc: "" }]).forEach(r => {
+                    const w = r.wrong || "[WRONG NAME]", d = r.doc || "[DOCUMENT NAME]";
+                    let g = groups.find(x => x.w.toLowerCase() === w.toLowerCase());
+                    if (!g) { g = { w, docs: [] }; groups.push(g); }
+                    g.docs.push({ d, o: r.owner || "same" });
+                });
+                const ownerPoss = o => {
+                    if (o === "same") return poss;
+                    if (o === "self") return "my";
+                    const late = o.indexOf("late_") === 0, r = late ? o.slice(5) : o;
+                    return `my ${late ? "late " : ""}${r}’s`;
+                };
+                const docPhrase = g => {
+                    const subs = [];
+                    g.docs.forEach(x => { let sg = subs.find(y => y.o === x.o); if (!sg) { sg = { o: x.o, ds: [] }; subs.push(sg); } sg.ds.push(`<b>${esc(x.d)}</b>`); });
+                    return joinList(subs.map(sg => `in ${ownerPoss(sg.o)} ${joinList(sg.ds)}`));
+                };
+                const insteadStr = `(instead of ${poss} actual correct name, "<b>${correct}</b>")`;
+                const allNames = [correct].concat(groups.map(g => esc(g.w)));
+                const bothAll = allNames.length === 2 ? "both" : "all";
+
+                items.push(`That ${subjPoss} actual and correct name is <b>${correct}</b>, which is properly recorded in ${poss} valid identity documents.`);
+                if (groups.length === 1) {
+                    items.push(`That, however, an inadvertent clerical error has been made in official records, wherein ${subjPoss} name has been incorrectly recorded as "<b>${esc(groups[0].w)}</b>" ${insteadStr} ${docPhrase(groups[0])}.`);
+                } else {
+                    const parts = groups.map(g => `"<b>${esc(g.w)}</b>" ${docPhrase(g)}`);
+                    items.push(`That, however, an inadvertent clerical error has been made in official records, wherein ${subjPoss} name has been incorrectly recorded as ${parts.join(", and as ")} ${insteadStr}.`);
+                }
+                const lead = idx === 0 ? "That I am swearing this affidavit to legally and solemnly declare that" : "That I further declare that";
+                items.push(`${lead} ${joinList(allNames.map(n => `"<b>${n}</b>"`))} are the names of one and the same identical person, and ${bothAll} these name variations refer exclusively to ${isSelf ? "me" : relWord}.`);
+
+                if (persons.length === 1) {
+                    items.push(isSelf
+                        ? `That this affidavit is sworn to establish my correct identity across all official records, to confirm that ${bothAll} the aforementioned name variations refer exclusively to me, and to use this declaration before the competent authorities for all official, legal, and administrative purposes.`
+                        : `That this affidavit is sworn to establish ${subjPoss} correct identity, to confirm that ${bothAll} the aforementioned name variations refer exclusively to ${objPron}, and to use this declaration before the competent authorities for all official, legal, and administrative purposes.`);
+                }
+            });
+            if (persons.length > 1) {
+                items.push(`That this affidavit is sworn to establish the correct identity of each of the aforesaid persons, to confirm that the respective name variations mentioned above refer exclusively to the respective person concerned, and to use this declaration before the competent authorities for all official, legal, and administrative purposes.`);
+            }
+            verifyNum = String(items.length);
+            affidavitBody = `<ol style="text-align: justify;">${items.map(t => `<li>${t}</li>`).join("")}</ol>`;
+        }
+
+        if (affidavitType === "OwnershipTransfer") {
+            const ov = id => document.getElementById(id).value.trim();
+            const reg = esc(ov("ot_vehicleNo").toUpperCase()) || "[REG NO]";
+            const eng = esc(ov("ot_engineNo").toUpperCase()) || "[ENGINE NO]";
+            const chs = esc(ov("ot_chassisNo").toUpperCase()) || "[CHASSIS NO]";
+            const reason = esc(ov("ot_reason")) || "my deplorable financial condition";
+            const bName = esc(ov("ot_buyerName")) || "[BUYER NAME]";
+            const bRel = document.getElementById("ot_buyerRelType").value;
+            const bRelName = esc(ov("ot_buyerRelName")) || "[FATHER/HUSBAND NAME]";
+            const bAddr = `${esc(ov("ot_vill")) || "[VILL]"}, ${PO(esc(ov("ot_po")))}P.S. ${esc(ov("ot_ps")) || "[PS]"}, Dist. ${document.getElementById("ot_dist").value}, Tripura${PIN(esc(ov("ot_pin")))}`;
+            const buyer = `<b>${bName}</b>, ${bRel} <b>${bRelName}</b>, resident of <b>${bAddr}</b>`;
+            const hDate = otDateStr() || "[DD/MM/YYYY]";
+            verifyNum = "4";
+            affidavitBody = `
+                <ol style="text-align: justify;">
+                    <li>That I am the registered owner of the vehicle bearing Registration No. <b>${reg}</b>, Engine No. <b>${eng}</b>, and Chassis No. <b>${chs}</b>, and I have sold the said vehicle due to ${reason} in favour of ${buyer}.</li>
+                    <li>That the said vehicle is not involved in any accident or legal case in any court of law till date.</li>
+                    <li>That I have no objection to the transfer of ownership and issuance of the Registration Certificate in favour of ${buyer}.</li>
+                    <li>That I have handed over the physical possession of the said vehicle on <b>${hDate}</b> to ${buyer}, and I shall submit the prescribed forms along with this affidavit and other necessary documents to the competent authority in due time for transferring the Registration Certificate of the said vehicle.</li>
+                </ol>
+            `;
+        }
+
         const draftHTML = `
             <div style="text-align: center; font-weight: bold; margin-bottom: 20px;">
                 BEFORE THE NOTARY PUBLIC AT<br>
@@ -1207,7 +1637,7 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
             </div>
 
             <div style="text-align: justify; text-indent: 40px; margin-bottom: 20px;">
-                I, <b>${name}</b>, ${relationPart}, resident of ${p_vill}, P.O. ${p_po}, P.S. ${p_ps}, Dist. ${p_dist}, Tripura, Pin-${p_pin}, aged about ${age} years, by faith ${religion}, by profession ${profession}, a Citizen of India, do hereby solemnly declare and affirm as follows:
+                I, <b>${name}</b>, ${relationPart}, resident of ${p_vill}, ${PO(p_po)}P.S. ${p_ps}, Dist. ${p_dist}, Tripura${PIN(p_pin)}, aged about ${age} years, by faith ${religion}, by profession ${profession}, a Citizen of India, do hereby solemnly declare and affirm as follows:
             </div>
 
             ${affidavitBody}
@@ -1228,16 +1658,19 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
                 Deponent is identified by me.
             </div>
 
-            <div style="display: flex; justify-content: space-between; font-weight: bold;">
-                <div>ADVOCATE</div>
-                <div>DEPONENT</div>
-            </div>
+            <table style="width:100%; border-collapse:collapse; font-weight:bold;">
+                <tr>
+                    <td style="width:50%; text-align:left; border:0; padding:0;">ADVOCATE</td>
+                    <td style="width:50%; text-align:right; border:0; padding:0;">DEPONENT</td>
+                </tr>
+            </table>
         `;
         document.getElementById("output").innerHTML = draftHTML;
 
         // Validations
         let isValid = nameVal && ageRaw && (ageVal >= 18) && professionVal &&
-                      p_villVal && p_poVal && p_psVal && p_pinVal && signYearVal;
+                      p_villVal && p_psVal && signYearVal;
+        if (poPinRequired() && !(p_poVal && p_pinVal)) isValid = false;
 
         if (fatherRequired() && !fatherVal) isValid = false;
         if (spouseRequired() && !spouseVal) isValid = false;
@@ -1283,6 +1716,9 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
             if (affidavitType.includes("Parents")) isValid = isValid && childNameVal;
         }
 
+        if (affidavitType === "SamePerson") isValid = isValid && spPersonsValid();
+        if (affidavitType === "OwnershipTransfer") isValid = isValid && otValid();
+
         document.getElementById("actionButtons").style.display = isValid ? "flex" : "none";
         document.getElementById("warningMsg").style.display = isValid ? "none" : "block";
     }
@@ -1301,6 +1737,13 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
             subjectTitle = `${name} (Digi Birth Self)`;
         } else if (affidavitType === "Death") {
             subjectTitle = `${document.getElementById("decName").value.trim()} (Death, Rep: ${name})`;
+        } else if (affidavitType === "OwnershipTransfer") {
+            subjectTitle = `${name} (Vehicle Transfer - ${document.getElementById("ot_vehicleNo").value.trim().toUpperCase()})`;
+        } else if (affidavitType === "SamePerson") {
+            const spP = getSpPersons();
+            subjectTitle = spP.length === 1
+                ? (spP[0].rel === "self" ? `${name} (Same Person)` : `${spP[0].correct} (Same Person - ${spP[0].rel}, Rep: ${name})`)
+                : `${name} (Same Person - ${spP.length} persons)`;
         } else if (affidavitType.includes("OBC")) {
             if(affidavitType.includes("Parents")) subjectTitle = `${document.getElementById("childName").value.trim()} (${affidavitType} - ${name})`;
             else subjectTitle = `${name} (${affidavitType})`;
@@ -1326,7 +1769,9 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
             b_vill: document.getElementById("b_vill").value, b_po: document.getElementById("b_po").value, b_ps: document.getElementById("b_ps").value, b_dist: document.getElementById("b_dist").value, b_pin: document.getElementById("b_pin").value,
             d_vill: document.getElementById("d_vill").value, d_po: document.getElementById("d_po").value, d_ps: document.getElementById("d_ps").value, d_dist: document.getElementById("d_dist").value, d_pin: document.getElementById("d_pin").value,
             auth1_name: document.getElementById("auth1_name").value, auth1_type: document.getElementById("auth1_type").value, auth2_name: document.getElementById("auth2_name").value, auth2_type: document.getElementById("auth2_type").value,
-            signMonth: document.getElementById("signMonth").value, signYear: document.getElementById("signYear").value
+            signMonth: document.getElementById("signMonth").value, signYear: document.getElementById("signYear").value,
+            spPersonsData: JSON.stringify(getSpPersons()),
+            ...otFields()
         };
 
         // same content already saved -> don't create a duplicate
@@ -1344,6 +1789,7 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         });
         ['dobDay','dobMonth','dobYear','c_dobDay','c_dobMonth','c_dobYear','dodDay','dodMonth','dodYear','regDay','regMonth','regYear'].forEach(id => document.getElementById(id).value = "");
         document.getElementById("importBox").value = "";
+        renderSpPersons();
 
         renderHistory();
         generateDraft();
@@ -1522,6 +1968,7 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
                 if (document.getElementById(key)) document.getElementById(key).value = data[key];
             }
             if (!data.affidavitType) { document.getElementById("affidavitType").value = "Birth"; }
+            renderSpPersons(spFromRecord(data));
             toggleAffidavitType(); checkProfession(); updateAuthLevel2(); updateSpouseRequirement();
         }
         setMode();
@@ -1628,6 +2075,42 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
         if (navigator.msSaveOrOpenBlob) navigator.msSaveOrOpenBlob(blob, filename); else { a.href = url; a.download = filename; a.click(); }
         document.body.removeChild(a);
     }
+</script>
+<!-- ===== 🔐 Lock voice only (English, female) ===== -->
+<script>
+(function(){
+    const synth = window.speechSynthesis;
+    let voice = null;
+    // সবচেয়ে স্বাভাবিক শোনায় এমন মেয়েলি ভয়েসগুলো আগে (Neural/Natural > Google/Apple > বাকি)
+    const RANK = [
+        /(aria|jenny|sonia|libby|emma|michelle|ava|ana).*(online|natural)/i,
+        /(online|natural).*(aria|jenny|sonia|libby|emma|michelle|ava|ana)/i,
+        /google uk english female/i,
+        /google us english/i,
+        /(samantha|serena|karen|moira|tessa|ava|allison|susan)/i,
+        /(zira|hazel|female)/i
+    ];
+    function pickVoice(){
+        if (!synth) return;
+        const vs = (synth.getVoices() || []).filter(v => /^en/i.test(v.lang));
+        for (const re of RANK) { const v = vs.find(v => re.test(v.name)); if (v) { voice = v; return; } }
+        voice = vs.find(v => /^en[-_]US/i.test(v.lang)) || vs[0] || null;
+    }
+    if (synth) { pickVoice(); if (synth.onvoiceschanged !== undefined) synth.addEventListener('voiceschanged', pickVoice); }
+    function speak(text){
+        if (!synth) return;
+        try {
+            synth.cancel();
+            const u = new SpeechSynthesisUtterance(text);
+            u.lang = (voice && voice.lang) || 'en-US';
+            if (voice) u.voice = voice;
+            u.rate = 0.9; u.pitch = 1.0; u.volume = 1;   // pitch বাড়ালে গলা কৃত্রিম শোনায়, তাই স্বাভাবিক রাখা হয়েছে
+            synth.speak(u);
+        } catch(_){}
+    }
+    const MSG = { unlock: 'Identity verified. System unlocked.', error: 'Authentication failed. Access denied.' };
+    window.SFX = { play(n){ if (MSG[n]) speak(MSG[n]); } };
+})();
 </script>
 </body>
 </html>

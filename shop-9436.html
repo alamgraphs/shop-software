@@ -282,6 +282,14 @@ body.locked #lockScreen{background:radial-gradient(900px 520px at 50% -10%,rgba(
 
     <div class="form-panel">
 
+        <div class="import-section" style="background:#f3f9f6; border-color:#1b8a5a;">
+            <h4 style="color:#1b8a5a;">🌐 অনলাইন কাস্টমার লিস্ট (Google Sheet)</h4>
+            <button class="btn-fill" id="btnLoadSheet" onclick="loadFromSheet()" style="background:linear-gradient(135deg,#1b8a5a,#0f6b43); margin-top:0;">
+                🔄 নতুন কাস্টমারের তালিকা দেখুন
+            </button>
+            <div id="sheetCustomerList" style="margin-top:10px; max-height:240px; overflow-y:auto;"></div>
+        </div>
+
         <div class="import-section">
             <h4>📥 Auto-Fill from WhatsApp</h4>
             <textarea id="importBox" rows="3" placeholder="কাস্টমারের পাঠানো মেসেজ পেস্ট করুন..."></textarea>
@@ -2074,6 +2082,56 @@ body.locked #lockScreen{background:radial-gradient(900px 520px at 50% -10%,rgba(
         const a = document.createElement('a'); document.body.appendChild(a);
         if (navigator.msSaveOrOpenBlob) navigator.msSaveOrOpenBlob(blob, filename); else { a.href = url; a.download = filename; a.click(); }
         document.body.removeChild(a);
+    }
+
+    // ================= Google Sheet Live Receive =================
+    const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbwsXh37QDHtNg27DaTTWRYTB_5pCI3_Ya8zuDI0csOKneKEUDFiTBYUkQA6UkapKYCI/exec";
+
+    async function loadFromSheet() {
+        const box = document.getElementById("sheetCustomerList");
+        const btn = document.getElementById("btnLoadSheet");
+        if (!box || !btn) return;
+        btn.disabled = true;
+        btn.textContent = "⏳ লোড হচ্ছে...";
+        box.innerHTML = "";
+
+        try {
+            const res = await fetch(SHEET_API_URL);
+            if (!res.ok) throw new Error("HTTP " + res.status);
+            const list = await res.json();
+
+            if (!Array.isArray(list) || !list.length) {
+                box.innerHTML = "<div style='color:#666; font-size:13px; text-align:center; padding:8px;'>কোনো নতুন কাস্টমার নেই।</div>";
+                return;
+            }
+
+            list.forEach(item => {
+                const row = document.createElement("div");
+                row.style.cssText = "display:flex; justify-content:space-between; align-items:center; background:#fff; padding:8px 10px; border:1px solid #cfe6da; border-radius:8px; margin-bottom:6px; gap:8px;";
+                row.innerHTML = `
+                    <div style="font-size:12.5px; line-height:1.35;">
+                        <b>${esc(item.name || "Unnamed")}</b> <span style="color:#1d4a85;">(${esc(item.docType || "")})</span><br>
+                        <small style="color:#777;">${esc(item.date || "")}</small>
+                    </div>
+                    <button type="button" class="btn-sm" style="background:#0b1f3a; color:#f8f0d9; white-space:nowrap;">✨ অটো-ফিল</button>
+                `;
+                row.querySelector("button").onclick = function() {
+                    try {
+                        const data = JSON.parse(decodeURIComponent(atob(item.code)));
+                        loadFormData(data);
+                        alert("✅ " + (item.name || "কাস্টমার") + "-এর সব তথ্য ফর্মে বসে গেছে!");
+                    } catch (e) {
+                        alert("❌ ডাটা লোড করতে সমস্যা হয়েছে।");
+                    }
+                };
+                box.appendChild(row);
+            });
+        } catch (err) {
+            box.innerHTML = "<div style='color:#c93a45; font-size:13px; padding:6px;'>❌ লিস্ট লোড করা যায়নি। ইন্টারনেট কানেকশন বা Google Script পারমিশন চেক করুন।</div>";
+        } finally {
+            btn.disabled = false;
+            btn.textContent = "🔄 নতুন কাস্টমারের তালিকা দেখুন";
+        }
     }
 </script>
 <!-- ===== 🔐 Lock voice only (English, female) ===== -->

@@ -21,7 +21,7 @@ button{font-family:inherit}
 
 label{display:block;font-weight:700;margin-bottom:7px;font-size:12.5px;color:var(--ink2);letter-spacing:.2px}
 label span{color:var(--danger)}
-input[type="text"],input[type="number"],input[type="password"],select,textarea{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font-size:14.5px;font-family:inherit;font-weight:500;color:var(--ink);background-color:var(--field);transition:border-color .18s,box-shadow .18s;outline:none;box-shadow:0 1px 2px rgba(11,31,58,.04)}
+input[type="text"],input[type="number"],input[type="password"],input[type="date"],input[type="tel"],select,textarea{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font-size:14.5px;font-family:inherit;font-weight:500;color:var(--ink);background-color:var(--field);transition:border-color .18s,box-shadow .18s;outline:none;box-shadow:0 1px 2px rgba(11,31,58,.04)}
 input::placeholder,textarea::placeholder{color:#a8b0c1;font-weight:400}
 input:hover,select:hover,textarea:hover{border-color:#c5cbd9}
 input:focus,select:focus,textarea:focus{border-color:var(--navy3);box-shadow:0 0 0 4px rgba(29,74,133,.14)}
@@ -37,6 +37,8 @@ legend{font-weight:800;font-size:12px;padding:6px 16px;color:var(--gold-l) !impo
 #obcSection{background:#f4f5fc;border-color:#d6d9f0;border-top-color:#5b64c4}
 #deathSection{background:#faf5f1;border-color:#ead9cb;border-top-color:#b0703c}
 #digitalBirthSection{background:#f1f7fc;border-color:#cde0ef;border-top-color:var(--navy3)}
+#samePersonSection{background:#fdfaf2;border-color:#e8d9b0;border-top-color:var(--gold)}
+#ownershipSection{background:#f2f8f8;border-color:#c6dfdf;border-top-color:#1f7a7a}
 .type-selector{background:var(--gold-xl) !important;border:1px solid #eadcb4 !important;border-left:6px solid var(--gold) !important;border-radius:12px !important;padding:16px !important;margin-bottom:20px}
 .type-selector label{color:var(--gold-d) !important;font-size:13px !important}
 .type-selector select{font-weight:700 !important;color:var(--navy) !important;border-color:#e3d29c !important;padding:12px 36px 12px 14px !important}
@@ -57,7 +59,7 @@ legend{font-weight:800;font-size:12px;padding:6px 16px;color:var(--gold-l) !impo
 @media screen and (max-width:640px){.grid-2{grid-template-columns:1fr;gap:14px}}
 
 body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg) 260px);padding:26px 12px 56px;min-height:100vh}
-.container{max-width:680px;margin:auto;background:var(--card);border-radius:22px;box-shadow:var(--shadow);padding:0 26px 30px;overflow:hidden;animation:rise .5s ease both}
+.container{max-width:680px;margin:auto;background:var(--card);border-radius:22px;box-shadow:var(--shadow);padding:0 26px 30px;overflow:hidden}
 .brand-header{margin:0 -26px 28px;padding:38px 24px 34px;text-align:center;color:#fff;background:radial-gradient(500px 220px at 85% -20%,rgba(201,162,75,.35),transparent 70%),linear-gradient(160deg,var(--navy) 0%,var(--navy2) 100%);position:relative;border-bottom:4px solid var(--gold)}
 .brand-header::before{content:"";position:absolute;inset:12px;border:1px solid rgba(201,162,75,.45);border-radius:14px;pointer-events:none}
 .brand-header > *{position:relative;z-index:1}
@@ -71,8 +73,62 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
 .btn-copy{background:#fff;color:var(--navy);border:2px solid var(--navy);padding:13px 20px;border-radius:14px;cursor:pointer;font-size:15px;font-weight:800;width:100%;margin-top:12px;transition:background .2s,color .2s}
 .btn-copy:hover{background:var(--navy);color:var(--gold)}
 .send-hint{text-align:center;color:var(--muted);font-size:12.5px;margin:12px 0 0}
-@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.btn-whatsapp,.btn-copy{position:sticky;bottom:10px}
+.btn-whatsapp,.btn-copy{position:static}
+.btn-submit-main{background:linear-gradient(135deg,var(--navy) 0%,var(--navy3) 100%);color:#fff;border:none;padding:17px 20px;border-radius:14px;cursor:pointer;font-size:16.5px;font-weight:800;width:100%;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 14px 28px -10px rgba(11,31,58,.75);transition:transform .15s,filter .15s}
+.btn-submit-main:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.btn-submit-main:disabled{opacity:.7;cursor:wait;transform:none}
+.alt-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.alt-actions .btn-whatsapp{margin-top:0;padding:13px 14px;font-size:14px;box-shadow:0 8px 18px -10px rgba(15,157,76,.6)}
+.alt-actions .btn-copy{margin-top:0;padding:13px 14px;font-size:14px}
+@media screen and (max-width:520px){.alt-actions{grid-template-columns:1fr}}
+
+/* Mode Tab Switcher */
+.mode-tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.mode-tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:13px 10px;border-radius:12px;border:2px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);color:#e6edf7;cursor:pointer;font-size:14px;font-weight:800;transition:all .2s}
+.mode-tab small{font-size:11px;font-weight:600;opacity:.85}
+.mode-tab:hover{background:rgba(255,255,255,.18)}
+.mode-tab.active{background:#fff;color:var(--navy);border-color:var(--gold);box-shadow:0 8px 20px -8px rgba(0,0,0,.45)}
+.mode-tab.active small{color:var(--gold-d);opacity:1}
+
+/* Progress Bar */
+.top-progress-track{position:fixed;top:0;left:0;right:0;height:4px;background:rgba(11,31,58,.15);z-index:999}
+.top-progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--gold),#27d367);transition:width .3s ease}
+.progress-card{background:#f7f9fc;border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:18px}
+.progress-meta{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700;color:var(--ink2);margin-bottom:6px}
+.progress-meta b{color:var(--ok)}
+.progress-bar-bg{height:8px;background:#e4e8f0;border-radius:999px;overflow:hidden}
+.progress-bar-in{height:100%;width:0%;background:linear-gradient(90deg,var(--navy3),var(--ok));border-radius:999px;transition:width .3s ease}
+
+/* Field Validation Highlight */
+.field-error{border-color:var(--danger) !important;background-color:#fff5f6 !important;box-shadow:0 0 0 4px rgba(201,58,69,.18) !important}
+
+/* Smart Toast */
+#toastBox{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:10000;display:flex;flex-direction:column;gap:8px;width:min(92vw,420px);pointer-events:none}
+.toast{padding:12px 16px;border-radius:12px;color:#fff;font-size:13.5px;font-weight:700;box-shadow:0 14px 30px -8px rgba(0,0,0,.45);display:flex;align-items:center;gap:10px;opacity:0;transform:translateY(14px);transition:opacity .25s,transform .25s;pointer-events:auto}
+.toast.show{opacity:1;transform:none}
+.toast.ok{background:linear-gradient(135deg,#1b8a5a,#116641)}
+.toast.err{background:linear-gradient(135deg,#c93a45,#992029)}
+.toast.info{background:linear-gradient(135deg,var(--navy2),var(--navy))}
+
+/* Review Modal */
+#reviewModal{display:none;position:fixed;inset:0;z-index:9500;background:rgba(11,31,58,.68);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:14px}
+#reviewModal.open{display:flex}
+.review-card{background:#fff;width:100%;max-width:520px;max-height:88vh;border-radius:20px;border-top:5px solid var(--gold);box-shadow:0 30px 70px -15px rgba(0,0,0,.6);display:flex;flex-direction:column;overflow:hidden}
+.review-head{background:var(--navy);color:#fff;padding:16px 20px;display:flex;justify-content:space-between;align-items:center}
+.review-head h3{margin:0;font-size:16px;color:var(--gold-l)}
+.review-head button{background:transparent;border:none;color:#fff;font-size:20px;cursor:pointer;padding:2px 6px}
+.review-body{padding:16px 20px;overflow-y:auto;font-size:13.5px}
+.review-tip{background:var(--gold-xl);border:1px solid #eadcb4;color:var(--gold-d);padding:9px 12px;border-radius:10px;font-size:12.5px;font-weight:700;margin-bottom:12px}
+.review-table{width:100%;border-collapse:collapse}
+.review-table tr{border-bottom:1px solid #edf0f6}
+.review-table tr:last-child{border-bottom:none}
+.review-table td{padding:8px 6px;vertical-align:top}
+.review-table td:first-child{width:38%;color:var(--ink2);font-weight:700;font-size:12.5px}
+.review-table td:last-child{color:var(--navy);font-weight:700;word-break:break-word}
+.review-foot{padding:14px 20px;background:#f7f9fc;border-top:1px solid var(--line);display:flex;gap:10px;flex-wrap:wrap}
+.review-foot button{flex:1;min-width:130px;padding:12px 14px;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;border:none}
+.btn-rev-edit{background:#fff;color:var(--navy);border:2px solid var(--navy) !important}
+.btn-rev-send{background:linear-gradient(135deg,#1b8a5a,#116641);color:#fff;box-shadow:0 10px 20px -8px rgba(27,138,90,.7)}
 .container::after{content:"🔒 আপনার তথ্য নিরাপদে শুধুমাত্র AYAT GRAPHICS ZONE-এ পাঠানো হবে";display:block;text-align:center;font-size:12px;color:var(--muted);margin-top:18px}
 
 .contact-card{text-align:center;margin-top:26px;padding:18px 16px;background:linear-gradient(160deg,var(--navy),var(--navy2));border-bottom:4px solid var(--gold);border-radius:14px;color:#fff}
@@ -85,53 +141,121 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
     .easy-date-hint { min-height:20px; margin-top:4px; font-size:13px; text-align:center; color:#666; }
     .easy-date-hint.ok { color:#1a7f37; font-weight:600; }
     .easy-date-hint.bad { color:#c62828; font-weight:600; }
-/* ===== ✨ Animations (screen only, motion-reduced users unaffected) ===== */
-@media screen and (prefers-reduced-motion:no-preference){
-  html{scroll-behavior:smooth}
-  @keyframes fxUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-  @keyframes fxPop{0%{opacity:0;transform:scale(.92)}60%{transform:scale(1.03)}100%{opacity:1;transform:none}}
-  @keyframes fxFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-  @keyframes fxShine{0%{left:-60%}55%,100%{left:130%}}
-  @keyframes fxPulse{0%{box-shadow:0 0 0 0 rgba(39,211,103,.55)}70%{box-shadow:0 0 0 14px rgba(39,211,103,0)}100%{box-shadow:0 0 0 0 rgba(39,211,103,0)}}
-  @keyframes fxLine{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-  @keyframes fxIn{from{opacity:0}to{opacity:1}}
+html{scroll-behavior:smooth}
+div:has(> #customerPhone),.form-group:has(> #mCustomerPhone){display:none !important}
+.grid-2:has(> div > #customerPhone){grid-template-columns:1fr}
 
-  fieldset{animation:fxUp .55s cubic-bezier(.2,.7,.2,1) both}
-  .form-group{animation:fxIn .5s ease both}
-  .form-panel>*:nth-child(2){animation-delay:.05s}
-  .form-panel>*:nth-child(3){animation-delay:.1s}
-  .form-panel>*:nth-child(4){animation-delay:.15s}
+/* ===== v7: Dark Mode & Theme Toggle ===== */
+.theme-toggle-btn{position:absolute;top:18px;right:18px;z-index:5;background:rgba(255,255,255,.12);color:#f8e8be;border:1px solid rgba(201,162,75,.6);border-radius:999px;padding:6px 13px;font-size:12px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:background .2s,color .2s}
+.theme-toggle-btn:hover{background:var(--gold);color:var(--navy)}
 
-  input,select,textarea{transition:border-color .25s,box-shadow .25s,background-color .25s,transform .2s}
-  input:focus,select:focus,textarea:focus{box-shadow:0 0 0 4px rgba(201,162,39,.25);transform:translateY(-1px)}
-
-  button{position:relative;overflow:hidden}
-  button:active{transform:scale(.97) !important}
-  .btn-print::after,.btn-fill::after,.btn-whatsapp::after,.btn-record::after,.btn-word::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);animation:fxShine 3.8s ease-in-out infinite;pointer-events:none}
-  .btn-whatsapp{animation:fxPulse 2.4s infinite}
-  #actionButtons{animation:fxPop .5s ease both}
-  #warningMsg{animation:fxIn .4s ease both}
-
-  .app-header,.brand-header{position:relative}
-  .app-header::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:3px;background:linear-gradient(90deg,transparent,#f1d98a,transparent);transform-origin:left;animation:fxLine 1.2s .2s ease both}
-  .brand-header{animation:fxIn .8s ease both}
-  .brand-header>*{animation:fxUp .7s cubic-bezier(.2,.7,.2,1) both}
-  .brand-header>*:nth-child(2){animation-delay:.12s}
-  .brand-header>*:nth-child(3){animation-delay:.24s}
-
-  .lock-card{animation:fxPop .7s cubic-bezier(.2,.7,.2,1) both}
-  .lock-icon{display:inline-block;animation:fxFloat 3s ease-in-out infinite}
-
-  .easy-date-hint.ok,.easy-date-hint.bad{animation:fxPop .35s ease both}
-  .history-panel tr,.history-panel li,.history-item{animation:fxUp .4s ease both}
-  #output,#outputM{animation:fxIn .6s ease both}
+html.dark{
+  --navy:#091529;--navy2:#112647;--navy3:#255599;--navy-xl:#14233d;
+  --gold:#d4af5a;--gold-d:#e8c776;--gold-l:#faecc5;--gold-xl:#1f1c14;
+  --ink:#ebf1fc;--ink2:#b4c3dc;--muted:#8294b3;
+  --line:#253552;--field:#0d1627;--bg:#090f1c;--card:#111b2e;
+  --danger:#e0525e;--ok:#25a66e;
+  --shadow:0 4px 10px rgba(0,0,0,.45),0 20px 44px -14px rgba(0,0,0,.78);
 }
+html.dark body{background:linear-gradient(180deg,#060d1a 0,#060d1a 260px,var(--bg) 260px)}
+html.dark .container{border:1px solid #1e2d47}
+html.dark input::placeholder,html.dark textarea::placeholder{color:#5e7191}
+html.dark input[type="text"],html.dark input[type="number"],html.dark input[type="password"],html.dark input[type="date"],html.dark input[type="tel"],html.dark select,html.dark textarea{color-scheme:dark}
+html.dark input:hover,html.dark select:hover,html.dark textarea:hover{border-color:#3a4f75}
+html.dark input:focus,html.dark select:focus,html.dark textarea:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(212,175,90,.18)}
+html.dark input[readonly]{background-color:#172236 !important;color:#8fa1be}
+html.dark #affForm input:not([readonly]):not([type='checkbox']),html.dark #marriageForm input:not([readonly]):not([type='checkbox']){background-color:var(--field) !important}
+html.dark fieldset{background:#142036;border-color:#263754}
+html.dark #childSection{background:#10231c;border-color:#1f4a39}
+html.dark #obcSection{background:#151930;border-color:#2e3666}
+html.dark #deathSection{background:#241a14;border-color:#523a29}
+html.dark #digitalBirthSection{background:#112030;border-color:#244363}
+html.dark #samePersonSection{background:#211d13;border-color:#544626}
+html.dark #ownershipSection{background:#102324;border-color:#204c4e}
+html.dark .type-selector{background:#1f1c14 !important;border-color:#4d4020 !important}
+html.dark .type-selector select{color:var(--ink) !important;border-color:#594822 !important;background-color:#131c2e !important}
+html.dark #birthAppTypeSection{background:#132138 !important;border-color:#26416b !important}
+html.dark #birthAppTypeSection label{color:#8eb7f5 !important}
+html.dark #birthAppTypeSection select{color:var(--ink) !important;border-color:#2d4c7d !important;background-color:#0e1729 !important}
+html.dark .mode-selector{background:linear-gradient(135deg,#09162b 0%,#142c52 100%) !important}
+html.dark .mode-tab.active{background:#1a2c4b;color:#faecc5;border-color:var(--gold)}
+html.dark .mode-tab.active small{color:var(--gold)}
+html.dark .checkbox-group{background:#1f1c14;border-color:#5e4e28}
+html.dark .section-title{color:#eef3fc;border-bottom-color:#253552}
+html.dark .progress-card{background:#152036;border-color:#253552}
+html.dark .progress-bar-bg{background:#22314d}
+html.dark .btn-copy{background:#162238;color:var(--gold-l);border-color:var(--gold)}
+html.dark .btn-copy:hover{background:var(--gold);color:#0b1f3a}
+html.dark .easy-date-hint{color:#96a8c6}
+html.dark .easy-date-hint.ok{color:#4ade80}
+html.dark .easy-date-hint.bad{color:#f87171}
+html.dark .sp-person{background:#172238 !important;border-color:#8a6c2b !important}
+html.dark #draftNotice,html.dark #postSendBox{background:#10261e !important;border-color:#228a5e !important;color:#dcf5e9 !important}
+html.dark #postSendBox div{color:#c9e6d8 !important}
+html.dark .review-card{background:#121c2f;color:var(--ink)}
+html.dark .review-tip{background:#211d13;border-color:#544626;color:#ebd088}
+html.dark .review-table tr{border-bottom-color:#22314c}
+html.dark .review-table td:last-child{color:#faecc5}
+html.dark .review-foot{background:#0e1627;border-top-color:#22314c}
+html.dark .btn-rev-edit{background:#162238;color:var(--gold-l);border-color:var(--gold) !important}
+html.dark .field-error{background-color:#2c1419 !important;border-color:#e0525e !important}
+
+/* ===== v9: New Affidavit Section Colors (Light & Dark) ===== */
+#lostDocSection{background:#fcf4f4;border-color:#ebcccc;border-top-color:#c93a45}
+#gapCertSection{background:#f5f3fc;border-color:#d8d0f0;border-top-color:#6b4fbb}
+#addressProofSection{background:#f2f9f5;border-color:#c7e5d6;border-top-color:#1b8a5a}
+#incomeGenSection{background:#fdf9ef;border-color:#ead9b0;border-top-color:#b8860b}
+#dobCorrSection{background:#f1f6fc;border-color:#c9ddf2;border-top-color:#1d4a85}
+#nameChangeSection{background:#fdf5f9;border-color:#eccbe0;border-top-color:#a63474}
+#unmarriedSection{background:#f2f8fb;border-color:#c7dfeb;border-top-color:#1a759f}
+#unemploymentSection{background:#faf7f2;border-color:#e8dbc8;border-top-color:#9c6644}
+#firstJobSection{background:#f2f7f5;border-color:#c9e0d7;border-top-color:#2b6e58}
+
+#rentNocSection{background:#f3f9f9;border-color:#c5e0e0;border-top-color:#14746f}
+html.dark #lostDocSection{background:#261417;border-color:#592730}
+html.dark #gapCertSection{background:#1b162e;border-color:#3f326b}
+html.dark #addressProofSection{background:#10241b;border-color:#20543e}
+html.dark #incomeGenSection{background:#231e11;border-color:#594a20}
+html.dark #dobCorrSection{background:#111f33;border-color:#254670}
+html.dark #nameChangeSection{background:#261421;border-color:#5c284a}
+html.dark #unmarriedSection{background:#11212b;border-color:#214a63}
+html.dark #unemploymentSection{background:#241c13;border-color:#543f28}
+html.dark #firstJobSection{background:#11231d;border-color:#234f40}
+
+html.dark #rentNocSection{background:#102424;border-color:#1f4f4d}
+#survivalSection{background:#f8f5fc;border-color:#dfd2f0;border-top-color:#5e3d9c}
+html.dark #survivalSection{background:#1c152b;border-color:#44306e}
+.sv-card{border:1.5px dashed #a88fd8;border-radius:12px;padding:11px;margin-bottom:10px;background:#fff}
+.sv-card.primary{border-style:solid;border-color:#5e3d9c;background:#fbf9ff}
+.sv-card-head{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.sv-card-title{font-size:12.5px;font-weight:800;color:#4a2f82}
+.sv-card-btns{display:flex;gap:4px;align-items:center}
+.sv-mini-btn{border:none;border-radius:6px;padding:4px 8px;font-size:11.5px;font-weight:800;cursor:pointer;background:#eef2fa;color:#0b1f3a;box-shadow:none}
+.sv-mini-btn.del{background:#c0392b;color:#fff}
+.sv-nocert-lbl{display:flex !important;align-items:center;gap:8px;margin:6px 0 0 !important;padding:7px 10px;background:#fdf6e7;border:1px dashed #d6b669;border-radius:8px;font-size:12px !important;color:#7a5a14 !important;cursor:pointer}
+.sv-nocert-lbl input{width:17px !important;height:17px !important;flex:none;margin:0;accent-color:#5e3d9c}
+.sv-heir-row{display:flex;gap:6px;margin-bottom:8px;align-items:center;flex-wrap:wrap;padding:8px;border:1px dashed #b39ddb;border-radius:10px;background:#fff}
+html.dark .sv-card,html.dark .sv-heir-row{background:#172238 !important;border-color:#4b3878 !important}
+html.dark .sv-card.primary{background:#1d1936 !important;border-color:#8c6ed6 !important}
+html.dark .sv-card-title{color:#cbb6fa}
+html.dark .sv-mini-btn{background:#243554;color:#e6eefc}
+html.dark .sv-mini-btn.del{background:#c0392b;color:#fff}
+html.dark .sv-nocert-lbl{background:#231d11;border-color:#695424;color:#ebd088 !important}
+
+.sp-presets{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.sp-preset-btn{background:#f3efe2;color:#0b1f3a;border:1.5px solid #d6bf7c;border-radius:999px;padding:6px 11px;font-size:12px;font-weight:800;cursor:pointer;box-shadow:none}
+.sp-preset-btn:hover{background:#c9a24b;color:#0b1f3a;border-color:#c9a24b}
+html.dark .sp-preset-btn{background:#1b263d;color:#faecc5;border-color:#695528}
+html.dark .sp-preset-btn:hover{background:#d4af5a;color:#0b1f3a}
 </style>
+<script>try{if(localStorage.getItem('ayatDarkMode')==='1')document.documentElement.classList.add('dark');}catch(_){}</script>
 </head>
 <body>
+<div class="top-progress-track"><div class="top-progress-fill" id="topProgressFill"></div></div>
 
 <div class="container">
     <div class="brand-header">
+        <button type="button" class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" aria-label="Toggle Dark Mode">🌙 ডার্ক</button>
         <div class="brand-logo" id="brandLogo">✒️</div>
         <h1>AYAT GRAPHICS ZONE</h1>
         <div class="sub" id="brandSub">Notary Affidavit Form</div>
@@ -145,12 +269,25 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         </div>
     </div>
 
+    <div class="progress-card">
+        <div class="progress-meta"><span>📊 ফর্ম পূরণের অগ্রগতি</span><b id="progressText">0% সম্পন্ন</b></div>
+        <div class="progress-bar-bg"><div class="progress-bar-in" id="progressBarIn"></div></div>
+    </div>
+
     <div class="form-group type-selector mode-selector">
         <label>কী ধরনের ডকুমেন্ট বানাবেন? <span>*</span></label>
-        <select id="docMode" onchange="setMode()">
+        <select id="docMode" onchange="setMode()" style="display:none;">
             <option value="affidavit">📝 Notary Affidavit (অ্যাফিডেভিট)</option>
             <option value="marriage">💍 Marriage Declaration (ম্যারেজ)</option>
         </select>
+        <div class="mode-tabs">
+            <button type="button" class="mode-tab active" data-mode="affidavit" onclick="pickMode('affidavit')">
+                <span>📝 অ্যাফিডেভিট</span><small>Notary Affidavit</small>
+            </button>
+            <button type="button" class="mode-tab" data-mode="marriage" onclick="pickMode('marriage')">
+                <span>💍 ম্যারেজ</span><small>Marriage Declaration</small>
+            </button>
+        </div>
     </div>
 
     <!-- ================= AFFIDAVIT FORM ================= -->
@@ -167,6 +304,17 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
                 <option value="OBCNCL">6. OBC Non-Creamy Layer (এনসিএল)</option>
                 <option value="SamePerson">7. Same Person Affidavit (এক ও অভিন্ন ব্যক্তি)</option>
                 <option value="OwnershipTransfer">8. Ownership Transfer (গাড়ি বিক্রি / মালিকানা হস্তান্তর)</option>
+                <option value="LostDoc">9. Lost Document Affidavit (হারানো ডকুমেন্ট)</option>
+                <option value="GapCert">10. Gap Certificate (পড়াশোনার বিরতি)</option>
+                <option value="AddressProof">11. Address Proof / Residence (ঠিকানার প্রমাণ)</option>
+                <option value="IncomeGen">12. Income Affidavit - General (সাধারণ আয়)</option>
+                <option value="DobCorrection">13. Date of Birth Correction (জন্মতারিখ সংশোধন)</option>
+                <option value="NameChange">14. Name Change Affidavit (নাম পরিবর্তন)</option>
+                <option value="Unmarried">15. Unmarried / Single Status (অবিবাহিত সনদ)</option>
+                <option value="Unemployment">16. Unemployment Affidavit (বেকারত্ব সনদ)</option>
+                <option value="FirstJob">17. Character / No Criminal Case (নতুন চাকরি ও চরিত্র)</option>
+                <option value="Survival">18. Survival Certificate (সারভাইভাল / উত্তরাধিকারী)</option>
+                <option value="RentNOC">19. NOC Affidavit (অনাপত্তি পত্র — ব্যবসা/মিটার/ঠিকানা)</option>
             </select>
             <div id="affVariantWrap" style="display:none;margin-top:10px;">
                 <label>ধরণ (Sub-type) <span style="color:red;">*</span></label>
@@ -185,6 +333,19 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
             <option value="OBCNCLParents">10. OBC Non-Creamy Layer (Child)</option>
             <option value="SamePerson">11. Same Person Affidavit (এক ও অভিন্ন ব্যক্তি)</option>
             <option value="OwnershipTransfer">12. Ownership Transfer (গাড়ি বিক্রি / মালিকানা হস্তান্তর)</option>
+            <option value="LostDoc">13. Lost Document Affidavit (হারানো ডকুমেন্ট)</option>
+            <option value="GapCert">14. Gap Certificate (পড়াশোনার বিরতি)</option>
+            <option value="AddressProof">15. Address Proof / Residence (ঠিকানার প্রমাণ)</option>
+            <option value="IncomeGen">16. Income Affidavit - General (সাধারণ আয়)</option>
+            <option value="DobCorrection">17. Date of Birth Correction (জন্মতারিখ সংশোধন)</option>
+            <option value="NameChange">18. Name Change Affidavit (নাম পরিবর্তন)</option>
+            <option value="Unmarried">19. Unmarried / Single Status (অবিবাহিত সনদ)</option>
+            <option value="Unemployment">20. Unemployment Affidavit (বেকারত্ব সনদ)</option>
+            <option value="FirstJob">21. Character / No Criminal Case (নতুন চাকরি ও চরিত্র)</option>
+            <option value="SurvivalFather">22. Survival Certificate - For Father (বাবার জন্য)</option>
+            <option value="SurvivalMother">23. Survival Certificate - For Mother (মায়ের জন্য)</option>
+            <option value="SurvivalWife">24. Survival Certificate - Wife Applicant (স্বামীর জন্য)</option>
+            <option value="RentNOC">23. NOC Affidavit (অনাপত্তি পত্র — ব্যবসা/মিটার/ঠিকানা)</option>
         </select>
     </div>
 
@@ -198,9 +359,15 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
 
     <h4 class="section-title">👤 আবেদনকারীর তথ্য <small>Applicant Details</small></h4>
 
-    <div class="form-group">
-        <label>Name of Applicant <span style="color:red;">*</span></label>
-        <input type="text" id="name" placeholder="আবেদনকারীর নাম">
+    <div class="grid-2 form-group">
+        <div>
+            <label>Name of Applicant <span style="color:red;">*</span></label>
+            <input type="text" id="name" placeholder="আবেদনকারীর নাম">
+        </div>
+        <div>
+            <label>Mobile Number (মোবাইল নম্বর - ঐচ্ছিক)</label>
+            <input type="tel" id="customerPhone" inputmode="numeric" maxlength="10" placeholder="১০ ডিজিটের মোবাইল নম্বর">
+        </div>
     </div>
 
     <div class="grid-2 form-group">
@@ -424,29 +591,221 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         </div>
         <label>ক্রেতার ঠিকানা (Buyer Address) <span style="color:red;">*</span></label>
         <div class="grid-2">
-            <input type="text" id="ot_vill" placeholder="Vill / Ward">
-            <input type="text" id="ot_po" placeholder="P.O.">
+            <input type="text" id="ot_vill" placeholder="Vill / Ward" list="villageList">
+            <input type="text" id="ot_po" placeholder="P.O." list="villageList">
             <input type="text" id="ot_ps" placeholder="P.S.">
             <select id="ot_dist"><option value="Dhalai">Dhalai</option><option value="Gomati">Gomati</option><option value="Khowai">Khowai</option><option value="North Tripura">North Tripura</option><option value="Sepahijala" selected>Sepahijala</option><option value="South Tripura">South Tripura</option><option value="Unakoti">Unakoti</option><option value="West Tripura">West Tripura</option></select>
             <input type="text" id="ot_pin" placeholder="PIN Code">
         </div>
-        <div class="form-group" style="margin-top:12px;"><label>গাড়ি হস্তান্তরের তারিখ (Date of handing over) <span style="color:red;">*</span></label><input type="date" id="ot_date"></div>
+        <div class="form-group" style="margin-top:12px;"><label>গাড়ি হস্তান্তরের তারিখ (Date of handing over) <span style="color:red;">*</span></label><input type="date" id="ot_date" min="1900-01-01" max="2099-12-31"></div>
     </fieldset>
 
     <fieldset id="samePersonSection" style="display:none;">
         <legend>Same Person Details (এক ও অভিন্ন ব্যক্তি)</legend>
         <div class="form-group">
+            <label>দ্রুত ফরম্যাট বেছে নিন (Quick Presets)</label>
+            <div class="sp-presets">
+                <button type="button" class="sp-preset-btn" onclick="applySpPreset('single')">👤 ১ জন (নিজের / অন্যের)</button>
+                <button type="button" class="sp-preset-btn" onclick="applySpPreset('self_wife')">👫 ২ জন: নিজের ও স্ত্রীর (সন্তানের সার্টিফিকেট)</button>
+                <button type="button" class="sp-preset-btn" onclick="applySpPreset('father_gf')">👨‍🦳 ২ জন: বাবা ও দাদার (বাবার ডকুমেন্ট)</button>
+            </div>
             <label>যাঁদের নাম ভুল হয়েছে <span style="color:red;">*</span> <small style="font-weight:normal;">(একটি অ্যাফিডেভিটে এক বা একাধিক ব্যক্তি যোগ করা যায়)</small></label>
             <div id="spPersons"></div>
             <button type="button" onclick="addSpPerson(); spChanged();" style="background:var(--navy,#0b1f3a);color:#fff;border:none;border-radius:8px;padding:10px 14px;cursor:pointer;font-weight:800;">👥 আরেকজনের নাম যোগ করুন</button>
         </div>
     </fieldset>
+    <fieldset id="lostDocSection" style="display:none;">
+        <legend>Lost Document Details (হারানো ডকুমেন্টের তথ্য)</legend>
+        <div class="grid-2 form-group">
+            <div><label>Document Name (হারানো ডকুমেন্টের নাম) <span style="color:red;">*</span></label><input type="text" id="ld_docName" placeholder="e.g. PAN Card / Aadhaar / Marksheet"></div>
+            <div><label>Document / Roll / Reg No. (ঐচ্ছিক)</label><input type="text" id="ld_docNo" placeholder="e.g. ABCDE1234F"></div>
+        </div>
+        <div class="grid-2 form-group">
+            <div><label>Approx. Date of Loss (হারানোর তারিখ) <span style="color:red;">*</span></label><input type="date" id="ld_date" min="1900-01-01" max="2099-12-31"></div>
+            <div><label>Place of Loss (কোথায় হারিয়েছে) <span style="color:red;">*</span></label><input type="text" id="ld_place" placeholder="e.g. Sonamura Market"></div>
+        </div>
+        <div class="grid-2 form-group">
+            <div><label>GD / Missing Diary No. (ঐচ্ছিক)</label><input type="text" id="ld_gdNo" placeholder="e.g. GDE No. 124/2026"></div>
+            <div><label>Police Station for GD (ঐচ্ছিক)</label><input type="text" id="ld_gdPs" placeholder="e.g. Sonamura"></div>
+        </div>
+    </fieldset>
+
+    <fieldset id="gapCertSection" style="display:none;">
+        <legend>Education Gap Details (পড়াশোনার বিরতির তথ্য)</legend>
+        <div class="grid-2 form-group">
+            <div><label>Last Passed Exam (সর্বশেষ পরীক্ষা) <span style="color:red;">*</span></label><input type="text" id="gc_lastExam" placeholder="e.g. Higher Secondary (12th)"></div>
+            <div><label>Passing Year (পাসের সাল) <span style="color:red;">*</span></label><input type="number" id="gc_passYear" placeholder="e.g. 2023"></div>
+        </div>
+        <div class="form-group">
+            <label>School / College / Board Name (প্রতিষ্ঠান) <span style="color:red;">*</span></label>
+            <input type="text" id="gc_institution" placeholder="e.g. Sonamura Class XII School (TBSE)">
+        </div>
+        <div class="grid-2 form-group">
+            <div><label>Gap From Year (বিরতি শুরু) <span style="color:red;">*</span></label><input type="number" id="gc_fromYear" placeholder="e.g. 2023"></div>
+            <div><label>Gap To Year (বিরতি শেষ) <span style="color:red;">*</span></label><input type="number" id="gc_toYear" placeholder="e.g. 2026"></div>
+        </div>
+        <div class="form-group">
+            <label>Reason for Gap (বিরতির কারণ) <span style="color:red;">*</span></label>
+            <input type="text" id="gc_reason" placeholder="e.g. preparation for competitive exams / financial crisis">
+        </div>
+        <div class="form-group">
+            <label>Course / College for Admission (নতুন ভর্তি - ঐচ্ছিক)</label>
+            <input type="text" id="gc_nextCourse" placeholder="e.g. B.A. 1st Semester / Nursing Course">
+        </div>
+    </fieldset>
+
+    <fieldset id="addressProofSection" style="display:none;">
+        <legend>Residence / Address Proof Details (বসবাসের তথ্য)</legend>
+        <div class="grid-2 form-group">
+            <div>
+                <label>Residing Duration (কত বছর ধরে আছেন) <span style="color:red;">*</span></label>
+                <input type="text" id="ap_years" placeholder="e.g. 15 years / since birth">
+            </div>
+            <div>
+                <label>Residence Status (ধরণ) <span style="color:red;">*</span></label>
+                <select id="ap_resType">
+                    <option value="Permanent Resident">Permanent Resident (স্থায়ী বাসিন্দা)</option>
+                    <option value="Ordinary Resident">Ordinary Resident (সাধারণ বাসিন্দা)</option>
+                    <option value="Lawful Tenant">Lawful Tenant (ভাড়াটিয়া)</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Purpose (কী কাজে লাগবে) <span style="color:red;">*</span></label>
+            <input type="text" id="ap_purpose" placeholder="e.g. Bank Account / Gas Connection / Passport Verification">
+        </div>
+    </fieldset>
+
+    <fieldset id="incomeGenSection" style="display:none;">
+        <legend>General Income Details (আয়ের তথ্য)</legend>
+        <div class="grid-2 form-group">
+            <div><label>Annual Family Income (Rs.) <span style="color:red;">*</span></label><input type="number" id="ig_amount" placeholder="e.g. 96000" oninput="convertGeneralIncomeToWords()"></div>
+            <div><label>Income in Words <span style="color:red;">*</span></label><input type="text" id="ig_words" placeholder="Auto in words"></div>
+        </div>
+        <div class="grid-2 form-group">
+            <div><label>Source of Income (আয়ের উৎস) <span style="color:red;">*</span></label><input type="text" id="ig_source" placeholder="e.g. Cultivation / Business / Day Labour"></div>
+            <div><label>Purpose (উদ্দেশ্য) <span style="color:red;">*</span></label><input type="text" id="ig_purpose" placeholder="e.g. Scholarship / Ration Card / Official Use"></div>
+        </div>
+    </fieldset>
+
+    <fieldset id="dobCorrSection" style="display:none;">
+        <legend>Date of Birth Correction (জন্মতারিখ সংশোধন)</legend>
+        <div style="font-size:12px;color:var(--ink2);margin-bottom:10px;">ℹ️ আপনার <b>সঠিক জন্মতারিখ</b> ওপরে Applicant DOB ঘরে দিন; নিচে ভুল জন্মতারিখ ও ডকুমেন্ট লিখুন।</div>
+        <div class="grid-2 form-group">
+            <div><label>Wrong DOB (ভুল জন্মতারিখ) <span style="color:red;">*</span></label><input type="text" id="dc_wrongDob" inputmode="numeric" maxlength="10" placeholder="DD/MM/YYYY"></div>
+            <div><label>Document with Wrong DOB (ভুল ডকুমেন্ট) <span style="color:red;">*</span></label><input type="text" id="dc_wrongDoc" placeholder="e.g. Aadhaar Card / Voter ID"></div>
+        </div>
+        <div class="form-group">
+            <label>Proof Document with Correct DOB (সঠিক প্রমাণপত্র) <span style="color:red;">*</span></label>
+            <input type="text" id="dc_proofDoc" placeholder="e.g. Birth Certificate / Madhyamik Admit Card">
+        </div>
+    </fieldset>
+
+    <fieldset id="nameChangeSection" style="display:none;">
+        <legend>Name Change Details (নাম পরিবর্তনের তথ্য)</legend>
+        <div class="grid-2 form-group">
+            <div><label>Previous / Old Name (আগের নাম) <span style="color:red;">*</span></label><input type="text" id="nc_oldName" placeholder="আগের নাম লিখুন"></div>
+            <div><label>New Adopted Name (নতুন নাম) <span style="color:red;">*</span></label><input type="text" id="nc_newName" placeholder="নতুন নাম লিখুন"></div>
+        </div>
+        <div class="form-group">
+            <label>Reason for Name Change (নাম পরিবর্তনের কারণ - ঐচ্ছিক)</label>
+            <input type="text" id="nc_reason" placeholder="personal and official reasons">
+        </div>
+    </fieldset>
+
+    <fieldset id="unmarriedSection" style="display:none;">
+        <legend>Unmarried / Single Status Details (অবিবাহিত ঘোষণা)</legend>
+        <div class="form-group">
+            <label>Purpose (কী কাজে লাগবে) <span style="color:red;">*</span></label>
+            <input type="text" id="um_purpose" placeholder="e.g. Govt. Job / Passport / Visa / Marriage Registration / Scholarship">
+        </div>
+    </fieldset>
+
+    <fieldset id="unemploymentSection" style="display:none;">
+        <legend>Unemployment Details (বেকারত্বের তথ্য)</legend>
+        <div class="grid-2 form-group">
+            <div><label>Educational Qualification (শিক্ষাগত যোগ্যতা - ঐচ্ছিক)</label><input type="text" id="ue_qual" placeholder="e.g. Higher Secondary / Graduate"></div>
+            <div><label>Purpose (উদ্দেশ্য) <span style="color:red;">*</span></label><input type="text" id="ue_purpose" placeholder="e.g. PMMY Loan / Swavalamban / Govt. Scheme"></div>
+        </div>
+    </fieldset>
+
+    <fieldset id="firstJobSection" style="display:none;">
+        <legend>Character / Fresh Joining Details (নতুন চাকরি ও চরিত্র)</legend>
+        <div class="form-group">
+            <label>Declaration Scope (ঘোষণার ধরণ) <span style="color:red;">*</span></label>
+            <select id="fj_type">
+                <option value="both">Character, No Criminal Case &amp; Fresh Joining (উভয়ই)</option>
+                <option value="character">Good Character &amp; No Criminal Case (চরিত্র ও মামলা নেই)</option>
+                <option value="fresh">No Previous Govt. Service (আগে সরকারি চাকরি ছিল না)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Post / Department / Organization (পদের নাম বা দপ্তর) <span style="color:red;">*</span></label>
+            <input type="text" id="fj_dept" placeholder="e.g. Education Department / Tripura Police / Banking Service">
+        </div>
+    </fieldset>
+
+    <fieldset id="survivalSection" style="display:none;">
+        <legend>Survival Certificate Details (সারভাইভাল / উত্তরাধিকারী)</legend>
+        <div class="form-group">
+            <label>Local Authority Designation (সার্টিফিকেটে পদবি)</label>
+            <select id="sv_authority" onchange="svChanged()">
+                <option value="Pradhan">Pradhan (প্রধান)</option>
+                <option value="Chairman">Chairman (চেয়ারম্যান)</option>
+                <option value="Councillor">Councillor (কাউন্সিলর)</option>
+                <option value="Vice-Chairman">Vice-Chairman (ভাইস-চেয়ারম্যান)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>মৃত ব্যক্তিদের তালিকা (Deceased Persons) <span style="color:red;">*</span> <small style="font-weight:normal;">(১ নং প্রধান মৃত ব্যক্তি; কেউ জীবিত থাকলে ✕ দিয়ে বাদ দিন, আর ভাই/বোন মারা গেলে নিচে যোগ করুন)</small></label>
+            <div id="svDeceasedList"></div>
+            <button type="button" onclick="addSvDeceased(); svChanged();" style="background:var(--navy,#0b1f3a);color:#fff;border:none;border-radius:8px;padding:9px 13px;cursor:pointer;font-weight:800;font-size:13px;">➕ আরও মৃত ব্যক্তি যোগ করুন (যেমন: ভাই / বোন)</button>
+        </div>
+
+        <div class="form-group" style="margin-top:14px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:7px;">
+                <label style="margin:0;">জীবিত উত্তরাধিকারীদের তালিকা (Surviving Legal Heirs) <span style="color:red;">*</span></label>
+                <button type="button" onclick="autoFillApplicantHeir()" style="background:var(--gold-d,#9a762a);color:#fff;border:none;border-radius:8px;padding:5px 10px;font-size:11.5px;font-weight:800;cursor:pointer;box-shadow:none;">👤 আবেদনকারীকে ১ নং-এ বসান</button>
+            </div>
+            <div id="svHeirsList"></div>
+            <button type="button" onclick="addSvHeir(); svChanged();" style="background:#5e3d9c;color:#fff;border:none;border-radius:8px;padding:9px 13px;cursor:pointer;font-weight:800;font-size:13px;">➕ আরও ওয়ারিশ যোগ করুন</button>
+        </div>
+        <datalist id="svHeirRelList">
+            <option value="Wife"><option value="Husband"><option value="Son"><option value="Daughter">
+            <option value="Mother"><option value="Father"><option value="Brother"><option value="Sister">
+        </datalist>
+    </fieldset>
+
+    <fieldset id="rentNocSection" style="display:none;">
+        <legend>NOC Affidavit Details (অনাপত্তি পত্রের তথ্য)</legend>
+        <div class="grid-2 form-group">
+            <div><label>Beneficiary Name (যাঁকে NOC দিচ্ছেন) <span style="color:red;">*</span></label><input type="text" id="noc_benName" placeholder="যাঁর নামে NOC হবে"></div>
+            <div><label>Relation to Applicant (সম্পর্ক) <span style="color:red;">*</span></label><input type="text" id="noc_benRel" placeholder="e.g. Son / Wife / Brother / Tenant"></div>
+        </div>
+        <div class="form-group">
+            <label>Purpose of NOC (কী কাজের জন্য NOC) <span style="color:red;">*</span></label>
+            <select id="noc_purposeSel" onchange="checkNocPurpose()">
+                <option value="Trade License & Business Registration">Trade License &amp; Business Registration (ট্রেড লাইসেন্স / ব্যবসা)</option>
+                <option value="GST Registration & Commercial Use">GST Registration &amp; Commercial Use (জিএসটি রেজিস্ট্রেশন)</option>
+                <option value="New Electricity Connection (TSECL)">New Electricity Connection - TSECL (বিদ্যুৎ সংযোগ)</option>
+                <option value="LPG Gas Connection / Address Proof">LPG Gas Connection / Address Proof (গ্যাস ও ঠিকানা)</option>
+                <option value="Other">Other (নিজে লিখুন)</option>
+            </select>
+            <input type="text" id="noc_purposeCustom" placeholder="NOC-এর উদ্দেশ্য লিখুন..." style="display:none;margin-top:6px;">
+        </div>
+        <div class="form-group">
+            <label>Premises / Property Address (জমি বা দোকানের ঠিকানা — ফাঁকা রাখলে বর্তমান ঠিকানাই বসবে)</label>
+            <input type="text" id="noc_addr" placeholder="ফাঁকা রাখলে বর্তমান ঠিকানাই অটোমেটিক বসবে">
+        </div>
+    </fieldset>
+
 
     <fieldset>
         <legend>Present Address (বর্তমান ঠিকানা)</legend>
         <div class="grid-2">
-            <input type="text" id="p_vill" placeholder="Vill / Ward *">
-            <input type="text" id="p_po" placeholder="P.O. *">
+            <input type="text" id="p_vill" placeholder="Vill / Ward *" list="villageList">
+            <input type="text" id="p_po" placeholder="P.O. *" list="villageList">
             <input type="text" id="p_ps" placeholder="P.S. *">
             <select id="p_dist">
                 <option value="Dhalai">Dhalai</option>
@@ -470,8 +829,8 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
     <fieldset id="birthAddressFieldset">
         <legend>Birth Place Address (জন্মস্থানের ঠিকানা)</legend>
         <div class="grid-2">
-            <input type="text" id="b_vill" placeholder="Vill / Ward *">
-            <input type="text" id="b_po" placeholder="P.O. *">
+            <input type="text" id="b_vill" placeholder="Vill / Ward *" list="villageList">
+            <input type="text" id="b_po" placeholder="P.O. *" list="villageList">
             <input type="text" id="b_ps" placeholder="P.S. *">
             <select id="b_dist">
                 <option value="Dhalai">Dhalai</option>
@@ -495,8 +854,8 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
     <fieldset id="deathAddressFieldset" style="display: none;">
         <legend>Place of Death Address (মৃত্যুর স্থানের ঠিকানা)</legend>
         <div class="grid-2">
-            <input type="text" id="d_vill" placeholder="Vill / Ward *">
-            <input type="text" id="d_po" placeholder="P.O. *">
+            <input type="text" id="d_vill" placeholder="Vill / Ward *" list="villageList">
+            <input type="text" id="d_po" placeholder="P.O. *" list="villageList">
             <input type="text" id="d_ps" placeholder="P.S. *">
             <select id="d_dist">
                 <option value="Dhalai">Dhalai</option>
@@ -518,7 +877,7 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
             <div>
                 <label>Panchayat/Council Name <span style="color:red;">*</span></label>
                 <div style="display: flex; gap: 5px;">
-                    <input type="text" id="auth1_name" placeholder="Name *" style="flex: 1.5;">
+                    <input type="text" id="auth1_name" placeholder="Name *" list="panchayatList" style="flex: 1.5;">
                     <select id="auth1_type" style="flex: 1.5;" onchange="updateAuthLevel2()">
                         <option value="Gram Panchayat">Gram Panchayat</option>
                         <option value="ADC Village">ADC Village</option>
@@ -530,7 +889,7 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
             <div>
                 <label>Block/Sub-Division <span style="color:red;">*</span></label>
                 <div style="display: flex; gap: 5px;">
-                    <input type="text" id="auth2_name" placeholder="Name *" style="flex: 1.5;">
+                    <input type="text" id="auth2_name" placeholder="Name *" list="blockList" style="flex: 1.5;">
                     <select id="auth2_type" style="flex: 1.5;">
                         <option value="R.D. Block">R.D. Block</option>
                         <option value="Sub-Division">Sub-Division</option>
@@ -572,7 +931,7 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         <legend>Groom's Present Address (বরের ঠিকানা)</legend>
         <div class="grid-2">
             <input type="text" id="mg_vill" placeholder="Vill / Ward *" list="mVillList">
-            <div style="display: flex; gap: 6px;"><input type="text" id="mg_gp" placeholder="Panchayat / Council *" style="flex:2">
+            <div style="display: flex; gap: 6px;"><input type="text" id="mg_gp" placeholder="Panchayat / Council *" list="panchayatList" style="flex:2">
                 <select id="mg_gpType" style="flex:1"><option value="G.P">G.P</option><option value="V.C">V.C</option><option value="N.P">N.P</option><option value="M.C">M.C</option></select></div>
             <input type="text" id="mg_po" placeholder="P.O. *">
             <input type="text" id="mg_ps" placeholder="P.S. *">
@@ -595,7 +954,7 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         <legend>Bride's Present Address (কনের ঠিকানা)</legend>
         <div class="grid-2">
             <input type="text" id="mb_vill" placeholder="Vill / Ward *" list="mVillList">
-            <div style="display: flex; gap: 6px;"><input type="text" id="mb_gp" placeholder="Panchayat / Council *" style="flex:2">
+            <div style="display: flex; gap: 6px;"><input type="text" id="mb_gp" placeholder="Panchayat / Council *" list="panchayatList" style="flex:2">
                 <select id="mb_gpType" style="flex:1"><option value="G.P">G.P</option><option value="V.C">V.C</option><option value="N.P">N.P</option><option value="M.C">M.C</option></select></div>
             <input type="text" id="mb_po" placeholder="P.O. *">
             <input type="text" id="mb_ps" placeholder="P.S. *">
@@ -615,13 +974,14 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         <div><label>Marriage Date <span>*</span></label>
             <div style="display: flex; gap: 5px;"><select id="mDay" style="flex:1"></select><select id="mMonth" style="flex:1.3"></select><select id="mYear" style="flex:1.5"></select></div></div>
     </div>
+    <div class="form-group"><label>Contact Mobile Number (মোবাইল নম্বর - ঐচ্ছিক)</label><input type="tel" id="mCustomerPhone" inputmode="numeric" maxlength="10" placeholder="কাজ রেডি হলে জানাতে ১০ ডিজিটের নম্বর দিন"></div>
     <div class="form-group"><label>Marriage Place (বিয়ের স্থান) <span>*</span></label>
     <select id="mPlaceSrc" onchange="toggleMPlace()"><option value="groom">বরের ঠিকানার মতোই (Groom's address)</option><option value="bride">কনের ঠিকানার মতোই (Bride's address)</option><option value="other">অন্য ঠিকানা (Different address)</option></select></div>
     <fieldset id="mmAddrFS">
         <legend>Marriage Place Address (বিয়ের স্থানের ঠিকানা)</legend>
         <div class="grid-2">
             <input type="text" id="mm_vill" placeholder="Vill / Ward *" list="mVillList">
-            <div style="display: flex; gap: 6px;"><input type="text" id="mm_gp" placeholder="Panchayat / Council *" style="flex:2">
+            <div style="display: flex; gap: 6px;"><input type="text" id="mm_gp" placeholder="Panchayat / Council *" list="panchayatList" style="flex:2">
                 <select id="mm_gpType" style="flex:1"><option value="G.P">G.P</option><option value="V.C">V.C</option><option value="N.P">N.P</option><option value="M.C">M.C</option></select></div>
             <input type="text" id="mm_po" placeholder="P.O. *">
             <input type="text" id="mm_ps" placeholder="P.S. *">
@@ -632,8 +992,28 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
     </fieldset>
     </div><!-- /marriageForm -->
 
+    <datalist id="panchayatList">
+        <option value="Sonapur"><option value="Urmai"><option value="Kathalia">
+        <option value="Boxanagar"><option value="Nalchar"><option value="Mohanbhog">
+        <option value="Melaghar"><option value="Bishramganj"><option value="Bishalgarh"><option value="Charilam">
+        <option value="Sonamura"><option value="Dhanpur"><option value="Nidaya">
+    </datalist>
+    <datalist id="blockList">
+        <option value="Kathalia"><option value="Boxanagar"><option value="Nalchar">
+        <option value="Mohanbhog"><option value="Melaghar"><option value="Bishalgarh">
+        <option value="Jampuijala"><option value="Bishramganj"><option value="Charilam"><option value="Sonamura">
+    </datalist>
+    <datalist id="villageList">
+        <option value="Sonapur"><option value="Urmai"><option value="Rabindranagar">
+        <option value="Sonamura"><option value="Melaghar"><option value="Kathalia">
+        <option value="Boxanagar"><option value="Nalchar"><option value="Dhanpur">
+    </datalist>
     <datalist id="mSdList"><option value="Sonamura"><option value="Bishalgarh"><option value="Jampuijala"></datalist>
-    <datalist id="mVillList"></datalist>
+    <datalist id="mVillList">
+        <option value="Sonapur"><option value="Urmai"><option value="Rabindranagar">
+        <option value="Sonamura"><option value="Melaghar"><option value="Kathalia">
+        <option value="Boxanagar"><option value="Nalchar"><option value="Dhanpur">
+    </datalist>
 
     <div id="postSendBox" style="display:none; background:#f3f9f6; border:2px solid #1b8a5a; border-radius:14px; padding:14px 16px; margin-bottom:14px; text-align:center;">
         <div style="color:#1b8a5a; font-weight:800; font-size:15px; margin-bottom:6px;">✅ আপনার তথ্য দোকানে পাঠানো হয়েছে!</div>
@@ -643,11 +1023,12 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
             <button type="button" onclick="clearSavedDraft(true)" style="background:#fff; color:#c93a45; border:1.5px solid #c93a45; border-radius:10px; padding:10px 14px; font-size:13px; font-weight:700; cursor:pointer; flex:1; min-width:140px;">🆕 নতুন ফর্ম শুরু করুন</button>
         </div>
     </div>
-    <button class="btn-whatsapp" id="btnSheetSend" onclick="sendToSheet()" style="background:linear-gradient(135deg,#0b1f3a,#1d4a85); box-shadow:0 14px 26px -10px rgba(11,31,58,.7); animation:none; position:static; margin-bottom:10px;"><span>🚀</span> সরাসরি দোকানে পাঠান (Direct Submit)</button>
-    <p class="send-hint" style="margin-top:0; margin-bottom:14px;">WhatsApp ছাড়াই সরাসরি দোকানের কম্পিউটারে ডাটা পাঠাতে ওপরের বাটনে ক্লিক করুন।</p>
-    <button class="btn-whatsapp" onclick="sendToWhatsApp()"><span>📲</span> Send Data via WhatsApp</button>
-    <p class="send-hint">বাটনে ক্লিক করলে WhatsApp খুলবে — সেখান থেকে মেসেজটি পাঠিয়ে দিন।</p>
-    <button class="btn-copy" onclick="copyData()">📋 Copy Details</button>
+    <button class="btn-submit-main" id="btnSheetSend" onclick="openReviewModal()"><span>🚀</span> যাচাই করে দোকানে পাঠান (Direct Submit)</button>
+    <p class="send-hint" style="margin-top:8px;">ক্লিক করলে আগে আপনার সব তথ্য যাচাই করার প্রিভিউ দেখাবে, তারপর দোকানে যাবে।</p>
+    <div class="alt-actions">
+        <button class="btn-whatsapp" onclick="sendToWhatsApp()"><span>📲</span> WhatsApp-এ পাঠান</button>
+        <button class="btn-copy" onclick="copyData()">📋 Copy Details</button>
+    </div>
 
     <div class="contact-card">
         <div class="cc-name">ALAM HOSSAIN</div>
@@ -661,22 +1042,53 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
 
 </div>
 
+<div id="toastBox"></div>
+
+<div id="reviewModal" onclick="if(event.target===this) closeReviewModal()">
+    <div class="review-card">
+        <div class="review-head">
+            <h3>🔍 পাঠানোর আগে তথ্য যাচাই করুন</h3>
+            <button type="button" onclick="closeReviewModal()" aria-label="Close">✕</button>
+        </div>
+        <div class="review-body">
+            <div class="review-tip">⚠️ বানান ও তারিখ ভালো করে মিলিয়ে নিন। কোনো ভুল থাকলে "এডিট করুন" চাপুন।</div>
+            <table class="review-table"><tbody id="reviewTableBody"></tbody></table>
+        </div>
+        <div class="review-foot">
+            <button type="button" class="btn-rev-edit" onclick="closeReviewModal()">✏️ এডিট করুন</button>
+            <button type="button" class="btn-rev-send" id="btnConfirmSend" onclick="confirmSendToSheet()">✅ সব ঠিক আছে, পাঠান</button>
+        </div>
+    </div>
+</div>
+
 <script>
     const SHOP_WHATSAPP_NUMBER = "919436925172";
     function val(id){ const e = document.getElementById(id); return e ? e.value.trim() : ''; }
     function curMode(){ return document.getElementById('docMode').value; }
 
+    function pickMode(m){
+        document.getElementById('docMode').value = m;
+        setMode();
+        if (typeof saveCustomerDraft === 'function') saveCustomerDraft();
+    }
     function setMode(){
         const m = curMode();
         document.getElementById('affForm').classList.toggle('hidden', m !== 'affidavit');
         document.getElementById('marriageForm').classList.toggle('hidden', m !== 'marriage');
         document.getElementById('brandLogo').textContent = m === 'marriage' ? '💍' : '✒️';
         document.getElementById('brandSub').textContent = m === 'marriage' ? 'Marriage Declaration Form' : 'Notary Affidavit Form';
+        document.querySelectorAll('.mode-tab').forEach(b => b.classList.toggle('active', b.dataset.mode === m));
+        if (typeof updateProgress === 'function') updateProgress();
     }
 
     window.onload = function() {
         renderSpPersons();
-        document.getElementById("signYear").value = new Date().getFullYear();
+        renderSvDeceased(svDefaultDeceased('SurvivalFather'));
+        renderSvHeirs();
+        const _now = new Date();
+        const _MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+        document.getElementById("signYear").value = _now.getFullYear();
+        document.getElementById("signMonth").value = _MONTHS[_now.getMonth()];
 
         const two = n => (n < 10 ? '0' + n : '' + n);
         const dayOptions = '<option value="">Day</option>' + Array.from({length: 31}, (_, i) => `<option value="${two(i+1)}">${two(i+1)}</option>`).join('');
@@ -742,20 +1154,22 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
 
     // ================= SAME PERSON helpers =================
     const SP_RELS = {
-        self:        { ref: '',            poss: 'my',  obj: 'me'  },
-        father:      { ref: 'father',      poss: 'his', obj: 'him' },
-        mother:      { ref: 'mother',      poss: 'her', obj: 'her' },
-        husband:     { ref: 'husband',     poss: 'his', obj: 'him' },
-        wife:        { ref: 'wife',        poss: 'her', obj: 'her' },
-        son:         { ref: 'son',         poss: 'his', obj: 'him' },
-        daughter:    { ref: 'daughter',    poss: 'her', obj: 'her' },
-        brother:     { ref: 'brother',     poss: 'his', obj: 'him' },
-        sister:      { ref: 'sister',      poss: 'her', obj: 'her' },
-        grandfather: { ref: 'grandfather', poss: 'his', obj: 'him' },
-        grandmother: { ref: 'grandmother', poss: 'her', obj: 'her' }
+        self:            { ref: '',              poss: 'my',  obj: 'me'  },
+        father:          { ref: 'father',        poss: 'his', obj: 'him' },
+        mother:          { ref: 'mother',        poss: 'her', obj: 'her' },
+        husband:         { ref: 'husband',       poss: 'his', obj: 'him' },
+        wife:            { ref: 'wife',          poss: 'her', obj: 'her' },
+        son:             { ref: 'son',           poss: 'his', obj: 'him' },
+        daughter:        { ref: 'daughter',      poss: 'her', obj: 'her' },
+        brother:         { ref: 'brother',       poss: 'his', obj: 'him' },
+        sister:          { ref: 'sister',        poss: 'her', obj: 'her' },
+        grandfather:     { ref: 'grandfather',   poss: 'his', obj: 'him' },
+        grandmother:     { ref: 'grandmother',   poss: 'her', obj: 'her' },
+        'father-in-law': { ref: 'father-in-law', poss: 'his', obj: 'him' },
+        'mother-in-law': { ref: 'mother-in-law', poss: 'her', obj: 'her' }
     };
-    const SP_REL_OPTS = '<option value="self">Self (আমার নিজের নাম)</option><option value="father">Father (বাবা)</option><option value="mother">Mother (মা)</option><option value="husband">Husband (স্বামী)</option><option value="wife">Wife (স্ত্রী)</option><option value="son">Son (ছেলে)</option><option value="daughter">Daughter (মেয়ে)</option><option value="brother">Brother (ভাই)</option><option value="sister">Sister (বোন)</option><option value="grandfather">Grandfather (দাদা/ঠাকুরদা)</option><option value="grandmother">Grandmother (দাদি/ঠাকুমা)</option>';
-    const SP_OWNER_OPTS = '<option value="same">যাঁর নাম, তাঁর নিজের ডকুমেন্ট</option><option value="self">আবেদনকারীর (আমার) ডকুমেন্ট</option><option value="father">বাবা-এর ডকুমেন্ট</option><option value="mother">মা-এর ডকুমেন্ট</option><option value="husband">স্বামী-এর ডকুমেন্ট</option><option value="wife">স্ত্রী-এর ডকুমেন্ট</option><option value="son">ছেলে-এর ডকুমেন্ট</option><option value="daughter">মেয়ে-এর ডকুমেন্ট</option><option value="brother">ভাই-এর ডকুমেন্ট</option><option value="sister">বোন-এর ডকুমেন্ট</option><option value="grandfather">দাদা/ঠাকুরদা-এর ডকুমেন্ট</option><option value="grandmother">দাদি/ঠাকুমা-এর ডকুমেন্ট</option><option value="late_father">মৃত বাবা-এর ডকুমেন্ট</option><option value="late_mother">মৃত মা-এর ডকুমেন্ট</option><option value="late_husband">মৃত স্বামী-এর ডকুমেন্ট</option><option value="late_wife">মৃত স্ত্রী-এর ডকুমেন্ট</option><option value="late_son">মৃত ছেলে-এর ডকুমেন্ট</option><option value="late_daughter">মৃত মেয়ে-এর ডকুমেন্ট</option><option value="late_brother">মৃত ভাই-এর ডকুমেন্ট</option><option value="late_sister">মৃত বোন-এর ডকুমেন্ট</option><option value="late_grandfather">মৃত দাদা/ঠাকুরদা-এর ডকুমেন্ট</option><option value="late_grandmother">মৃত দাদি/ঠাকুমা-এর ডকুমেন্ট</option>';
+    const SP_REL_OPTS = '<option value="self">Self (আমার নিজের নাম)</option><option value="father">Father (বাবা)</option><option value="mother">Mother (মা)</option><option value="husband">Husband (স্বামী)</option><option value="wife">Wife (স্ত্রী)</option><option value="son">Son (ছেলে)</option><option value="daughter">Daughter (মেয়ে)</option><option value="brother">Brother (ভাই)</option><option value="sister">Sister (বোন)</option><option value="grandfather">Grandfather (দাদা/ঠাকুরদা)</option><option value="grandmother">Grandmother (দাদি/ঠাকুমা)</option><option value="father-in-law">Father-in-law (শ্বশুর)</option><option value="mother-in-law">Mother-in-law (শাশুড়ি)</option>';
+    const SP_OWNER_OPTS = '<option value="same">যাঁর নাম, তাঁর নিজের ডকুমেন্ট</option><option value="self">আবেদনকারীর (আমার) ডকুমেন্ট</option><option value="father">বাবা-এর ডকুমেন্ট</option><option value="mother">মা-এর ডকুমেন্ট</option><option value="husband">স্বামী-এর ডকুমেন্ট</option><option value="wife">স্ত্রী-এর ডকুমেন্ট</option><option value="son">ছেলে-এর ডকুমেন্ট</option><option value="daughter">মেয়ে-এর ডকুমেন্ট</option><option value="brother">ভাই-এর ডকুমেন্ট</option><option value="sister">বোন-এর ডকুমেন্ট</option><option value="grandfather">দাদা/ঠাকুরদা-এর ডকুমেন্ট</option><option value="grandmother">দাদি/ঠাকুমা-এর ডকুমেন্ট</option><option value="father-in-law">শ্বশুর-এর ডকুমেন্ট</option><option value="mother-in-law">শাশুড়ি-এর ডকুমেন্ট</option><option value="late_father">মৃত বাবা-এর ডকুমেন্ট</option><option value="late_mother">মৃত মা-এর ডকুমেন্ট</option><option value="late_husband">মৃত স্বামী-এর ডকুমেন্ট</option><option value="late_wife">মৃত স্ত্রী-এর ডকুমেন্ট</option><option value="late_son">মৃত ছেলে-এর ডকুমেন্ট</option><option value="late_daughter">মৃত মেয়ে-এর ডকুমেন্ট</option><option value="late_brother">মৃত ভাই-এর ডকুমেন্ট</option><option value="late_sister">মৃত বোন-এর ডকুমেন্ট</option><option value="late_grandfather">মৃত দাদা/ঠাকুরদা-এর ডকুমেন্ট</option><option value="late_grandmother">মৃত দাদি/ঠাকুমা-এর ডকুমেন্ট</option>';
     const SP_BTN = 'border:none;border-radius:8px;padding:9px 13px;cursor:pointer;font-weight:800;color:#fff;';
     function addSpPerson(p) {
         const box = document.getElementById('spPersons');
@@ -776,28 +1190,86 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
             '<div class="form-group sp-correct-wrap"><label>সঠিক নাম (Correct Name) <span style="color:red;">*</span></label><input type="text" class="sp-correct" placeholder="যাঁর নাম ভুল হয়েছে তাঁর সঠিক নাম" oninput="spChanged()"></div>' +
             '<label>ভুল নাম ও ডকুমেন্ট <span style="color:red;">*</span> <small style="font-weight:normal;">(একাধিক ডকুমেন্টে ভুল থাকলে লাইন যোগ করুন)</small></label>' +
             '<div class="sp-rows"></div>' +
-            '<button type="button" onclick="addSpRow(this.closest(\'.sp-person\')); spChanged();" style="' + SP_BTN + 'background:#34495e;">➕ আরেকটি ডকুমেন্ট</button>';
+            '<div style="display:flex;gap:6px;flex-wrap:wrap;">' +
+                '<button type="button" onclick="addSpRow(this.closest(\'.sp-person\')); spChanged();" style="' + SP_BTN + 'background:#34495e;">➕ আরেকটি ডকুমেন্ট</button>' +
+                '<button type="button" class="sp-copy-doc" onclick="copySpDocsFromFirst(this.closest(\'.sp-person\'))" style="' + SP_BTN + 'background:#1b8a5a;display:none;" title="১ম ব্যক্তির ডকুমেন্টের তথ্য এখানে কপি করুন">📋 ১ম ব্যক্তির ডকুমেন্ট কপি</button>' +
+            '</div>';
         box.appendChild(el);
         el.querySelector('.sp-rel').value = p.rel || 'self';
         el.querySelector('.sp-status').value = p.status || 'No';
         el.querySelector('.sp-correct').value = p.correct || '';
-        (p.rows && p.rows.length ? p.rows : [{}]).forEach(r => addSpRow(el, r.wrong, r.doc, r.owner));
+        (p.rows && p.rows.length ? p.rows : [{}]).forEach(r => addSpRow(el, r.wrong, r.doc, r.owner, r.ownerName));
         spRelChanged(el.querySelector('.sp-rel'), true);
         renumberSp();
     }
-    function addSpRow(person, wrong, doc, owner) {
+    function addSpRow(person, wrong, doc, owner, ownerName) {
         const box = person.querySelector('.sp-rows');
         const row = document.createElement('div');
         row.className = 'sp-row';
         row.style.cssText = 'display:flex;gap:6px;margin-bottom:8px;align-items:center;flex-wrap:wrap;';
-        row.innerHTML = '<input type="text" class="sp-wrong" placeholder="ভুল নাম (যেভাবে লেখা আছে)" style="flex:1 1 100%;" oninput="spChanged()">' +
-            '<select class="sp-owner" style="flex:1 1 100%;" onchange="spChanged()">' + SP_OWNER_OPTS + '</select>' +
-            '<input type="text" class="sp-doc" placeholder="ডকুমেন্টের নাম (e.g. 1971 Voter List)" style="flex:1 1 220px;" oninput="spChanged()">' +
+        row.innerHTML = '<input type="text" class="sp-wrong" placeholder="ভুল নাম (যেভাবে লেখা আছে) *" style="flex:1 1 100%;" oninput="spChanged()">' +
+            '<select class="sp-owner" style="flex:1 1 180px;" onchange="spOwnerChanged(this)">' + SP_OWNER_OPTS + '</select>' +
+            '<input type="text" class="sp-owner-name" placeholder="যাঁর ডকুমেন্ট তাঁর নাম (ঐচ্ছিক, যেমন: Achhma Begam)" style="flex:1 1 200px;display:none;" oninput="spChanged()">' +
+            '<input type="text" class="sp-doc" placeholder="ডকুমেন্টের নাম (e.g. School Certificate / Aadhaar Card) *" style="flex:1 1 220px;" oninput="spChanged()">' +
             '<button type="button" onclick="removeSpRow(this)" title="মুছুন" style="' + SP_BTN + 'background:#c0392b;">✕</button>';
         row.querySelector('.sp-wrong').value = wrong || '';
         row.querySelector('.sp-doc').value = doc || '';
         row.querySelector('.sp-owner').value = owner || 'same';
+        row.querySelector('.sp-owner-name').value = ownerName || '';
+        spOwnerChanged(row.querySelector('.sp-owner'), true);
         box.appendChild(row);
+    }
+    function spOwnerChanged(sel, silent) {
+        const row = sel.closest('.sp-row');
+        const nameInp = row ? row.querySelector('.sp-owner-name') : null;
+        if (nameInp) {
+            const showName = sel.value !== 'same' && sel.value !== 'self';
+            nameInp.style.display = showName ? '' : 'none';
+            if (!showName) nameInp.value = '';
+        }
+        if (!silent) spChanged();
+    }
+    function copySpDocsFromFirst(targetPerson) {
+        const first = document.querySelector('#spPersons .sp-person');
+        if (!first || first === targetPerson) return;
+        const firstRel = first.querySelector('.sp-rel').value;
+        const firstStatus = first.querySelector('.sp-status').value;
+        const existingWrong = (targetPerson.querySelector('.sp-wrong') || {}).value || '';
+        const firstRows = Array.from(first.querySelectorAll('.sp-row')).map(r => {
+            let ow = r.querySelector('.sp-owner').value;
+            if (ow === 'same') ow = (firstRel === 'self') ? 'self' : ((firstStatus === 'Yes' ? 'late_' : '') + firstRel);
+            return {
+                owner: ow,
+                ownerName: r.querySelector('.sp-owner-name').value.trim(),
+                doc: r.querySelector('.sp-doc').value.trim()
+            };
+        });
+        const box = targetPerson.querySelector('.sp-rows');
+        box.innerHTML = '';
+        (firstRows.length ? firstRows : [{}]).forEach(fr => addSpRow(targetPerson, existingWrong, fr.doc, fr.owner, fr.ownerName));
+        spChanged();
+    }
+    function applySpPreset(preset) {
+        if (preset === 'self_wife') {
+            renderSpPersons([
+                { rel: 'self', status: 'No', correct: '', rows: [{ wrong: '', owner: 'daughter', ownerName: '', doc: 'School Certificate' }] },
+                { rel: 'wife', status: 'No', correct: val('spouseName') || '', rows: [{ wrong: '', owner: 'daughter', ownerName: '', doc: 'School Certificate' }] }
+            ]);
+        } else if (preset === 'father_gf') {
+            renderSpPersons([
+                { rel: 'father', status: 'No', correct: val('fatherName') || '', rows: [
+                    { wrong: '', owner: 'father', ownerName: '', doc: 'Aadhaar Card' },
+                    { wrong: '', owner: 'father', ownerName: '', doc: 'Voter ID Card' }
+                ] },
+                { rel: 'grandfather', status: 'No', correct: '', rows: [
+                    { wrong: '', owner: 'father', ownerName: '', doc: 'Aadhaar Card' },
+                    { wrong: '', owner: 'father', ownerName: '', doc: 'Voter ID Card' }
+                ] }
+            ]);
+        } else {
+            renderSpPersons([{ rel: 'self', status: 'No', correct: '', rows: [{ wrong: '', owner: 'same', ownerName: '', doc: '' }] }]);
+        }
+        spChanged();
     }
     function renderSpPersons(arr) {
         const box = document.getElementById('spPersons');
@@ -809,7 +1281,7 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
     function removeSpRow(btn) {
         const row = btn.closest('.sp-row'), box = row.parentElement;
         if (box.children.length > 1) row.remove();
-        else { row.querySelector('.sp-wrong').value = ''; row.querySelector('.sp-doc').value = ''; }
+        else { row.querySelector('.sp-wrong').value = ''; row.querySelector('.sp-doc').value = ''; row.querySelector('.sp-owner-name').value = ''; }
         spChanged();
     }
     function removeSpPerson(btn) {
@@ -822,6 +1294,8 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         all.forEach((el, i) => {
             el.querySelector('.sp-title').textContent = '👤 ব্যক্তি ' + (i + 1);
             el.querySelector('.sp-del').style.display = all.length > 1 ? '' : 'none';
+            const cpBtn = el.querySelector('.sp-copy-doc');
+            if (cpBtn) cpBtn.style.display = i > 0 ? '' : 'none';
         });
     }
     function spRelChanged(sel, silent) {
@@ -836,7 +1310,12 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
             rel: el.querySelector('.sp-rel').value,
             status: el.querySelector('.sp-status').value,
             correct: el.querySelector('.sp-correct').value.trim(),
-            rows: Array.from(el.querySelectorAll('.sp-row')).map(r => ({ wrong: r.querySelector('.sp-wrong').value.trim(), owner: r.querySelector('.sp-owner').value, doc: r.querySelector('.sp-doc').value.trim() })).filter(r => r.wrong || r.doc)
+            rows: Array.from(el.querySelectorAll('.sp-row')).map(r => ({
+                wrong: r.querySelector('.sp-wrong').value.trim(),
+                owner: r.querySelector('.sp-owner').value,
+                ownerName: (r.querySelector('.sp-owner-name') ? r.querySelector('.sp-owner-name').value.trim() : ''),
+                doc: r.querySelector('.sp-doc').value.trim()
+            })).filter(r => r.wrong || r.doc)
         }));
     }
     function spPersonsValid() {
@@ -849,13 +1328,290 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         return [];
     }
     function spChanged() { }
+    function svChanged() { }
+    // ================= v10: Survival Certificate (3 Formats + Dynamic Deceased & Heirs) =================
+    const SV_REL_OPTS =
+        '<option value="father">Father (বাবা)</option>' +
+        '<option value="mother">Mother (মা)</option>' +
+        '<option value="husband">Husband (স্বামী)</option>' +
+        '<option value="wife">Wife (স্ত্রী)</option>' +
+        '<option value="brother">Brother (ভাই)</option>' +
+        '<option value="sister">Sister (বোন)</option>' +
+        '<option value="son">Son (ছেলে)</option>' +
+        '<option value="daughter">Daughter (মেয়ে)</option>' +
+        '<option value="grandfather">Grandfather (দাদু/ঠাকুরদা)</option>' +
+        '<option value="grandmother">Grandmother (ঠাকুমা/দিদা)</option>' +
+        '<option value="father-in-law">Father-in-law (শ্বশুর)</option>' +
+        '<option value="mother-in-law">Mother-in-law (শাশুড়ি)</option>';
+
+    const SV_GTYPE_OPTS =
+        '<option value="S/o-Late.">S/o-Late.</option>' +
+        '<option value="W/o-Late.">W/o-Late.</option>' +
+        '<option value="D/o-Late.">D/o-Late.</option>' +
+        '<option value="S/o">S/o</option>' +
+        '<option value="W/o">W/o</option>' +
+        '<option value="D/o">D/o</option>';
+
+    const SV_FEMALE_RELS = new Set(['mother','wife','grandmother','mother-in-law']);
+    const SV_DAUGHTER_RELS = new Set(['sister','daughter']);
+
+    function isSurvivalType(t) {
+        t = t || (document.getElementById('affidavitType') ? document.getElementById('affidavitType').value : '');
+        return t === 'SurvivalFather' || t === 'SurvivalMother' || t === 'SurvivalWife';
+    }
+
+    function svDefaultDeceased(type) {
+        if (type === 'SurvivalMother') {
+            return [
+                { rel: 'mother',      gType: 'W/o-Late.', name: '', gName: '', dod: '', noCert: false },
+                { rel: 'father',      gType: 'S/o-Late.', name: '', gName: '', dod: '', noCert: false },
+                { rel: 'grandfather', gType: 'S/o-Late.', name: '', gName: '', dod: '', noCert: true  },
+                { rel: 'grandmother', gType: 'W/o-Late.', name: '', gName: '', dod: '', noCert: true  }
+            ];
+        }
+        if (type === 'SurvivalWife') {
+            return [
+                { rel: 'husband',       gType: 'S/o-Late.', name: '', gName: '', dod: '', noCert: false },
+                { rel: 'father-in-law', gType: 'S/o-Late.', name: '', gName: '', dod: '', noCert: true  },
+                { rel: 'mother-in-law', gType: 'W/o-Late.', name: '', gName: '', dod: '', noCert: true  }
+            ];
+        }
+        return [
+            { rel: 'father',      gType: 'S/o-Late.', name: '', gName: '', dod: '', noCert: false },
+            { rel: 'mother',      gType: 'W/o-Late.', name: '', gName: '', dod: '', noCert: false },
+            { rel: 'grandfather', gType: 'S/o-Late.', name: '', gName: '', dod: '', noCert: true  },
+            { rel: 'grandmother', gType: 'W/o-Late.', name: '', gName: '', dod: '', noCert: true  }
+        ];
+    }
+
+    let _svLastPreset = '';
+
+    function createSvDeceasedCard(d) {
+        d = d || { rel: 'brother', gType: 'S/o-Late.', name: '', gName: '', dod: '', noCert: false };
+        const el = document.createElement('div');
+        el.className = 'sv-card';
+        el.innerHTML =
+            '<div class="sv-card-head">' +
+                '<span class="sv-card-title">🕊️ মৃত ব্যক্তি</span>' +
+                '<div class="sv-card-btns">' +
+                    '<button type="button" class="sv-mini-btn sv-up" onclick="moveSvDeceased(this,-1)" title="ওপরে নিন">▲</button>' +
+                    '<button type="button" class="sv-mini-btn sv-dn" onclick="moveSvDeceased(this,1)" title="নিচে নিন">▼</button>' +
+                    '<button type="button" class="sv-mini-btn del sv-del" onclick="removeSvDeceased(this)" title="বাদ দিন">✕ বাদ</button>' +
+                '</div>' +
+            '</div>' +
+            '<div class="grid-2 form-group" style="margin-bottom:8px;">' +
+                '<div><label>আবেদনকারীর সাথে সম্পর্ক <span style="color:red;">*</span></label><select class="sv-rel" onchange="onSvRelChange(this)">' + SV_REL_OPTS + '</select></div>' +
+                '<div><label>মৃত ব্যক্তির নাম <span style="color:red;">*</span></label><input type="text" class="sv-name" placeholder="মৃত ব্যক্তির নাম" oninput="svChanged()"></div>' +
+            '</div>' +
+            '<div class="grid-2 form-group" style="margin-bottom:6px;">' +
+                '<div><label>বাবা / স্বামীর নাম <span style="color:red;">*</span></label><div style="display:flex;gap:5px;"><select class="sv-gtype" style="flex:1.1;" onchange="svChanged()">' + SV_GTYPE_OPTS + '</select><input type="text" class="sv-gname" placeholder="নাম লিখুন" style="flex:1.9;" oninput="svChanged()"></div></div>' +
+                '<div><label>মৃত্যুর তারিখ (DD/MM/YYYY) <span style="color:red;">*</span></label><input type="text" class="sv-dod" inputmode="numeric" maxlength="10" placeholder="DD/MM/YYYY" oninput="formatSvDod(this)"></div>' +
+            '</div>' +
+            '<label class="sv-nocert-lbl"><input type="checkbox" class="sv-nocert" onchange="svChanged()"> Death Certificate was not obtained (ডেথ সার্টিফিকেট নেই — অতিরিক্ত ২টি পেজ তৈরি হবে)</label>';
+        el.querySelector('.sv-rel').value = d.rel || 'brother';
+        el.querySelector('.sv-gtype').value = d.gType || (SV_FEMALE_RELS.has(d.rel) ? 'W/o-Late.' : SV_DAUGHTER_RELS.has(d.rel) ? 'D/o-Late.' : 'S/o-Late.');
+        el.querySelector('.sv-name').value = d.name || '';
+        el.querySelector('.sv-gname').value = d.gName || '';
+        el.querySelector('.sv-dod').value = d.dod || '';
+        el.querySelector('.sv-nocert').checked = !!d.noCert;
+        return el;
+    }
+
+    function addSvDeceased(d) {
+        const box = document.getElementById('svDeceasedList');
+        if (!box) return;
+        const card = createSvDeceasedCard(d);
+        if (!d) {
+            // When user clicks "+ Add Deceased (Brother/Sister)", insert right after father/mother (before grandfather/father-in-law) if present
+            const cards = Array.from(box.querySelectorAll('.sv-card'));
+            const gfCard = cards.find(c => ['grandfather','grandmother','father-in-law','mother-in-law'].includes(c.querySelector('.sv-rel').value));
+            if (gfCard) box.insertBefore(card, gfCard);
+            else box.appendChild(card);
+        } else {
+            box.appendChild(card);
+        }
+        renumberSvDeceased();
+    }
+
+    function renderSvDeceased(arr) {
+        const box = document.getElementById('svDeceasedList');
+        if (!box) return;
+        box.innerHTML = '';
+        (arr && arr.length ? arr : svDefaultDeceased('SurvivalFather')).forEach(d => addSvDeceased(d));
+        renumberSvDeceased();
+    }
+
+    function removeSvDeceased(btn) {
+        const card = btn.closest('.sv-card'), box = card.parentElement;
+        if (box.children.length > 1) card.remove();
+        renumberSvDeceased();
+        svChanged();
+    }
+
+    function moveSvDeceased(btn, dir) {
+        const card = btn.closest('.sv-card'), box = card.parentElement;
+        const sib = dir < 0 ? card.previousElementSibling : card.nextElementSibling;
+        if (!sib) return;
+        if (dir < 0) box.insertBefore(card, sib);
+        else box.insertBefore(sib, card);
+        renumberSvDeceased();
+        svChanged();
+    }
+
+    function renumberSvDeceased() {
+        const cards = document.querySelectorAll('#svDeceasedList .sv-card');
+        cards.forEach((c, i) => {
+            c.classList.toggle('primary', i === 0);
+            const relSel = c.querySelector('.sv-rel');
+            const relTxt = relSel.options[relSel.selectedIndex] ? relSel.options[relSel.selectedIndex].text : '';
+            c.querySelector('.sv-card-title').textContent = (i === 0 ? '⭐ প্রধান মৃত ব্যক্তি ১: ' : `🕊️ মৃত ব্যক্তি ${i + 1}: `) + relTxt;
+            c.querySelector('.sv-del').style.display = cards.length > 1 ? '' : 'none';
+            c.querySelector('.sv-up').style.display = i > 0 ? '' : 'none';
+            c.querySelector('.sv-dn').style.display = i < cards.length - 1 ? '' : 'none';
+        });
+    }
+
+    function onSvRelChange(sel) {
+        const card = sel.closest('.sv-card');
+        const rel = sel.value;
+        const gSel = card.querySelector('.sv-gtype');
+        if (SV_FEMALE_RELS.has(rel)) gSel.value = 'W/o-Late.';
+        else if (SV_DAUGHTER_RELS.has(rel)) gSel.value = 'D/o-Late.';
+        else gSel.value = 'S/o-Late.';
+        renumberSvDeceased();
+        svChanged();
+    }
+
+    function formatSvDod(el) {
+        const digits = el.value.replace(/\D/g, '').slice(0, 8);
+        let out = digits.slice(0, 2);
+        if (digits.length > 2) out += '/' + digits.slice(2, 4);
+        if (digits.length > 4) out += '/' + digits.slice(4);
+        el.value = out;
+        svChanged();
+    }
+
+    function getSvDeceased() {
+        return Array.from(document.querySelectorAll('#svDeceasedList .sv-card')).map(c => ({
+            rel: c.querySelector('.sv-rel').value,
+            name: c.querySelector('.sv-name').value.trim(),
+            gType: c.querySelector('.sv-gtype').value,
+            gName: c.querySelector('.sv-gname').value.trim(),
+            dod: c.querySelector('.sv-dod').value.trim(),
+            noCert: c.querySelector('.sv-nocert').checked
+        }));
+    }
+
+    function getSvDeceasedFilled() {
+        return getSvDeceased().filter(d => d.name || d.gName || d.dod);
+    }
+
+    function svDeceasedValid() {
+        const ds = getSvDeceasedFilled();
+        return ds.length > 0 && ds.every(d => d.name && d.gName && /^\d{2}\/\d{2}\/\d{4}$/.test(d.dod));
+    }
+
+    function addSvHeir(h) {
+        const box = document.getElementById('svHeirsList');
+        if (!box) return;
+        h = h || {};
+        const row = document.createElement('div');
+        row.className = 'sv-heir-row';
+        row.innerHTML =
+            '<input type="text" class="sv-h-name" placeholder="ওয়ারিশের নাম *" style="flex:2 1 160px;" oninput="svChanged()">' +
+            '<input type="text" class="sv-h-rel" list="svHeirRelList" placeholder="মৃত ব্যক্তির সাথে সম্পর্ক (Wife/Son/Daughter) *" style="flex:1.4 1 135px;" oninput="svChanged()">' +
+            '<input type="number" class="sv-h-age" placeholder="বয়স *" min="0" max="120" style="flex:0.7 1 70px;" oninput="svChanged()">' +
+            '<button type="button" onclick="removeSvHeir(this)" title="মুছুন" style="border:none;border-radius:8px;padding:8px 11px;cursor:pointer;font-weight:800;color:#fff;background:#c0392b;">✕</button>';
+        row.querySelector('.sv-h-name').value = h.name || '';
+        row.querySelector('.sv-h-rel').value = h.rel || '';
+        row.querySelector('.sv-h-age').value = h.age || '';
+        box.appendChild(row);
+    }
+
+    function renderSvHeirs(arr) {
+        const box = document.getElementById('svHeirsList');
+        if (!box) return;
+        box.innerHTML = '';
+        (arr && arr.length ? arr : [{}]).forEach(h => addSvHeir(h));
+    }
+
+    function removeSvHeir(btn) {
+        const row = btn.closest('.sv-heir-row'), box = row.parentElement;
+        if (box.children.length > 1) row.remove();
+        else { row.querySelector('.sv-h-name').value = ''; row.querySelector('.sv-h-rel').value = ''; row.querySelector('.sv-h-age').value = ''; }
+        svChanged();
+    }
+
+    function getSvHeirs() {
+        return Array.from(document.querySelectorAll('#svHeirsList .sv-heir-row')).map(r => ({
+            name: r.querySelector('.sv-h-name').value.trim(),
+            rel: r.querySelector('.sv-h-rel').value.trim(),
+            age: r.querySelector('.sv-h-age').value.trim()
+        })).filter(h => h.name || h.rel || h.age);
+    }
+
+    function svHeirsValid() {
+        const hs = getSvHeirs();
+        return hs.length > 0 && hs.every(h => h.name && h.rel && h.age !== '');
+    }
+
+    function autoFillApplicantHeir() {
+        const t = document.getElementById('affidavitType').value;
+        const aName = val('name'), aAge = val('age'), aGen = document.getElementById('gender').value;
+        const aRel = (t === 'SurvivalWife') ? 'Wife' : (aGen === 'Female' ? 'Daughter' : 'Son');
+        let row = document.querySelector('#svHeirsList .sv-heir-row');
+        if (!row) { addSvHeir(); row = document.querySelector('#svHeirsList .sv-heir-row'); }
+        if (aName) row.querySelector('.sv-h-name').value = aName;
+        row.querySelector('.sv-h-rel').value = aRel;
+        if (aAge) row.querySelector('.sv-h-age').value = aAge;
+        svChanged();
+    }
+
+    function syncSurvivalPreset(type) {
+        if (!isSurvivalType(type)) return;
+        const filled = getSvDeceasedFilled();
+        if (_svLastPreset !== type && filled.length === 0) {
+            renderSvDeceased(svDefaultDeceased(type));
+        }
+        _svLastPreset = type;
+        if (type === 'SurvivalWife') {
+            document.getElementById('gender').value = 'Female';
+            document.getElementById('maritalStatus').value = 'Married';
+        }
+    }
+
+    function svFromRecord(d) {
+        let dec = [], heirs = [];
+        try { if (d && d.svDeceasedData) dec = JSON.parse(d.svDeceasedData); } catch (_) {}
+        try { if (d && d.svHeirsData) heirs = JSON.parse(d.svHeirsData); } catch (_) {}
+        return { dec, heirs };
+    }
+
+    function cleanLatePrefix(s) {
+        return String(s || '').replace(/^late\.?\s+/i, '').trim();
+    }
+
+    function checkNocPurpose() {
+        const sel = document.getElementById('noc_purposeSel');
+        const inp = document.getElementById('noc_purposeCustom');
+        if (sel && inp) inp.style.display = (sel.value === 'Other') ? 'block' : 'none';
+        if (typeof refresh === 'function') refresh();
+    }
+    function nocPurposeVal() {
+        const sel = document.getElementById('noc_purposeSel');
+        if (!sel) return '';
+        return sel.value === 'Other' ? val('noc_purposeCustom') : sel.value;
+    }
+
+
 
     // ================= AFFIDAVIT =================
     // ================= AFFIDAVIT TYPE GROUPS =================
     const AFF_GROUPS = {
         NonStudy: [["NonStudyBen","Bengali (বাংলা)"],["NonStudyEng","English (ইংরেজি)"],["NonStudyThumb","Thumb (টিপসই)"]],
         OBC:      [["OBCSelf","Self (নিজের)"],["OBCParents","For Child (সন্তানের)"]],
-        OBCNCL:   [["OBCNCLSelf","Self (নিজের)"],["OBCNCLParents","For Child (সন্তানের)"]]
+        OBCNCL:   [["OBCNCLSelf","Self (নিজের)"],["OBCNCLParents","For Child (সন্তানের)"]],
+        Survival: [["SurvivalFather","For Father (বাবার জন্য — ছেলে/মেয়ে আবেদনকারী)"],["SurvivalMother","For Mother (মায়ের জন্য — ছেলে/মেয়ে আবেদনকারী)"],["SurvivalWife","For Husband (স্বামীর জন্য — স্ত্রী আবেদনকারী)"]]
     };
     function affGroupOf(t) { for (const g in AFF_GROUPS) if (AFF_GROUPS[g].some(v => v[0] === t)) return g; return t; }
     function syncAffUI() {
@@ -877,10 +1633,36 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         toggleAffidavitType();
     }
     const OT_IDS = ['ot_vehicleNo','ot_engineNo','ot_chassisNo','ot_reason','ot_buyerName','ot_buyerRelType','ot_buyerRelName','ot_vill','ot_po','ot_ps','ot_dist','ot_pin','ot_date'];
-    function otFields() { const o = {}; OT_IDS.forEach(id => { o[id] = document.getElementById(id).value; }); return o; }
+    const V9_EXTRA_IDS = [
+        'ld_docName','ld_docNo','ld_date','ld_place','ld_gdNo','ld_gdPs',
+        'gc_lastExam','gc_passYear','gc_institution','gc_fromYear','gc_toYear','gc_reason','gc_nextCourse',
+        'ap_years','ap_resType','ap_purpose',
+        'ig_amount','ig_words','ig_source','ig_purpose',
+        'dc_wrongDob','dc_wrongDoc','dc_proofDoc',
+        'nc_oldName','nc_newName','nc_reason',
+        'um_purpose',
+        'ue_qual','ue_purpose',
+        'fj_type','fj_dept',
+        'sv_authority',
+        'noc_benName','noc_benRel','noc_purposeSel','noc_purposeCustom','noc_addr'
+    ];
+    function otFields() {
+        const o = {};
+        OT_IDS.concat(V9_EXTRA_IDS).forEach(id => { const el = document.getElementById(id); if (el) o[id] = el.value; });
+        o.svDeceasedData = JSON.stringify(getSvDeceased());
+        o.svHeirsData = JSON.stringify(getSvHeirs());
+        return o;
+    }
+    function convertGeneralIncomeToWords() {
+        const s = document.getElementById("ig_amount").value;
+        document.getElementById("ig_words").value = (!s || isNaN(s)) ? "" : numberToWords(parseInt(s));
+        if (typeof generateDraft === "function") generateDraft();
+    }
+    function fmtIsoDate(d) { return d ? d.split("-").reverse().join("/") : ""; }
+    function isValidIsoDate4(v) { return /^(19|20)\d{2}-\d{2}-\d{2}$/.test(String(v || '').trim()); }
     function otValid() {
         const v = id => document.getElementById(id).value.trim();
-        return ['ot_vehicleNo','ot_engineNo','ot_chassisNo','ot_buyerName','ot_buyerRelName','ot_vill','ot_ps','ot_date'].every(v);
+        return ['ot_vehicleNo','ot_engineNo','ot_chassisNo','ot_buyerName','ot_buyerRelName','ot_vill','ot_ps'].every(v) && isValidIsoDate4(v('ot_date'));
     }
     function otDateStr() { const d = document.getElementById("ot_date").value; return d ? d.split("-").reverse().join("/") : ""; }
 
@@ -902,6 +1684,18 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         document.getElementById("digitalBirthSection").style.display = "none";
         document.getElementById("samePersonSection").style.display = (type === "SamePerson") ? "block" : "none";
         document.getElementById("ownershipSection").style.display = (type === "OwnershipTransfer") ? "block" : "none";
+        document.getElementById("lostDocSection").style.display = (type === "LostDoc") ? "block" : "none";
+        document.getElementById("gapCertSection").style.display = (type === "GapCert") ? "block" : "none";
+        document.getElementById("addressProofSection").style.display = (type === "AddressProof") ? "block" : "none";
+        document.getElementById("incomeGenSection").style.display = (type === "IncomeGen") ? "block" : "none";
+        document.getElementById("dobCorrSection").style.display = (type === "DobCorrection") ? "block" : "none";
+        document.getElementById("nameChangeSection").style.display = (type === "NameChange") ? "block" : "none";
+        document.getElementById("unmarriedSection").style.display = (type === "Unmarried") ? "block" : "none";
+        document.getElementById("unemploymentSection").style.display = (type === "Unemployment") ? "block" : "none";
+        document.getElementById("firstJobSection").style.display = (type === "FirstJob") ? "block" : "none";
+        document.getElementById("survivalSection").style.display = isSurvivalType(type) ? "block" : "none";
+        syncSurvivalPreset(type);
+        document.getElementById("rentNocSection").style.display = (type === "RentNOC") ? "block" : "none";
 
         const dobWrapper = document.getElementById("dobWrapper");
         const ageInput = document.getElementById("age");
@@ -966,17 +1760,22 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
     function isBirthSelf(){ const t = document.getElementById("affidavitType").value; return (t === "Birth" || t === "DigiBirth") && document.getElementById("appType").value === "Self"; }
     function isBirthChild(){ const t = document.getElementById("affidavitType").value; return (t === "Birth" || t === "DigiBirth") && document.getElementById("appType").value === "Child"; }
     function isNonStudy(){ return document.getElementById("affidavitType").value.indexOf("NonStudy") === 0; }
-    function poPinRequired(){ const t = document.getElementById("affidavitType").value; return t === "Birth" || t.indexOf("DigiBirth") === 0 || t === "Death"; }
+    function poPinRequired(){ const t = document.getElementById("affidavitType").value; return t === "Birth" || t.indexOf("DigiBirth") === 0 || t === "Death" || t === "AddressProof" || t === "RentNOC"; }
     function updatePoPinUI(){
         const m = poPinRequired() ? " *" : " (ঐচ্ছিক)";
         ["p","ot"].forEach(q => { const a = document.getElementById(q+"_po"), b = document.getElementById(q+"_pin"); if(a) a.placeholder = "P.O." + m; if(b) b.placeholder = "PIN Code" + m; });
     }
+    function isUnmarriedAff(){ return document.getElementById("affidavitType").value === "Unmarried"; }
     function isFemaleUnmarried(){
         return document.getElementById("gender").value === "Female"
             && !isBirthChild()
-            && document.getElementById("maritalStatus").value === "Unmarried";
+            && (isUnmarriedAff() || document.getElementById("maritalStatus").value === "Unmarried");
     }
     function spouseRequired(){
+        const t = document.getElementById("affidavitType").value;
+        if (t === "SurvivalWife") return true;
+        if (t === "SurvivalFather" || t === "SurvivalMother") return false;
+        if (isUnmarriedAff()) return false;
         if (isBirthChild()) return true;
         if (isFemaleUnmarried()) return false;
         if (isNonStudy()) return document.getElementById("gender").value === "Female";
@@ -984,7 +1783,10 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         return document.getElementById("gender").value === "Female";
     }
     function fatherRequired(){
-        if (isFemaleUnmarried()) return true;
+        const t = document.getElementById("affidavitType").value;
+        if (t === "SurvivalWife") return false;
+        if (t === "SurvivalFather" || t === "SurvivalMother") return true;
+        if (isUnmarriedAff() || isFemaleUnmarried()) return true;
         if (isBirthSelf() || isNonStudy()) return true;
         return document.getElementById("gender").value === "Male";
     }
@@ -1004,7 +1806,9 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         const star = ' <span style="color:red;">*</span>';
         const sp = spouseRequired(), fa = fatherRequired();
         // Hide spouse field for Non-Study Male OR Unmarried Female
-        const hideSpouse = (isNonStudy() && gender === "Male") || isFemaleUnmarried();
+        if (isUnmarriedAff() && mWrap && mSel) { mWrap.style.display = "none"; mSel.value = "Unmarried"; }
+        if (document.getElementById("affidavitType").value === "SurvivalWife" && mWrap && mSel) { mWrap.style.display = "none"; mSel.value = "Married"; }
+        const hideSpouse = isUnmarriedAff() || (isNonStudy() && gender === "Male") || isFemaleUnmarried();
         document.getElementById("spouseName").parentElement.style.display = hideSpouse ? "none" : "";
         if (hideSpouse) document.getElementById("spouseName").value = "";
         document.getElementById("spouseLabel").innerHTML = (gender === "Female" ? 'Spouse Name (স্বামীর নাম)' : 'Spouse Name (স্ত্রীর নাম)') + (sp ? star : ' (Optional)');
@@ -1089,19 +1893,24 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         const dobMonth = document.getElementById("dobMonth").value;
         const dobYear = document.getElementById("dobYear").value;
 
-        if (!name || !age || !profession || parseInt(age) < 18) {
-            alert("আবেদনকারীর নাম, বয়স এবং পেশা সঠিকভাবে পূরণ করুন (বয়স ১৮+ হতে হবে)।"); return null;
-        }
-        if (fatherRequired() && !father) { alert("বাবার নাম দেওয়া বাধ্যতামূলক!"); return null; }
-        if (spouseRequired() && !spouse) { alert("স্বামী/স্ত্রীর নাম দেওয়া বাধ্যতামূলক!"); return null; }
-        if (!affidavitType.includes("OBC")) {
-            if (!dobDay || !dobMonth || !dobYear) { alert("আবেদনকারীর জন্মতারিখ সঠিকভাবে দিন।"); return null; }
-        }
+        clearFieldErrors();
+        const badEls = [];
+        const addBad = (id, msg) => { const el = findErrorTarget(id); if (el) badEls.push({ el, msg }); };
+
+        if (!name) addBad("name", "আবেদনকারীর নাম");
+        if (!affidavitType.includes("OBC") && (!dobDay || !dobMonth || !dobYear)) addBad("dobDay", "আবেদনকারীর জন্মতারিখ");
+        if (!age || parseInt(age) < 18) addBad(affidavitType.includes("OBC") ? "age" : "dobDay", "বয়স ১৮+ হতে হবে");
+        if (!profession) addBad(document.getElementById("professionSelect").value === "Other" ? "customProfession" : "professionSelect", "পেশা");
+        if (fatherRequired() && !father) addBad("fatherName", "বাবার নাম");
+        if (spouseRequired() && !spouse) addBad("spouseName", "স্বামী/স্ত্রীর নাম");
 
         const p_vill = document.getElementById("p_vill").value.trim(); const p_po = document.getElementById("p_po").value.trim();
         const p_ps = document.getElementById("p_ps").value.trim(); const p_dist = document.getElementById("p_dist").value;
         const p_pin = document.getElementById("p_pin").value.trim();
-        if (!p_vill || !p_ps || (poPinRequired() && (!p_po || !p_pin))) { alert("বর্তমান ঠিকানার তথ্য দিন।"); return null; }
+        if (!p_vill) addBad("p_vill", "বর্তমান ঠিকানার গ্রাম/ওয়ার্ড");
+        if (poPinRequired() && !p_po) addBad("p_po", "বর্তমান ঠিকানার P.O.");
+        if (!p_ps) addBad("p_ps", "বর্তমান ঠিকানার P.S.");
+        if (poPinRequired() && !p_pin) addBad("p_pin", "বর্তমান ঠিকানার PIN");
 
         let b_vill = "", b_po = "", b_ps = "", b_dist = "", b_pin = "";
         let d_vill = "", d_po = "", d_ps = "", d_dist = "", d_pin = "";
@@ -1114,27 +1923,33 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         if (affidavitType === "Birth" || affidavitType.includes("DigiBirth")) {
             if (pobType === "Hospital" && affidavitType.includes("DigiBirth")) {
                 hospitalName = document.getElementById("hospitalName").value.trim();
-                if (!hospitalName) { alert("হাসপাতালের নাম দিন।"); return null; }
+                if (!hospitalName) addBad("hospitalName", "হাসপাতালের নাম");
             } else {
                 b_vill = document.getElementById("b_vill").value.trim(); b_po = document.getElementById("b_po").value.trim();
                 b_ps = document.getElementById("b_ps").value.trim(); b_dist = document.getElementById("b_dist").value; b_pin = document.getElementById("b_pin").value.trim();
-                if (!b_vill || !b_po || !b_ps || !b_pin) { alert("জন্মস্থানের ঠিকানা দিন।"); return null; }
+                if (!b_vill) addBad("b_vill", "জন্মস্থানের গ্রাম/ওয়ার্ড");
+                if (!b_po) addBad("b_po", "জন্মস্থানের P.O.");
+                if (!b_ps) addBad("b_ps", "জন্মস্থানের P.S.");
+                if (!b_pin) addBad("b_pin", "জন্মস্থানের PIN");
 
                 auth1_name = document.getElementById("auth1_name").value.trim(); auth1_type = document.getElementById("auth1_type").value;
                 auth2_name = document.getElementById("auth2_name").value.trim(); auth2_type = document.getElementById("auth2_type").value;
-                if (!auth1_name || !auth2_name) { alert("Authority এর তথ্য দিন।"); return null; }
+                if (!auth1_name) addBad("auth1_name", "পঞ্চায়েত/কাউন্সিলের নাম");
+                if (!auth2_name) addBad("auth2_name", "ব্লক/সাব-ডিভিশনের নাম");
             }
 
             if (appType === "Child") {
                 childName = document.getElementById("childName").value.trim(); childGender = document.getElementById("childGender").value;
                 c_dobDay = document.getElementById("c_dobDay").value; c_dobMonth = document.getElementById("c_dobMonth").value; c_dobYear = document.getElementById("c_dobYear").value;
-                if (!childName || !c_dobDay || !c_dobMonth || !c_dobYear) { alert("সন্তানের নাম ও জন্মতারিখ দিন।"); return null; }
+                if (!childName) addBad("childName", "সন্তানের নাম");
+                if (!c_dobDay || !c_dobMonth || !c_dobYear) addBad("c_dobDay", "সন্তানের জন্মতারিখ");
             }
 
             if (affidavitType.includes("DigiBirth")) {
                 oldRegNo = document.getElementById("oldRegNo").value.trim();
                 regDay = document.getElementById("regDay").value; regMonth = document.getElementById("regMonth").value; regYear = document.getElementById("regYear").value;
-                if (!oldRegNo || !regDay || !regMonth || !regYear) { alert("ডিজিটাল বার্থ এর জন্য পুরনো রেজিস্ট্রেশন তথ্য দিন।"); return null; }
+                if (!oldRegNo) addBad("oldRegNo", "পুরনো রেজিস্ট্রেশন নম্বর");
+                if (!regDay || !regMonth || !regYear) addBad("regDay", "রেজিস্ট্রেশনের তারিখ");
             }
 
         } else if (affidavitType === "Death") {
@@ -1145,38 +1960,95 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
             dodDay = document.getElementById("dodDay").value; dodMonth = document.getElementById("dodMonth").value; dodYear = document.getElementById("dodYear").value;
             podPrefix = document.getElementById("podPrefix").value.trim();
 
-            if(!decName || !decGuardianName || !dodDay || !dodMonth || !dodYear || !podPrefix) {
-                alert("মৃত্যুর তথ্য সম্পূর্ণ করুন।"); return null;
-            }
+            if (!decName) addBad("decName", "মৃত ব্যক্তির নাম");
+            if (!decGuardianName) addBad("decGuardianName", "মৃত ব্যক্তির অভিভাবকের নাম");
+            if (!dodDay || !dodMonth || !dodYear) addBad("dodDay", "মৃত্যুর তারিখ");
+            if (!podPrefix) addBad("podPrefix", "মৃত্যুর স্থান");
 
             d_vill = document.getElementById("d_vill").value.trim(); d_po = document.getElementById("d_po").value.trim();
             d_ps = document.getElementById("d_ps").value.trim(); d_dist = document.getElementById("d_dist").value; d_pin = document.getElementById("d_pin").value.trim();
-            if (!d_vill || !d_po || !d_ps || !d_pin) { alert("মৃত্যুর স্থানের ঠিকানা দিন।"); return null; }
+            if (!d_vill) addBad("d_vill", "মৃত্যুর স্থানের গ্রাম");
+            if (!d_po) addBad("d_po", "মৃত্যুর স্থানের P.O.");
+            if (!d_ps) addBad("d_ps", "মৃত্যুর স্থানের P.S.");
+            if (!d_pin) addBad("d_pin", "মৃত্যুর স্থানের PIN");
 
             auth1_name = document.getElementById("auth1_name").value.trim(); auth1_type = document.getElementById("auth1_type").value;
             auth2_name = document.getElementById("auth2_name").value.trim(); auth2_type = document.getElementById("auth2_type").value;
-            if (!auth1_name || !auth2_name) { alert("Authority এর তথ্য দিন।"); return null; }
+            if (!auth1_name) addBad("auth1_name", "পঞ্চায়েত/কাউন্সিলের নাম");
+            if (!auth2_name) addBad("auth2_name", "ব্লক/সাব-ডিভিশনের নাম");
 
         } else if (affidavitType.includes("OBC")) {
             obcCommunity = document.getElementById("obcCommunity").value.trim();
             obcIncomeNum = document.getElementById("obcIncomeNum").value.trim();
             obcIncomeWords = document.getElementById("obcIncomeWords").value.trim();
-            if(!obcCommunity || !obcIncomeNum || !obcIncomeWords){ alert("OBC এর সাব-কাস্ট এবং ইনকাম লিখুন।"); return null; }
+            if (!obcCommunity) addBad("obcCommunity", "সাব-কাস্ট (Community)");
+            if (!obcIncomeNum) addBad("obcIncomeNum", "বার্ষিক আয়");
+            if (!obcIncomeWords) addBad("obcIncomeWords", "আয় কথায়");
 
             if (affidavitType.includes("Parents")) {
                 childName = document.getElementById("childName").value.trim();
                 childGender = document.getElementById("childGender").value;
-                if(!childName) { alert("সন্তানের নাম লিখুন।"); return null; }
+                if (!childName) addBad("childName", "সন্তানের নাম");
             }
         }
 
         let spPersonsData = "";
         if (affidavitType === "SamePerson") {
-            if (!spPersonsValid()) { alert("প্রত্যেক ব্যক্তির জন্য সঠিক নাম (নিজের ছাড়া), এবং কমপক্ষে একটি ভুল নাম + ডকুমেন্টের নাম দিন (প্রতিটি লাইনে দুটোই লিখতে হবে)।"); return null; }
+            if (!spPersonsValid()) {
+                const spBad = Array.from(document.querySelectorAll('#spPersons input[type="text"]')).find(i => !i.value.trim() && i.offsetParent !== null) || document.querySelector('#spPersons .sp-wrong');
+                if (spBad) badEls.push({ el: spBad, msg: "Same Person-এর সঠিক ও ভুল নাম/ডকুমেন্ট" });
+                else badEls.push({ el: document.getElementById("samePersonSection"), msg: "Same Person তথ্য" });
+            }
             spPersonsData = JSON.stringify(getSpPersons());
         }
 
-        if (affidavitType === "OwnershipTransfer" && !otValid()) { alert("গাড়ির তথ্য (Reg/Engine/Chassis নং), ক্রেতার নাম, বাবা/স্বামীর নাম, ঠিকানা এবং হস্তান্তরের তারিখ সব দিন।"); return null; }
+        if (affidavitType === "OwnershipTransfer") {
+            [['ot_vehicleNo','গাড়ির Reg No'],['ot_engineNo','Engine No'],['ot_chassisNo','Chassis No'],['ot_buyerName','ক্রেতার নাম'],['ot_buyerRelName','ক্রেতার বাবা/স্বামীর নাম'],['ot_vill','ক্রেতার গ্রাম'],['ot_ps','ক্রেতার P.S.']].forEach(([id, lbl]) => {
+                if (!val(id)) addBad(id, lbl);
+            });
+            if (!isValidIsoDate4(val('ot_date'))) addBad('ot_date', 'হস্তান্তরের সঠিক তারিখ (৪ সংখ্যার সাল)');
+        }
+        if (affidavitType === "LostDoc") {
+            [['ld_docName','হারানো ডকুমেন্টের নাম'],['ld_place','হারানোর স্থান']].forEach(([id, lbl]) => { if (!val(id)) addBad(id, lbl); });
+            if (!isValidIsoDate4(val('ld_date'))) addBad('ld_date', 'হারানোর সঠিক তারিখ (৪ সংখ্যার সাল)');
+        } else if (affidavitType === "GapCert") {
+            [['gc_lastExam','সর্বশেষ পরীক্ষা'],['gc_passYear','পাসের সাল'],['gc_institution','প্রতিষ্ঠানের নাম'],['gc_fromYear','বিরতি শুরু'],['gc_toYear','বিরতি শেষ'],['gc_reason','বিরতির কারণ']].forEach(([id, lbl]) => { if (!val(id)) addBad(id, lbl); });
+        } else if (affidavitType === "AddressProof") {
+            [['ap_years','বসবাসের সময়কাল'],['ap_purpose','উদ্দেশ্য']].forEach(([id, lbl]) => { if (!val(id)) addBad(id, lbl); });
+        } else if (affidavitType === "IncomeGen") {
+            [['ig_amount','বার্ষিক আয়'],['ig_words','আয় কথায়'],['ig_source','আয়ের উৎস'],['ig_purpose','উদ্দেশ্য']].forEach(([id, lbl]) => { if (!val(id)) addBad(id, lbl); });
+        } else if (affidavitType === "DobCorrection") {
+            if (!/^\d{2}\/\d{2}\/\d{4}$/.test(val('dc_wrongDob'))) addBad('dc_wrongDob', 'ভুল জন্মতারিখ (DD/MM/YYYY)');
+            if (!val('dc_wrongDoc')) addBad('dc_wrongDoc', 'ভুল ডকুমেন্টের নাম');
+            if (!val('dc_proofDoc')) addBad('dc_proofDoc', 'সঠিক প্রমাণপত্র');
+        } else if (affidavitType === "NameChange") {
+            if (!val('nc_oldName')) addBad('nc_oldName', 'আগের নাম');
+            if (!val('nc_newName')) addBad('nc_newName', 'নতুন নাম');
+        } else if (affidavitType === "Unmarried") {
+            if (!val('um_purpose')) addBad('um_purpose', 'অবিবাহিত সনদের উদ্দেশ্য');
+        } else if (affidavitType === "Unemployment") {
+            if (!val('ue_purpose')) addBad('ue_purpose', 'বেকারত্ব সনদের উদ্দেশ্য');
+        } else if (affidavitType === "FirstJob") {
+            if (!val('fj_dept')) addBad('fj_dept', 'দপ্তর / প্রতিষ্ঠানের নাম');
+        } else if (isSurvivalType(affidavitType)) {
+            if (!svDeceasedValid()) {
+                const svBad = Array.from(document.querySelectorAll('#svDeceasedList .sv-card input[type="text"]')).find(i => !i.value.trim()) || document.getElementById('survivalSection');
+                badEls.push({ el: svBad, msg: 'মৃত ব্যক্তিদের নাম, অভিভাবক ও মৃত্যুর তারিখ (DD/MM/YYYY)' });
+            }
+            if (!svHeirsValid()) {
+                const hBad = Array.from(document.querySelectorAll('#svHeirsList input')).find(i => !i.value.trim()) || document.getElementById('survivalSection');
+                badEls.push({ el: hBad, msg: 'জীবিত ওয়ারিশদের নাম, সম্পর্ক ও বয়স' });
+            }
+        } else if (affidavitType === "RentNOC") {
+            if (!val('noc_benName')) addBad('noc_benName', 'যাঁকে NOC দিচ্ছেন তাঁর নাম');
+            if (!val('noc_benRel')) addBad('noc_benRel', 'সম্পর্ক');
+            if (!nocPurposeVal()) addBad('noc_purposeCustom', 'NOC-এর উদ্দেশ্য');
+        }
+
+        if (badEls.length) {
+            reportFieldErrors(badEls);
+            return null;
+        }
 
         const signMonth = document.getElementById("signMonth").value;
         const signYear = document.getElementById("signYear").value.trim();
@@ -1187,7 +2059,7 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         formattedText += `*Affidavit:* ${affidavitLabel}\n`;
         if (affidavitType === "Birth") formattedText += `*Type:* ${appType === 'Self' ? 'Self' : 'Child'}\n`;
 
-        formattedText += `\n*Name:* ${name}\n*Gender:* ${gender}${gender === "Female" ? " (" + document.getElementById("maritalStatus").value + ")" : ""}\n*Age:* ${age}\n`;
+        formattedText += `\n*Name:* ${name}${val("customerPhone") ? "\n*Mobile:* " + val("customerPhone") : ""}\n*Gender:* ${gender}${gender === "Female" ? " (" + document.getElementById("maritalStatus").value + ")" : ""}\n*Age:* ${age}\n`;
         if(!affidavitType.includes("OBC")) formattedText += `*DOB:* ${dobDay}/${dobMonth}/${dobYear}\n`;
         if (father) formattedText += `*Father:* ${father}\n`;
         if (mother) formattedText += `*Mother:* ${mother}\n`;
@@ -1223,7 +2095,7 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
                 if (pr.rel !== "self") formattedText += `*Status:* ${pr.status === "Yes" ? "Late (মৃত)" : "Alive (জীবিত)"}\n*Correct Name:* ${pr.correct}\n`;
                 pr.rows.forEach((r, j) => {
                     const ow = (document.querySelector('#spPersons .sp-owner option[value="' + (r.owner || 'same') + '"]') || {}).textContent || r.owner;
-                    formattedText += `*Wrong Name ${j + 1}:* ${r.wrong}  →  *Document:* ${r.doc} (${ow})\n`;
+                    formattedText += `*Wrong Name ${j + 1}:* ${r.wrong}  →  *Document:* ${r.doc} (${ow}${r.ownerName ? " - " + r.ownerName : ""})\n`;
                 });
                 formattedText += `\n`;
             });
@@ -1234,6 +2106,36 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
             formattedText += `*-- Vehicle Transfer Details --*\n*Registration No:* ${ov("ot_vehicleNo")}\n*Engine No:* ${ov("ot_engineNo")}\n*Chassis No:* ${ov("ot_chassisNo")}\n`;
             if (ov("ot_reason")) formattedText += `*Reason:* ${ov("ot_reason")}\n`;
             formattedText += `*Buyer:* ${ov("ot_buyerName")}, ${document.getElementById("ot_buyerRelType").value} ${ov("ot_buyerRelName")}\n*Buyer Address:* Vill: ${ov("ot_vill")}, ${ov("ot_po") ? 'PO: ' + ov("ot_po") + ', ' : ''}PS: ${ov("ot_ps")}, Dist: ${document.getElementById("ot_dist").value}${ov("ot_pin") ? ", PIN: " + ov("ot_pin") : ""}\n*Handover Date:* ${otDateStr()}\n\n`;
+        }
+        if (affidavitType === "LostDoc") {
+            formattedText += `*-- Lost Document Details --*\n*Document:* ${val('ld_docName')}${val('ld_docNo') ? '\n*Doc No:* ' + val('ld_docNo') : ''}\n*Loss Date:* ${fmtIsoDate(val('ld_date'))}\n*Loss Place:* ${val('ld_place')}${val('ld_gdNo') ? '\n*GD No:* ' + val('ld_gdNo') : ''}${val('ld_gdPs') ? ' (' + val('ld_gdPs') + ' PS)' : ''}\n\n`;
+        } else if (affidavitType === "GapCert") {
+            formattedText += `*-- Gap Certificate Details --*\n*Last Exam:* ${val('gc_lastExam')} (${val('gc_passYear')})\n*Institution:* ${val('gc_institution')}\n*Gap Period:* ${val('gc_fromYear')} to ${val('gc_toYear')}\n*Reason:* ${val('gc_reason')}${val('gc_nextCourse') ? '\n*Admission:* ' + val('gc_nextCourse') : ''}\n\n`;
+        } else if (affidavitType === "AddressProof") {
+            formattedText += `*-- Residence Details --*\n*Status:* ${val('ap_resType')}\n*Duration:* ${val('ap_years')}\n*Purpose:* ${val('ap_purpose')}\n\n`;
+        } else if (affidavitType === "IncomeGen") {
+            formattedText += `*-- Income Details --*\n*Income:* Rs. ${val('ig_amount')} (${val('ig_words')})\n*Source:* ${val('ig_source')}\n*Purpose:* ${val('ig_purpose')}\n\n`;
+        } else if (affidavitType === "DobCorrection") {
+            formattedText += `*-- DOB Correction Details --*\n*Correct DOB:* ${dobDay}/${dobMonth}/${dobYear} (${val('dc_proofDoc')})\n*Wrong DOB:* ${val('dc_wrongDob')} (${val('dc_wrongDoc')})\n\n`;
+        } else if (affidavitType === "NameChange") {
+            formattedText += `*-- Name Change Details --*\n*Old Name:* ${val('nc_oldName')}\n*New Name:* ${val('nc_newName')}${val('nc_reason') ? '\n*Reason:* ' + val('nc_reason') : ''}\n\n`;
+        } else if (affidavitType === "Unmarried") {
+            formattedText += `*-- Unmarried Details --*\n*Purpose:* ${val('um_purpose')}\n\n`;
+        } else if (affidavitType === "Unemployment") {
+            formattedText += `*-- Unemployment Details --*\n${val('ue_qual') ? '*Qualification:* ' + val('ue_qual') + '\n' : ''}*Purpose:* ${val('ue_purpose')}\n\n`;
+        } else if (affidavitType === "FirstJob") {
+            formattedText += `*-- Character / Job Details --*\n*Scope:* ${val('fj_type')}\n*Department:* ${val('fj_dept')}\n\n`;
+        } else if (isSurvivalType(affidavitType)) {
+            formattedText += `*-- Survival Details (${val('sv_authority')}) --*\n`;
+            getSvDeceasedFilled().forEach((d, idx) => {
+                formattedText += `*Deceased ${idx+1}:* ${d.rel} - ${d.name} (${d.gType} ${d.gName}), DOD: ${d.dod}${d.noCert ? ' [No Death Cert]' : ''}\n`;
+            });
+            getSvHeirs().forEach((h, idx) => {
+                formattedText += `*Heir ${idx+1}:* ${h.name} (${h.rel}, Age: ${h.age})\n`;
+            });
+            formattedText += `\n`;
+        } else if (affidavitType === "RentNOC") {
+            formattedText += `*-- NOC Details --*\n*Beneficiary:* ${val('noc_benName')} (${val('noc_benRel')})\n*Purpose:* ${nocPurposeVal()}${val('noc_addr') ? '\n*Premises:* ' + val('noc_addr') : ''}\n\n`;
         }
 
         formattedText += `*Present Address:* Vill: ${p_vill}, ${p_po ? 'PO: ' + p_po + ', ' : ''}PS: ${p_ps}, Dist: ${p_dist}${p_pin ? ", PIN: " + p_pin : ""}\n\n`;
@@ -1249,7 +2151,7 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
 
         const dataObj = {
             affidavitType: affidavitType, appType: appType, pobType: pobType, hospitalName: hospitalName,
-            name: name, gender: gender, maritalStatus: document.getElementById("maritalStatus").value, age: age, fatherName: father, motherName: mother, religion: religion, spouseName: spouse,
+            name: name, customerPhone: val("customerPhone").replace(/\D/g,"").slice(0,10), gender: gender, maritalStatus: document.getElementById("maritalStatus").value, age: age, fatherName: father, motherName: mother, religion: religion, spouseName: spouse,
             professionSelect: document.getElementById("professionSelect").value, customProfession: profession,
             dobDay: dobDay, dobMonth: dobMonth, dobYear: dobYear,
             childName: childName, childGender: childGender, c_dobDay: c_dobDay, c_dobMonth: c_dobMonth, c_dobYear: c_dobYear,
@@ -1271,7 +2173,7 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
 
     // ================= MARRIAGE =================
     const ADDR_KEYS = ['vill','gp','gpType','po','ps','sd','dist','pin'];
-    const M_FIELD_IDS = ['gName','gFather','gAge','gProf','gProfCustom','bName','bFather','bAge','bProf','bProfCustom','mReligion','mReligionCustom','mDay','mMonth','mYear','mPlaceSrc']
+    const M_FIELD_IDS = ['gName','gFather','gAge','gProf','gProfCustom','bName','bFather','bAge','bProf','bProfCustom','mReligion','mReligionCustom','mDay','mMonth','mYear','mPlaceSrc','mCustomerPhone']
         .concat(['mg','mb','mm'].flatMap(p => ADDR_KEYS.map(k => p + '_' + k)));
 
     function checkProf(p){ document.getElementById(p + 'ProfCustom').style.display = document.getElementById(p + 'Prof').value === 'Other' ? 'block' : 'none'; }
@@ -1314,13 +2216,30 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         return m;
     }
     function collectMarriage(){
-        const miss = missingFields();
-        if (miss.length){ alert("নিচের তথ্যগুলো পূরণ করুন:\n• " + miss.join("\n• ")); return null; }
+        clearFieldErrors();
+        const badEls = [];
+        const addBad = (id, msg) => { const el = findErrorTarget(id); if (el) badEls.push({ el, msg }); };
+        if (!val('gName')) addBad('gName','বরের নাম');
+        if (!val('gFather')) addBad('gFather','বরের বাবার নাম');
+        if (!(parseInt(val('gAge')) > 0)) addBad('gAge','বরের বয়স');
+        if (!profOf('g')) addBad(document.getElementById('gProf').value==='Other'?'gProfCustom':'gProf','বরের পেশা');
+        ['vill','gp','po','ps','sd','pin'].forEach(k => { if (!val('mg_'+k)) addBad('mg_'+k,'বরের ঠিকানা'); });
+        if (!val('bName')) addBad('bName','কনের নাম');
+        if (!val('bFather')) addBad('bFather','কনের বাবার নাম');
+        if (!(parseInt(val('bAge')) > 0)) addBad('bAge','কনের বয়স');
+        if (!profOf('b')) addBad(document.getElementById('bProf').value==='Other'?'bProfCustom':'bProf','কনের পেশা');
+        ['vill','gp','po','ps','sd','pin'].forEach(k => { if (!val('mb_'+k)) addBad('mb_'+k,'কনের ঠিকানা'); });
+        if (!mRelName()) addBad('mReligionCustom','ধর্ম');
+        if (!marriageDate()) addBad('mDay','বিয়ের তারিখ');
+        if (document.getElementById('mPlaceSrc').value === 'other') {
+            ['vill','gp','po','ps','sd','pin'].forEach(k => { if (!val('mm_'+k)) addBad('mm_'+k,'বিয়ের স্থানের ঠিকানা'); });
+        }
+        if (badEls.length){ reportFieldErrors(badEls); return null; }
         let t = `*Marriage Affidavit Data For AYAT GRAPHICS ZONE*\n\n`;
         t += `*-- Groom --*\n*Name:* ${val('gName')}\n*Father:* ${val('gFather')}\n*Age:* ${val('gAge')}\n*Profession:* ${profOf('g')}\n*Address:* ${addrStr('g')}\n\n`;
         t += `*-- Bride --*\n*Name:* ${val('bName')}\n*Father:* ${val('bFather')}\n*Age:* ${val('bAge')}\n*Profession:* ${profOf('b')}\n*Address:* ${addrStr('b')}\n\n`;
         t += `*Religion:* ${mRelName()}\n*Marriage Date:* ${marriageDate()}\n*Marriage Place:* ${addrStr('m')}`;
-        const data = { docKind: 'marriage' };
+        const data = { docKind: 'marriage', customerPhone: val('mCustomerPhone').replace(/\D/g,'').slice(0,10) };
         M_FIELD_IDS.forEach(id => { data[id] = document.getElementById(id).value; });
         t += `\n\n🔒 *দোকানের ব্যবহারের জন্য*\nCODE:[${btoa(encodeURIComponent(JSON.stringify(data)))}]`;
         return t;
@@ -1334,16 +2253,214 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
     }
     const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbwsXh37QDHtNg27DaTTWRYTB_5pCI3_Ya8zuDI0csOKneKEUDFiTBYUkQA6UkapKYCI/exec";
 
-    async function sendToSheet() {
+    // ================= Smart Toast & Field Error Helpers =================
+    function showToast(msg, type) {
+        const box = document.getElementById("toastBox");
+        if (!box) { alert(msg); return; }
+        const el = document.createElement("div");
+        el.className = "toast " + (type || "info");
+        el.textContent = msg;
+        box.appendChild(el);
+        requestAnimationFrame(() => el.classList.add("show"));
+        setTimeout(() => {
+            el.classList.remove("show");
+            setTimeout(() => el.remove(), 260);
+        }, 3800);
+    }
+
+    function findErrorTarget(id) {
+        const el = document.getElementById(id);
+        if (!el) return null;
+        if (el.style.display === 'none' || (el.parentElement && el.parentElement.style.display === 'none')) {
+            const ed = el.closest('.form-group, #childDobWrapper, div');
+            const easyInp = ed ? ed.querySelector('.easy-date input') : null;
+            if (easyInp) return easyInp;
+        }
+        return el;
+    }
+
+    function clearFieldErrors() {
+        document.querySelectorAll('.field-error').forEach(e => e.classList.remove('field-error', 'field-shake'));
+    }
+
+    function reportFieldErrors(badEls) {
+        const seen = new Set();
+        const msgs = [];
+        badEls.forEach(({ el, msg }) => {
+            if (el) {
+                el.classList.add('field-error', 'field-shake');
+                setTimeout(() => el.classList.remove('field-shake'), 450);
+            }
+            if (msg && !seen.has(msg)) { seen.add(msg); msgs.push(msg); }
+        });
+        if (badEls[0] && badEls[0].el) {
+            badEls[0].el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            try { badEls[0].el.focus({ preventScroll: true }); } catch (_) {}
+        }
+        const shortList = msgs.slice(0, 3).join(", ") + (msgs.length > 3 ? ` (+আরও ${msgs.length - 3}টি)` : "");
+        showToast("⚠️ পূরণ করুন: " + shortList, "err");
+    }
+
+    document.addEventListener('input', function(e) {
+        if (e.target && e.target.classList && e.target.classList.contains('field-error')) {
+            e.target.classList.remove('field-error');
+        }
+        if (e.target && (e.target.id === 'customerPhone' || e.target.id === 'mCustomerPhone')) {
+            e.target.value = e.target.value.replace(/\D/g, '').slice(0, 10);
+        }
+        updateProgress();
+    });
+    document.addEventListener('change', function() { updateProgress(); });
+
+    // ================= Form Progress Bar =================
+    function updateProgress() {
+        const isMar = curMode() === 'marriage';
+        let total = 0, filled = 0;
+        const chk = (ok) => { total++; if (ok) filled++; };
+        if (isMar) {
+            chk(val('gName')); chk(val('gFather')); chk(parseInt(val('gAge')) > 0); chk(profOf('g'));
+            ['vill','gp','po','ps','sd','pin'].forEach(k => chk(val('mg_'+k)));
+            chk(val('bName')); chk(val('bFather')); chk(parseInt(val('bAge')) > 0); chk(profOf('b'));
+            ['vill','gp','po','ps','sd','pin'].forEach(k => chk(val('mb_'+k)));
+            chk(mRelName()); chk(marriageDate());
+            if (document.getElementById('mPlaceSrc').value === 'other') {
+                ['vill','gp','po','ps','sd','pin'].forEach(k => chk(val('mm_'+k)));
+            }
+        } else {
+            const t = document.getElementById('affidavitType').value;
+            const app = document.getElementById('appType').value;
+            const pob = document.getElementById('pobType').value;
+            chk(val('name'));
+            if (!t.includes('OBC')) chk(val('dobDay') && val('dobMonth') && val('dobYear'));
+            chk(parseInt(val('age')) >= 18);
+            if (fatherRequired()) chk(val('fatherName'));
+            if (spouseRequired()) chk(val('spouseName'));
+            const prof = document.getElementById('professionSelect').value === 'Other' ? val('customProfession') : document.getElementById('professionSelect').value;
+            chk(prof);
+            chk(val('p_vill')); chk(val('p_ps'));
+            if (poPinRequired()) { chk(val('p_po')); chk(val('p_pin')); }
+            if (t === 'Birth' || t.includes('DigiBirth')) {
+                if (pob === 'Hospital' && t.includes('DigiBirth')) chk(val('hospitalName'));
+                else { ['b_vill','b_po','b_ps','b_pin','auth1_name','auth2_name'].forEach(id => chk(val(id))); }
+                if (app === 'Child') { chk(val('childName')); chk(val('c_dobDay') && val('c_dobMonth') && val('c_dobYear')); }
+                if (t.includes('DigiBirth')) { chk(val('oldRegNo')); chk(val('regDay') && val('regMonth') && val('regYear')); }
+            } else if (t === 'Death') {
+                ['decName','decGuardianName','podPrefix','d_vill','d_po','d_ps','d_pin','auth1_name','auth2_name'].forEach(id => chk(val(id)));
+                chk(val('dodDay') && val('dodMonth') && val('dodYear'));
+            } else if (t.includes('OBC')) {
+                ['obcCommunity','obcIncomeNum','obcIncomeWords'].forEach(id => chk(val(id)));
+                if (t.includes('Parents')) chk(val('childName'));
+            } else if (t === 'SamePerson') {
+                chk(spPersonsValid());
+            } else if (t === 'OwnershipTransfer') {
+                ['ot_vehicleNo','ot_engineNo','ot_chassisNo','ot_buyerName','ot_buyerRelName','ot_vill','ot_ps','ot_date'].forEach(id => chk(val(id)));
+            } else if (t === 'LostDoc') {
+                ['ld_docName','ld_date','ld_place'].forEach(id => chk(val(id)));
+            } else if (t === 'GapCert') {
+                ['gc_lastExam','gc_passYear','gc_institution','gc_fromYear','gc_toYear','gc_reason'].forEach(id => chk(val(id)));
+            } else if (t === 'AddressProof') {
+                ['ap_years','ap_purpose'].forEach(id => chk(val(id)));
+            } else if (t === 'IncomeGen') {
+                ['ig_amount','ig_words','ig_source','ig_purpose'].forEach(id => chk(val(id)));
+            } else if (t === 'DobCorrection') {
+                chk(/^\d{2}\/\d{2}\/\d{4}$/.test(val('dc_wrongDob'))); chk(val('dc_wrongDoc')); chk(val('dc_proofDoc'));
+            } else if (t === 'NameChange') {
+                chk(val('nc_oldName')); chk(val('nc_newName'));
+            } else if (t === 'Unmarried') {
+                chk(val('um_purpose'));
+            } else if (t === 'Unemployment') {
+                chk(val('ue_purpose'));
+            } else if (t === 'FirstJob') {
+                chk(val('fj_dept'));
+            } else if (isSurvivalType(t)) {
+                chk(svDeceasedValid()); chk(svHeirsValid());
+            } else if (t === 'RentNOC') {
+                chk(val('noc_benName')); chk(val('noc_benRel')); chk(nocPurposeVal());
+            }
+        }
+        const pct = total ? Math.round((filled / total) * 100) : 0;
+        const bar = document.getElementById('progressBarIn');
+        const topBar = document.getElementById('topProgressFill');
+        const txt = document.getElementById('progressText');
+        if (bar) bar.style.width = pct + '%';
+        if (topBar) topBar.style.width = pct + '%';
+        if (txt) txt.textContent = pct === 100 ? '✅ ১০০% প্রস্তুত!' : (pct + '% সম্পন্ন');
+    }
+
+    // ================= Pre-Submit Review Modal =================
+    let _pendingPayloadText = null;
+    const _escHtml = s => String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+    function openReviewModal() {
         const text = collectData();
+        if (!text) return;
+        _pendingPayloadText = text;
+        const tbody = document.getElementById("reviewTableBody");
+        const rows = [];
+        const addR = (k, v) => { if (v) rows.push(`<tr><td>${_escHtml(k)}</td><td>${_escHtml(v)}</td></tr>`); };
+
+        if (curMode() === 'marriage') {
+            addR("ডকুমেন্ট", "Marriage Declaration (ম্যারেজ)");
+            addR("বরের নাম", val('gName') + " (বয়স: " + val('gAge') + ")");
+            addR("বরের বাবা", val('gFather'));
+            addR("বরের ঠিকানা", addrStr('g'));
+            addR("কনের নাম", val('bName') + " (বয়স: " + val('bAge') + ")");
+            addR("কনের বাবা", val('bFather'));
+            addR("কনের ঠিকানা", addrStr('b'));
+            addR("ধর্ম ও বিয়ের তারিখ", mRelName() + " · " + marriageDate());
+            addR("মোবাইল নম্বর", val('mCustomerPhone'));
+        } else {
+            const t = document.getElementById("affidavitType").value;
+            const label = document.getElementById("affidavitType").options[document.getElementById("affidavitType").selectedIndex].text;
+            addR("অ্যাফিডেভিট", label);
+            addR("আবেদনকারীর নাম", val('name'));
+            addR("মোবাইল নম্বর", val('customerPhone'));
+            const gStr = val('gender') + (val('gender') === 'Female' && !isBirthChild() ? ' (' + val('maritalStatus') + ')' : '');
+            addR("লিঙ্গ ও বয়স", gStr + " · " + val('age') + " বছর");
+            if (!t.includes("OBC")) addR("জন্মতারিখ", `${val('dobDay')}/${val('dobMonth')}/${val('dobYear')}`);
+            addR("বাবার নাম", val('fatherName'));
+            addR("মায়ের নাম", val('motherName'));
+            addR("স্বামী/স্ত্রীর নাম", val('spouseName'));
+            addR("ধর্ম ও পেশা", val('religion') + " · " + (val('professionSelect') === 'Other' ? val('customProfession') : val('professionSelect')));
+            if (val('childName') && (isBirthChild() || t.includes("Parents"))) {
+                addR("সন্তানের নাম", val('childName') + (isBirthChild() ? ` (${val('c_dobDay')}/${val('c_dobMonth')}/${val('c_dobYear')})` : ''));
+            }
+            if (t === 'Death') addR("মৃত ব্যক্তি ও তারিখ", `${val('decName')} (${val('dodDay')}/${val('dodMonth')}/${val('dodYear')})`);
+            if (t === 'SamePerson') { const sp = getSpPersons(); addR("Same Person", sp.map(p => `${p.rel === "self" ? val("name") : p.correct} → ${p.rows.map(r => r.wrong).join("/")}`).join(" · ")); }
+            if (t === 'OwnershipTransfer') addR("গাড়ি ও ক্রেতা", `${val('ot_vehicleNo').toUpperCase()} → ${val('ot_buyerName')}`);
+            if (t === 'LostDoc') addR("হারানো ডকুমেন্ট", `${val('ld_docName')}${val('ld_docNo') ? ' (' + val('ld_docNo') + ')' : ''} · ${fmtIsoDate(val('ld_date'))}`);
+            if (t === 'GapCert') addR("শিক্ষা বিরতি", `${val('gc_lastExam')} (${val('gc_passYear')}) · Gap ${val('gc_fromYear')}–${val('gc_toYear')}`);
+            if (t === 'AddressProof') addR("বসবাসের তথ্য", `${val('ap_resType')} · ${val('ap_years')} · ${val('ap_purpose')}`);
+            if (t === 'IncomeGen') addR("বার্ষিক আয়", `Rs. ${val('ig_amount')} (${val('ig_source')})`);
+            if (t === 'DobCorrection') addR("ভুল → সঠিক DOB", `${val('dc_wrongDob')} (${val('dc_wrongDoc')}) → ${val('dobDay')}/${val('dobMonth')}/${val('dobYear')}`);
+            if (t === 'NameChange') addR("আগের → নতুন নাম", `${val('nc_oldName')} → ${val('nc_newName')}`);
+            if (t === 'Unmarried') addR("অবিবাহিত সনদের উদ্দেশ্য", val('um_purpose'));
+            if (t === 'Unemployment') addR("বেকারত্ব সনদের উদ্দেশ্য", val('ue_purpose'));
+            if (t === 'FirstJob') addR("দপ্তর / প্রতিষ্ঠান", val('fj_dept'));
+            if (isSurvivalType(t)) { const ds = getSvDeceasedFilled(); addR("মৃত ব্যক্তি ও ওয়ারিশ", `${ds[0] ? ds[0].name : ""} (+আরও ${Math.max(0, ds.length-1)} জন মৃত) · ${getSvHeirs().length} জন ওয়ারিশ`); }
+            if (t === 'RentNOC') addR("NOC প্রাপক ও উদ্দেশ্য", `${val('noc_benName')} (${val('noc_benRel')}) · ${nocPurposeVal()}`);
+            addR("বর্তমান ঠিকানা", `Vill: ${val('p_vill')}${val('p_po') ? ', PO: ' + val('p_po') : ''}, PS: ${val('p_ps')}, Dist: ${val('p_dist')}${val('p_pin') ? ', PIN: ' + val('p_pin') : ''}`);
+        }
+        tbody.innerHTML = rows.join("");
+        document.getElementById("reviewModal").classList.add("open");
+    }
+
+    function closeReviewModal() {
+        document.getElementById("reviewModal").classList.remove("open");
+    }
+
+    async function confirmSendToSheet() {
+        const text = _pendingPayloadText || collectData();
         if (!text) return;
 
         const match = text.match(/CODE:\[(.*?)\]/);
-        if (!match || !match[1]) { alert("ডাটা তৈরি করতে সমস্যা হয়েছে।"); return; }
+        if (!match || !match[1]) { showToast("❌ ডাটা তৈরি করতে সমস্যা হয়েছে।", "err"); return; }
 
-        const btn = document.getElementById("btnSheetSend");
+        const btn = document.getElementById("btnConfirmSend");
+        const mainBtn = document.getElementById("btnSheetSend");
         btn.disabled = true;
-        btn.innerHTML = "⏳ পাঠানো হচ্ছে, অপেক্ষা করুন...";
+        btn.textContent = "⏳ পাঠানো হচ্ছে...";
+        if (mainBtn) mainBtn.disabled = true;
 
         const isMar = curMode() === 'marriage';
         const baseName = isMar ? (val('gName') + " & " + val('bName')) : val('name');
@@ -1363,26 +2480,31 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
             if (!res.ok) throw new Error("HTTP " + res.status);
             localStorage.setItem('ayatCustomerSent', '1');
             saveCustomerDraft();
+            closeReviewModal();
             const psb = document.getElementById('postSendBox');
-            if (psb) psb.style.display = 'block';
-            alert(isResend
-                ? "✅ আপনার সংশোধিত তথ্য আবার AYAT GRAPHICS ZONE-এ পাঠানো হয়েছে!"
-                : "✅ আপনার তথ্য সফলভাবে AYAT GRAPHICS ZONE-এ পৌঁছে গেছে! কোনো ভুল থাকলে এডিট করে আবার পাঠাতে পারবেন।");
+            if (psb) { psb.style.display = 'block'; psb.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+            showToast(isResend
+                ? "✅ সংশোধিত তথ্য আবার দোকানে পাঠানো হয়েছে!"
+                : "✅ আপনার তথ্য সফলভাবে AYAT GRAPHICS ZONE-এ পৌঁছে গেছে!", "ok");
         } catch (err) {
-            alert("❌ সরাসরি পাঠাতে সমস্যা হয়েছে। ইন্টারনেট চেক করুন অথবা নিচের WhatsApp বাটন ব্যবহার করুন।");
+            showToast("❌ পাঠাতে সমস্যা হয়েছে। ইন্টারনেট চেক করুন বা WhatsApp ব্যবহার করুন।", "err");
         } finally {
             btn.disabled = false;
-            const sent = localStorage.getItem('ayatCustomerSent') === '1';
-            btn.innerHTML = sent
-                ? "<span>🔄</span> সংশোধিত তথ্য আবার পাঠান (Resend)"
-                : "<span>🚀</span> সরাসরি দোকানে পাঠান (Direct Submit)";
+            btn.textContent = "✅ সব ঠিক আছে, পাঠান";
+            if (mainBtn) {
+                mainBtn.disabled = false;
+                const sent = localStorage.getItem('ayatCustomerSent') === '1';
+                mainBtn.innerHTML = sent
+                    ? "<span>🔄</span> যাচাই করে সংশোধিত তথ্য পাঠান (Resend)"
+                    : "<span>🚀</span> যাচাই করে দোকানে পাঠান (Direct Submit)";
+            }
         }
     }
 
 
     // ================= Auto Capitalize Each Word (Title Case) =================
-    const TC_SKIP_IDS = new Set(['lockPass', 'importBox', 'ot_reason', 'podPrefix', 'obcCategory', 'oldRegNo']);
-    const TC_UPPER_IDS = new Set(['ot_vehicleNo', 'ot_engineNo', 'ot_chassisNo']);
+    const TC_SKIP_IDS = new Set(['lockPass', 'importBox', 'ot_reason', 'podPrefix', 'obcCategory', 'oldRegNo', 'customerPhone', 'mCustomerPhone', 'ld_docNo', 'ld_gdNo', 'gc_reason', 'ap_years', 'dc_wrongDob', 'nc_reason']);
+    const TC_UPPER_IDS = new Set(['ot_vehicleNo', 'ot_engineNo', 'ot_chassisNo', 'ld_docNo']);
 
     function toTitleCase(str) {
         return String(str).toLowerCase().replace(/(^|[\s.\-\/(])([a-z])/g, (_, sep, ch) => sep + ch.toUpperCase());
@@ -1392,7 +2514,7 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         if (!el || el.tagName !== 'INPUT') return true;
         if (el.type !== 'text' || el.readOnly || el.disabled) return true;
         if (TC_SKIP_IDS.has(el.id)) return true;
-        if (el.closest('.easy-date')) return true;
+        if (el.closest('.easy-date') || (el.classList && el.classList.contains('sv-dod'))) return true;
         return false;
     }
 
@@ -1421,7 +2543,7 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
 
     function saveCustomerDraft() {
         try {
-            const state = { docMode: curMode(), fields: {}, checks: {}, spPersons: getSpPersons() };
+            const state = { docMode: curMode(), fields: {}, checks: {}, spPersons: getSpPersons(), svDeceased: getSvDeceased(), svHeirs: getSvHeirs() };
             document.querySelectorAll('#affForm input, #affForm select, #marriageForm input, #marriageForm select').forEach(el => {
                 if (!el.id || el.closest('.easy-date')) return;
                 if (el.type === 'checkbox') state.checks[el.id] = el.checked;
@@ -1450,6 +2572,9 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
                 if (el && el.type === 'checkbox') el.checked = !!state.checks[id];
             }
             if (Array.isArray(state.spPersons) && state.spPersons.length) renderSpPersons(state.spPersons);
+            if (Array.isArray(state.svDeceased) && state.svDeceased.length) { renderSvDeceased(state.svDeceased); _svLastPreset = (state.fields && state.fields.affidavitType) || ''; }
+            if (Array.isArray(state.svHeirs) && state.svHeirs.length) renderSvHeirs(state.svHeirs);
+            checkNocPurpose();
 
             toggleAffidavitType();
             checkProfession();
@@ -1468,7 +2593,7 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
                 const psb = document.getElementById('postSendBox');
                 const btn = document.getElementById('btnSheetSend');
                 if (psb) psb.style.display = 'block';
-                if (btn) btn.innerHTML = "<span>🔄</span> সংশোধিত তথ্য আবার পাঠান (Resend)";
+                if (btn) btn.innerHTML = "<span>🔄</span> যাচাই করে সংশোধিত তথ্য পাঠান (Resend)";
             }
         } catch (_) {}
     }
@@ -1500,22 +2625,68 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         if (typeof _origSpChanged === 'function') _origSpChanged();
         saveCustomerDraft();
     };
+    const _origSvChanged = window.svChanged;
+    window.svChanged = function() {
+        if (typeof _origSvChanged === 'function') _origSvChanged();
+        saveCustomerDraft();
+        updateProgress();
+    };
+    (function(){
+        const el = document.getElementById('dc_wrongDob');
+        if (!el) return;
+        el.addEventListener('input', function() {
+            const d = el.value.replace(/\D/g, '').slice(0, 8);
+            let out = d.slice(0, 2);
+            if (d.length > 2) out += '/' + d.slice(2, 4);
+            if (d.length > 4) out += '/' + d.slice(4);
+            el.value = out;
+        });
+    })();
 
     // Restore saved draft right after window.onload finishes
     const _origCustOnload = window.onload;
     window.onload = function() {
         if (typeof _origCustOnload === 'function') _origCustOnload();
         restoreCustomerDraft();
+        updateProgress();
     };
 
     function copyData() {
         const text = collectData();
         if (text) {
             navigator.clipboard.writeText(text).then(() => {
-                alert("আপনার তথ্য সফলভাবে কপি করা হয়েছে!");
-            }).catch(err => { alert("Failed to copy data."); });
+                showToast("📋 আপনার সব তথ্য সফলভাবে কপি হয়েছে!", "ok");
+            }).catch(() => { showToast("❌ কপি করতে সমস্যা হয়েছে।", "err"); });
         }
     }
+
+    // ================= v7: Dark Mode Toggle =================
+    function syncThemeBtn() {
+        const isDark = document.documentElement.classList.contains('dark');
+        const btn = document.getElementById('themeToggleBtn');
+        if (btn) btn.textContent = isDark ? '☀️ লাইট' : '🌙 ডার্ক';
+    }
+    function toggleTheme() {
+        const isDark = document.documentElement.classList.toggle('dark');
+        try { localStorage.setItem('ayatDarkMode', isDark ? '1' : '0'); } catch (_) {}
+        syncThemeBtn();
+    }
+    syncThemeBtn();
+
+    // ================= v11: Strict 4-digit year guard for <input type="date"> =================
+    document.querySelectorAll('input[type="date"]').forEach(el => {
+        if (!el.min) el.min = '1900-01-01';
+        if (!el.max) el.max = '2099-12-31';
+        const fixYear = () => {
+            if (!el.value) return;
+            const parts = el.value.split('-');
+            if (parts.length === 3 && parts[0].length > 4) {
+                el.value = parts[0].slice(0, 4) + '-' + parts[1] + '-' + parts[2];
+            }
+        };
+        el.addEventListener('input', fixYear);
+        el.addEventListener('change', fixYear);
+    });
 </script>
 
 </body>

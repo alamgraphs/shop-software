@@ -964,6 +964,7 @@ body.locked #lockScreen{background:radial-gradient(900px 520px at 50% -10%,rgba(
         });
 
         renderHistory();
+        document.querySelectorAll('#affForm input[type="text"], #marriageForm input[type="text"]').forEach(el => applyCaseFormat(el));
         setMode();
     };
 
@@ -2118,6 +2119,43 @@ body.locked #lockScreen{background:radial-gradient(900px 520px at 50% -10%,rgba(
         if (navigator.msSaveOrOpenBlob) navigator.msSaveOrOpenBlob(blob, filename); else { a.href = url; a.download = filename; a.click(); }
         document.body.removeChild(a);
     }
+
+
+    // ================= Auto Capitalize Each Word (Title Case) =================
+    const TC_SKIP_IDS = new Set(['lockPass', 'importBox', 'ot_reason', 'podPrefix', 'obcCategory', 'oldRegNo']);
+    const TC_UPPER_IDS = new Set(['ot_vehicleNo', 'ot_engineNo', 'ot_chassisNo']);
+
+    function toTitleCase(str) {
+        return String(str).toLowerCase().replace(/(^|[\s.\-\/(])([a-z])/g, (_, sep, ch) => sep + ch.toUpperCase());
+    }
+
+    function shouldSkipTitleCase(el) {
+        if (!el || el.tagName !== 'INPUT') return true;
+        if (el.type !== 'text' || el.readOnly || el.disabled) return true;
+        if (TC_SKIP_IDS.has(el.id)) return true;
+        if (el.closest('.easy-date')) return true;
+        return false;
+    }
+
+    function applyCaseFormat(el) {
+        if (shouldSkipTitleCase(el)) return;
+        const oldVal = el.value;
+        if (!oldVal) return;
+        const newVal = TC_UPPER_IDS.has(el.id) ? oldVal.toUpperCase() : toTitleCase(oldVal);
+        if (newVal !== oldVal) {
+            const start = el.selectionStart, end = el.selectionEnd;
+            el.value = newVal;
+            try { if (start !== null && end !== null) el.setSelectionRange(start, end); } catch (_) {}
+        }
+    }
+
+    document.addEventListener('input', function(e) {
+        applyCaseFormat(e.target);
+    }, true);
+
+    document.addEventListener('blur', function(e) {
+        applyCaseFormat(e.target);
+    }, true);
 
     // ================= Google Sheet Live Receive =================
     const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbwsXh37QDHtNg27DaTTWRYTB_5pCI3_Ya8zuDI0csOKneKEUDFiTBYUkQA6UkapKYCI/exec";

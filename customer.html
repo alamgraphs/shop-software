@@ -210,6 +210,14 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         </div>
     </div>
 
+    <div class="form-group" id="maritalStatusWrapper" style="display: none;">
+        <label>Marital Status (বৈবাহিক অবস্থা) <span style="color:red;">*</span></label>
+        <select id="maritalStatus" onchange="updateSpouseRequirement()">
+            <option value="Unmarried">Unmarried (অবিবাহিত)</option>
+            <option value="Married">Married (বিবাহিত)</option>
+        </select>
+    </div>
+
     <div class="form-group" id="dobWrapper">
         <label>Applicant's Date of Birth <span style="color:red;">*</span></label>
         <div style="display: flex; gap: 5px;">
@@ -948,23 +956,40 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         const m = poPinRequired() ? " *" : " (ঐচ্ছিক)";
         ["p","ot"].forEach(q => { const a = document.getElementById(q+"_po"), b = document.getElementById(q+"_pin"); if(a) a.placeholder = "P.O." + m; if(b) b.placeholder = "PIN Code" + m; });
     }
+    function isFemaleUnmarried(){
+        return document.getElementById("gender").value === "Female"
+            && !isBirthChild()
+            && document.getElementById("maritalStatus").value === "Unmarried";
+    }
     function spouseRequired(){
-        if (isNonStudy()) return document.getElementById("gender").value === "Female";
         if (isBirthChild()) return true;
+        if (isFemaleUnmarried()) return false;
+        if (isNonStudy()) return document.getElementById("gender").value === "Female";
         if (isBirthSelf()) return false;
         return document.getElementById("gender").value === "Female";
     }
     function fatherRequired(){
+        if (isFemaleUnmarried()) return true;
         if (isBirthSelf() || isNonStudy()) return true;
-        return document.getElementById("gender").value === "Male" && true;
+        return document.getElementById("gender").value === "Male";
     }
     function updateSpouseRequirement() {
         updatePoPinUI();
         const gender = document.getElementById("gender").value;
+        const mWrap = document.getElementById("maritalStatusWrapper");
+        const mSel = document.getElementById("maritalStatus");
+        if (mWrap && mSel) {
+            if (gender === "Female" && !isBirthChild()) {
+                mWrap.style.display = "block";
+            } else {
+                mWrap.style.display = "none";
+                if (gender === "Female" && isBirthChild()) mSel.value = "Married";
+            }
+        }
         const star = ' <span style="color:red;">*</span>';
         const sp = spouseRequired(), fa = fatherRequired();
-        // Non-Study: male has no spouse field at all
-        const hideSpouse = isNonStudy() && gender === "Male";
+        // Hide spouse field for Non-Study Male OR Unmarried Female
+        const hideSpouse = (isNonStudy() && gender === "Male") || isFemaleUnmarried();
         document.getElementById("spouseName").parentElement.style.display = hideSpouse ? "none" : "";
         if (hideSpouse) document.getElementById("spouseName").value = "";
         document.getElementById("spouseLabel").innerHTML = (gender === "Female" ? 'Spouse Name (স্বামীর নাম)' : 'Spouse Name (স্ত্রীর নাম)') + (sp ? star : ' (Optional)');
@@ -1147,7 +1172,7 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         formattedText += `*Affidavit:* ${affidavitLabel}\n`;
         if (affidavitType === "Birth") formattedText += `*Type:* ${appType === 'Self' ? 'Self' : 'Child'}\n`;
 
-        formattedText += `\n*Name:* ${name}\n*Gender:* ${gender}\n*Age:* ${age}\n`;
+        formattedText += `\n*Name:* ${name}\n*Gender:* ${gender}${gender === "Female" ? " (" + document.getElementById("maritalStatus").value + ")" : ""}\n*Age:* ${age}\n`;
         if(!affidavitType.includes("OBC")) formattedText += `*DOB:* ${dobDay}/${dobMonth}/${dobYear}\n`;
         if (father) formattedText += `*Father:* ${father}\n`;
         if (mother) formattedText += `*Mother:* ${mother}\n`;
@@ -1209,7 +1234,7 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
 
         const dataObj = {
             affidavitType: affidavitType, appType: appType, pobType: pobType, hospitalName: hospitalName,
-            name: name, gender: gender, age: age, fatherName: father, motherName: mother, religion: religion, spouseName: spouse,
+            name: name, gender: gender, maritalStatus: document.getElementById("maritalStatus").value, age: age, fatherName: father, motherName: mother, religion: religion, spouseName: spouse,
             professionSelect: document.getElementById("professionSelect").value, customProfession: profession,
             dobDay: dobDay, dobMonth: dobMonth, dobYear: dobYear,
             childName: childName, childGender: childGender, c_dobDay: c_dobDay, c_dobMonth: c_dobMonth, c_dobYear: c_dobYear,

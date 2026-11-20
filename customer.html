@@ -138,6 +138,13 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         <span class="brand-badge">দয়া করে সঠিক তথ্য দিয়ে ফর্মটি পূরণ করুন</span>
     </div>
 
+    <div id="draftNotice" style="display:none; background:#eef7f2; border:1.5px solid #1b8a5a; border-radius:12px; padding:12px 14px; margin-bottom:16px; font-size:13px; color:#14213a;">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+            <div id="draftNoticeText">📝 <b>আগের পূরণ করা তথ্য লোড করা হয়েছে।</b> ভুল থাকলে এডিট করে আবার পাঠাতে পারেন।</div>
+            <button type="button" onclick="clearSavedDraft(true)" style="background:#c93a45; color:#fff; border:none; border-radius:8px; padding:7px 12px; font-size:12px; font-weight:700; cursor:pointer;">🆕 নতুন ফর্ম (Clear)</button>
+        </div>
+    </div>
+
     <div class="form-group type-selector mode-selector">
         <label>কী ধরনের ডকুমেন্ট বানাবেন? <span>*</span></label>
         <select id="docMode" onchange="setMode()">
@@ -628,6 +635,14 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
     <datalist id="mSdList"><option value="Sonamura"><option value="Bishalgarh"><option value="Jampuijala"></datalist>
     <datalist id="mVillList"></datalist>
 
+    <div id="postSendBox" style="display:none; background:#f3f9f6; border:2px solid #1b8a5a; border-radius:14px; padding:14px 16px; margin-bottom:14px; text-align:center;">
+        <div style="color:#1b8a5a; font-weight:800; font-size:15px; margin-bottom:6px;">✅ আপনার তথ্য দোকানে পাঠানো হয়েছে!</div>
+        <div style="font-size:13px; color:#46526b; margin-bottom:12px;">কোনো ভুল ধরা পড়লে নিচের বাটনে ক্লিক করে ফর্ম এডিট করুন এবং আবার পাঠান।</div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:center;">
+            <button type="button" onclick="scrollToEditForm()" style="background:#0b1f3a; color:#f8f0d9; border:none; border-radius:10px; padding:10px 14px; font-size:13px; font-weight:700; cursor:pointer; flex:1; min-width:140px;">✏️ ফর্ম এডিট করুন</button>
+            <button type="button" onclick="clearSavedDraft(true)" style="background:#fff; color:#c93a45; border:1.5px solid #c93a45; border-radius:10px; padding:10px 14px; font-size:13px; font-weight:700; cursor:pointer; flex:1; min-width:140px;">🆕 নতুন ফর্ম শুরু করুন</button>
+        </div>
+    </div>
     <button class="btn-whatsapp" id="btnSheetSend" onclick="sendToSheet()" style="background:linear-gradient(135deg,#0b1f3a,#1d4a85); box-shadow:0 14px 26px -10px rgba(11,31,58,.7); animation:none; position:static; margin-bottom:10px;"><span>🚀</span> সরাসরি দোকানে পাঠান (Direct Submit)</button>
     <p class="send-hint" style="margin-top:0; margin-bottom:14px;">WhatsApp ছাড়াই সরাসরি দোকানের কম্পিউটারে ডাটা পাঠাতে ওপরের বাটনে ক্লিক করুন।</p>
     <button class="btn-whatsapp" onclick="sendToWhatsApp()"><span>📲</span> Send Data via WhatsApp</button>
@@ -1331,8 +1346,10 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
         btn.innerHTML = "⏳ পাঠানো হচ্ছে, অপেক্ষা করুন...";
 
         const isMar = curMode() === 'marriage';
+        const baseName = isMar ? (val('gName') + " & " + val('bName')) : val('name');
+        const isResend = localStorage.getItem('ayatCustomerSent') === '1';
         const payload = {
-            name: isMar ? (val('gName') + " & " + val('bName')) : val('name'),
+            name: isResend ? (baseName + " [সংশোধিত]") : baseName,
             docType: isMar ? "Marriage Declaration" : document.getElementById("affidavitType").value,
             code: match[1]
         };
@@ -1344,14 +1361,152 @@ body{background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg)
                 body: JSON.stringify(payload)
             });
             if (!res.ok) throw new Error("HTTP " + res.status);
-            alert("✅ আপনার তথ্য সফলভাবে AYAT GRAPHICS ZONE-এ পৌঁছে গেছে!");
+            localStorage.setItem('ayatCustomerSent', '1');
+            saveCustomerDraft();
+            const psb = document.getElementById('postSendBox');
+            if (psb) psb.style.display = 'block';
+            alert(isResend
+                ? "✅ আপনার সংশোধিত তথ্য আবার AYAT GRAPHICS ZONE-এ পাঠানো হয়েছে!"
+                : "✅ আপনার তথ্য সফলভাবে AYAT GRAPHICS ZONE-এ পৌঁছে গেছে! কোনো ভুল থাকলে এডিট করে আবার পাঠাতে পারবেন।");
         } catch (err) {
             alert("❌ সরাসরি পাঠাতে সমস্যা হয়েছে। ইন্টারনেট চেক করুন অথবা নিচের WhatsApp বাটন ব্যবহার করুন।");
         } finally {
             btn.disabled = false;
-            btn.innerHTML = "<span>🚀</span> সরাসরি দোকানে পাঠান (Direct Submit)";
+            const sent = localStorage.getItem('ayatCustomerSent') === '1';
+            btn.innerHTML = sent
+                ? "<span>🔄</span> সংশোধিত তথ্য আবার পাঠান (Resend)"
+                : "<span>🚀</span> সরাসরি দোকানে পাঠান (Direct Submit)";
         }
     }
+
+
+    // ================= Auto Capitalize Each Word (Title Case) =================
+    const TC_SKIP_IDS = new Set(['lockPass', 'importBox', 'ot_reason', 'podPrefix', 'obcCategory', 'oldRegNo']);
+    const TC_UPPER_IDS = new Set(['ot_vehicleNo', 'ot_engineNo', 'ot_chassisNo']);
+
+    function toTitleCase(str) {
+        return String(str).toLowerCase().replace(/(^|[\s.\-\/(])([a-z])/g, (_, sep, ch) => sep + ch.toUpperCase());
+    }
+
+    function shouldSkipTitleCase(el) {
+        if (!el || el.tagName !== 'INPUT') return true;
+        if (el.type !== 'text' || el.readOnly || el.disabled) return true;
+        if (TC_SKIP_IDS.has(el.id)) return true;
+        if (el.closest('.easy-date')) return true;
+        return false;
+    }
+
+    function applyCaseFormat(el) {
+        if (shouldSkipTitleCase(el)) return;
+        const oldVal = el.value;
+        if (!oldVal) return;
+        const newVal = TC_UPPER_IDS.has(el.id) ? oldVal.toUpperCase() : toTitleCase(oldVal);
+        if (newVal !== oldVal) {
+            const start = el.selectionStart, end = el.selectionEnd;
+            el.value = newVal;
+            try { if (start !== null && end !== null) el.setSelectionRange(start, end); } catch (_) {}
+        }
+    }
+
+    document.addEventListener('input', function(e) {
+        applyCaseFormat(e.target);
+    }, true);
+
+    document.addEventListener('blur', function(e) {
+        applyCaseFormat(e.target);
+    }, true);
+
+    // ================= Auto-Save & Edit After Send (Customer Draft) =================
+    const CUST_DRAFT_KEY = 'ayatCustomerDraft_v3';
+
+    function saveCustomerDraft() {
+        try {
+            const state = { docMode: curMode(), fields: {}, checks: {}, spPersons: getSpPersons() };
+            document.querySelectorAll('#affForm input, #affForm select, #marriageForm input, #marriageForm select').forEach(el => {
+                if (!el.id || el.closest('.easy-date')) return;
+                if (el.type === 'checkbox') state.checks[el.id] = el.checked;
+                else state.fields[el.id] = el.value;
+            });
+            localStorage.setItem(CUST_DRAFT_KEY, JSON.stringify(state));
+        } catch (_) {}
+    }
+
+    function restoreCustomerDraft() {
+        try {
+            const raw = localStorage.getItem(CUST_DRAFT_KEY);
+            if (!raw) return;
+            const state = JSON.parse(raw);
+            if (!state || !state.fields) return;
+            const hasAnyData = (state.fields.name && state.fields.name.trim()) || (state.fields.gName && state.fields.gName.trim());
+            if (!hasAnyData) return;
+
+            if (state.docMode) document.getElementById('docMode').value = state.docMode;
+            for (const id in state.fields) {
+                const el = document.getElementById(id);
+                if (el && el.type !== 'checkbox') el.value = state.fields[id];
+            }
+            for (const id in (state.checks || {})) {
+                const el = document.getElementById(id);
+                if (el && el.type === 'checkbox') el.checked = !!state.checks[id];
+            }
+            if (Array.isArray(state.spPersons) && state.spPersons.length) renderSpPersons(state.spPersons);
+
+            toggleAffidavitType();
+            checkProfession();
+            updateAuthLevel2();
+            updateSpouseRequirement();
+            calculateAge();
+            toggleMPlace();
+            checkProf('g');
+            checkProf('b');
+            checkMReligion();
+            setMode();
+
+            const dn = document.getElementById('draftNotice');
+            if (dn) dn.style.display = 'block';
+            if (localStorage.getItem('ayatCustomerSent') === '1') {
+                const psb = document.getElementById('postSendBox');
+                const btn = document.getElementById('btnSheetSend');
+                if (psb) psb.style.display = 'block';
+                if (btn) btn.innerHTML = "<span>🔄</span> সংশোধিত তথ্য আবার পাঠান (Resend)";
+            }
+        } catch (_) {}
+    }
+
+    function scrollToEditForm() {
+        const target = document.getElementById('docMode');
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function clearSavedDraft(ask) {
+        if (ask && !confirm("আপনি কি ফর্মের সব তথ্য মুছে নতুন ফর্ম শুরু করতে চান?")) return;
+        try {
+            localStorage.removeItem(CUST_DRAFT_KEY);
+            localStorage.removeItem('ayatCustomerSent');
+        } catch (_) {}
+        location.reload();
+    }
+
+    document.addEventListener('input', function(e) {
+        if (e.target && e.target.closest('#affForm, #marriageForm')) saveCustomerDraft();
+    });
+    document.addEventListener('change', function(e) {
+        if (e.target && (e.target.id === 'docMode' || e.target.closest('#affForm, #marriageForm'))) saveCustomerDraft();
+    });
+
+    // Hook spChanged so Same Person edits also auto-save
+    const _origSpChanged = window.spChanged;
+    window.spChanged = function() {
+        if (typeof _origSpChanged === 'function') _origSpChanged();
+        saveCustomerDraft();
+    };
+
+    // Restore saved draft right after window.onload finishes
+    const _origCustOnload = window.onload;
+    window.onload = function() {
+        if (typeof _origCustOnload === 'function') _origCustOnload();
+        restoreCustomerDraft();
+    };
 
     function copyData() {
         const text = collectData();

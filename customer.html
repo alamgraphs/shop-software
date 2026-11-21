@@ -841,8 +841,8 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
                 <option value="School Certificate">School Certificate (স্কুল সার্টিফিকেট)</option>
                 <option value="School Transfer Certificate (TC)">School Transfer Certificate (TC)</option>
                 <option value="School Admission Register">School Admission Register (ভর্তি রেজিস্টার)</option>
-                <option value="School Admission Register & School Certificate">School Admission Register &amp; School Certificate (উভয়ই)</option>
-                <option value="School Admission Register & Transfer Certificate (TC)">School Admission Register &amp; Transfer Certificate (TC)</option>
+                <option value="School Certificate and School Admission Register">School Certificate and School Admission Register (সার্টিফিকেট ও রেজিস্টার)</option>
+                <option value="School Transfer Certificate (TC) and School Admission Register">School Transfer Certificate (TC) and School Admission Register (TC ও রেজিস্টার)</option>
                 <option value="Other">Other (নিজে লিখুন)</option>
             </select>
             <input type="text" id="sc_docTypeCustom" placeholder="ডকুমেন্টের নাম লিখুন..." style="display:none;margin-top:6px;">
@@ -862,7 +862,10 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         <div class="form-group">
             <label>কী কী ভুল সংশোধন হবে? (Corrections Needed) <span style="color:red;">*</span> <small style="font-weight:normal;">(১ বা একাধিক ভুল যোগ করা যাবে)</small></label>
             <div id="scItems"></div>
-            <button type="button" onclick="addScItem(); scChanged();" style="background:#2357a6;color:#fff;border:none;border-radius:8px;padding:9px 13px;cursor:pointer;font-weight:800;font-size:13px;">➕ আরও ভুল যোগ করুন</button>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <button type="button" onclick="addScItem(); scChanged();" style="background:#2357a6;color:#fff;border:none;border-radius:8px;padding:9px 13px;cursor:pointer;font-weight:800;font-size:13px;">➕ আরও ভুল যোগ করুন</button>
+                <button type="button" onclick="fillAllScFields()" style="background:#0b1f3a;color:#f8f0d9;border:none;border-radius:8px;padding:9px 13px;cursor:pointer;font-weight:800;font-size:12.5px;">⚡ ৪টি ঘর একসাথে (নাম, বাবা, মা, DOB)</button>
+            </div>
         </div>
     </fieldset>
 
@@ -1703,15 +1706,39 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         w.inputMode = isDob ? 'numeric' : 'text';
         c.inputMode = isDob ? 'numeric' : 'text';
     }
+    function scDefaultCorrect(field) {
+        const scFor = document.getElementById('sc_for') ? document.getElementById('sc_for').value : 'self';
+        const g = document.getElementById('gender') ? document.getElementById('gender').value : 'Male';
+        if (scFor === 'self') {
+            if (field === 'student_name') return val('name');
+            if (field === 'father_name') return val('fatherName');
+            if (field === 'mother_name') return val('motherName');
+            if (field === 'dob' && val('dobDay') && val('dobMonth') && val('dobYear')) return `${val('dobDay')}/${val('dobMonth')}/${val('dobYear')}`;
+        } else {
+            if (field === 'student_name') return val('sc_studentName');
+            if (field === 'father_name') return g === 'Male' ? val('name') : val('spouseName');
+            if (field === 'mother_name') return g === 'Female' ? val('name') : val('spouseName');
+        }
+        return '';
+    }
+    function fillAllScFields() {
+        const existing = {};
+        getScItems().forEach(it => { existing[it.field] = it; });
+        const all = ['student_name', 'father_name', 'mother_name', 'dob'].map(f => ({
+            field: f,
+            wrong: (existing[f] && existing[f].wrong) || '',
+            correct: (existing[f] && existing[f].correct) || scDefaultCorrect(f)
+        }));
+        renderScItems(all);
+        scChanged();
+    }
     function onScFieldChange(sel) {
         const row = sel.closest('.sc-row');
         updateCorrRowPlaceholders(row, 'sc');
         const c = row.querySelector('.sc-correct');
-        if (c && !c.value.trim() && document.getElementById('sc_for').value === 'self') {
-            if (sel.value === 'student_name' && val('name')) c.value = val('name');
-            else if (sel.value === 'father_name' && val('fatherName')) c.value = val('fatherName');
-            else if (sel.value === 'mother_name' && val('motherName')) c.value = val('motherName');
-            else if (sel.value === 'dob' && val('dobDay') && val('dobMonth') && val('dobYear')) c.value = `${val('dobDay')}/${val('dobMonth')}/${val('dobYear')}`;
+        if (c && !c.value.trim()) {
+            const def = scDefaultCorrect(sel.value);
+            if (def) c.value = def;
         }
         scChanged();
     }
@@ -3076,7 +3103,7 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         'CSC','VLE','PMMY','PMAY','PMJAY','MGNREGA','NREGA','SHG','NGO','TRLM','ITI',
         'HSLC','SSLC','SSC','HSC','HS','XII','XI','IX','VIII','VII','VI','IV','III','II',
         'ID','ICDS','BSF','CRPF','TSR','NCC','NSS','IFSC','UPI','ATM','KYC','EPF','PF','ESIC','CGHS','NPS','RTI','LTI',
-        'GBP','IGM','ILS','AGMC','SDH','PHC','CHC','BPHC','ULB'
+        'GBP','IGM','ILS','AGMC','SDH','PHC','CHC','BPHC','ULB','SB','JB'
     ]);
 
     function isDocFieldEl(el) {

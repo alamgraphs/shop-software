@@ -393,7 +393,10 @@ html.dark .stat-card{background:linear-gradient(160deg,#0c1c36,#162f57)}
 html.dark #output,html.dark #outputM .page{background:#fff !important;color:#000 !important}
 html.dark #output td,html.dark #outputM .page td{color:#000 !important}
 html.dark #output th,html.dark #outputM .page th{background:#fff !important;color:#000 !important}
-html.dark #output table,html.dark #output tr{background:#fff !important;border-color:#000 !important}
+#output table:not(.sv-table){width:100% !important;min-width:0 !important;border:0 !important;border-radius:0 !important;margin:0;border-collapse:collapse !important;overflow:visible !important}
+#output table:not(.sv-table) tr,#output table:not(.sv-table) tbody tr:nth-child(even),#output table:not(.sv-table) tbody tr:hover{background:transparent !important;border:0 !important}
+#output table:not(.sv-table) td,#output table:not(.sv-table) th{border:0 !important;padding:0 !important;font-size:inherit !important;line-height:inherit !important;background:transparent !important;color:#000 !important}
+html.dark #output table.sv-table,html.dark #output table.sv-table tr{background:#fff !important;border-color:#000 !important}
 @media print{
   html.dark body{background:white !important}
   .btn-theme{display:none !important}
@@ -1087,8 +1090,8 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
                 <option value="School Certificate">School Certificate (স্কুল সার্টিফিকেট)</option>
                 <option value="School Transfer Certificate (TC)">School Transfer Certificate (TC)</option>
                 <option value="School Admission Register">School Admission Register (ভর্তি রেজিস্টার)</option>
-                <option value="School Admission Register & School Certificate">School Admission Register &amp; School Certificate (উভয়ই)</option>
-                <option value="School Admission Register & Transfer Certificate (TC)">School Admission Register &amp; Transfer Certificate (TC)</option>
+                <option value="School Certificate and School Admission Register">School Certificate and School Admission Register (সার্টিফিকেট ও রেজিস্টার)</option>
+                <option value="School Transfer Certificate (TC) and School Admission Register">School Transfer Certificate (TC) and School Admission Register (TC ও রেজিস্টার)</option>
                 <option value="Other">Other (নিজে লিখুন)</option>
             </select>
             <input type="text" id="sc_docTypeCustom" placeholder="ডকুমেন্টের নাম লিখুন..." style="display:none;margin-top:6px;">
@@ -1108,7 +1111,10 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         <div class="form-group">
             <label>কী কী ভুল সংশোধন হবে? (Corrections Needed) <span style="color:red;">*</span> <small style="font-weight:normal;">(১ বা একাধিক ভুল যোগ করা যাবে)</small></label>
             <div id="scItems"></div>
-            <button type="button" onclick="addScItem(); scChanged();" style="background:#2357a6;color:#fff;border:none;border-radius:8px;padding:9px 13px;cursor:pointer;font-weight:800;font-size:13px;">➕ আরও ভুল যোগ করুন</button>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <button type="button" onclick="addScItem(); scChanged();" style="background:#2357a6;color:#fff;border:none;border-radius:8px;padding:9px 13px;cursor:pointer;font-weight:800;font-size:13px;">➕ আরও ভুল যোগ করুন</button>
+                <button type="button" onclick="fillAllScFields()" style="background:#0b1f3a;color:#f8f0d9;border:none;border-radius:8px;padding:9px 13px;cursor:pointer;font-weight:800;font-size:12.5px;">⚡ ৪টি ঘর একসাথে (নাম, বাবা, মা, DOB)</button>
+            </div>
         </div>
     </fieldset>
 
@@ -2071,15 +2077,39 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         w.inputMode = isDob ? 'numeric' : 'text';
         c.inputMode = isDob ? 'numeric' : 'text';
     }
+    function scDefaultCorrect(field) {
+        const scFor = document.getElementById('sc_for') ? document.getElementById('sc_for').value : 'self';
+        const g = document.getElementById('gender') ? document.getElementById('gender').value : 'Male';
+        if (scFor === 'self') {
+            if (field === 'student_name') return val('name');
+            if (field === 'father_name') return val('fatherName');
+            if (field === 'mother_name') return val('motherName');
+            if (field === 'dob' && val('dobDay') && val('dobMonth') && val('dobYear')) return `${val('dobDay')}/${val('dobMonth')}/${val('dobYear')}`;
+        } else {
+            if (field === 'student_name') return val('sc_studentName');
+            if (field === 'father_name') return g === 'Male' ? val('name') : val('spouseName');
+            if (field === 'mother_name') return g === 'Female' ? val('name') : val('spouseName');
+        }
+        return '';
+    }
+    function fillAllScFields() {
+        const existing = {};
+        getScItems().forEach(it => { existing[it.field] = it; });
+        const all = ['student_name', 'father_name', 'mother_name', 'dob'].map(f => ({
+            field: f,
+            wrong: (existing[f] && existing[f].wrong) || '',
+            correct: (existing[f] && existing[f].correct) || scDefaultCorrect(f)
+        }));
+        renderScItems(all);
+        scChanged();
+    }
     function onScFieldChange(sel) {
         const row = sel.closest('.sc-row');
         updateCorrRowPlaceholders(row, 'sc');
         const c = row.querySelector('.sc-correct');
-        if (c && !c.value.trim() && document.getElementById('sc_for').value === 'self') {
-            if (sel.value === 'student_name' && val('name')) c.value = val('name');
-            else if (sel.value === 'father_name' && val('fatherName')) c.value = val('fatherName');
-            else if (sel.value === 'mother_name' && val('motherName')) c.value = val('motherName');
-            else if (sel.value === 'dob' && val('dobDay') && val('dobMonth') && val('dobYear')) c.value = `${val('dobDay')}/${val('dobMonth')}/${val('dobYear')}`;
+        if (c && !c.value.trim()) {
+            const def = scDefaultCorrect(sel.value);
+            if (def) c.value = def;
         }
         scChanged();
     }
@@ -3326,42 +3356,143 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
             `;        } else if (affidavitType === "SchoolCorr") {
             const scFor = val("sc_for") || "self";
             const isSelf = scFor === "self";
-            const stuName = esc(isSelf ? name : (val("sc_studentName") || "[STUDENT NAME]"));
             const childWord = scFor === "daughter" ? "daughter" : "son";
-            const childRelStr = scFor === "daughter" ? "D/o" : "S/o";
-            const targetPoss = isSelf ? "my" : `my ${childWord}’s`;
-            const targetPossCap = isSelf ? "My" : `My ${childWord}’s`;
+            const childPoss = scFor === "daughter" ? "her" : "his";
+            const isMotherApp = !isSelf && gender === "Female";
+            const stuName = esc(isSelf ? name : (val("sc_studentName") || "[STUDENT NAME]"));
+
             const docT = esc(scDocTypeVal()) || "School Certificate";
+            const isMultiDoc = /\band\b|&|,/i.test(scDocTypeVal());
             const sch = esc(val("sc_schoolName"));
-            const schoolClause = sch ? ` issued by / maintained at <b>${sch}</b>` : "";
+            const schoolClause = sch ? ` of <b>${sch}</b>` : "";
             const refParts = [];
-            if (val("sc_regNo")) refParts.push(`Admission Register No. <b>${esc(val("sc_regNo"))}</b>`);
-            if (val("sc_pageNo")) refParts.push(`Page No. <b>${esc(val("sc_pageNo"))}</b>`);
-            if (val("sc_slNo")) refParts.push(`Sl. No. <b>${esc(val("sc_slNo"))}</b>`);
+            if (val("sc_regNo")) refParts.push(`Admission Registration No: <b>${esc(val("sc_regNo"))}</b>`);
+            if (val("sc_pageNo")) refParts.push(`Page No: <b>${esc(val("sc_pageNo"))}</b>`);
+            if (val("sc_slNo")) refParts.push(`Sl. No: <b>${esc(val("sc_slNo"))}</b>`);
             const refClause = refParts.length ? ` (vide ${refParts.join(", ")})` : "";
             const proof = esc(val("sc_proofDoc"));
-            const proofClause = proof ? `, as duly recorded in ${isSelf ? "my" : (scFor === "daughter" ? "her" : "his")} valid proof document, namely <b>${proof}</b>` : "";
 
             const itemsRaw = getScItems();
             const items = itemsRaw.length ? itemsRaw : [{ field: "student_name", wrong: "[WRONG ENTRY]", correct: "[CORRECT ENTRY]" }];
+            const joinOxford = a => a.length < 2 ? a.join("") : a.length === 2 ? `${a[0]} and ${a[1]}` : `${a.slice(0, -1).join(", ")}, and ${a[a.length - 1]}`;
             const joinList = a => a.length < 2 ? a.join("") : a.slice(0, -1).join(", ") + " and " + a[a.length - 1];
-            const fLabel = f => f === "student_name" ? "name" : f === "father_name" ? "father’s name" : f === "mother_name" ? "mother’s name" : "Date of Birth";
 
-            const correctClauses = items.map(it => `${fLabel(it.field)} is <b>${esc(it.correct || "[CORRECT]")}</b>`);
-            const errClauses = items.map(it => `${targetPoss} ${fLabel(it.field)} has been wrongly recorded as "<b>${esc(it.wrong || "[WRONG]")}</b>" instead of the actual and correct ${fLabel(it.field)} "<b>${esc(it.correct || "[CORRECT]")}</b>"`);
-            const declClauses = items.map(it => `${fLabel(it.field)} is <b>${esc(it.correct || "[CORRECT]")}</b> and not <b>${esc(it.wrong || "[WRONG]")}</b>`);
+            // Order items cleanly as in the sample: student_name -> father_name -> mother_name -> dob
+            const orderMap = { student_name: 0, father_name: 1, mother_name: 2, dob: 3 };
+            const ordered = items.slice().sort((a, b) => (orderMap[a.field] ?? 9) - (orderMap[b.field] ?? 9));
 
-            const p1Lead = isSelf
-                ? `That my particulars are recorded in the <b>${docT}</b>${schoolClause}${refClause}, and my actual and correct ${joinList(correctClauses)}${proofClause}.`
-                : `That <b>${stuName}</b> is my natural ${childWord} (${childRelStr} <b>${esc(name)}</b>${spouseVal ? ` & <b>${esc(spouseVal)}</b>` : ""}), whose particulars are recorded in the <b>${docT}</b>${schoolClause}${refClause}, and ${targetPoss} actual and correct ${joinList(correctClauses)}${proofClause}.`;
+            const hasStu = ordered.some(it => it.field === "student_name");
+            const hasFa  = ordered.some(it => it.field === "father_name");
+            const hasMo  = ordered.some(it => it.field === "mother_name");
+            const hasDob = ordered.some(it => it.field === "dob");
+            const faItem = ordered.find(it => it.field === "father_name");
+            const moItem = ordered.find(it => it.field === "mother_name");
 
-            verifyNum = "4";
+            // -------- Paragraph 1: Actual & Correct Details --------
+            const p1Parts = [];
+            ordered.forEach(it => {
+                const c = esc(it.correct || "[CORRECT]");
+                if (isSelf) {
+                    if (it.field === "student_name") p1Parts.push(`my actual and correct name is <b>${c}</b>`);
+                    else if (it.field === "father_name") p1Parts.push(`my father’s actual and correct name is <b>${c}</b>`);
+                    else if (it.field === "mother_name") p1Parts.push(`my mother’s actual and correct name is <b>${c}</b>`);
+                    else p1Parts.push(`my actual and correct Date of Birth is <b>${c}</b>`);
+                } else {
+                    if (it.field === "student_name") p1Parts.push(`my ${childWord}’s actual and correct name is <b>${c}</b>`);
+                    else if (it.field === "father_name") p1Parts.push(isMotherApp ? `my husband’s actual and correct name (as ${childPoss} father) is <b>${c}</b>` : `my actual and correct name (as ${childPoss} father) is <b>${c}</b>`);
+                    else if (it.field === "mother_name") p1Parts.push(isMotherApp ? `my actual and correct name (as ${childPoss} mother) is <b>${c}</b>` : `my wife’s actual and correct name (as ${childPoss} mother) is <b>${c}</b>`);
+                    else p1Parts.push(`my ${childWord}’s actual and correct Date of Birth is <b>${c}</b>`);
+                }
+            });
+
+            let idDocsPhrase = "our respective valid identity documents";
+            if (isSelf) {
+                if (hasFa || hasMo) {
+                    if (hasStu || hasDob || (hasFa && hasMo)) idDocsPhrase = "our respective valid identity documents";
+                    else idDocsPhrase = hasFa ? "his valid identity documents" : "her valid identity documents";
+                } else {
+                    idDocsPhrase = "my valid identity documents";
+                }
+            } else {
+                const onlyApplicant = (!hasStu && !hasDob && ((isMotherApp && hasMo && !hasFa) || (!isMotherApp && hasFa && !hasMo)));
+                const onlyOtherParent = (!hasStu && !hasDob && ((isMotherApp && hasFa && !hasMo) || (!isMotherApp && hasMo && !hasFa)));
+                const onlyChild = (!hasFa && !hasMo);
+                if (onlyApplicant) idDocsPhrase = "my valid identity documents";
+                else if (onlyOtherParent) idDocsPhrase = isMotherApp ? "his valid identity documents" : "her valid identity documents";
+                else if (onlyChild) idDocsPhrase = `${childPoss} valid identity documents`;
+                else idDocsPhrase = "our respective valid identity documents";
+            }
+            const proofTail = proof ? ` (including <b>${proof}</b>)` : "";
+            const p1Count = ordered.length;
+            const p1RelTail = p1Count === 1
+                ? `, which is properly recorded in ${idDocsPhrase}${proofTail}.`
+                : `, ${p1Count === 2 ? "both" : "all"} of which are properly recorded in ${idDocsPhrase}${proofTail}.`;
+            const childIntro = (!isSelf && !hasStu) ? `<b>${stuName}</b> is my ${childWord}, and ` : "";
+            const para1 = `That ${childIntro}${joinOxford(p1Parts)}${p1RelTail}`;
+
+            // -------- Paragraph 2: Clerical Errors (merges father + mother cleanly like sample PDF) --------
+            const p2Target = isSelf ? `my <b>${docT}</b>` : `my ${childWord}’s (<b>${stuName}</b>) <b>${docT}</b>`;
+            const p2ErrWord = ordered.length > 1 ? "inadvertent clerical errors have" : "an inadvertent clerical error has";
+
+            const p2Clauses = [];
+            let parentsMerged = false;
+            ordered.forEach(it => {
+                const w = esc(it.wrong || "[WRONG]");
+                const c = esc(it.correct || "[CORRECT]");
+                if (it.field === "student_name") {
+                    if (isSelf) p2Clauses.push(`my name has been incorrectly recorded as "<b>${w}</b>" (instead of my actual correct name, "<b>${c}</b>")`);
+                    else p2Clauses.push(`my ${childWord}’s name has been incorrectly recorded as "<b>${w}</b>" (instead of ${childPoss} actual correct name, "<b>${c}</b>")`);
+                } else if (it.field === "father_name" && hasFa && hasMo) {
+                    if (!parentsMerged) {
+                        parentsMerged = true;
+                        const wf = esc(faItem.wrong || "[WRONG]"), cf = esc(faItem.correct || "[CORRECT]");
+                        const wm = esc(moItem.wrong || "[WRONG]"), cm = esc(moItem.correct || "[CORRECT]");
+                        const pLead = isSelf ? "my father’s and mother’s names" : `${childPoss} father’s and mother’s names`;
+                        const pInstead = isSelf ? "their actual correct names" : "our actual correct names";
+                        p2Clauses.push(`${pLead} have been incorrectly recorded as "<b>${wf}</b>" and "<b>${wm}</b>" respectively (instead of ${pInstead}, "<b>${cf}</b>" and "<b>${cm}</b>")`);
+                    }
+                } else if (it.field === "mother_name" && hasFa && hasMo) {
+                    // Already merged with father_name above
+                } else if (it.field === "father_name") {
+                    if (isSelf) p2Clauses.push(`my father’s name has been incorrectly recorded as "<b>${w}</b>" (instead of his actual correct name, "<b>${c}</b>")`);
+                    else p2Clauses.push(`${childPoss} father’s name has been incorrectly recorded as "<b>${w}</b>" (instead of ${isMotherApp ? "his" : "my"} actual correct name, "<b>${c}</b>")`);
+                } else if (it.field === "mother_name") {
+                    if (isSelf) p2Clauses.push(`my mother’s name has been incorrectly recorded as "<b>${w}</b>" (instead of her actual correct name, "<b>${c}</b>")`);
+                    else p2Clauses.push(`${childPoss} mother’s name has been incorrectly recorded as "<b>${w}</b>" (instead of ${isMotherApp ? "my" : "her"} actual correct name, "<b>${c}</b>")`);
+                } else if (it.field === "dob") {
+                    if (isSelf) p2Clauses.push(`my Date of Birth has been incorrectly recorded as "<b>${w}</b>" (instead of my actual correct Date of Birth, "<b>${c}</b>")`);
+                    else p2Clauses.push(`${hasStu ? childPoss : `my ${childWord}’s`} Date of Birth has been incorrectly recorded as "<b>${w}</b>" (instead of ${childPoss} actual correct Date of Birth, "<b>${c}</b>")`);
+                }
+            });
+            const para2 = `That, however, ${p2ErrWord} occurred in ${p2Target}${schoolClause}${refClause}. Specifically, ${joinOxford(p2Clauses)}.`;
+
+            // -------- Paragraph 3: Purpose & Correction Request --------
+            const p3Clauses = ordered.map((it, idx) => {
+                const c = esc(it.correct || "[CORRECT]");
+                if (isSelf) {
+                    if (it.field === "student_name") return `my name to "<b>${c}</b>"`;
+                    if (it.field === "father_name") return `my father’s name to "<b>${c}</b>"`;
+                    if (it.field === "mother_name") return `my mother’s name to "<b>${c}</b>"`;
+                    return `my Date of Birth to "<b>${c}</b>"`;
+                } else {
+                    const pfx = idx === 0 ? `my ${childWord}’s` : childPoss;
+                    if (it.field === "student_name") return `${pfx} name to "<b>${c}</b>"`;
+                    if (it.field === "father_name") return `${pfx} father’s name to "<b>${c}</b>"`;
+                    if (it.field === "mother_name") return `${pfx} mother’s name to "<b>${c}</b>"`;
+                    return `${pfx} Date of Birth to "<b>${c}</b>"`;
+                }
+            });
+            const recWord = isMultiDoc ? "school records" : "school record";
+            const para3 = isSelf
+                ? `That I am swearing this affidavit for the explicit purpose of legally correcting ${joinOxford(p3Clauses)} in my aforementioned ${recWord}, and to officially update my details with the competent School Authorities based on this declaration.`
+                : `That I am swearing this affidavit for the explicit purpose of legally correcting ${joinOxford(p3Clauses)} in ${childPoss} aforementioned ${recWord}, and to officially update ${childPoss} details with the competent School Authorities based on this declaration.`;
+
+            verifyNum = "3";
             affidavitBody = `
                 <ol style="text-align: justify;">
-                    <li>${p1Lead}</li>
-                    <li>That, however, due to an inadvertent clerical error, ${joinList(errClauses)} in the aforesaid <b>${docT}</b>${schoolClause}${refClause}.</li>
-                    <li>That I am swearing this affidavit to legally and solemnly declare that ${targetPoss} actual and correct ${joinList(declClauses)}, and both the correct and erroneous ${items.length > 1 ? "entries pertain" : "entry pertains"} exclusively to ${isSelf ? "me" : `my said ${childWord}, <b>${stuName}</b>`}.</li>
-                    <li>That this affidavit is sworn for the explicit purpose of correcting the aforesaid ${items.length > 1 ? "errors" : "error"} in the <b>${docT}</b>${schoolClause} before the Headmaster / Principal / competent School and Educational authorities for all official purposes.</li>
+                    <li>${para1}</li>
+                    <li>${para2}</li>
+                    <li>${para3}</li>
                 </ol>
             `;
         } else if (affidavitType === "PanchayatROR") {
@@ -3501,7 +3632,7 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
                 Deponent is identified by me.
             </div>
 
-            <table style="width:100%; border-collapse:collapse; font-weight:bold;">
+            <table class="sig-table" style="width:100%; border:0; border-style:none; border-collapse:collapse; font-weight:bold;">
                 <tr>
                     <td style="width:50%; text-align:left; border:0; padding:0;">ADVOCATE</td>
                     <td style="width:50%; text-align:right; border:0; padding:0;">DEPONENT</td>
@@ -3599,7 +3730,7 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
                     In acknowledgement whereof I put my LTI/RTI/Signature on this ....................... <b>day of ${esc(signDate)} A/D</b> at Court premises of Sonamura.
                 </div>
                 <div style="margin-bottom:44px;">Deponent is identified by me.</div>
-                <table style="width:100%;border-collapse:collapse;font-weight:bold;">
+                <table class="sig-table" style="width:100%;border:0;border-style:none;border-collapse:collapse;font-weight:bold;">
                     <tr>
                         <td style="width:50%;text-align:left;border:0;padding:0;">ADVOCATE</td>
                         <td style="width:50%;text-align:right;border:0;padding:0;">DEPONENT</td>
@@ -4013,6 +4144,8 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
 
     function loadFormData(data) {
         // old records / old customer codes used two separate Digital Birth types
+        if (data.sc_docType === 'School Admission Register & School Certificate') data.sc_docType = 'School Certificate and School Admission Register';
+        if (data.sc_docType === 'School Admission Register & Transfer Certificate (TC)') data.sc_docType = 'School Transfer Certificate (TC) and School Admission Register';
         if (data.affidavitType === 'DigiBirthSelf') { data.affidavitType = 'DigiBirth'; data.appType = 'Self'; }
         else if (data.affidavitType === 'DigiBirthParents') { data.affidavitType = 'DigiBirth'; data.appType = 'Child'; }
         if (data.docKind === 'marriage') {
@@ -4233,7 +4366,7 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         'CSC','VLE','PMMY','PMAY','PMJAY','MGNREGA','NREGA','SHG','NGO','TRLM','ITI',
         'HSLC','SSLC','SSC','HSC','HS','XII','XI','IX','VIII','VII','VI','IV','III','II',
         'ID','ICDS','BSF','CRPF','TSR','NCC','NSS','IFSC','UPI','ATM','KYC','EPF','PF','ESIC','CGHS','NPS','RTI','LTI',
-        'GBP','IGM','ILS','AGMC','SDH','PHC','CHC','BPHC','ULB'
+        'GBP','IGM','ILS','AGMC','SDH','PHC','CHC','BPHC','ULB','SB','JB'
     ]);
 
     function isDocFieldEl(el) {

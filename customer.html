@@ -261,6 +261,16 @@ html.dark #rorCorrSection .corr-row{border-color:#246349 !important}
 /* ===== v14: Panchayat ROR New Name Inclusion ===== */
 #rorNewSection{background:#f1f9f7;border-color:#bfe3d8;border-top-color:#0f766e}
 html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
+/* ===== v17: Birth Certificate Correction & Digital ===== */
+#birthCorrSection{background:#f2f7fc;border-color:#c2daf2;border-top-color:#1b62b5}
+#birthCorrSection .corr-row{border-color:#8cb6e8}
+html.dark #birthCorrSection{background:#0f1e33;border-color:#23497a}
+html.dark #birthCorrSection .corr-row{border-color:#2c5a94 !important}
+/* ===== v19: Ishan Uday Scholarship (Annexure-IV) ===== */
+#ishanUdaySection{background:#fdf7ef;border-color:#edd8b8;border-top-color:#c26d18}
+html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
+
+
 </style>
 <script>try{if(localStorage.getItem('ayatDarkMode')==='1')document.documentElement.classList.add('dark');}catch(_){}</script>
 </head>
@@ -312,26 +322,28 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         <select id="affidavitGroup" onchange="onAffGroupChange()">
                 <option value="Birth">1. Delayed Birth Certificate (জন্ম)</option>
                 <option value="DigiBirth">2. Digital Birth Certificate (ডিজিটাল জন্ম)</option>
-                <option value="Death">3. Delayed Death Certificate (মৃত্যু)</option>
-                <option value="NonStudy">4. Non-Study Affidavit (নন-স্টাডি)</option>
-                <option value="OBC">5. Central OBC (সেন্ট্রাল ওবিসি)</option>
-                <option value="OBCNCL">6. OBC Non-Creamy Layer (এনসিএল)</option>
-                <option value="SamePerson">7. Same Person Affidavit (এক ও অভিন্ন ব্যক্তি)</option>
-                <option value="OwnershipTransfer">8. Ownership Transfer (গাড়ি বিক্রি / মালিকানা হস্তান্তর)</option>
-                <option value="LostDoc">9. Lost Document Affidavit (হারানো ডকুমেন্ট)</option>
-                <option value="GapCert">10. Gap Certificate (পড়াশোনার বিরতি)</option>
-                <option value="AddressProof">11. Address Proof / Residence (ঠিকানার প্রমাণ)</option>
-                <option value="IncomeGen">12. Income Affidavit - General (সাধারণ আয়)</option>
-                <option value="DobCorrection">13. Date of Birth Correction (জন্মতারিখ সংশোধন)</option>
-                <option value="NameChange">14. Name Change Affidavit (নাম পরিবর্তন)</option>
-                <option value="Unmarried">15. Unmarried / Single Status (অবিবাহিত সনদ)</option>
-                <option value="Unemployment">16. Unemployment Affidavit (বেকারত্ব সনদ)</option>
-                <option value="FirstJob">17. Character / No Criminal Case (নতুন চাকরি ও চরিত্র)</option>
-                <option value="Survival">18. Survival Certificate (সারভাইভাল / উত্তরাধিকারী)</option>
-                <option value="RentNOC">19. NOC Affidavit (অনাপত্তি পত্র — ব্যবসা/মিটার/ঠিকানা)</option>
-                <option value="SchoolCorr">20. School Certificate / TC / Admission Register Correction (স্কুল সংশোধন)</option>
-                <option value="PanchayatROR">21. Panchayat ROR Correction (পঞ্চায়েত ROR সংশোধন)</option>
-                <option value="PanchayatRORNew">22. Panchayat ROR New Name Inclusion (পঞ্চায়েত ROR-এ নতুন নাম তোলা)</option>
+                <option value="BirthCorrDigital">3. Birth Certificate Correction &amp; Digital (জন্ম সার্টিফিকেট সংশোধন ও ডিজিটাল)</option>
+                <option value="Death">4. Delayed Death Certificate (মৃত্যু)</option>
+                <option value="NonStudy">5. Non-Study Affidavit (নন-স্টাডি)</option>
+                <option value="OBC">6. Central OBC (সেন্ট্রাল ওবিসি)</option>
+                <option value="OBCNCL">7. OBC Non-Creamy Layer (এনসিএল)</option>
+                <option value="SamePerson">8. Same Person Affidavit (এক ও অভিন্ন ব্যক্তি)</option>
+                <option value="OwnershipTransfer">9. Ownership Transfer (গাড়ি বিক্রি / মালিকানা হস্তান্তর)</option>
+                <option value="LostDoc">10. Lost Document Affidavit (হারানো ডকুমেন্ট)</option>
+                <option value="GapCert">11. Gap Certificate (পড়াশোনার বিরতি)</option>
+                <option value="AddressProof">12. Address Proof / Residence (ঠিকানার প্রমাণ)</option>
+                <option value="IncomeGen">13. Income Affidavit - General (সাধারণ আয়)</option>
+                <option value="DobCorrection">14. Date of Birth Correction (জন্মতারিখ সংশোধন)</option>
+                <option value="NameChange">15. Name Change Affidavit (নাম পরিবর্তন)</option>
+                <option value="Unmarried">16. Unmarried / Single Status (অবিবাহিত সনদ)</option>
+                <option value="Unemployment">17. Unemployment Affidavit (বেকারত্ব সনদ)</option>
+                <option value="FirstJob">18. Character / No Criminal Case (নতুন চাকরি ও চরিত্র)</option>
+                <option value="Survival">19. Survival Certificate (সারভাইভাল / উত্তরাধিকারী)</option>
+                <option value="RentNOC">20. NOC Affidavit (অনাপত্তি পত্র — ব্যবসা/মিটার/ঠিকানা)</option>
+                <option value="SchoolCorr">21. School Certificate / TC / Admission Register Correction (স্কুল সংশোধন)</option>
+                <option value="PanchayatROR">22. Panchayat ROR Correction (পঞ্চায়েত ROR সংশোধন)</option>
+                <option value="PanchayatRORNew">23. Panchayat ROR New Name Inclusion (পঞ্চায়েত ROR-এ নতুন নাম তোলা)</option>
+                <option value="IshanUday">24. Ishan Uday Scholarship (ঈশান উদয় স্কলারশিপ — Annexure-IV)</option>
             </select>
             <div id="affVariantWrap" style="display:none;margin-top:10px;">
                 <label>ধরণ (Sub-type) <span style="color:red;">*</span></label>
@@ -340,7 +352,8 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
             <select id="affidavitType" onchange="toggleAffidavitType()" style="display:none;">
             <option value="Birth">1. Delayed Birth Certificate (জন্ম)</option>
             <option value="DigiBirth">2. Digital Birth Certificate (ডিজিটাল জন্ম)</option>
-            <option value="Death">3. Delayed Death Certificate (মৃত্যু)</option>
+            <option value="BirthCorrDigital">3. Birth Certificate Correction &amp; Digital (জন্ম সার্টিফিকেট সংশোধন ও ডিজিটাল)</option>
+            <option value="Death">4. Delayed Death Certificate (মৃত্যু)</option>
             <option value="NonStudyBen">4. Non-Study Affidavit (Bengali)</option>
             <option value="NonStudyEng">5. Non-Study Affidavit (English)</option>
             <option value="NonStudyThumb">6. Non-Study Affidavit (Thumb)</option>
@@ -366,6 +379,7 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
             <option value="SchoolCorr">24. School Certificate / TC / Admission Register Correction (স্কুল সংশোধন)</option>
             <option value="PanchayatROR">25. Panchayat ROR Correction (পঞ্চায়েত ROR সংশোধন)</option>
             <option value="PanchayatRORNew">26. Panchayat ROR New Name Inclusion (পঞ্চায়েত ROR-এ নতুন নাম তোলা)</option>
+            <option value="IshanUday">24. Ishan Uday Scholarship (ঈশান উদয় স্কলারশিপ — Annexure-IV)</option>
         </select>
     </div>
 
@@ -468,7 +482,27 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         <input type="text" id="customProfession" placeholder="Write custom profession..." style="display: none; margin-top: 5px;">
     </div>
 
-    <fieldset id="childSection">
+    <fieldset id="presentAddressFieldset">
+            <legend id="presentAddressLegend">Present Address (বর্তমান ঠিকানা)</legend>
+        <div class="grid-2">
+            <input type="text" id="p_vill" placeholder="Vill / Ward *" list="villageList">
+            <input type="text" id="p_po" placeholder="P.O. *" list="villageList">
+            <input type="text" id="p_ps" placeholder="P.S. *">
+            <select id="p_dist">
+                <option value="Dhalai">Dhalai</option>
+                <option value="Gomati">Gomati</option>
+                <option value="Khowai">Khowai</option>
+                <option value="North Tripura">North Tripura</option>
+                <option value="Sepahijala" selected>Sepahijala</option>
+                <option value="South Tripura">South Tripura</option>
+                <option value="Unakoti">Unakoti</option>
+                <option value="West Tripura">West Tripura</option>
+            </select>
+            <input type="text" id="p_pin" placeholder="PIN Code *">
+        </div>
+    </fieldset>
+
+        <fieldset id="childSection">
         <legend>Child Details (সন্তানের তথ্য)</legend>
         <div class="form-group">
             <label>Child's Name (সন্তানের নাম) <span style="color:red;">*</span></label>
@@ -521,6 +555,113 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
             </div>
         </div>
     </fieldset>
+
+    <fieldset id="birthCorrSection" style="display:none;">
+        <legend>Birth Certificate Correction &amp; Digital (জন্ম সার্টিফিকেট সংশোধন ও ডিজিটাল)</legend>
+        <div class="grid-2 form-group">
+            <div>
+                <label>কার Birth Certificate সংশোধন/ডিজিটাল হবে? (For Whom) <span style="color:red;">*</span></label>
+                <select id="bc_for" onchange="onBcForChange()">
+                    <option value="self">Self (নিজের জন্য — আবেদনকারী নিজেই)</option>
+                    <option value="son">For Son (ছেলের জন্য — বাবা/মা আবেদনকারী)</option>
+                    <option value="daughter">For Daughter (মেয়ের জন্য — বাবা/মা আবেদনকারী)</option>
+                    <option value="wife">For Wife (স্ত্রীর জন্য — স্বামী আবেদনকারী)</option>
+                    <option value="husband">For Husband (স্বামীর জন্য — স্ত্রী আবেদনকারী)</option>
+                    <option value="brother">For Brother (ভাইয়ের জন্য — ভাই/বোন আবেদনকারী)</option>
+                    <option value="sister">For Sister (বোনের জন্য — ভাই/বোন আবেদনকারী)</option>
+                    <option value="father">For Father (বাবার জন্য — ছেলে/মেয়ে আবেদনকারী)</option>
+                    <option value="mother">For Mother (মায়ের জন্য — ছেলে/মেয়ে আবেদনকারী)</option>
+                </select>
+            </div>
+            <div>
+                <label>কাজের ধরণ (Purpose) <span style="color:red;">*</span></label>
+                <select id="bc_purpose" onchange="bcChanged()">
+                    <option value="both">Correction &amp; Digital Birth Certificate (সংশোধন ও ডিজিটাল — ৫ প্যারা)</option>
+                    <option value="corr_only">Only Correction in Birth Certificate (শুধুমাত্র সংশোধন — ৪ প্যারা)</option>
+                </select>
+            </div>
+        </div>
+        <div class="grid-2 form-group" id="bcHolderWrap" style="display:none;">
+            <div>
+                <label>Certificate Holder's Correct Name (যাঁর সার্টিফিকেট তাঁর সঠিক নাম) <span style="color:red;">*</span></label>
+                <input type="text" id="bc_holderName" placeholder="যাঁর Birth Certificate তাঁর সঠিক নাম">
+            </div>
+            <div>
+                <label>Holder's Actual DOB (সঠিক জন্মতারিখ) <span style="color:red;">*</span></label>
+                <input type="text" id="bc_holderDob" inputmode="numeric" maxlength="10" placeholder="DD/MM/YYYY" oninput="formatBcDate(this)">
+            </div>
+        </div>
+        <div class="form-group">
+            <label>জন্মস্থান / Birth Certificate কোথা থেকে দেওয়া হয়েছে? <span style="color:red;">*</span></label>
+            <select id="bc_issuerPlaceType" onchange="onBcIssuerTypeChange()">
+                <option value="Hospital">হাসপাতাল (Hospital — যেমন: Melaghar Hospital)</option>
+                <option value="Home">গ্রাম পঞ্চায়েত / বাড়ীতে (Gram Panchayat / Home)</option>
+                <option value="Corporation">মিউনিসিপ্যাল কর্পোরেশন / পৌরসভা (Municipal Corporation / ULB)</option>
+            </select>
+        </div>
+        <div class="form-group" id="bcIssuerNameWrap">
+            <label id="bcIssuerLabel">Hospital Name (কোন হাসপাতাল থেকে দেওয়া হয়েছে) <span style="color:red;">*</span></label>
+            <input type="text" id="bc_issuerName" placeholder="e.g. Melaghar Hospital / Sonamura Sub-Divisional Hospital">
+        </div>
+        <div id="bcHomeBirthAddrWrap" style="display:none;">
+            <div class="checkbox-group" style="margin-bottom:10px;display:flex;">
+                <input type="checkbox" id="bc_sameAddr" checked onchange="toggleBcSameAddr()">
+                <label style="margin:0;cursor:pointer;" for="bc_sameAddr">জন্মস্থান এবং বর্তমান ঠিকানা একই</label>
+            </div>
+            <div class="form-group" id="bcCustomBirthAddrWrap" style="display:none;">
+                <label>Birth Place Address (জন্মস্থানের পূর্ণ ঠিকানা) <span style="color:red;">*</span></label>
+                <input type="text" id="bc_birthAddr" placeholder="e.g. Sovapur, P.O. Rabindranagar, P.S. Sonamura, Dist. Sepahijala, Tripura, Pin-799131">
+            </div>
+        </div>
+        <div class="grid-2 form-group">
+            <div>
+                <label id="bcPanLabel">Panchayat / Council Name (ঐচ্ছিক)</label>
+                <div style="display:flex;gap:5px;">
+                    <input type="text" id="bc_panchayat" placeholder="Panchayat Name" list="panchayatList" style="flex:1.5;">
+                    <select id="bc_panchayatType" style="flex:1.5;" onchange="updateBcBlockType()">
+                        <option value="G.P.">G.P.</option>
+                        <option value="Gram Panchayat">Gram Panchayat</option>
+                        <option value="ADC Village">ADC Village</option>
+                        <option value="Nagar Panchayat">Nagar Panchayat</option>
+                        <option value="Municipal Council">Municipal Council</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <label id="bcBlkLabel">Block / Sub-Division Name (ঐচ্ছিক)</label>
+                <div style="display:flex;gap:5px;">
+                    <input type="text" id="bc_block" placeholder="Block Name" list="blockList" style="flex:1.5;">
+                    <select id="bc_blockType" style="flex:1.5;">
+                        <option value="R.D. Block">R.D. Block</option>
+                        <option value="Sub-Division">Sub-Division</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="grid-2 form-group">
+            <div>
+                <label>Birth Certificate Registration No. <span style="color:red;">*</span></label>
+                <input type="text" id="bc_regNo" placeholder="e.g. 50 / B202416900660002564">
+            </div>
+            <div>
+                <label>Date of Registration (রেজিস্ট্রেশন তারিখ) <span style="color:red;">*</span></label>
+                <input type="text" id="bc_regDate" inputmode="numeric" maxlength="10" placeholder="DD/MM/YYYY" oninput="formatBcDate(this)">
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Proof Document (সঠিক প্রমাণপত্র — ঐচ্ছিক)</label>
+            <input type="text" id="bc_proofDoc" placeholder="e.g. Aadhaar Card / School Certificate / PRTC / ROR">
+        </div>
+        <div class="form-group">
+            <label>Birth Certificate-এ কী কী ভুল সংশোধন হবে? (Corrections Needed) <span style="color:red;">*</span> <small style="font-weight:normal;">(১ বা একাধিক ভুল যোগ করা যাবে)</small></label>
+            <div id="bcItems"></div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <button type="button" onclick="addBcItem(); bcChanged();" style="background:#1b62b5;color:#fff;border:none;border-radius:8px;padding:9px 13px;cursor:pointer;font-weight:800;font-size:13px;">➕ আরও ভুল যোগ করুন</button>
+                <button type="button" onclick="fillBcNameDob()" style="background:#0b1f3a;color:#f8f0d9;border:none;border-radius:8px;padding:9px 13px;cursor:pointer;font-weight:800;font-size:12.5px;">⚡ নাম + জন্মতারিখ একসাথে</button>
+            </div>
+        </div>
+    </fieldset>
+
 
     <fieldset id="deathSection">
         <legend>Death Details (মৃত্যুর তথ্য)</legend>
@@ -875,11 +1016,15 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
             <div>
                 <label>আবেদনটি কার ROR-এর জন্য? (For Whom) <span style="color:red;">*</span></label>
                 <select id="ror_for" onchange="onRorForChange()">
-                    <option value="self">Self (নিজের জন্য)</option>
+                    <option value="self">Self (নিজের জন্য — আবেদনকারী নিজেই)</option>
                     <option value="son">For Son (ছেলের জন্য — বাবা/মা আবেদনকারী)</option>
                     <option value="daughter">For Daughter (মেয়ের জন্য — বাবা/মা আবেদনকারী)</option>
                     <option value="wife">For Wife (স্ত্রীর জন্য — স্বামী আবেদনকারী)</option>
                     <option value="husband">For Husband (স্বামীর জন্য — স্ত্রী আবেদনকারী)</option>
+                    <option value="brother">For Brother (ভাইয়ের জন্য — ভাই/বোন আবেদনকারী)</option>
+                    <option value="sister">For Sister (বোনের জন্য — ভাই/বোন আবেদনকারী)</option>
+                    <option value="father">For Father (বাবার জন্য — ছেলে/মেয়ে আবেদনকারী)</option>
+                    <option value="mother">For Mother (মায়ের জন্য — ছেলে/মেয়ে আবেদনকারী)</option>
                 </select>
             </div>
             <div id="rorMemberNameWrap" style="display:none;">
@@ -889,9 +1034,9 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         </div>
         <div class="grid-2 form-group">
             <div>
-                <label>Panchayat / Council Name (ঐচ্ছিক)</label>
+                <label>Panchayat / Council Name <span style="color:red;">*</span></label>
                 <div style="display:flex;gap:5px;">
-                    <input type="text" id="ror_panchayat" placeholder="Panchayat Name" list="panchayatList" style="flex:1.5;">
+                    <input type="text" id="ror_panchayat" placeholder="Panchayat Name *" list="panchayatList" style="flex:1.5;">
                     <select id="ror_panchayatType" style="flex:1.5;" onchange="updateRorBlockType()">
                         <option value="Gram Panchayat">Gram Panchayat</option>
                         <option value="ADC Village">ADC Village</option>
@@ -901,9 +1046,9 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
                 </div>
             </div>
             <div>
-                <label>Block / Sub-Division Name (ঐচ্ছিক)</label>
+                <label>Block / Sub-Division Name <span style="color:red;">*</span></label>
                 <div style="display:flex;gap:5px;">
-                    <input type="text" id="ror_block" placeholder="Block Name" list="blockList" style="flex:1.5;">
+                    <input type="text" id="ror_block" placeholder="Block Name *" list="blockList" style="flex:1.5;">
                     <select id="ror_blockType" style="flex:1.5;">
                         <option value="R.D. Block">R.D. Block</option>
                         <option value="Sub-Division">Sub-Division</option>
@@ -912,13 +1057,16 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
             </div>
         </div>
         <div class="grid-2 form-group">
-            <div><label>Family ID No. (ঐচ্ছিক)</label><input type="text" id="ror_familyId" placeholder="e.g. Family ID / ROR No."></div>
+            <div><label>Family ID No. (ঐচ্ছিক)</label><input type="text" id="ror_familyId" placeholder="e.g. TPABEM5685"></div>
             <div><label>Proof Document (সঠিক প্রমাণপত্র — ঐচ্ছিক)</label><input type="text" id="ror_proofDoc" placeholder="e.g. Aadhaar Card / PRTC / Birth Certificate"></div>
         </div>
         <div class="form-group">
-            <label>ROR-এ কী কী ভুল সংশোধন হবে? (Corrections Needed) <span style="color:red;">*</span> <small style="font-weight:normal;">(১ বা একাধিক ভুল যোগ করা যাবে)</small></label>
+            <label>ROR-এ কী কী ভুল সংশোধন হবে? (Corrections Needed) <span style="color:red;">*</span> <small style="font-weight:normal;">(ইংরেজি বা বাংলা যেভাবে ভুল আছে লিখুন; বাংলা বানান ভুল থাকলে নিচের বাংলা ঘরে সঠিক বাংলা নাম দিন)</small></label>
             <div id="rorItems"></div>
-            <button type="button" onclick="addRorItem(); rorChanged();" style="background:#158056;color:#fff;border:none;border-radius:8px;padding:9px 13px;cursor:pointer;font-weight:800;font-size:13px;">➕ আরও ভুল যোগ করুন</button>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <button type="button" onclick="addRorItem(); rorChanged();" style="background:#158056;color:#fff;border:none;border-radius:8px;padding:9px 13px;cursor:pointer;font-weight:800;font-size:13px;">➕ আরও ভুল যোগ করুন</button>
+                <button type="button" onclick="fillRorNameDob()" style="background:#0b1f3a;color:#f8f0d9;border:none;border-radius:8px;padding:9px 13px;cursor:pointer;font-weight:800;font-size:12.5px;">⚡ নাম + জন্মতারিখ একসাথে</button>
+            </div>
         </div>
     </fieldset>
     <fieldset id="rorNewSection" style="display:none;">
@@ -1018,26 +1166,23 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         </div>
     </fieldset>
 
-
-    <fieldset>
-        <legend>Present Address (বর্তমান ঠিকানা)</legend>
-        <div class="grid-2">
-            <input type="text" id="p_vill" placeholder="Vill / Ward *" list="villageList">
-            <input type="text" id="p_po" placeholder="P.O. *" list="villageList">
-            <input type="text" id="p_ps" placeholder="P.S. *">
-            <select id="p_dist">
-                <option value="Dhalai">Dhalai</option>
-                <option value="Gomati">Gomati</option>
-                <option value="Khowai">Khowai</option>
-                <option value="North Tripura">North Tripura</option>
-                <option value="Sepahijala" selected>Sepahijala</option>
-                <option value="South Tripura">South Tripura</option>
-                <option value="Unakoti">Unakoti</option>
-                <option value="West Tripura">West Tripura</option>
-            </select>
-            <input type="text" id="p_pin" placeholder="PIN Code *">
+    <fieldset id="ishanUdaySection" style="display:none;">
+        <legend>Ishan Uday Scholarship Details (ঈশান উদয় স্কলারশিপ — Annexure-IV)</legend>
+        <div class="grid-2 form-group">
+            <div>
+                <label>আবেদনকারী প্রার্থীর কে হন? (Applicant is) <span style="color:red;">*</span></label>
+                <select id="iu_parentRole" onchange="onIuParentRoleChange()">
+                    <option value="father">Father (বাবা আবেদনকারী)</option>
+                    <option value="mother">Mother (মা আবেদনকারী)</option>
+                </select>
+            </div>
+            <div>
+                <label>Candidate Name (ছাত্র / ছাত্রীর নাম) <span style="color:red;">*</span></label>
+                <input type="text" id="iu_candidateName" placeholder="e.g. ANISHA K.P (প্রার্থীর নাম)">
+            </div>
         </div>
     </fieldset>
+
 
     <div class="checkbox-group" id="birthAddressWrapper">
         <input type="checkbox" id="sameAddress" onchange="toggleAddress('b')">
@@ -1305,6 +1450,8 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         renderSvHeirs();
         renderScItems();
         renderRorItems();
+        renderBcItems();
+        onBcForChange(); onBcIssuerTypeChange();
         onRnForChange(); onRnBirthTypeChange(); checkRnReason();
         const _now = new Date();
         const _MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -1553,6 +1700,226 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
     function scChanged() { }
     function rorChanged() { }
     function rnChanged() { }
+    function bcChanged() { }
+    function onIuParentRoleChange() {
+        const role = document.getElementById('iu_parentRole').value;
+        const gSel = document.getElementById('gender');
+        const mSel = document.getElementById('maritalStatus');
+        if (role === 'mother') {
+            if (gSel) gSel.value = 'Female';
+            if (mSel) mSel.value = 'Married';
+        } else {
+            if (gSel) gSel.value = 'Male';
+        }
+        updateSpouseRequirement();
+    }
+
+    // ================= v18: Birth Certificate Correction & Digital Helpers =================
+    const BC_FIELD_OPTS =
+        '<option value="holder_name">নিজের / সার্টিফিকেটধারীর নাম (Name)</option>' +
+        '<option value="father_name">বাবার নাম (Father\'s Name)</option>' +
+        '<option value="mother_name">মায়ের নাম (Mother\'s Name)</option>' +
+        '<option value="husband_name">স্বামীর নাম (Husband\'s Name)</option>' +
+        '<option value="wife_name">স্ত্রীর নাম (Wife\'s Name)</option>' +
+        '<option value="child_name">সন্তানের নাম (Child\'s Name)</option>' +
+        '<option value="brother_name">ভাইয়ের নাম (Brother\'s Name)</option>' +
+        '<option value="sister_name">বোনের নাম (Sister\'s Name)</option>' +
+        '<option value="dob">জন্মের তারিখ (Date of Birth)</option>' +
+        '<option value="address">ঠিকানা (Address)</option>' +
+        '<option value="pin_code">শুধু পিন কোড (PIN Code)</option>';
+
+    function formatBcDate(inp) {
+        const d = inp.value.replace(/\D/g, '').slice(0, 8);
+        let out = d.slice(0, 2);
+        if (d.length > 2) out += '/' + d.slice(2, 4);
+        if (d.length > 4) out += '/' + d.slice(4);
+        inp.value = out;
+        bcChanged();
+    }
+    function onBcForChange() {
+        const f = document.getElementById('bc_for').value;
+        const w = document.getElementById('bcHolderWrap');
+        if (w) w.style.display = (f === 'self') ? 'none' : '';
+        const hn = document.getElementById('bc_holderName');
+        if (hn && !hn.value.trim()) {
+            if ((f === 'wife' || f === 'husband') && val('spouseName')) hn.value = val('spouseName');
+            else if (f === 'father' && val('fatherName')) hn.value = val('fatherName');
+            else if (f === 'mother' && val('motherName')) hn.value = val('motherName');
+        }
+        bcChanged();
+    }
+    function onBcIssuerTypeChange() {
+        const bp = document.getElementById('bc_issuerPlaceType').value;
+        const isHome = bp === 'Home';
+        const isCorp = bp === 'Corporation';
+        const issWrap = document.getElementById('bcIssuerNameWrap');
+        const lbl = document.getElementById('bcIssuerLabel');
+        const inp = document.getElementById('bc_issuerName');
+        const homeWrap = document.getElementById('bcHomeBirthAddrWrap');
+        const panLbl = document.getElementById('bcPanLabel');
+        const blkLbl = document.getElementById('bcBlkLabel');
+        if (issWrap) issWrap.style.display = isHome ? 'none' : '';
+        if (homeWrap) homeWrap.style.display = isHome ? '' : 'none';
+        if (lbl) {
+            lbl.innerHTML = (isCorp
+                ? 'Municipal Corporation / Authority Name (কর্পোরেশন বা সংস্থার নাম)'
+                : 'Hospital Name (কোন হাসপাতাল থেকে দেওয়া হয়েছে)') + ' <span style="color:red;">*</span>';
+        }
+        if (inp) {
+            inp.placeholder = isCorp
+                ? 'e.g. Agartala Municipal Corporation'
+                : 'e.g. Melaghar Hospital / Sonamura Sub-Divisional Hospital';
+        }
+        if (panLbl) panLbl.innerHTML = isHome ? 'Panchayat / Council Name (পঞ্চায়েত) <span style="color:red;">*</span>' : 'Panchayat / Council Name (ঐচ্ছিক)';
+        if (blkLbl) blkLbl.innerHTML = isHome ? 'Block / Sub-Division Name (ব্লক) <span style="color:red;">*</span>' : 'Block / Sub-Division Name (ঐচ্ছিক)';
+        toggleBcSameAddr();
+        bcChanged();
+    }
+    function toggleBcSameAddr() {
+        const chk = document.getElementById('bc_sameAddr');
+        const wrap = document.getElementById('bcCustomBirthAddrWrap');
+        if (wrap && chk) wrap.style.display = chk.checked ? 'none' : '';
+        bcChanged();
+    }
+    function updateBcBlockType() {
+        const t1 = document.getElementById('bc_panchayatType').value;
+        const t2 = document.getElementById('bc_blockType');
+        if (t2) t2.value = (t1 === 'G.P.' || t1 === 'Gram Panchayat' || t1 === 'ADC Village') ? 'R.D. Block' : 'Sub-Division';
+        bcChanged();
+    }
+    function bcPresentAddrCompact() {
+        const v = val('p_vill'), po = val('p_po'), ps = val('p_ps'), dist = val('p_dist'), pin = val('p_pin');
+        if (!v && !ps) return '';
+        return `${v}${po ? ', P.O. ' + po : ''}${ps ? ', P.S. ' + ps : ''}${dist ? ', Dist. ' + dist : ''}, Tripura${pin ? ', Pin-' + pin : ''}`;
+    }
+    function bcDefaultCorrect(field) {
+        const bFor = document.getElementById('bc_for') ? document.getElementById('bc_for').value : 'self';
+        const g = document.getElementById('gender') ? document.getElementById('gender').value : 'Male';
+        if (field === 'pin_code') return val('p_pin');
+        if (field === 'address') return bcPresentAddrCompact();
+        if (bFor === 'self') {
+            if (field === 'holder_name') return val('name');
+            if (field === 'father_name') return val('fatherName');
+            if (field === 'mother_name') return val('motherName');
+            if (field === 'husband_name' || field === 'wife_name') return val('spouseName');
+            if (field === 'dob' && val('dobDay') && val('dobMonth') && val('dobYear')) return `${val('dobDay')}/${val('dobMonth')}/${val('dobYear')}`;
+        } else {
+            if (field === 'holder_name') return val('bc_holderName');
+            if (field === 'dob') return val('bc_holderDob');
+            if ((bFor === 'son' || bFor === 'daughter') && field === 'father_name') return g === 'Male' ? val('name') : val('spouseName');
+            if ((bFor === 'son' || bFor === 'daughter') && field === 'mother_name') return g === 'Female' ? val('name') : val('spouseName');
+            if ((bFor === 'son' || bFor === 'daughter') && field === 'child_name') return val('bc_holderName');
+            if (bFor === 'wife' && field === 'husband_name') return val('name');
+            if (bFor === 'husband' && field === 'wife_name') return val('name');
+            if ((bFor === 'brother' || bFor === 'sister') && field === 'father_name') return val('fatherName');
+            if ((bFor === 'brother' || bFor === 'sister') && field === 'mother_name') return val('motherName');
+        }
+        return '';
+    }
+    function fillBcNameDob() {
+        const existing = {};
+        getBcItems().forEach(it => { existing[it.field] = it; });
+        const pair = ['holder_name', 'dob'].map(f => ({
+            field: f,
+            wrong: (existing[f] && existing[f].wrong) || '',
+            correct: (existing[f] && existing[f].correct) || bcDefaultCorrect(f)
+        }));
+        renderBcItems(pair);
+        bcChanged();
+    }
+    function addBcItem(it) {
+        const box = document.getElementById('bcItems');
+        if (!box) return;
+        it = it || {};
+        const row = document.createElement('div');
+        row.className = 'corr-row bc-row';
+        row.innerHTML =
+            '<select class="bc-field" style="flex:1 1 100%;" onchange="onBcFieldChange(this)">' + BC_FIELD_OPTS + '</select>' +
+            '<input type="text" class="bc-wrong" placeholder="ভুল তথ্য (Birth Certificate-এ যেমন আছে) *" style="flex:1 1 190px;" oninput="onBcValInput(this)">' +
+            '<input type="text" class="bc-correct" placeholder="সঠিক তথ্য *" style="flex:1 1 190px;" oninput="onBcValInput(this)">' +
+            '<button type="button" onclick="removeBcItem(this)" title="মুছুন" style="border:none;border-radius:8px;padding:8px 11px;cursor:pointer;font-weight:800;color:#fff;background:#c0392b;">✕</button>';
+        row.querySelector('.bc-field').value = it.field || 'holder_name';
+        row.querySelector('.bc-wrong').value = it.wrong || '';
+        row.querySelector('.bc-correct').value = it.correct || '';
+        updateBcRowUI(row);
+        box.appendChild(row);
+    }
+    function updateBcRowUI(row) {
+        const fv = row.querySelector('.bc-field').value;
+        const w = row.querySelector('.bc-wrong');
+        const c = row.querySelector('.bc-correct');
+        if (fv === 'dob') {
+            w.placeholder = 'ভুল জন্মতারিখ (DD/MM/YYYY) *';
+            c.placeholder = 'সঠিক জন্মতারিখ (DD/MM/YYYY) *';
+            w.maxLength = 10; c.maxLength = 10;
+            w.inputMode = 'numeric'; c.inputMode = 'numeric';
+        } else if (fv === 'pin_code') {
+            w.placeholder = 'ভুল পিন কোড (৬ ডিজিট, যেমন: 799131) *';
+            c.placeholder = 'সঠিক পিন কোড (৬ ডিজিট) *';
+            w.maxLength = 6; c.maxLength = 6;
+            w.inputMode = 'numeric'; c.inputMode = 'numeric';
+        } else if (fv === 'address') {
+            w.placeholder = 'ভুল ঠিকানা (Birth Certificate-এ যেমন আছে) *';
+            c.placeholder = 'সঠিক ঠিকানা *';
+            w.maxLength = 240; c.maxLength = 240;
+            w.inputMode = 'text'; c.inputMode = 'text';
+        } else {
+            w.placeholder = 'ভুল নাম (Birth Certificate-এ যেমন আছে) *';
+            c.placeholder = 'সঠিক নাম *';
+            w.maxLength = 120; c.maxLength = 120;
+            w.inputMode = 'text'; c.inputMode = 'text';
+        }
+    }
+    function onBcFieldChange(sel) {
+        const row = sel.closest('.bc-row');
+        updateBcRowUI(row);
+        const c = row.querySelector('.bc-correct');
+        if (c && !c.value.trim()) {
+            const def = bcDefaultCorrect(sel.value);
+            if (def) c.value = def;
+        }
+        bcChanged();
+    }
+    function onBcValInput(inp) {
+        const row = inp.closest('.bc-row');
+        const fv = row.querySelector('.bc-field').value;
+        if (fv === 'dob') formatCorrDateIfNeeded(inp, 'dob');
+        else if (fv === 'pin_code') inp.value = inp.value.replace(/\D/g, '').slice(0, 6);
+        bcChanged();
+    }
+    function renderBcItems(arr) {
+        const box = document.getElementById('bcItems');
+        if (!box) return;
+        box.innerHTML = '';
+        (arr && arr.length ? arr : [{}]).forEach(it => addBcItem(it));
+    }
+    function removeBcItem(btn) {
+        const row = btn.closest('.bc-row'), box = row.parentElement;
+        if (box.children.length > 1) row.remove();
+        else { row.querySelector('.bc-wrong').value = ''; row.querySelector('.bc-correct').value = ''; }
+        bcChanged();
+    }
+    function getBcItems() {
+        return Array.from(document.querySelectorAll('#bcItems .bc-row')).map(r => ({
+            field: r.querySelector('.bc-field').value,
+            wrong: r.querySelector('.bc-wrong').value.trim(),
+            correct: r.querySelector('.bc-correct').value.trim()
+        })).filter(it => it.wrong || it.correct);
+    }
+    function bcItemsValid() {
+        const its = getBcItems();
+        return its.length > 0 && its.every(it => {
+            if (!it.wrong || !it.correct) return false;
+            if (it.field === 'dob') return isValidDmyDate(it.wrong) && isValidDmyDate(it.correct);
+            if (it.field === 'pin_code') return /^\d{6}$/.test(it.wrong) && /^\d{6}$/.test(it.correct);
+            return true;
+        });
+    }
+    function bcFromRecord(d) {
+        try { if (d && d.bcItemsData) return JSON.parse(d.bcItemsData); } catch (_) {}
+        return [];
+    }
+
     // ================= v14: Panchayat ROR New Name Inclusion Helpers =================
     function isValidDmyDate(s) {
         const m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(String(s || '').trim());
@@ -1649,6 +2016,10 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         '<option value="mother_name">মায়ের নাম (Mother\'s Name)</option>' +
         '<option value="husband_name">স্বামীর নাম (Husband\'s Name)</option>' +
         '<option value="wife_name">স্ত্রীর নাম (Wife\'s Name)</option>' +
+        '<option value="brother_name">ভাইয়ের নাম (Brother\'s Name)</option>' +
+        '<option value="sister_name">বোনের নাম (Sister\'s Name)</option>' +
+        '<option value="grandfather_name">দাদার নাম (Grandfather\'s Name)</option>' +
+        '<option value="grandmother_name">দাদীর নাম (Grandmother\'s Name)</option>' +
         '<option value="dob">জন্মের তারিখ (Date of Birth)</option>';
 
     function formatCorrDateIfNeeded(inp, fieldVal) {
@@ -1784,8 +2155,10 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         const w = document.getElementById('rorMemberNameWrap');
         if (w) w.style.display = (f === 'self') ? 'none' : '';
         const mn = document.getElementById('ror_memberName');
-        if ((f === 'wife' || f === 'husband') && mn && !mn.value.trim() && val('spouseName')) {
-            mn.value = val('spouseName');
+        if (mn && !mn.value.trim()) {
+            if ((f === 'wife' || f === 'husband') && val('spouseName')) mn.value = val('spouseName');
+            else if (f === 'father' && val('fatherName')) mn.value = val('fatherName');
+            else if (f === 'mother' && val('motherName')) mn.value = val('motherName');
         }
         rorChanged();
     }
@@ -1793,6 +2166,38 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         const t1 = document.getElementById('ror_panchayatType').value;
         const t2 = document.getElementById('ror_blockType');
         if (t2) t2.value = (t1 === 'Gram Panchayat' || t1 === 'ADC Village') ? 'R.D. Block' : 'Sub-Division';
+        rorChanged();
+    }
+    function rorDefaultCorrect(field) {
+        const rFor = document.getElementById('ror_for') ? document.getElementById('ror_for').value : 'self';
+        const g = document.getElementById('gender') ? document.getElementById('gender').value : 'Male';
+        if (rFor === 'self') {
+            if (field === 'member_name') return val('name');
+            if (field === 'father_name') return val('fatherName');
+            if (field === 'mother_name') return val('motherName');
+            if ((field === 'husband_name' || field === 'wife_name')) return val('spouseName');
+            if (field === 'dob' && val('dobDay') && val('dobMonth') && val('dobYear')) return `${val('dobDay')}/${val('dobMonth')}/${val('dobYear')}`;
+        } else {
+            if (field === 'member_name') return val('ror_memberName');
+            if ((rFor === 'son' || rFor === 'daughter') && field === 'father_name') return g === 'Male' ? val('name') : val('spouseName');
+            if ((rFor === 'son' || rFor === 'daughter') && field === 'mother_name') return g === 'Female' ? val('name') : val('spouseName');
+            if (rFor === 'wife' && field === 'husband_name') return val('name');
+            if (rFor === 'husband' && field === 'wife_name') return val('name');
+            if ((rFor === 'brother' || rFor === 'sister') && field === 'father_name') return val('fatherName');
+            if ((rFor === 'brother' || rFor === 'sister') && field === 'mother_name') return val('motherName');
+        }
+        return '';
+    }
+    function fillRorNameDob() {
+        const existing = {};
+        getRorItems().forEach(it => { existing[it.field] = it; });
+        const pair = ['member_name', 'dob'].map(f => ({
+            field: f,
+            wrong: (existing[f] && existing[f].wrong) || '',
+            correct: (existing[f] && existing[f].correct) || rorDefaultCorrect(f),
+            correctBn: (existing[f] && existing[f].correctBn) || ''
+        }));
+        renderRorItems(pair);
         rorChanged();
     }
     function addRorItem(it) {
@@ -1803,25 +2208,40 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         row.className = 'corr-row ror-row';
         row.innerHTML =
             '<select class="ror-field" style="flex:1 1 100%;" onchange="onRorFieldChange(this)">' + ROR_FIELD_OPTS + '</select>' +
-            '<input type="text" class="ror-wrong" placeholder="ভুল তথ্য (ROR-এ যেমন আছে) *" style="flex:1 1 190px;" oninput="onRorValInput(this)">' +
-            '<input type="text" class="ror-correct" placeholder="সঠিক তথ্য *" style="flex:1 1 190px;" oninput="onRorValInput(this)">' +
+            '<input type="text" class="ror-wrong" placeholder="ভুল নাম (ROR-এ যেমন আছে — ইংরেজি বা বাংলা) *" style="flex:1 1 180px;" oninput="onRorValInput(this)">' +
+            '<input type="text" class="ror-correct" placeholder="সঠিক নাম (ইংরেজি) *" style="flex:1 1 180px;" oninput="onRorValInput(this)">' +
+            '<input type="text" class="ror-correct-bn" placeholder="সঠিক বাংলা নাম (ঐচ্ছিক, যেমন: ফাতেমা খাতুন)" style="flex:1 1 220px;" oninput="rorChanged()">' +
             '<button type="button" onclick="removeRorItem(this)" title="মুছুন" style="border:none;border-radius:8px;padding:8px 11px;cursor:pointer;font-weight:800;color:#fff;background:#c0392b;">✕</button>';
         row.querySelector('.ror-field').value = it.field || 'member_name';
         row.querySelector('.ror-wrong').value = it.wrong || '';
         row.querySelector('.ror-correct').value = it.correct || '';
-        updateCorrRowPlaceholders(row, 'ror');
+        row.querySelector('.ror-correct-bn').value = it.correctBn || '';
+        updateRorRowUI(row);
         box.appendChild(row);
+    }
+    function updateRorRowUI(row) {
+        updateCorrRowPlaceholders(row, 'ror');
+        const fv = row.querySelector('.ror-field').value;
+        const isDob = fv === 'dob';
+        const w = row.querySelector('.ror-wrong');
+        const c = row.querySelector('.ror-correct');
+        const bn = row.querySelector('.ror-correct-bn');
+        if (!isDob) {
+            w.placeholder = 'ভুল নাম (ROR-এ যেমন আছে — ইংরেজি বা বাংলা) *';
+            c.placeholder = 'সঠিক নাম (ইংরেজি) *';
+        }
+        if (bn) {
+            bn.style.display = isDob ? 'none' : '';
+            if (isDob) bn.value = '';
+        }
     }
     function onRorFieldChange(sel) {
         const row = sel.closest('.ror-row');
-        updateCorrRowPlaceholders(row, 'ror');
+        updateRorRowUI(row);
         const c = row.querySelector('.ror-correct');
-        if (c && !c.value.trim() && document.getElementById('ror_for').value === 'self') {
-            if (sel.value === 'member_name' && val('name')) c.value = val('name');
-            else if (sel.value === 'father_name' && val('fatherName')) c.value = val('fatherName');
-            else if (sel.value === 'mother_name' && val('motherName')) c.value = val('motherName');
-            else if ((sel.value === 'husband_name' || sel.value === 'wife_name') && val('spouseName')) c.value = val('spouseName');
-            else if (sel.value === 'dob' && val('dobDay') && val('dobMonth') && val('dobYear')) c.value = `${val('dobDay')}/${val('dobMonth')}/${val('dobYear')}`;
+        if (c && !c.value.trim()) {
+            const def = rorDefaultCorrect(sel.value);
+            if (def) c.value = def;
         }
         rorChanged();
     }
@@ -1839,21 +2259,27 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
     function removeRorItem(btn) {
         const row = btn.closest('.ror-row'), box = row.parentElement;
         if (box.children.length > 1) row.remove();
-        else { row.querySelector('.ror-wrong').value = ''; row.querySelector('.ror-correct').value = ''; }
+        else {
+            row.querySelector('.ror-wrong').value = '';
+            row.querySelector('.ror-correct').value = '';
+            const bn = row.querySelector('.ror-correct-bn');
+            if (bn) bn.value = '';
+        }
         rorChanged();
     }
     function getRorItems() {
         return Array.from(document.querySelectorAll('#rorItems .ror-row')).map(r => ({
             field: r.querySelector('.ror-field').value,
             wrong: r.querySelector('.ror-wrong').value.trim(),
-            correct: r.querySelector('.ror-correct').value.trim()
-        })).filter(it => it.wrong || it.correct);
+            correct: r.querySelector('.ror-correct').value.trim(),
+            correctBn: r.querySelector('.ror-correct-bn') ? r.querySelector('.ror-correct-bn').value.trim() : ''
+        })).filter(it => it.wrong || it.correct || it.correctBn);
     }
     function rorItemsValid() {
         const its = getRorItems();
         return its.length > 0 && its.every(it => {
             if (!it.wrong || !it.correct) return false;
-            if (it.field === 'dob') return /^\d{2}\/\d{2}\/\d{4}$/.test(it.wrong) && /^\d{2}\/\d{2}\/\d{4}$/.test(it.correct);
+            if (it.field === 'dob') return isValidDmyDate(it.wrong) && isValidDmyDate(it.correct);
             return true;
         });
     }
@@ -2180,7 +2606,9 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         'noc_benName','noc_benRel','noc_purposeSel','noc_purposeCustom','noc_addr',
         'sc_for','sc_studentName','sc_docType','sc_docTypeCustom','sc_schoolName','sc_regNo','sc_pageNo','sc_slNo','sc_proofDoc',
         'ror_for','ror_memberName','ror_panchayat','ror_panchayatType','ror_block','ror_blockType','ror_familyId','ror_proofDoc',
-        'rn_for','rn_birthPlaceType','rn_childName','rn_childDob','rn_panchayat','rn_panchayatType','rn_block','rn_blockType','rn_issuerName','rn_issuerType','rn_regNo','rn_regDate','rn_reasonSel','rn_reasonCustom','rn_familyId'
+        'rn_for','rn_birthPlaceType','rn_childName','rn_childDob','rn_panchayat','rn_panchayatType','rn_block','rn_blockType','rn_issuerName','rn_issuerType','rn_regNo','rn_regDate','rn_reasonSel','rn_reasonCustom','rn_familyId',
+        'bc_for','bc_purpose','bc_holderName','bc_holderDob','bc_panchayat','bc_panchayatType','bc_block','bc_blockType','bc_issuerPlaceType','bc_issuerName','bc_birthAddr','bc_regNo','bc_regDate','bc_proofDoc',
+        'iu_parentRole','iu_candidateName'
     ];
     function otFields() {
         const o = {};
@@ -2189,6 +2617,8 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         o.svHeirsData = JSON.stringify(getSvHeirs());
         o.scItemsData = JSON.stringify(getScItems());
         o.rorItemsData = JSON.stringify(getRorItems());
+        o.bcItemsData = JSON.stringify(getBcItems());
+        o.bc_sameAddr = document.getElementById("bc_sameAddr") ? (document.getElementById("bc_sameAddr").checked ? "1" : "0") : "1";
         return o;
     }
     function convertGeneralIncomeToWords() {
@@ -2237,6 +2667,10 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         document.getElementById("schoolCorrSection").style.display = (type === "SchoolCorr") ? "block" : "none";
         document.getElementById("rorCorrSection").style.display = (type === "PanchayatROR") ? "block" : "none";
         document.getElementById("rorNewSection").style.display = (type === "PanchayatRORNew") ? "block" : "none";
+        document.getElementById("birthCorrSection").style.display = (type === "BirthCorrDigital") ? "block" : "none";
+        document.getElementById("ishanUdaySection").style.display = (type === "IshanUday") ? "block" : "none";
+        const paLeg = document.getElementById("presentAddressLegend");
+        if (paLeg) paLeg.textContent = (type === "OwnershipTransfer") ? "বিক্রেতার ঠিকানা (Seller's Address)" : "Present Address (বর্তমান ঠিকানা)";
 
         const dobWrapper = document.getElementById("dobWrapper");
         const ageInput = document.getElementById("age");
@@ -2271,6 +2705,11 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
             document.getElementById("obcSection").style.display = "block";
             dobWrapper.style.display = "none";
             ageInput.readOnly = false; ageInput.style.backgroundColor = "#fff"; ageInput.placeholder = "বয়স লিখুন (e.g. 39)";
+        } else if (type === "IshanUday") {
+            dobWrapper.style.display = "none";
+            ageInput.readOnly = false; ageInput.style.backgroundColor = "#fff"; ageInput.placeholder = "ঐচ্ছিক (Optional)";
+            const iuSel = document.getElementById("iu_parentRole");
+            if (iuSel) iuSel.value = (document.getElementById("gender").value === "Female") ? "mother" : "father";
         } else {
             dobWrapper.style.display = "block";
             ageInput.readOnly = true; ageInput.style.backgroundColor = "#e9ecef";
@@ -2301,7 +2740,7 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
     function isBirthSelf(){ const t = document.getElementById("affidavitType").value; return (t === "Birth" || t === "DigiBirth") && document.getElementById("appType").value === "Self"; }
     function isBirthChild(){ const t = document.getElementById("affidavitType").value; return (t === "Birth" || t === "DigiBirth") && document.getElementById("appType").value === "Child"; }
     function isNonStudy(){ return document.getElementById("affidavitType").value.indexOf("NonStudy") === 0; }
-    function poPinRequired(){ const t = document.getElementById("affidavitType").value; return t === "Birth" || t.indexOf("DigiBirth") === 0 || t === "Death" || t === "AddressProof" || t === "RentNOC"; }
+    function poPinRequired(){ const t = document.getElementById("affidavitType").value; return t === "Birth" || t.indexOf("DigiBirth") === 0 || t === "Death" || t === "AddressProof" || t === "RentNOC" || t === "IshanUday"; }
     function updatePoPinUI(){
         const m = poPinRequired() ? " *" : " (ঐচ্ছিক)";
         ["p","ot"].forEach(q => { const a = document.getElementById(q+"_po"), b = document.getElementById(q+"_pin"); if(a) a.placeholder = "P.O." + m; if(b) b.placeholder = "PIN Code" + m; });
@@ -2334,6 +2773,10 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
     function updateSpouseRequirement() {
         updatePoPinUI();
         const gender = document.getElementById("gender").value;
+        if (document.getElementById("affidavitType").value === "IshanUday") {
+            const iuSel = document.getElementById("iu_parentRole");
+            if (iuSel) iuSel.value = (gender === "Female") ? "mother" : "father";
+        }
         const mWrap = document.getElementById("maritalStatusWrapper");
         const mSel = document.getElementById("maritalStatus");
         if (mWrap && mSel) {
@@ -2376,7 +2819,7 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
 
     function calculateAge() {
         const type = document.getElementById("affidavitType").value;
-        if(type.includes("OBC")) return;
+        if(type.includes("OBC") || type === "IshanUday") return;
         const dDay = document.getElementById("dobDay").value;
         const dMonth = document.getElementById("dobMonth").value;
         const dYear = document.getElementById("dobYear").value;
@@ -2439,8 +2882,8 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         const addBad = (id, msg) => { const el = findErrorTarget(id); if (el) badEls.push({ el, msg }); };
 
         if (!name) addBad("name", "আবেদনকারীর নাম");
-        if (!affidavitType.includes("OBC") && (!dobDay || !dobMonth || !dobYear)) addBad("dobDay", "আবেদনকারীর জন্মতারিখ");
-        if (!age || parseInt(age) < 18) addBad(affidavitType.includes("OBC") ? "age" : "dobDay", "বয়স ১৮+ হতে হবে");
+        if (!affidavitType.includes("OBC") && affidavitType !== "IshanUday" && (!dobDay || !dobMonth || !dobYear)) addBad("dobDay", "আবেদনকারীর জন্মতারিখ");
+        if (affidavitType !== "IshanUday" && (!age || parseInt(age) < 18)) addBad(affidavitType.includes("OBC") ? "age" : "dobDay", "বয়স ১৮+ হতে হবে");
         if (!profession) addBad(document.getElementById("professionSelect").value === "Other" ? "customProfession" : "professionSelect", "পেশা");
         if (fatherRequired() && !father) addBad("fatherName", "বাবার নাম");
         if (spouseRequired() && !spouse) addBad("spouseName", "স্বামী/স্ত্রীর নাম");
@@ -2448,10 +2891,11 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         const p_vill = document.getElementById("p_vill").value.trim(); const p_po = document.getElementById("p_po").value.trim();
         const p_ps = document.getElementById("p_ps").value.trim(); const p_dist = document.getElementById("p_dist").value;
         const p_pin = document.getElementById("p_pin").value.trim();
-        if (!p_vill) addBad("p_vill", "বর্তমান ঠিকানার গ্রাম/ওয়ার্ড");
-        if (poPinRequired() && !p_po) addBad("p_po", "বর্তমান ঠিকানার P.O.");
-        if (!p_ps) addBad("p_ps", "বর্তমান ঠিকানার P.S.");
-        if (poPinRequired() && !p_pin) addBad("p_pin", "বর্তমান ঠিকানার PIN");
+        const _paLbl = affidavitType === "OwnershipTransfer" ? "বিক্রেতার ঠিকানার" : "বর্তমান ঠিকানার";
+        if (!p_vill) addBad("p_vill", _paLbl + " গ্রাম/ওয়ার্ড");
+        if (poPinRequired() && !p_po) addBad("p_po", _paLbl + " P.O.");
+        if (!p_ps) addBad("p_ps", _paLbl + " P.S.");
+        if (poPinRequired() && !p_pin) addBad("p_pin", _paLbl + " PIN");
 
         let b_vill = "", b_po = "", b_ps = "", b_dist = "", b_pin = "";
         let d_vill = "", d_po = "", d_ps = "", d_dist = "", d_pin = "";
@@ -2593,8 +3037,10 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
             }
         } else if (affidavitType === "PanchayatROR") {
             if (val('ror_for') !== 'self' && !val('ror_memberName')) addBad('ror_memberName', 'সদস্যের সঠিক নাম');
+            if (!val('ror_panchayat')) addBad('ror_panchayat', 'পঞ্চায়েতের নাম');
+            if (!val('ror_block')) addBad('ror_block', 'ব্লকের নাম');
             if (!rorItemsValid()) {
-                const rb = Array.from(document.querySelectorAll('#rorItems input')).find(i => !i.value.trim()) || document.getElementById('rorCorrSection');
+                const rb = Array.from(document.querySelectorAll('#rorItems .ror-wrong, #rorItems .ror-correct')).find(i => !i.value.trim()) || document.getElementById('rorCorrSection');
                 badEls.push({ el: rb, msg: 'পঞ্চায়েত ROR সংশোধনের ভুল ও সঠিক তথ্য (তারিখ DD/MM/YYYY)' });
             }
         } else if (affidavitType === "PanchayatRORNew") {
@@ -2608,6 +3054,26 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
             if (!val('rn_regNo')) addBad('rn_regNo', 'Birth Certificate রেজিস্ট্রেশন নম্বর');
             if (!isValidDmyDate(val('rn_regDate'))) addBad('rn_regDate', 'সঠিক রেজিস্ট্রেশন তারিখ (DD/MM/YYYY)');
             if (!rnReasonVal()) addBad('rn_reasonCustom', 'দেরি হওয়ার কারণ');
+        } else if (affidavitType === "IshanUday") {
+            if (!val('iu_candidateName')) addBad('iu_candidateName', 'প্রার্থীর নাম (Candidate Name)');
+        } else if (affidavitType === "BirthCorrDigital") {
+            if (val('bc_for') !== 'self') {
+                if (!val('bc_holderName')) addBad('bc_holderName', 'যাঁর Birth Certificate তাঁর সঠিক নাম');
+                if (!isValidDmyDate(val('bc_holderDob'))) addBad('bc_holderDob', 'সঠিক জন্মতারিখ (DD/MM/YYYY)');
+            }
+            if (val('bc_issuerPlaceType') === 'Home') {
+                if (!val('bc_panchayat')) addBad('bc_panchayat', 'পঞ্চায়েতের নাম');
+                if (!val('bc_block')) addBad('bc_block', 'ব্লকের নাম');
+                if (!document.getElementById('bc_sameAddr').checked && !val('bc_birthAddr')) addBad('bc_birthAddr', 'জন্মস্থানের পূর্ণ ঠিকানা');
+            } else {
+                if (!val('bc_issuerName')) addBad('bc_issuerName', val('bc_issuerPlaceType') === 'Corporation' ? 'কর্পোরেশন বা সংস্থার নাম' : 'হাসপাতালের নাম');
+            }
+            if (!val('bc_regNo')) addBad('bc_regNo', 'Birth Certificate রেজিস্ট্রেশন নম্বর');
+            if (!isValidDmyDate(val('bc_regDate'))) addBad('bc_regDate', 'সঠিক রেজিস্ট্রেশন তারিখ (DD/MM/YYYY)');
+            if (!bcItemsValid()) {
+                const bb = Array.from(document.querySelectorAll('#bcItems .bc-wrong, #bcItems .bc-correct')).find(i => !i.value.trim()) || document.getElementById('birthCorrSection');
+                badEls.push({ el: bb, msg: 'Birth Certificate সংশোধনের ভুল ও সঠিক তথ্য (তারিখ DD/MM/YYYY, পিন ৬ ডিজিট)' });
+            }
         }
 
         if (badEls.length) {
@@ -2625,7 +3091,7 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         if (affidavitType === "Birth") formattedText += `*Type:* ${appType === 'Self' ? 'Self' : 'Child'}\n`;
 
         formattedText += `\n*Name:* ${name}${val("customerPhone") ? "\n*Mobile:* " + val("customerPhone") : ""}\n*Gender:* ${gender}${gender === "Female" ? " (" + document.getElementById("maritalStatus").value + ")" : ""}\n*Age:* ${age}\n`;
-        if(!affidavitType.includes("OBC")) formattedText += `*DOB:* ${dobDay}/${dobMonth}/${dobYear}\n`;
+        if(!affidavitType.includes("OBC") && affidavitType !== "IshanUday") formattedText += `*DOB:* ${dobDay}/${dobMonth}/${dobYear}\n`;
         if (father) formattedText += `*Father:* ${father}\n`;
         if (mother) formattedText += `*Mother:* ${mother}\n`;
         formattedText += `*Religion:* ${religion}\n`;
@@ -2707,14 +3173,22 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
             formattedText += `\n`;
         } else if (affidavitType === "PanchayatROR") {
             formattedText += `*-- Panchayat ROR Correction --*\n*For:* ${val('ror_for')}${val('ror_for') !== 'self' ? ' (' + val('ror_memberName') + ')' : ''}${val('ror_panchayat') ? '\n*Panchayat:* ' + val('ror_panchayat') + ' ' + val('ror_panchayatType') : ''}${val('ror_block') ? '\n*Block:* ' + val('ror_block') + ' ' + val('ror_blockType') : ''}${val('ror_familyId') ? '\n*Family ID:* ' + val('ror_familyId') : ''}\n`;
-            getRorItems().forEach((it, idx) => { formattedText += `*Error ${idx+1} (${it.field}):* ${it.wrong} → ${it.correct}\n`; });
+            getRorItems().forEach((it, idx) => { formattedText += `*Error ${idx+1} (${it.field}):* ${it.wrong} → ${it.correct}${it.correctBn ? ' (' + it.correctBn + ')' : ''}\n`; });
             formattedText += `\n`;
         } else if (affidavitType === "PanchayatRORNew") {
             const rnIssStr = val('rn_birthPlaceType') === 'Home' ? `${val('rn_issuerName')} ${val('rn_issuerType')}` : val('rn_issuerName');
             formattedText += `*-- Panchayat ROR New Name --*\n*For:* ${val('rn_for')}${val('rn_for') !== 'self' ? ' (' + val('rn_childName') + ', DOB: ' + val('rn_childDob') + ')' : ''}\n*Birth Place:* ${val('rn_birthPlaceType')}\n*BC Issued By:* ${rnIssStr}\n*BC Reg No:* ${val('rn_regNo')} (*Date:* ${val('rn_regDate')})\n*Target ROR:* ${val('rn_panchayat')} ${val('rn_panchayatType')}, ${val('rn_block')} ${val('rn_blockType')}${val('rn_familyId') ? '\n*Family ID:* ' + val('rn_familyId') : ''}\n*Reason:* ${rnReasonVal()}\n\n`;
+        } else if (affidavitType === "BirthCorrDigital") {
+            const bcIssStr = val('bc_issuerPlaceType') === 'Home' ? `${val('bc_panchayat')} ${val('bc_panchayatType')}, ${val('bc_block')} ${val('bc_blockType')}` : val('bc_issuerName');
+            formattedText += `*-- Birth Certificate Correction & Digital --*\n*Purpose:* ${val('bc_purpose') === 'corr_only' ? 'Only Correction' : 'Correction & Digital'}\n*For:* ${val('bc_for')}${val('bc_for') !== 'self' ? ' (' + val('bc_holderName') + ', DOB: ' + val('bc_holderDob') + ')' : ''}\n*Issued By:* ${bcIssStr}\n*Reg No:* ${val('bc_regNo')} (*Date:* ${val('bc_regDate')})${(val('bc_issuerPlaceType') !== 'Home' && val('bc_panchayat')) ? '\n*Panchayat & Block:* ' + val('bc_panchayat') + ' ' + val('bc_panchayatType') + (val('bc_block') ? ', ' + val('bc_block') + ' ' + val('bc_blockType') : '') : ''}\n`;
+            getBcItems().forEach((it, idx) => { formattedText += `*Error ${idx+1} (${it.field}):* ${it.wrong} → ${it.correct}\n`; });
+            formattedText += `\n`;
         }
 
-        formattedText += `*Present Address:* Vill: ${p_vill}, ${p_po ? 'PO: ' + p_po + ', ' : ''}PS: ${p_ps}, Dist: ${p_dist}${p_pin ? ", PIN: " + p_pin : ""}\n\n`;
+        if (affidavitType === "IshanUday") {
+            formattedText += `*-- Ishan Uday Scholarship (Annexure-IV) --*\n*Applicant Relation:* ${val('iu_parentRole')}\n*Candidate Name:* ${val('iu_candidateName').toUpperCase()}\n\n`;
+        }
+        formattedText += `*${affidavitType === "OwnershipTransfer" ? "Seller Address" : "Present Address"}:* Vill: ${p_vill}, ${p_po ? 'PO: ' + p_po + ', ' : ''}PS: ${p_ps}, Dist: ${p_dist}${p_pin ? ", PIN: " + p_pin : ""}\n\n`;
 
         if (affidavitType === "Birth" || (affidavitType.includes("DigiBirth") && pobType === "Home")) {
             formattedText += `*Birth Address:* Vill: ${b_vill}, ${b_po ? 'PO: ' + b_po + ', ' : ''}PS: ${b_ps}, Dist: ${b_dist}${b_pin ? ", PIN: " + b_pin : ""}\n\n`;
@@ -2907,8 +3381,8 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
             const app = document.getElementById('appType').value;
             const pob = document.getElementById('pobType').value;
             chk(val('name'));
-            if (!t.includes('OBC')) chk(val('dobDay') && val('dobMonth') && val('dobYear'));
-            chk(parseInt(val('age')) >= 18);
+            if (!t.includes('OBC') && t !== 'IshanUday') chk(val('dobDay') && val('dobMonth') && val('dobYear'));
+            if (t !== 'IshanUday') chk(parseInt(val('age')) >= 18);
             if (fatherRequired()) chk(val('fatherName'));
             if (spouseRequired()) chk(val('spouseName'));
             const prof = document.getElementById('professionSelect').value === 'Other' ? val('customProfession') : document.getElementById('professionSelect').value;
@@ -2957,11 +3431,23 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
                 chk(scDocTypeVal()); chk(scItemsValid());
             } else if (t === 'PanchayatROR') {
                 if (val('ror_for') !== 'self') chk(val('ror_memberName'));
+                chk(val('ror_panchayat')); chk(val('ror_block'));
                 chk(rorItemsValid());
             } else if (t === 'PanchayatRORNew') {
                 if (val('rn_for') !== 'self') { chk(val('rn_childName')); chk(isValidDmyDate(val('rn_childDob'))); }
                 chk(val('rn_panchayat')); chk(val('rn_block')); chk(val('rn_issuerName'));
                 chk(val('rn_regNo')); chk(isValidDmyDate(val('rn_regDate'))); chk(rnReasonVal());
+            } else if (t === 'IshanUday') {
+                chk(val('iu_candidateName'));
+            } else if (t === 'BirthCorrDigital') {
+                if (val('bc_for') !== 'self') { chk(val('bc_holderName')); chk(isValidDmyDate(val('bc_holderDob'))); }
+                if (val('bc_issuerPlaceType') === 'Home') {
+                    chk(val('bc_panchayat')); chk(val('bc_block'));
+                    if (!document.getElementById('bc_sameAddr').checked) chk(val('bc_birthAddr'));
+                } else {
+                    chk(val('bc_issuerName'));
+                }
+                chk(val('bc_regNo')); chk(isValidDmyDate(val('bc_regDate'))); chk(bcItemsValid());
             }
         }
         const pct = total ? Math.round((filled / total) * 100) : 0;
@@ -3003,7 +3489,7 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
             addR("মোবাইল নম্বর", val('customerPhone'));
             const gStr = val('gender') + (val('gender') === 'Female' && !isBirthChild() ? ' (' + val('maritalStatus') + ')' : '');
             addR("লিঙ্গ ও বয়স", gStr + " · " + val('age') + " বছর");
-            if (!t.includes("OBC")) addR("জন্মতারিখ", `${val('dobDay')}/${val('dobMonth')}/${val('dobYear')}`);
+            if (!t.includes("OBC") && t !== "IshanUday") addR("জন্মতারিখ", `${val('dobDay')}/${val('dobMonth')}/${val('dobYear')}`);
             addR("বাবার নাম", val('fatherName'));
             addR("মায়ের নাম", val('motherName'));
             addR("স্বামী/স্ত্রীর নাম", val('spouseName'));
@@ -3026,9 +3512,11 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
             if (isSurvivalType(t)) { const ds = getSvDeceasedFilled(); addR("মৃত ব্যক্তি ও ওয়ারিশ", `${ds[0] ? ds[0].name : ""} (+আরও ${Math.max(0, ds.length-1)} জন মৃত) · ${getSvHeirs().length} জন ওয়ারিশ`); }
             if (t === 'RentNOC') addR("NOC প্রাপক ও উদ্দেশ্য", `${val('noc_benName')} (${val('noc_benRel')}) · ${nocPurposeVal()}`);
             if (t === 'SchoolCorr') addR("স্কুল সংশোধন", `${scDocTypeVal()}${val("sc_schoolName") ? " · " + val("sc_schoolName") : ""} · ${getScItems().map(it => it.wrong + " → " + it.correct).join(", ")}`);
-            if (t === 'PanchayatROR') addR("পঞ্চায়েত ROR", `${val("ror_panchayat") ? val("ror_panchayat") + " · " : ""}${getRorItems().map(it => it.wrong + " → " + it.correct).join(", ")}`);
+            if (t === 'PanchayatROR') addR("পঞ্চায়েত ROR", `${val("ror_panchayat") ? val("ror_panchayat") + " (" + val("ror_block") + ") · " : ""}${getRorItems().map(it => it.wrong + " → " + it.correct + (it.correctBn ? " (" + it.correctBn + ")" : "")).join(", ")}`);
             if (t === 'PanchayatRORNew') addR("ROR-এ নতুন নাম", `${val("rn_for") === "self" ? val("name") : val("rn_childName")} · Reg: ${val("rn_regNo")} (${val("rn_regDate")}) · ${val("rn_panchayat")}`);
-            addR("বর্তমান ঠিকানা", `Vill: ${val('p_vill')}${val('p_po') ? ', PO: ' + val('p_po') : ''}, PS: ${val('p_ps')}, Dist: ${val('p_dist')}${val('p_pin') ? ', PIN: ' + val('p_pin') : ''}`);
+            if (t === 'BirthCorrDigital') addR("জন্ম সার্টিফিকেট সংশোধন", `Reg: ${val("bc_regNo")} (${val("bc_regDate")}) · ${val("bc_issuerPlaceType") === "Home" ? val("bc_panchayat") + " (" + val("bc_block") + ")" : val("bc_issuerName")} · ${getBcItems().map(it => it.wrong + " → " + it.correct).join(", ")}`);
+            if (t === 'IshanUday') addR("প্রার্থীর নাম (Ishan Uday)", `${val("iu_candidateName").toUpperCase()} (${val("iu_parentRole")})`);
+            addR(t === 'OwnershipTransfer' ? "বিক্রেতার ঠিকানা" : "বর্তমান ঠিকানা", `Vill: ${val('p_vill')}${val('p_po') ? ', PO: ' + val('p_po') : ''}, PS: ${val('p_ps')}, Dist: ${val('p_dist')}${val('p_pin') ? ', PIN: ' + val('p_pin') : ''}`);
         }
         tbody.innerHTML = rows.join("");
         document.getElementById("reviewModal").classList.add("open");
@@ -3092,9 +3580,9 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
 
 
     // ================= Auto Capitalize Each Word (Smart Title Case + Acronyms) =================
-    const TC_SKIP_IDS = new Set(['lockPass', 'importBox', 'ot_reason', 'podPrefix', 'obcCategory', 'oldRegNo', 'customerPhone', 'mCustomerPhone', 'recordSearch', 'ld_docNo', 'ld_gdNo', 'gc_reason', 'ap_years', 'dc_wrongDob', 'nc_reason', 'sc_pageNo', 'sc_slNo', 'rn_childDob', 'rn_regDate', 'rn_reasonCustom']);
-    const TC_UPPER_IDS = new Set(['ot_vehicleNo', 'ot_engineNo', 'ot_chassisNo', 'ld_docNo', 'sc_regNo', 'ror_familyId', 'rn_regNo', 'rn_familyId']);
-    const TC_DOC_IDS = new Set(['ld_docName', 'dc_wrongDoc', 'dc_proofDoc', 'sc_docTypeCustom', 'sc_schoolName', 'sc_proofDoc', 'ror_proofDoc', 'gc_lastExam', 'gc_institution', 'gc_nextCourse', 'ap_purpose', 'ig_purpose', 'um_purpose', 'ue_qual', 'ue_purpose', 'fj_dept', 'noc_purposeCustom', 'noc_addr', 'rn_issuerName']);
+    const TC_SKIP_IDS = new Set(['lockPass', 'importBox', 'ot_reason', 'podPrefix', 'obcCategory', 'oldRegNo', 'customerPhone', 'mCustomerPhone', 'recordSearch', 'ld_docNo', 'ld_gdNo', 'gc_reason', 'ap_years', 'dc_wrongDob', 'nc_reason', 'sc_pageNo', 'sc_slNo', 'rn_childDob', 'rn_regDate', 'rn_reasonCustom', 'bc_holderDob', 'bc_regDate']);
+    const TC_UPPER_IDS = new Set(['ot_vehicleNo', 'ot_engineNo', 'ot_chassisNo', 'ld_docNo', 'sc_regNo', 'ror_familyId', 'rn_regNo', 'rn_familyId', 'bc_regNo', 'iu_candidateName']);
+    const TC_DOC_IDS = new Set(['ld_docName', 'dc_wrongDoc', 'dc_proofDoc', 'sc_docTypeCustom', 'sc_schoolName', 'sc_proofDoc', 'ror_proofDoc', 'gc_lastExam', 'gc_institution', 'gc_nextCourse', 'ap_purpose', 'ig_purpose', 'um_purpose', 'ue_qual', 'ue_purpose', 'fj_dept', 'noc_purposeCustom', 'noc_addr', 'rn_issuerName', 'bc_issuerName', 'bc_proofDoc']);
     const TC_ACRONYMS = new Set([
         'PRTC','PAN','ROR','EPIC','OBC','NCL','EWS','BPL','APL','AAY','SC','ST',
         'TBSE','CBSE','ICSE','NCERT','SCERT','TSECL','TTAADC','TGB','SBI','UCO','PNB','BOB','BOI','HDFC','ICICI','LIC',
@@ -3130,7 +3618,7 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         if (!el || el.tagName !== 'INPUT') return true;
         if (el.type !== 'text' || el.readOnly || el.disabled) return true;
         if (TC_SKIP_IDS.has(el.id)) return true;
-        if (el.closest('.easy-date') || (el.classList && el.classList.contains('sv-dod'))) return true;
+        if (el.closest('.easy-date') || (el.classList && (el.classList.contains('sv-dod') || el.classList.contains('ror-correct-bn')))) return true;
         if (el.classList && (el.classList.contains('sc-wrong') || el.classList.contains('sc-correct'))) {
             const r = el.closest('.sc-row');
             if (r && r.querySelector('.sc-field').value === 'dob') return true;
@@ -3138,6 +3626,11 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         if (el.classList && (el.classList.contains('ror-wrong') || el.classList.contains('ror-correct'))) {
             const r = el.closest('.ror-row');
             if (r && r.querySelector('.ror-field').value === 'dob') return true;
+        }
+        if (el.classList && (el.classList.contains('bc-wrong') || el.classList.contains('bc-correct'))) {
+            const r = el.closest('.bc-row');
+            const fv = r ? r.querySelector('.bc-field').value : '';
+            if (fv === 'dob' || fv === 'pin_code') return true;
         }
         return false;
     }
@@ -3167,7 +3660,7 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
 
     function saveCustomerDraft() {
         try {
-            const state = { docMode: curMode(), fields: {}, checks: {}, spPersons: getSpPersons(), svDeceased: getSvDeceased(), svHeirs: getSvHeirs(), scItems: getScItems(), rorItems: getRorItems() };
+            const state = { docMode: curMode(), fields: {}, checks: {}, spPersons: getSpPersons(), svDeceased: getSvDeceased(), svHeirs: getSvHeirs(), scItems: getScItems(), rorItems: getRorItems(), bcItems: getBcItems() };
             document.querySelectorAll('#affForm input, #affForm select, #marriageForm input, #marriageForm select').forEach(el => {
                 if (!el.id || el.closest('.easy-date')) return;
                 if (el.type === 'checkbox') state.checks[el.id] = el.checked;
@@ -3200,7 +3693,8 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
             if (Array.isArray(state.svHeirs) && state.svHeirs.length) renderSvHeirs(state.svHeirs);
             if (Array.isArray(state.scItems) && state.scItems.length) renderScItems(state.scItems);
             if (Array.isArray(state.rorItems) && state.rorItems.length) renderRorItems(state.rorItems);
-            onScForChange(); checkScDocType(); onRorForChange(); onRnForChange(); onRnBirthTypeChange(); checkRnReason();
+            if (Array.isArray(state.bcItems) && state.bcItems.length) renderBcItems(state.bcItems);
+            onScForChange(); checkScDocType(); onRorForChange(); onRnForChange(); onRnBirthTypeChange(); checkRnReason(); onBcForChange(); onBcIssuerTypeChange();
             checkNocPurpose();
 
             toggleAffidavitType();
@@ -3273,6 +3767,12 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
     const _origRnChanged = window.rnChanged;
     window.rnChanged = function() {
         if (typeof _origRnChanged === 'function') _origRnChanged();
+        saveCustomerDraft();
+        updateProgress();
+    };
+    const _origBcChanged = window.bcChanged;
+    window.bcChanged = function() {
+        if (typeof _origBcChanged === 'function') _origBcChanged();
         saveCustomerDraft();
         updateProgress();
     };

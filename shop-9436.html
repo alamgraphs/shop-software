@@ -1124,11 +1124,15 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
             <div>
                 <label>আবেদনটি কার ROR-এর জন্য? (For Whom) <span style="color:red;">*</span></label>
                 <select id="ror_for" onchange="onRorForChange()">
-                    <option value="self">Self (নিজের জন্য)</option>
+                    <option value="self">Self (নিজের জন্য — আবেদনকারী নিজেই)</option>
                     <option value="son">For Son (ছেলের জন্য — বাবা/মা আবেদনকারী)</option>
                     <option value="daughter">For Daughter (মেয়ের জন্য — বাবা/মা আবেদনকারী)</option>
                     <option value="wife">For Wife (স্ত্রীর জন্য — স্বামী আবেদনকারী)</option>
                     <option value="husband">For Husband (স্বামীর জন্য — স্ত্রী আবেদনকারী)</option>
+                    <option value="brother">For Brother (ভাইয়ের জন্য — ভাই/বোন আবেদনকারী)</option>
+                    <option value="sister">For Sister (বোনের জন্য — ভাই/বোন আবেদনকারী)</option>
+                    <option value="father">For Father (বাবার জন্য — ছেলে/মেয়ে আবেদনকারী)</option>
+                    <option value="mother">For Mother (মায়ের জন্য — ছেলে/মেয়ে আবেদনকারী)</option>
                 </select>
             </div>
             <div id="rorMemberNameWrap" style="display:none;">
@@ -1138,9 +1142,9 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         </div>
         <div class="grid-2 form-group">
             <div>
-                <label>Panchayat / Council Name (ঐচ্ছিক)</label>
+                <label>Panchayat / Council Name <span style="color:red;">*</span></label>
                 <div style="display:flex;gap:5px;">
-                    <input type="text" id="ror_panchayat" placeholder="Panchayat Name" list="panchayatList" style="flex:1.5;">
+                    <input type="text" id="ror_panchayat" placeholder="Panchayat Name *" list="panchayatList" style="flex:1.5;">
                     <select id="ror_panchayatType" style="flex:1.5;" onchange="updateRorBlockType()">
                         <option value="Gram Panchayat">Gram Panchayat</option>
                         <option value="ADC Village">ADC Village</option>
@@ -1150,9 +1154,9 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
                 </div>
             </div>
             <div>
-                <label>Block / Sub-Division Name (ঐচ্ছিক)</label>
+                <label>Block / Sub-Division Name <span style="color:red;">*</span></label>
                 <div style="display:flex;gap:5px;">
-                    <input type="text" id="ror_block" placeholder="Block Name" list="blockList" style="flex:1.5;">
+                    <input type="text" id="ror_block" placeholder="Block Name *" list="blockList" style="flex:1.5;">
                     <select id="ror_blockType" style="flex:1.5;">
                         <option value="R.D. Block">R.D. Block</option>
                         <option value="Sub-Division">Sub-Division</option>
@@ -1161,13 +1165,16 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
             </div>
         </div>
         <div class="grid-2 form-group">
-            <div><label>Family ID No. (ঐচ্ছিক)</label><input type="text" id="ror_familyId" placeholder="e.g. Family ID / ROR No."></div>
+            <div><label>Family ID No. (ঐচ্ছিক)</label><input type="text" id="ror_familyId" placeholder="e.g. TPABEM5685"></div>
             <div><label>Proof Document (সঠিক প্রমাণপত্র — ঐচ্ছিক)</label><input type="text" id="ror_proofDoc" placeholder="e.g. Aadhaar Card / PRTC / Birth Certificate"></div>
         </div>
         <div class="form-group">
-            <label>ROR-এ কী কী ভুল সংশোধন হবে? (Corrections Needed) <span style="color:red;">*</span> <small style="font-weight:normal;">(১ বা একাধিক ভুল যোগ করা যাবে)</small></label>
+            <label>ROR-এ কী কী ভুল সংশোধন হবে? (Corrections Needed) <span style="color:red;">*</span> <small style="font-weight:normal;">(ইংরেজি বা বাংলা যেভাবে ভুল আছে লিখুন; বাংলা বানান ভুল থাকলে নিচের বাংলা ঘরে সঠিক বাংলা নাম দিন)</small></label>
             <div id="rorItems"></div>
-            <button type="button" onclick="addRorItem(); rorChanged();" style="background:#158056;color:#fff;border:none;border-radius:8px;padding:9px 13px;cursor:pointer;font-weight:800;font-size:13px;">➕ আরও ভুল যোগ করুন</button>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <button type="button" onclick="addRorItem(); rorChanged();" style="background:#158056;color:#fff;border:none;border-radius:8px;padding:9px 13px;cursor:pointer;font-weight:800;font-size:13px;">➕ আরও ভুল যোগ করুন</button>
+                <button type="button" onclick="fillRorNameDob()" style="background:#0b1f3a;color:#f8f0d9;border:none;border-radius:8px;padding:9px 13px;cursor:pointer;font-weight:800;font-size:12.5px;">⚡ নাম + জন্মতারিখ একসাথে</button>
+            </div>
         </div>
     </fieldset>
     <fieldset id="rorNewSection" style="display:none;">
@@ -2020,6 +2027,10 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         '<option value="mother_name">মায়ের নাম (Mother\'s Name)</option>' +
         '<option value="husband_name">স্বামীর নাম (Husband\'s Name)</option>' +
         '<option value="wife_name">স্ত্রীর নাম (Wife\'s Name)</option>' +
+        '<option value="brother_name">ভাইয়ের নাম (Brother\'s Name)</option>' +
+        '<option value="sister_name">বোনের নাম (Sister\'s Name)</option>' +
+        '<option value="grandfather_name">দাদার নাম (Grandfather\'s Name)</option>' +
+        '<option value="grandmother_name">দাদীর নাম (Grandmother\'s Name)</option>' +
         '<option value="dob">জন্মের তারিখ (Date of Birth)</option>';
 
     function formatCorrDateIfNeeded(inp, fieldVal) {
@@ -2155,8 +2166,10 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         const w = document.getElementById('rorMemberNameWrap');
         if (w) w.style.display = (f === 'self') ? 'none' : '';
         const mn = document.getElementById('ror_memberName');
-        if ((f === 'wife' || f === 'husband') && mn && !mn.value.trim() && val('spouseName')) {
-            mn.value = val('spouseName');
+        if (mn && !mn.value.trim()) {
+            if ((f === 'wife' || f === 'husband') && val('spouseName')) mn.value = val('spouseName');
+            else if (f === 'father' && val('fatherName')) mn.value = val('fatherName');
+            else if (f === 'mother' && val('motherName')) mn.value = val('motherName');
         }
         rorChanged();
     }
@@ -2164,6 +2177,38 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         const t1 = document.getElementById('ror_panchayatType').value;
         const t2 = document.getElementById('ror_blockType');
         if (t2) t2.value = (t1 === 'Gram Panchayat' || t1 === 'ADC Village') ? 'R.D. Block' : 'Sub-Division';
+        rorChanged();
+    }
+    function rorDefaultCorrect(field) {
+        const rFor = document.getElementById('ror_for') ? document.getElementById('ror_for').value : 'self';
+        const g = document.getElementById('gender') ? document.getElementById('gender').value : 'Male';
+        if (rFor === 'self') {
+            if (field === 'member_name') return val('name');
+            if (field === 'father_name') return val('fatherName');
+            if (field === 'mother_name') return val('motherName');
+            if ((field === 'husband_name' || field === 'wife_name')) return val('spouseName');
+            if (field === 'dob' && val('dobDay') && val('dobMonth') && val('dobYear')) return `${val('dobDay')}/${val('dobMonth')}/${val('dobYear')}`;
+        } else {
+            if (field === 'member_name') return val('ror_memberName');
+            if ((rFor === 'son' || rFor === 'daughter') && field === 'father_name') return g === 'Male' ? val('name') : val('spouseName');
+            if ((rFor === 'son' || rFor === 'daughter') && field === 'mother_name') return g === 'Female' ? val('name') : val('spouseName');
+            if (rFor === 'wife' && field === 'husband_name') return val('name');
+            if (rFor === 'husband' && field === 'wife_name') return val('name');
+            if ((rFor === 'brother' || rFor === 'sister') && field === 'father_name') return val('fatherName');
+            if ((rFor === 'brother' || rFor === 'sister') && field === 'mother_name') return val('motherName');
+        }
+        return '';
+    }
+    function fillRorNameDob() {
+        const existing = {};
+        getRorItems().forEach(it => { existing[it.field] = it; });
+        const pair = ['member_name', 'dob'].map(f => ({
+            field: f,
+            wrong: (existing[f] && existing[f].wrong) || '',
+            correct: (existing[f] && existing[f].correct) || rorDefaultCorrect(f),
+            correctBn: (existing[f] && existing[f].correctBn) || ''
+        }));
+        renderRorItems(pair);
         rorChanged();
     }
     function addRorItem(it) {
@@ -2174,25 +2219,40 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         row.className = 'corr-row ror-row';
         row.innerHTML =
             '<select class="ror-field" style="flex:1 1 100%;" onchange="onRorFieldChange(this)">' + ROR_FIELD_OPTS + '</select>' +
-            '<input type="text" class="ror-wrong" placeholder="ভুল তথ্য (ROR-এ যেমন আছে) *" style="flex:1 1 190px;" oninput="onRorValInput(this)">' +
-            '<input type="text" class="ror-correct" placeholder="সঠিক তথ্য *" style="flex:1 1 190px;" oninput="onRorValInput(this)">' +
+            '<input type="text" class="ror-wrong" placeholder="ভুল নাম (ROR-এ যেমন আছে — ইংরেজি বা বাংলা) *" style="flex:1 1 180px;" oninput="onRorValInput(this)">' +
+            '<input type="text" class="ror-correct" placeholder="সঠিক নাম (ইংরেজি) *" style="flex:1 1 180px;" oninput="onRorValInput(this)">' +
+            '<input type="text" class="ror-correct-bn" placeholder="সঠিক বাংলা নাম (ঐচ্ছিক, যেমন: ফাতেমা খাতুন)" style="flex:1 1 220px;" oninput="rorChanged()">' +
             '<button type="button" onclick="removeRorItem(this)" title="মুছুন" style="border:none;border-radius:8px;padding:8px 11px;cursor:pointer;font-weight:800;color:#fff;background:#c0392b;">✕</button>';
         row.querySelector('.ror-field').value = it.field || 'member_name';
         row.querySelector('.ror-wrong').value = it.wrong || '';
         row.querySelector('.ror-correct').value = it.correct || '';
-        updateCorrRowPlaceholders(row, 'ror');
+        row.querySelector('.ror-correct-bn').value = it.correctBn || '';
+        updateRorRowUI(row);
         box.appendChild(row);
+    }
+    function updateRorRowUI(row) {
+        updateCorrRowPlaceholders(row, 'ror');
+        const fv = row.querySelector('.ror-field').value;
+        const isDob = fv === 'dob';
+        const w = row.querySelector('.ror-wrong');
+        const c = row.querySelector('.ror-correct');
+        const bn = row.querySelector('.ror-correct-bn');
+        if (!isDob) {
+            w.placeholder = 'ভুল নাম (ROR-এ যেমন আছে — ইংরেজি বা বাংলা) *';
+            c.placeholder = 'সঠিক নাম (ইংরেজি) *';
+        }
+        if (bn) {
+            bn.style.display = isDob ? 'none' : '';
+            if (isDob) bn.value = '';
+        }
     }
     function onRorFieldChange(sel) {
         const row = sel.closest('.ror-row');
-        updateCorrRowPlaceholders(row, 'ror');
+        updateRorRowUI(row);
         const c = row.querySelector('.ror-correct');
-        if (c && !c.value.trim() && document.getElementById('ror_for').value === 'self') {
-            if (sel.value === 'member_name' && val('name')) c.value = val('name');
-            else if (sel.value === 'father_name' && val('fatherName')) c.value = val('fatherName');
-            else if (sel.value === 'mother_name' && val('motherName')) c.value = val('motherName');
-            else if ((sel.value === 'husband_name' || sel.value === 'wife_name') && val('spouseName')) c.value = val('spouseName');
-            else if (sel.value === 'dob' && val('dobDay') && val('dobMonth') && val('dobYear')) c.value = `${val('dobDay')}/${val('dobMonth')}/${val('dobYear')}`;
+        if (c && !c.value.trim()) {
+            const def = rorDefaultCorrect(sel.value);
+            if (def) c.value = def;
         }
         rorChanged();
     }
@@ -2210,21 +2270,27 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
     function removeRorItem(btn) {
         const row = btn.closest('.ror-row'), box = row.parentElement;
         if (box.children.length > 1) row.remove();
-        else { row.querySelector('.ror-wrong').value = ''; row.querySelector('.ror-correct').value = ''; }
+        else {
+            row.querySelector('.ror-wrong').value = '';
+            row.querySelector('.ror-correct').value = '';
+            const bn = row.querySelector('.ror-correct-bn');
+            if (bn) bn.value = '';
+        }
         rorChanged();
     }
     function getRorItems() {
         return Array.from(document.querySelectorAll('#rorItems .ror-row')).map(r => ({
             field: r.querySelector('.ror-field').value,
             wrong: r.querySelector('.ror-wrong').value.trim(),
-            correct: r.querySelector('.ror-correct').value.trim()
-        })).filter(it => it.wrong || it.correct);
+            correct: r.querySelector('.ror-correct').value.trim(),
+            correctBn: r.querySelector('.ror-correct-bn') ? r.querySelector('.ror-correct-bn').value.trim() : ''
+        })).filter(it => it.wrong || it.correct || it.correctBn);
     }
     function rorItemsValid() {
         const its = getRorItems();
         return its.length > 0 && its.every(it => {
             if (!it.wrong || !it.correct) return false;
-            if (it.field === 'dob') return /^\d{2}\/\d{2}\/\d{4}$/.test(it.wrong) && /^\d{2}\/\d{2}\/\d{4}$/.test(it.correct);
+            if (it.field === 'dob') return isValidDmyDate(it.wrong) && isValidDmyDate(it.correct);
             return true;
         });
     }
@@ -3500,50 +3566,160 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
             const isSelf = rorFor === "self";
             const memName = esc(isSelf ? name : (val("ror_memberName") || "[MEMBER NAME]"));
             const memRelMap = {
-                son:      { word: "son",      poss: "his", subj: "my son’s" },
-                daughter: { word: "daughter", poss: "her", subj: "my daughter’s" },
-                wife:     { word: "wife",     poss: "her", subj: "my wife’s" },
-                husband:  { word: "husband",  poss: "his", subj: "my husband’s" }
+                son:      { word: "son",      poss: "his" },
+                daughter: { word: "daughter", poss: "her" },
+                wife:     { word: "wife",     poss: "her" },
+                husband:  { word: "husband",  poss: "his" },
+                brother:  { word: "brother",  poss: "his" },
+                sister:   { word: "sister",   poss: "her" },
+                father:   { word: "father",   poss: "his" },
+                mother:   { word: "mother",   poss: "her" }
             };
-            const mInfo = memRelMap[rorFor] || { word: "", poss: "my", subj: "my" };
-            const targetPoss = isSelf ? "my" : mInfo.subj;
+            const mInfo = memRelMap[rorFor] || { word: "", poss: "my" };
 
-            const pan = esc(val("ror_panchayat"));
+            const pan = esc(val("ror_panchayat")) || "[PANCHAYAT NAME]";
             const panType = esc(val("ror_panchayatType") || "Gram Panchayat");
-            const blk = esc(val("ror_block"));
+            const blk = esc(val("ror_block")) || "[BLOCK NAME]";
             const blkType = esc(val("ror_blockType") || "R.D. Block");
-            let locClause = "";
-            if (pan && blk) locClause = ` of <b>${pan} ${panType}</b> under <b>${blk} ${blkType}</b>`;
-            else if (pan) locClause = ` of <b>${pan} ${panType}</b>`;
-            else if (blk) locClause = ` under <b>${blk} ${blkType}</b>`;
-
             const famId = esc(val("ror_familyId"));
             const famClause = famId ? ` (bearing Family ID No. <b>${famId}</b>)` : "";
             const proof = esc(val("ror_proofDoc"));
-            const proofClause = proof ? `, which is properly recorded in ${isSelf ? "my" : mInfo.poss} valid proof document, namely <b>${proof}</b>` : "";
 
             const itemsRaw = getRorItems();
-            const items = itemsRaw.length ? itemsRaw : [{ field: "member_name", wrong: "[WRONG ENTRY]", correct: "[CORRECT ENTRY]" }];
-            const joinList = a => a.length < 2 ? a.join("") : a.slice(0, -1).join(", ") + " and " + a[a.length - 1];
-            const fLabel = f => f === "member_name" ? "name" : f === "father_name" ? "father’s name" : f === "mother_name" ? "mother’s name" : f === "husband_name" ? "husband’s name" : f === "wife_name" ? "wife’s name" : "Date of Birth";
+            const items = itemsRaw.length ? itemsRaw : [{ field: "member_name", wrong: "[WRONG ENTRY]", correct: "[CORRECT ENTRY]", correctBn: "" }];
+            const joinOxford = a => a.length < 2 ? a.join("") : a.length === 2 ? `${a[0]}, and ${a[1]}` : `${a.slice(0, -1).join(", ")}, and ${a[a.length - 1]}`;
+            const joinP3 = a => a.length < 2 ? a.join("") : a.length === 2 ? `${a[0]} and ${a[1]}` : `${a.slice(0, -1).join(", ")}, and ${a[a.length - 1]}`;
 
-            const correctClauses = items.map(it => `${fLabel(it.field)} is <b>${esc(it.correct || "[CORRECT]")}</b>`);
-            const errClauses = items.map(it => `${targetPoss} ${fLabel(it.field)} has been wrongly recorded as "<b>${esc(it.wrong || "[WRONG]")}</b>" instead of the actual and correct ${fLabel(it.field)} "<b>${esc(it.correct || "[CORRECT]")}</b>"`);
-            const declClauses = items.map(it => `${fLabel(it.field)} is <b>${esc(it.correct || "[CORRECT]")}</b> and not <b>${esc(it.wrong || "[WRONG]")}</b>`);
+            const orderMap = { member_name: 0, father_name: 1, mother_name: 2, husband_name: 3, wife_name: 4, brother_name: 5, sister_name: 6, grandfather_name: 7, grandmother_name: 8, dob: 9 };
+            const ordered = items.slice().sort((a, b) => (orderMap[a.field] ?? 20) - (orderMap[b.field] ?? 20));
+            const hasMem = ordered.some(it => it.field === "member_name");
 
-            const p1Lead = isSelf
-                ? `That I am a permanent resident of the above-mentioned address and my name is enrolled in the <b>Panchayat ROR (Register of Residents)</b>${locClause}${famClause}, and my actual and correct ${joinList(correctClauses)}${proofClause}.`
-                : `That <b>${memName}</b> is my ${mInfo.word}, whose name is enrolled in the <b>Panchayat ROR (Register of Residents)</b>${locClause}${famClause}, and ${targetPoss} actual and correct ${joinList(correctClauses)}${proofClause}.`;
+            const relMeta = {
+                father_name:      { label: "father",      poss: "his" },
+                mother_name:      { label: "mother",      poss: "her" },
+                husband_name:     { label: "husband",     poss: "his" },
+                wife_name:        { label: "wife",        poss: "her" },
+                brother_name:     { label: "brother",     poss: "his" },
+                sister_name:      { label: "sister",      poss: "her" },
+                grandfather_name: { label: "grandfather", poss: "his" },
+                grandmother_name: { label: "grandmother", poss: "her" }
+            };
 
-            verifyNum = "4";
+            const isBengali = s => /[\u0980-\u09FF]/.test(String(s || ""));
+
+            // Helper: identify whose field & pronouns for P1 / P2 / P3
+            const fieldContext = (field, idx) => {
+                if (isSelf) {
+                    if (field === "member_name") return { p1Subj: "my actual and correct name", p2Subj: "my name", p2Poss: "my", p3Subj: "my name", ownerType: "self" };
+                    if (field === "dob") return { p1Subj: "my actual and correct Date of Birth", p2Subj: "my Date of Birth", p2Poss: "my", p3Subj: "my Date of Birth", ownerType: "self" };
+                    const rm = relMeta[field];
+                    return {
+                        p1Subj: `my ${rm.label}’s actual and correct name`,
+                        p2Subj: `my ${rm.label}’s name`,
+                        p2Poss: rm.poss,
+                        p3Subj: `my ${rm.label}’s name`,
+                        ownerType: rm.poss
+                    };
+                } else {
+                    const isParentAppForChild = (rorFor === "son" || rorFor === "daughter");
+                    const isMotherApp = isParentAppForChild && gender === "Female";
+                    const isFatherApp = isParentAppForChild && gender === "Male";
+                    const mPoss = mInfo.poss;
+                    const mLead = idx === 0 ? `my ${mInfo.word}’s` : mPoss;
+
+                    if (field === "member_name") {
+                        return { p1Subj: `my ${mInfo.word}’s actual and correct name`, p2Subj: `my ${mInfo.word}’s name`, p2Poss: mPoss, p3Subj: `my ${mInfo.word}’s name`, ownerType: "member" };
+                    }
+                    if (field === "dob") {
+                        const subj = hasMem ? `${mPoss} Date of Birth` : `my ${mInfo.word}’s Date of Birth`;
+                        return { p1Subj: `${hasMem ? mPoss : `my ${mInfo.word}’s`} actual and correct Date of Birth`, p2Subj: subj, p2Poss: mPoss, p3Subj: `${mLead} Date of Birth`, ownerType: "member" };
+                    }
+                    // Special natural wording when the relative field refers to the deponent themselves
+                    if (isFatherApp && field === "father_name") {
+                        return { p1Subj: `my actual and correct name (as ${mPoss} father)`, p2Subj: `${mPoss} father’s name`, p2Poss: "my", p3Subj: `${mLead} father’s name`, ownerType: "self" };
+                    }
+                    if (isMotherApp && field === "mother_name") {
+                        return { p1Subj: `my actual and correct name (as ${mPoss} mother)`, p2Subj: `${mPoss} mother’s name`, p2Poss: "my", p3Subj: `${mLead} mother’s name`, ownerType: "self" };
+                    }
+                    if (rorFor === "wife" && field === "husband_name") {
+                        return { p1Subj: `my actual and correct name (as her husband)`, p2Subj: `her husband’s name`, p2Poss: "my", p3Subj: `${mLead} husband’s name`, ownerType: "self" };
+                    }
+                    if (rorFor === "husband" && field === "wife_name") {
+                        return { p1Subj: `my actual and correct name (as his wife)`, p2Subj: `his wife’s name`, p2Poss: "my", p3Subj: `${mLead} wife’s name`, ownerType: "self" };
+                    }
+                    const rm = relMeta[field];
+                    return {
+                        p1Subj: `${mPoss} ${rm.label}’s actual and correct name`,
+                        p2Subj: `${mPoss} ${rm.label}’s name`,
+                        p2Poss: rm.poss,
+                        p3Subj: `${mLead} ${rm.label}’s name`,
+                        ownerType: rm.poss
+                    };
+                }
+            };
+
+            const p1Parts = [];
+            const p2Parts = [];
+            const p3Parts = [];
+            const ownerTypes = new Set();
+
+            ordered.forEach((it, idx) => {
+                const fc = fieldContext(it.field, idx);
+                ownerTypes.add(fc.ownerType);
+                const w = esc(it.wrong || "[WRONG]");
+                const c = esc(it.correct || "[CORRECT]");
+                const cBn = esc(it.correctBn || "");
+                const cWithBn = cBn ? `<b>${c} (${cBn})</b>` : `<b>${c}</b>`;
+                const p3WithBn = cBn ? `"<b>${c}</b>" (<b>${cBn}</b>)` : `"<b>${c}</b>"`;
+
+                if (it.field === "dob") {
+                    p1Parts.push(`${fc.p1Subj} is <b>${c}</b>`);
+                    p2Parts.push(`${fc.p2Subj} has been erroneously recorded as "<b>${w}</b>" (instead of ${fc.p2Poss} actual correct Date of Birth, "<b>${c}</b>")`);
+                    p3Parts.push(`${fc.p3Subj} to "<b>${c}</b>"`);
+                } else {
+                    p1Parts.push(`${fc.p1Subj} is ${cWithBn}`);
+                    if (isBengali(it.wrong)) {
+                        const bnCorrectDisplay = cBn || c;
+                        p2Parts.push(`${fc.p2Subj} has been incorrectly recorded in the Bengali script as "<b>${w}</b>" (instead of ${fc.p2Poss} actual correct Bengali name, "<b>${bnCorrectDisplay}</b>")`);
+                    } else {
+                        p2Parts.push(`${fc.p2Subj} has been incorrectly recorded as "<b>${w}</b>" (instead of ${fc.p2Poss} actual correct name, "<b>${c}</b>")`);
+                    }
+                    p3Parts.push(`${fc.p3Subj} to ${p3WithBn}`);
+                }
+            });
+
+            // Determine valid identity documents possessive phrase
+            let idDocsPhrase = "our respective valid identity documents";
+            if (ownerTypes.size === 1) {
+                const only = Array.from(ownerTypes)[0];
+                if (only === "self") idDocsPhrase = "my valid identity documents";
+                else if (only === "member") idDocsPhrase = `${mInfo.poss} valid identity documents`;
+                else if (only === "his") idDocsPhrase = "his valid identity documents";
+                else if (only === "her") idDocsPhrase = "her valid identity documents";
+            }
+            const proofTail = proof ? ` (including <b>${proof}</b>)` : "";
+            const p1Count = ordered.length;
+            const p1RelTail = p1Count === 1
+                ? `, which is properly recorded in ${idDocsPhrase}${proofTail}.`
+                : `, ${p1Count === 2 ? "both" : "all"} of which are properly recorded in ${idDocsPhrase}${proofTail}.`;
+
+            const memIntro = (!isSelf && !hasMem) ? `<b>${memName}</b> is my ${mInfo.word}, and ` : "";
+            const para1 = `That ${memIntro}${joinOxford(p1Parts)}${p1RelTail}`;
+
+            const errVerb = ordered.length > 1 ? "inadvertent clerical errors have" : "an inadvertent clerical error has";
+            const para2 = `That, however, ${errVerb} occurred in my family’s <b>Panchayat ROR</b> under <b>${pan} ${panType}</b>, <b>${blk} ${blkType}</b>${famClause}, wherein ${joinOxford(p2Parts)}.`;
+
+            const para3 = `That I am swearing this affidavit for the explicit purpose of legally correcting ${joinP3(p3Parts)} in the said Panchayat ROR records, and to obtain an updated ROR from the competent Panchayat authorities based on this declaration.`;
+
+            verifyNum = "3";
             affidavitBody = `
                 <ol style="text-align: justify;">
-                    <li>${p1Lead}</li>
-                    <li>That, however, due to an inadvertent clerical error, ${joinList(errClauses)} in the aforesaid <b>Panchayat ROR</b>${locClause}${famClause}.</li>
-                    <li>That I am swearing this affidavit to legally and solemnly declare that ${targetPoss} actual and correct ${joinList(declClauses)}, and both the correct and erroneous ${items.length > 1 ? "entries pertain" : "entry pertains"} exclusively to ${isSelf ? "me" : `my said ${mInfo.word}, <b>${memName}</b>`}.</li>
-                    <li>That this affidavit is sworn for the explicit purpose of correcting the aforesaid ${items.length > 1 ? "errors" : "error"} in the <b>Panchayat ROR</b>${locClause} before the Panchayat Secretary / BDO / competent authority for all official and administrative purposes.</li>
+                    <li>${para1}</li>
+                    <li>${para2}</li>
+                    <li>${para3}</li>
                 </ol>
-            `;        } else if (affidavitType === "PanchayatRORNew") {
+            `;
+        } else if (affidavitType === "PanchayatRORNew") {
             const rnFor = val("rn_for") || "self";
             const isSelf = rnFor === "self";
             const isDaughter = rnFor === "daughter";
@@ -3853,7 +4029,7 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         if (isSurvivalType(affidavitType) && !svHeirsValid()) miss.push("সব জীবিত ওয়ারিশের নাম, সম্পর্ক ও বয়স");
         if (affidavitType === "RentNOC" && (!val("noc_benName") || !val("noc_benRel") || !nocPurposeVal())) miss.push("NOC প্রাপকের নাম, সম্পর্ক ও উদ্দেশ্য");
         if (affidavitType === "SchoolCorr" && ((val("sc_for") !== "self" && !val("sc_studentName")) || !scDocTypeVal() || !scItemsValid())) miss.push("স্কুল সংশোধনের তথ্য (শিক্ষার্থীর নাম / ভুল ও সঠিক তথ্য)");
-        if (affidavitType === "PanchayatROR" && ((val("ror_for") !== "self" && !val("ror_memberName")) || !rorItemsValid())) miss.push("পঞ্চায়েত ROR সংশোধনের তথ্য (সদস্যের নাম / ভুল ও সঠিক তথ্য)");
+        if (affidavitType === "PanchayatROR" && ((val("ror_for") !== "self" && !val("ror_memberName")) || !val("ror_panchayat") || !val("ror_block") || !rorItemsValid())) miss.push("পঞ্চায়েত ROR সংশোধনের তথ্য (সদস্যের নাম / পঞ্চায়েত / ব্লক / ভুল ও সঠিক তথ্য)");
         if (affidavitType === "PanchayatRORNew" && ((val("rn_for") !== "self" && (!val("rn_childName") || !isValidDmyDate(val("rn_childDob")))) || !val("rn_panchayat") || !val("rn_block") || !val("rn_issuerName") || !val("rn_regNo") || !isValidDmyDate(val("rn_regDate")) || !rnReasonVal())) miss.push("পঞ্চায়েত ROR নতুন নামের তথ্য (সন্তানের তথ্য / পঞ্চায়েত / ব্লক / ইস্যুকারী / রেজিস্ট্রেশন নম্বর ও তারিখ)");
 
         const isValid = miss.length === 0;
@@ -4393,7 +4569,7 @@ html.dark #rorNewSection{background:#0e2421;border-color:#1c524b}
         if (!el || el.tagName !== 'INPUT') return true;
         if (el.type !== 'text' || el.readOnly || el.disabled) return true;
         if (TC_SKIP_IDS.has(el.id)) return true;
-        if (el.closest('.easy-date') || (el.classList && el.classList.contains('sv-dod'))) return true;
+        if (el.closest('.easy-date') || (el.classList && (el.classList.contains('sv-dod') || el.classList.contains('ror-correct-bn')))) return true;
         if (el.classList && (el.classList.contains('sc-wrong') || el.classList.contains('sc-correct'))) {
             const r = el.closest('.sc-row');
             if (r && r.querySelector('.sc-field').value === 'dob') return true;

@@ -269,12 +269,53 @@ html.dark #birthCorrSection .corr-row{border-color:#2c5a94 !important}
 /* ===== v19: Ishan Uday Scholarship (Annexure-IV) ===== */
 #ishanUdaySection{background:#fdf7ef;border-color:#edd8b8;border-top-color:#c26d18}
 html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
+/* ===== v21: Sender Entry Gate & Active Sender Bar ===== */
+body.muhuri-locked .container,body.muhuri-locked .top-progress-track{display:none !important}
+#muhuriGate{display:none;position:fixed;inset:0;z-index:9800;padding:18px;align-items:center;justify-content:center;background:radial-gradient(700px 360px at 50% 0,rgba(201,162,75,.28),transparent 65%),linear-gradient(160deg,var(--navy) 0%,#071426 100%);overflow-y:auto}
+body.muhuri-locked #muhuriGate,#muhuriGate.open{display:flex !important}
+.muhuri-card{width:100%;max-width:420px;background:var(--card);border-radius:22px;border-top:5px solid var(--gold);box-shadow:0 34px 70px -18px rgba(0,0,0,.65);padding:34px 26px 26px;text-align:center;position:relative}
+.muhuri-icon{width:66px;height:66px;margin:0 auto 14px;border-radius:50%;background:linear-gradient(135deg,#e6c872,var(--gold));display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 0 0 5px rgba(201,162,75,.25)}
+.muhuri-card h2{margin:0 0 4px;font-family:'Playfair Display',Georgia,serif;font-size:23px;letter-spacing:1.4px;color:var(--navy)}
+.muhuri-card .m-sub{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-d);font-weight:800;margin-bottom:14px}
+.muhuri-card p{margin:0 0 18px;font-size:14px;color:var(--ink2);line-height:1.55}
+.muhuri-card input{text-align:center;font-size:16px;font-weight:700;padding:14px 16px;margin-bottom:12px}
+.muhuri-enter-btn{width:100%;background:linear-gradient(135deg,var(--navy) 0%,var(--navy3) 100%);color:#fff;border:none;border-radius:13px;padding:14px 18px;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 12px 24px -10px rgba(11,31,58,.75)}
+.muhuri-enter-btn:hover{filter:brightness(1.07)}
+.muhuri-cancel-btn{width:100%;margin-top:9px;background:transparent;color:var(--ink2);border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;font-size:13.5px;font-weight:700;cursor:pointer}
+.muhuri-err{min-height:18px;margin-top:10px;color:var(--danger);font-size:13px;font-weight:700}
+.muhuri-note{margin-top:14px;font-size:11.5px;color:var(--muted)}
+.muhuri-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:linear-gradient(135deg,#f8f2e1,#fcf9f0);border:1.5px solid #e2ca8a;border-left:5px solid var(--gold);border-radius:12px;padding:10px 14px;margin-bottom:16px}
+.muhuri-bar-info{font-size:13.5px;color:var(--navy);font-weight:600;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.muhuri-bar-info b{color:var(--navy);font-weight:800;font-size:14.5px}
+.muhuri-change-btn{background:var(--navy);color:var(--gold-l);border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer}
+html.dark .muhuri-card{border:1px solid #243554;border-top:5px solid var(--gold)}
+html.dark .muhuri-card h2{color:#fff}
+html.dark .muhuri-card .m-sub{color:var(--gold)}
+html.dark .muhuri-enter-btn{background:linear-gradient(135deg,#e6c872,var(--gold));color:#0b1f3a}
+html.dark .muhuri-bar{background:#1f1c14;border-color:#594822;border-left-color:var(--gold)}
+html.dark .muhuri-bar-info,html.dark .muhuri-bar-info b{color:#faecc5}
+html.dark .muhuri-change-btn{background:var(--gold);color:#0b1f3a}
+
 
 
 </style>
 <script>try{if(localStorage.getItem('ayatDarkMode')==='1')document.documentElement.classList.add('dark');}catch(_){}</script>
 </head>
-<body>
+<body class="muhuri-locked">
+<div id="muhuriGate" role="dialog" aria-modal="true" aria-labelledby="muhuriGateTitle">
+    <form class="muhuri-card" onsubmit="return submitMuhuriGate(event)">
+        <div class="muhuri-icon">✒️</div>
+        <h2 id="muhuriGateTitle">AYAT GRAPHICS ZONE</h2>
+        <div class="m-sub">Sender Entry · প্রেরকের পরিচিতি</div>
+        <p>কাজ পাঠানোর আগে অনুগ্রহ করে <b>আপনার নাম</b> লিখে প্রবেশ করুন। এই নামটি দোকানে আপনার কাজের পরিচায়ক হিসেবে দেখাবে।</p>
+        <input type="text" id="muhuriNameInput" placeholder="আপনার নাম লিখুন (যেমন: রফিকুল ইসলাম)" autocomplete="name" maxlength="80">
+        <button type="submit" class="muhuri-enter-btn">✅ প্রবেশ করুন (Enter Form)</button>
+        <button type="button" id="muhuriCancelBtn" class="muhuri-cancel-btn hidden" onclick="closeMuhuriGate()">বাতিল করুন (Cancel)</button>
+        <div class="muhuri-err" id="muhuriGateErr"></div>
+        <div class="muhuri-note">💡 একবার নাম দিলে আপনার মোবাইলে সেভ হয়ে থাকবে; পরে যেকোনো সময় পরিবর্তন করতে পারবেন।</div>
+    </form>
+</div>
+
 <div class="top-progress-track"><div class="top-progress-fill" id="topProgressFill"></div></div>
 
 <div class="container">
@@ -284,6 +325,11 @@ html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
         <h1>AYAT GRAPHICS ZONE</h1>
         <div class="sub" id="brandSub">Notary Affidavit Form</div>
         <span class="brand-badge">দয়া করে সঠিক তথ্য দিয়ে ফর্মটি পূরণ করুন</span>
+    </div>
+
+    <div class="muhuri-bar" id="muhuriBar">
+        <div class="muhuri-bar-info"><span>👤 প্রেরক:</span> <b id="muhuriNameDisplay">—</b></div>
+        <button type="button" class="muhuri-change-btn" onclick="openMuhuriGate(true)">✏️ নাম পরিবর্তন</button>
     </div>
 
     <div id="draftNotice" style="display:none; background:#eef7f2; border:1.5px solid #1b8a5a; border-radius:12px; padding:12px 14px; margin-bottom:16px; font-size:13px; color:#14213a;">
@@ -1426,6 +1472,57 @@ html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
 
 <script>
     const SHOP_WHATSAPP_NUMBER = "919436925172";
+    const MUHURI_NAME_KEY = 'ayatMuhuriName';
+    function getMuhuriName() {
+        try { return (localStorage.getItem(MUHURI_NAME_KEY) || '').trim(); } catch (_) { return ''; }
+    }
+    function syncMuhuriUI() {
+        const mName = getMuhuriName();
+        const disp = document.getElementById('muhuriNameDisplay');
+        if (disp) disp.textContent = mName || '—';
+        if (mName) {
+            document.body.classList.remove('muhuri-locked');
+            const g = document.getElementById('muhuriGate');
+            if (g) g.classList.remove('open');
+        } else {
+            document.body.classList.add('muhuri-locked');
+        }
+    }
+    function openMuhuriGate(allowCancel) {
+        const g = document.getElementById('muhuriGate');
+        const inp = document.getElementById('muhuriNameInput');
+        const err = document.getElementById('muhuriGateErr');
+        const cBtn = document.getElementById('muhuriCancelBtn');
+        const cur = getMuhuriName();
+        if (inp) inp.value = cur;
+        if (err) err.textContent = '';
+        if (cBtn) cBtn.classList.toggle('hidden', !(allowCancel && cur));
+        if (g) g.classList.add('open');
+        setTimeout(() => { if (inp) { inp.focus(); inp.select(); } }, 40);
+    }
+    function closeMuhuriGate() {
+        if (!getMuhuriName()) return;
+        const g = document.getElementById('muhuriGate');
+        if (g) g.classList.remove('open');
+    }
+    function submitMuhuriGate(e) {
+        if (e && e.preventDefault) e.preventDefault();
+        const inp = document.getElementById('muhuriNameInput');
+        const err = document.getElementById('muhuriGateErr');
+        const name = inp ? inp.value.trim() : '';
+        if (name.length < 2) {
+            if (err) err.textContent = '❌ অনুগ্রহ করে আপনার সঠিক নাম লিখুন (কমপক্ষে ২ অক্ষর)।';
+            if (inp) inp.focus();
+            return false;
+        }
+        try { localStorage.setItem(MUHURI_NAME_KEY, name); } catch (_) {}
+        if (err) err.textContent = '';
+        syncMuhuriUI();
+        if (typeof showToast === 'function') showToast('👋 স্বাগতম, ' + name + '!', 'ok');
+        return false;
+    }
+    syncMuhuriUI();
+
     function val(id){ const e = document.getElementById(id); return e ? e.value.trim() : ''; }
     function curMode(){ return document.getElementById('docMode').value; }
 
@@ -3086,7 +3183,9 @@ html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
 
         let affidavitLabel = document.getElementById("affidavitType").options[document.getElementById("affidavitType").selectedIndex].text;
 
+        const _muhuri = getMuhuriName();
         let formattedText = `*Affidavit Data For AYAT GRAPHICS ZONE*\n\n`;
+        if (_muhuri) formattedText += `*Sent By:* ${_muhuri}\n`;
         formattedText += `*Affidavit:* ${affidavitLabel}\n`;
         if (affidavitType === "Birth") formattedText += `*Type:* ${appType === 'Self' ? 'Self' : 'Child'}\n`;
 
@@ -3200,6 +3299,7 @@ html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
         formattedText += `*Signing Date:* ${signMonth}, ${signYear}`;
 
         const dataObj = {
+            muhuriName: _muhuri,
             affidavitType: affidavitType, appType: appType, pobType: pobType, hospitalName: hospitalName,
             name: name, customerPhone: val("customerPhone").replace(/\D/g,"").slice(0,10), gender: gender, maritalStatus: document.getElementById("maritalStatus").value, age: age, fatherName: father, motherName: mother, religion: religion, spouseName: spouse,
             professionSelect: document.getElementById("professionSelect").value, customProfession: profession,
@@ -3285,11 +3385,13 @@ html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
             ['vill','gp','po','ps','sd','pin'].forEach(k => { if (!val('mm_'+k)) addBad('mm_'+k,'বিয়ের স্থানের ঠিকানা'); });
         }
         if (badEls.length){ reportFieldErrors(badEls); return null; }
+        const _muhuri = getMuhuriName();
         let t = `*Marriage Affidavit Data For AYAT GRAPHICS ZONE*\n\n`;
+        if (_muhuri) t += `*Sent By:* ${_muhuri}\n\n`;
         t += `*-- Groom --*\n*Name:* ${val('gName')}\n*Father:* ${val('gFather')}\n*Age:* ${val('gAge')}\n*Profession:* ${profOf('g')}\n*Address:* ${addrStr('g')}\n\n`;
         t += `*-- Bride --*\n*Name:* ${val('bName')}\n*Father:* ${val('bFather')}\n*Age:* ${val('bAge')}\n*Profession:* ${profOf('b')}\n*Address:* ${addrStr('b')}\n\n`;
         t += `*Religion:* ${mRelName()}\n*Marriage Date:* ${marriageDate()}\n*Marriage Place:* ${addrStr('m')}`;
-        const data = { docKind: 'marriage', customerPhone: val('mCustomerPhone').replace(/\D/g,'').slice(0,10) };
+        const data = { docKind: 'marriage', muhuriName: _muhuri, customerPhone: val('mCustomerPhone').replace(/\D/g,'').slice(0,10) };
         M_FIELD_IDS.forEach(id => { data[id] = document.getElementById(id).value; });
         t += `\n\n🔒 *দোকানের ব্যবহারের জন্য*\nCODE:[${btoa(encodeURIComponent(JSON.stringify(data)))}]`;
         return t;
@@ -3464,12 +3566,14 @@ html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
     const _escHtml = s => String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
     function openReviewModal() {
+        if (!getMuhuriName()) { openMuhuriGate(false); showToast("⚠️ আগে আপনার নাম লিখুন।", "err"); return; }
         const text = collectData();
         if (!text) return;
         _pendingPayloadText = text;
         const tbody = document.getElementById("reviewTableBody");
         const rows = [];
         const addR = (k, v) => { if (v) rows.push(`<tr><td>${_escHtml(k)}</td><td>${_escHtml(v)}</td></tr>`); };
+        addR("প্রেরকের নাম", getMuhuriName());
 
         if (curMode() === 'marriage') {
             addR("ডকুমেন্ট", "Marriage Declaration (ম্যারেজ)");
@@ -3545,6 +3649,7 @@ html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
         const payload = {
             name: isResend ? (baseName + " [সংশোধিত]") : baseName,
             docType: isMar ? "Marriage Declaration" : document.getElementById("affidavitType").value,
+            muhuriName: getMuhuriName(),
             code: match[1]
         };
 
@@ -3794,6 +3899,8 @@ html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
         if (typeof _origCustOnload === 'function') _origCustOnload();
         restoreCustomerDraft();
         updateProgress();
+        syncMuhuriUI();
+        if (!getMuhuriName()) { const mi = document.getElementById("muhuriNameInput"); if (mi) setTimeout(() => mi.focus(), 60); }
     };
 
     function copyData() {

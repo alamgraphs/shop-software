@@ -482,6 +482,15 @@ html.dark #birthCorrSection .corr-row{border-color:#2c5a94 !important}
 /* ===== v19: Ishan Uday Scholarship (Annexure-IV) ===== */
 #ishanUdaySection{background:#fdf7ef;border-color:#edd8b8;border-top-color:#c26d18}
 html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
+/* ===== v21: Sender Badge & Shop Tracking ===== */
+.muhuri-badge{display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#f8f0d9,#efe0b4);color:#6e4e08;border:1px solid #d9bc6e;border-radius:999px;padding:2px 9px;font-size:11px;font-weight:800;margin-top:3px;max-width:100%}
+.muhuri-shop-bar{background:linear-gradient(135deg,#fcf8ec,#f7eed4);border:1.5px solid #e2ca8a;border-left:5px solid var(--gold);border-radius:12px;padding:11px 14px;margin-bottom:18px}
+.muhuri-shop-bar label{color:var(--gold-d);font-size:12px;margin-bottom:5px;display:flex;align-items:center;justify-content:space-between;gap:6px}
+.muhuri-shop-bar input{padding:9px 12px;font-size:13.5px;font-weight:700}
+html.dark .muhuri-badge{background:#292211;color:#f3d27a;border-color:#695424}
+html.dark .muhuri-shop-bar{background:#1f1c14;border-color:#594822;border-left-color:var(--gold)}
+html.dark .muhuri-shop-bar label{color:var(--gold)}
+
 
 
 </style>
@@ -561,6 +570,11 @@ html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
                     <span>💍 ম্যারেজ</span><small>Marriage Declaration</small>
                 </button>
             </div>
+        </div>
+
+        <div class="muhuri-shop-bar" id="muhuriShopBar">
+            <label for="shopMuhuriName"><span>👤 প্রেরকের নাম (Sender Name — ডকুমেন্টে প্রিন্ট হবে না)</span></label>
+            <input type="text" id="shopMuhuriName" placeholder="অনলাইন ফর্ম থেকে এলে অটো বসবে · চাইলে নিজেও লিখতে পারেন">
         </div>
 
         <!-- ================= AFFIDAVIT FORM ================= -->
@@ -1638,7 +1652,7 @@ html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
     <div class="history-header">
         <h2>Saved Records (আপনার রেকর্ডসমূহ)</h2>
         <div class="history-tools">
-            <input type="text" id="recordSearch" class="history-search" placeholder="🔍 নাম বা ধরণ খুঁজুন..." oninput="renderHistory()">
+            <input type="text" id="recordSearch" class="history-search" placeholder="🔍 নাম, প্রেরক বা ধরণ খুঁজুন..." oninput="renderHistory()">
             <select id="recordTypeFilter" class="history-filter" onchange="renderHistory()" title="অ্যাফিডেভিটের ধরণ অনুযায়ী ফিল্টার">
                 <option value="all">📂 সব ধরণ (All)</option>
                 <option value="Birth">1. Delayed Birth (জন্ম)</option>
@@ -4770,7 +4784,9 @@ html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
 
         let history = JSON.parse(localStorage.getItem('affidavitHistory')) || [];
         
+        const _muhuriN = val("shopMuhuriName");
         const dataObj = {
+            muhuriName: _muhuriN,
             affidavitType: affidavitType, appType: appType, pobType: document.getElementById("pobType").value, hospitalName: document.getElementById("hospitalName").value,
             name: name, customerPhone: val("customerPhone"), gender: document.getElementById("gender").value, maritalStatus: document.getElementById("maritalStatus").value, age: document.getElementById("age").value, fatherName: document.getElementById("fatherName").value, motherName: document.getElementById("motherName").value, religion: document.getElementById("religion").value, spouseName: document.getElementById("spouseName").value,
             professionSelect: document.getElementById("professionSelect").value, customProfession: document.getElementById("customProfession").value,
@@ -4790,7 +4806,7 @@ html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
 
         // same content already saved -> don't create a duplicate
         if (!history.some(r => r.content === contentHTML)) {
-            history.unshift({ name: subjectTitle, rawName: name, date: currentDateTime, ts: Date.now(), content: contentHTML, data: dataObj });
+            history.unshift({ name: subjectTitle, rawName: name, muhuriName: _muhuriN, date: currentDateTime, ts: Date.now(), content: contentHTML, data: dataObj });
             localStorage.setItem('affidavitHistory', JSON.stringify(history));
         }
 
@@ -4823,6 +4839,7 @@ html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
         onBcForChange();
         onBcIssuerTypeChange();
         checkNocPurpose();
+        const _sm = document.getElementById("shopMuhuriName"); if (_sm) _sm.value = "";
         window._activeSheetKey = null;
 
         renderHistory();
@@ -4956,17 +4973,19 @@ html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
     function saveMarriage(keepForm){
         const subject = `${val('gName')} & ${val('bName')} (Marriage)`;
         const history = JSON.parse(localStorage.getItem('marriageHistory')) || [];
-        const dataObj = { docKind: 'marriage' };
+        const _muhuriN = val('shopMuhuriName');
+        const dataObj = { docKind: 'marriage', muhuriName: _muhuriN };
         M_FIELD_IDS.forEach(id => { dataObj[id] = document.getElementById(id).value; });
 
         const contentHTML = document.getElementById('outputM').innerHTML;
         if (!history.some(r => r.content === contentHTML)) {
-            history.unshift({ name: subject, rawName: val('gName'), date: new Date().toLocaleString('en-IN'), ts: Date.now(), content: contentHTML, data: dataObj });
+            history.unshift({ name: subject, rawName: val('gName'), muhuriName: _muhuriN, date: new Date().toLocaleString('en-IN'), ts: Date.now(), content: contentHTML, data: dataObj });
             localStorage.setItem('marriageHistory', JSON.stringify(history));
         }
         if (keepForm) { renderHistory(); return; }
         showToast("💾 কাজটি রেকর্ড খাতায় সেভ হয়েছে!", "ok");
         document.querySelectorAll('#marriageForm input[type="text"], #marriageForm input[type="number"], #marriageForm input[type="tel"]').forEach(i => i.value = '');
+        const _sm = document.getElementById("shopMuhuriName"); if (_sm) _sm.value = "";
         window._activeSheetKey = null;
         ['mDay','mMonth','mYear'].forEach(id => document.getElementById(id).value = '');
         document.getElementById("importBox").value = "";
@@ -4983,13 +5002,15 @@ html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
             const data = JSON.parse(decodeURIComponent(atob(match[1])));
             loadFormData(data);
             document.getElementById("importBox").value = "";
-            showToast("✨ কাস্টমারের সব তথ্য ফর্মে বসে গেছে!", "ok");
+            showToast("✨ কাস্টমারের সব তথ্য বসে গেছে" + (data.muhuriName ? " (প্রেরক: " + data.muhuriName + ")" : "") + "!", "ok");
         } catch (e) {
             showToast("❌ ডেটা ইমপোর্ট করতে সমস্যা হয়েছে।", "err");
         }
     }
 
     function loadFormData(data) {
+        const _smEl = document.getElementById("shopMuhuriName");
+        if (_smEl) _smEl.value = (data && data.muhuriName) ? data.muhuriName : "";
         // old records / old customer codes used two separate Digital Birth types
         if (data.sc_docType === 'School Admission Register & School Certificate') data.sc_docType = 'School Certificate and School Admission Register';
         if (data.sc_docType === 'School Admission Register & Transfer Certificate (TC)') data.sc_docType = 'School Transfer Certificate (TC) and School Admission Register';
@@ -5090,7 +5111,8 @@ html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
         const all = aff.concat(mar).sort((x, y) => (y.r.ts || 0) - (x.r.ts || 0)).filter(({ k, r }) => {
             if (typeFilter !== 'all' && recordTypeGroup(k, r) !== typeFilter) return false;
             if (!q) return true;
-            const hay = ((r.name || '') + ' ' + (r.date || '') + ' ' + (k === 'm' ? 'marriage' : 'affidavit') + ' ' + recordTypeGroup(k, r)).toLowerCase();
+            const _rMuhuri = (r.muhuriName || (r.data && r.data.muhuriName) || '');
+            const hay = ((r.name || '') + ' ' + _rMuhuri + ' ' + (r.date || '') + ' ' + (k === 'm' ? 'marriage' : 'affidavit') + ' ' + recordTypeGroup(k, r)).toLowerCase();
             return hay.includes(q);
         });
         const tbody = document.getElementById("historyTableBody");
@@ -5101,10 +5123,11 @@ html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
             return;
         }
         all.forEach(({ k, i, r }) => {
+            const _mName = (r.muhuriName || (r.data && r.data.muhuriName) || "").trim();
             tbody.innerHTML += `
                 <tr>
                     <td>${esc(r.date)}</td>
-                    <td><span class="kind-badge ${k === 'm' ? 'm' : ''}">${k === 'm' ? 'Marriage' : 'Affidavit'}</span><b>${esc(r.name)}</b></td>
+                    <td><span class="kind-badge ${k === 'm' ? 'm' : ''}">${k === 'm' ? 'Marriage' : 'Affidavit'}</span><b>${esc(r.name)}</b>${_mName ? `<br><span class="muhuri-badge">👤 প্রেরক: ${esc(_mName)}</span>` : ''}</td>
                     <td>
                         <button class="btn-print btn-sm" onclick="printHistory('${k}',${i})">🖨️ Print</button>
                         <button class="btn-edit btn-sm" onclick="editHistory('${k}',${i})">✏️ Edit</button>
@@ -5546,17 +5569,19 @@ html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
         filtered.forEach(item => {
             const key = sheetItemKey(item);
             const isDone = !!doneMap[key];
-            let phone = "";
+            let phone = "", muhuri = (item.muhuriName || "").trim();
             try {
                 const decoded = JSON.parse(decodeURIComponent(atob(item.code)));
                 phone = (decoded.customerPhone || decoded.mCustomerPhone || "").replace(/\D/g, "");
+                if (!muhuri && decoded.muhuriName) muhuri = String(decoded.muhuriName).trim();
             } catch (_) {}
 
             const row = document.createElement("div");
             row.className = "sheet-item" + (isDone ? " done" : "");
             row.innerHTML = `
                 <div style="font-size:12.5px; line-height:1.35; min-width:0;">
-                    <b class="si-name">${esc(item.name || "Unnamed")}</b> <span style="color:#1d4a85;">(${esc(item.docType || "")})</span><br>
+                    <b class="si-name">${esc(item.name || "Unnamed")}</b> <span style="color:#1d4a85;">(${esc(item.docType || "")})</span>
+                    ${muhuri ? `<br><span class="muhuri-badge">👤 প্রেরক: ${esc(muhuri)}</span>` : ''}<br>
                     <small style="color:#777;">${esc(item.date || "")}${phone ? ' · 📞 ' + esc(phone) : ''}</small>
                 </div>
                 <div class="sheet-item-actions">
@@ -5573,7 +5598,7 @@ html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
                     const data = JSON.parse(decodeURIComponent(atob(item.code)));
                     window._activeSheetKey = key;
                     loadFormData(data);
-                    showToast("✨ " + (item.name || "কাস্টমার") + "-এর তথ্য ফর্মে বসে গেছে!", "ok");
+                    showToast("✨ " + (item.name || "কাস্টমার") + "-এর তথ্য বসে গেছে" + (muhuri ? " (প্রেরক: " + muhuri + ")" : "") + "!", "ok");
                 } catch (e) {
                     showToast("❌ ডাটা লোড করতে সমস্যা হয়েছে।", "err");
                 }
@@ -5597,10 +5622,18 @@ html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
             const list = await res.json();
             if (!Array.isArray(list)) throw new Error("Invalid list");
 
-            let newCount = 0;
+            let newCount = 0, latestNewMuhuri = "";
             list.forEach(item => {
                 const k = sheetItemKey(item);
-                if (_sheetFirstLoaded && !_knownSheetKeys.has(k)) newCount++;
+                if (_sheetFirstLoaded && !_knownSheetKeys.has(k)) {
+                    newCount++;
+                    if (!latestNewMuhuri) {
+                        try {
+                            const dec = JSON.parse(decodeURIComponent(atob(item.code)));
+                            latestNewMuhuri = (dec.muhuriName || item.muhuriName || "").trim();
+                        } catch (_) { latestNewMuhuri = (item.muhuriName || "").trim(); }
+                    }
+                }
                 _knownSheetKeys.add(k);
             });
             _sheetFirstLoaded = true;
@@ -5615,7 +5648,7 @@ html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
                     b.textContent = String(prev + newCount);
                     b.classList.remove("hidden");
                 }
-                showToast(`🔔 ${newCount} জন নতুন কাস্টমার ফর্ম পাঠিয়েছে!`, "ok");
+                showToast(newCount === 1 && latestNewMuhuri ? `🔔 নতুন কাজ এসেছে! (প্রেরক: ${latestNewMuhuri})` : `🔔 ${newCount}টি নতুন কাজ এসেছে!`, "ok");
             }
         } catch (err) {
             if (!silent) {
@@ -5713,6 +5746,8 @@ html.dark #ishanUdaySection{background:#241a10;border-color:#5e3e1c}
         window._activeSheetKey = null;
 
         // 2. Copy only reusable customer profile & address details
+        const _smN = document.getElementById("shopMuhuriName");
+        if (_smN) _smN.value = (r.muhuriName || d.muhuriName || "");
         const setV = (id, v) => { const el = document.getElementById(id); if (el && v !== undefined && v !== null) el.value = v; };
         let copiedName = "";
 

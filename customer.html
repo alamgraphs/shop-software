@@ -295,6 +295,151 @@ html.dark .muhuri-enter-btn{background:linear-gradient(135deg,#e6c872,var(--gold
 html.dark .muhuri-bar{background:#1f1c14;border-color:#594822;border-left-color:var(--gold)}
 html.dark .muhuri-bar-info,html.dark .muhuri-bar-info b{color:#faecc5}
 html.dark .muhuri-change-btn{background:var(--gold);color:#0b1f3a}
+/* ===== v22: Direct Submit Primary + Collapsible Backup & WhatsApp Guard ===== */
+.btn-submit-main{background:linear-gradient(135deg,#1fa963 0%,#0f7d47 100%) !important;box-shadow:0 14px 28px -10px rgba(15,125,71,.78) !important;padding:18px 20px !important;font-size:17px !important;letter-spacing:.2px}
+.alt-send-wrap{margin-top:16px;text-align:center}
+.alt-toggle-btn{background:transparent;color:var(--muted);border:1px dashed var(--line);border-radius:10px;padding:8px 14px;font-size:12.5px;font-weight:700;cursor:pointer;width:100%;transition:color .2s,border-color .2s,background .2s}
+.alt-toggle-btn:hover{color:var(--ink2);border-color:#b8c2d4;background:#f7f9fc}
+.alt-send-box{display:none;margin-top:10px;padding:12px;background:#f7f8fb;border:1.5px dashed #cfd6e3;border-radius:14px;text-align:center}
+.alt-send-box.open{display:block}
+.alt-send-box.fallback-alert{background:#fff8ec;border-color:#e0b45c}
+.alt-note{font-size:12px;color:var(--ink2);font-weight:600;margin:0 0 10px;line-height:1.45}
+.alt-send-box.fallback-alert .alt-note{color:#8a5600;font-weight:700}
+.alt-send-box .alt-actions{margin-top:0}
+.alt-send-box .btn-whatsapp{background:#eef1f6 !important;color:var(--ink2) !important;border:1.5px solid #cbd3e1 !important;box-shadow:none !important;padding:11px 12px !important;font-size:13.5px !important;font-weight:700 !important}
+.alt-send-box .btn-whatsapp:hover{background:#e2e7f0 !important;color:var(--navy) !important;transform:none !important}
+.alt-send-box.fallback-alert .btn-whatsapp{background:#e6f6ed !important;color:#0f6b3d !important;border-color:#8ad1ab !important}
+.alt-send-box .btn-copy{background:#fff !important;color:var(--ink2) !important;border:1.5px solid #cbd3e1 !important;padding:11px 12px !important;font-size:13.5px !important;font-weight:700 !important}
+.alt-send-box .btn-copy:hover{background:#eef1f6 !important;color:var(--navy) !important}
+#waConfirmModal{display:none;position:fixed;inset:0;z-index:9600;background:rgba(11,31,58,.72);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:16px}
+#waConfirmModal.open{display:flex}
+.wac-card{background:var(--card);width:100%;max-width:440px;border-radius:20px;border-top:5px solid var(--gold);box-shadow:0 30px 70px -15px rgba(0,0,0,.6);overflow:hidden;text-align:center}
+.wac-head{background:var(--navy);color:var(--gold-l);padding:15px 18px;font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:space-between}
+.wac-head button{background:transparent;border:none;color:#fff;font-size:19px;cursor:pointer;padding:2px 6px}
+.wac-body{padding:20px 20px 16px;font-size:14px;color:var(--ink2);line-height:1.6}
+.wac-body b{color:var(--ink)}
+.wac-badge{display:inline-block;background:#eaf7f0;color:#116e40;border:1px solid #a8dfc0;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:800;margin-bottom:10px}
+.wac-foot{padding:0 18px 18px;display:flex;flex-direction:column;gap:9px}
+.wac-btn-direct{width:100%;background:linear-gradient(135deg,#1fa963 0%,#0f7d47 100%);color:#fff;border:none;border-radius:12px;padding:13px 16px;font-size:14.5px;font-weight:800;cursor:pointer;box-shadow:0 10px 20px -8px rgba(15,125,71,.7)}
+.wac-btn-wa{width:100%;background:transparent;color:var(--muted);border:1.5px solid var(--line);border-radius:11px;padding:10px 14px;font-size:13px;font-weight:700;cursor:pointer}
+.wac-btn-wa:hover{color:var(--ink);border-color:#aeb8ca}
+html.dark .alt-toggle-btn{color:#8fa1be;border-color:#263754}
+html.dark .alt-toggle-btn:hover{color:#dbe6f7;background:#162238;border-color:#3a5078}
+html.dark .alt-send-box{background:#0f1829;border-color:#263754}
+html.dark .alt-send-box.fallback-alert{background:#211a0e;border-color:#8a6a24}
+html.dark .alt-send-box.fallback-alert .alt-note{color:#f5d382}
+html.dark .alt-send-box .btn-whatsapp,html.dark .alt-send-box .btn-copy{background:#162238 !important;color:#c7d4ea !important;border-color:#2d4063 !important}
+html.dark .alt-send-box.fallback-alert .btn-whatsapp{background:#102b1f !important;color:#7ee3b3 !important;border-color:#247350 !important}
+html.dark .wac-badge{background:#102b1f;color:#7ee3b3;border-color:#247350}
+html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
+/* ===== v23: Responsive Mobile + Desktop Site (Option 2: Form Left + Live Summary Right) ===== */
+.top-shell,.top-right-controls,.main-workspace,.form-column,.summary-column{display:contents}
+.live-summary-card{display:none}
+
+@media screen and (min-width: 980px){
+  body{padding:24px 24px 48px;background:linear-gradient(180deg,var(--navy) 0,var(--navy) 210px,var(--bg) 210px)}
+  .container{max-width:1260px;padding:0 28px 32px;border-radius:22px}
+
+  /* Unified Desktop Top Header Bar */
+  .top-shell{
+    display:flex;align-items:center;justify-content:space-between;gap:20px;
+    margin:0 -28px 24px;padding:18px 28px;
+    background:radial-gradient(600px 240px at 85% -20%,rgba(201,162,75,.32),transparent 70%),linear-gradient(160deg,var(--navy) 0%,var(--navy2) 100%);
+    border-bottom:4px solid var(--gold);position:relative;
+  }
+  .top-shell::before{content:"";position:absolute;inset:8px;border:1px solid rgba(201,162,75,.35);border-radius:14px;pointer-events:none}
+  .brand-header{
+    margin:0;padding:0;background:transparent;border:none;
+    display:flex;align-items:center;gap:14px;text-align:left;flex:1;min-width:0;
+  }
+  .brand-header::before{display:none}
+  .brand-logo{width:52px;height:52px;margin:0;font-size:24px;flex:none}
+  .brand-title-wrap{min-width:0}
+  .brand-header h1{font-size:22px;letter-spacing:1.6px;line-height:1.15}
+  .brand-header .sub{margin:4px 0 0;font-size:11px;letter-spacing:3px}
+  .brand-badge{display:none}
+
+  .top-right-controls{display:flex;align-items:center;gap:10px;position:relative;z-index:2;flex:none}
+  .muhuri-bar{
+    margin:0;padding:8px 13px;border-radius:999px;
+    background:rgba(255,255,255,.1);border:1px solid rgba(201,162,75,.55);border-left:1px solid rgba(201,162,75,.55);
+  }
+  .muhuri-bar-info{color:#f8edd0;font-size:13px}
+  .muhuri-bar-info b{color:#fff;font-size:13.5px}
+  .muhuri-change-btn{background:var(--gold);color:var(--navy);border-radius:999px;padding:5px 11px;font-size:11.5px}
+  .theme-toggle-btn{position:static;padding:8px 14px;font-size:12.5px}
+
+  /* 2-Column Desktop Workspace: Form Left + Sticky Live Summary Right */
+  .main-workspace{
+    display:grid;
+    grid-template-columns:minmax(0, 1.52fr) minmax(350px, 1fr);
+    gap:24px;
+    align-items:start;
+  }
+  .form-column{display:block;min-width:0}
+  .summary-column{display:block;position:sticky;top:18px;min-width:0}
+
+  /* Spacious 3-Column Address Fieldsets on Desktop */
+  fieldset .grid-2{grid-template-columns:repeat(3, minmax(0, 1fr));gap:12px}
+  .form-group.grid-2{grid-template-columns:1fr 1fr;gap:14px}
+
+  /* Live Summary Panel Card */
+  .live-summary-card{
+    display:block;
+    background:var(--card);
+    border:1.5px solid var(--line);
+    border-top:4px solid var(--gold);
+    border-radius:18px;
+    box-shadow:0 14px 32px -16px rgba(11,31,58,.35);
+    overflow:hidden;
+    margin-bottom:16px;
+  }
+  .ls-head{
+    background:var(--navy);
+    color:var(--gold-l);
+    padding:13px 16px;
+    display:flex;align-items:center;justify-content:space-between;gap:8px;
+  }
+  .ls-head h3{margin:0;font-size:14.5px;font-weight:800;letter-spacing:.3px;display:flex;align-items:center;gap:6px}
+  .ls-status{
+    font-size:11px;font-weight:800;padding:3px 9px;border-radius:999px;
+    background:rgba(255,255,255,.14);color:#f3e6bd;white-space:nowrap;
+  }
+  .ls-status.ready{background:#1b8a5a;color:#fff}
+  .ls-body{
+    padding:10px 14px;
+    max-height:calc(100vh - 430px);
+    min-height:180px;
+    overflow-y:auto;
+    font-size:13px;
+  }
+  .ls-body::-webkit-scrollbar{width:6px}
+  .ls-body::-webkit-scrollbar-thumb{background:#c5cbd9;border-radius:6px}
+  .ls-table{width:100%;border-collapse:collapse}
+  .ls-table tr{border-bottom:1px solid #edf0f6}
+  .ls-table tr:last-child{border-bottom:none}
+  .ls-table td{padding:7px 4px;vertical-align:top;line-height:1.4}
+  .ls-table td:first-child{width:37%;color:var(--ink2);font-weight:700;font-size:12px}
+  .ls-table td:last-child{color:var(--navy);font-weight:700;word-break:break-word}
+  .ls-miss{display:inline-block;font-size:11px;font-weight:700;color:#b85d00;background:#fff4e5;border:1px dashed #e6b873;border-radius:6px;padding:1px 7px}
+
+  .summary-column .progress-card{margin-bottom:14px}
+  .summary-column .btn-submit-main{margin-top:0;padding:15px 18px !important;font-size:15.5px !important}
+  .summary-column .contact-card{margin-top:16px;padding:14px 12px}
+  .summary-column .contact-card .cc-name{font-size:16px}
+  .summary-column .contact-card .cc-links a{font-size:12px;padding:5px 10px}
+
+  html.dark .top-shell{background:radial-gradient(600px 240px at 85% -20%,rgba(212,175,90,.24),transparent 70%),linear-gradient(160deg,#060d1a 0%,#0f2140 100%)}
+  html.dark .muhuri-bar{background:rgba(255,255,255,.07);border-color:rgba(212,175,90,.45)}
+  html.dark .muhuri-change-btn{background:var(--gold);color:#0b1f3a}
+  html.dark .live-summary-card{border-color:#253552}
+  html.dark .ls-body::-webkit-scrollbar-thumb{background:#2d3f61}
+  html.dark .ls-table tr{border-bottom-color:#22314c}
+  html.dark .ls-table td:last-child{color:#faecc5}
+  html.dark .ls-miss{background:#261c0e;color:#f5c573;border-color:#6e5020}
+}
+
+
 
 
 
@@ -319,29 +464,31 @@ html.dark .muhuri-change-btn{background:var(--gold);color:#0b1f3a}
 <div class="top-progress-track"><div class="top-progress-fill" id="topProgressFill"></div></div>
 
 <div class="container">
-    <div class="brand-header">
-        <button type="button" class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" aria-label="Toggle Dark Mode">🌙 ডার্ক</button>
-        <div class="brand-logo" id="brandLogo">✒️</div>
-        <h1>AYAT GRAPHICS ZONE</h1>
-        <div class="sub" id="brandSub">Notary Affidavit Form</div>
-        <span class="brand-badge">দয়া করে সঠিক তথ্য দিয়ে ফর্মটি পূরণ করুন</span>
+    <div class="top-shell">
+        <div class="brand-header">
+            <div class="brand-logo" id="brandLogo">✒️</div>
+            <div class="brand-title-wrap">
+                <h1>AYAT GRAPHICS ZONE</h1>
+                <div class="sub" id="brandSub">Notary Affidavit Form</div>
+                <span class="brand-badge">দয়া করে সঠিক তথ্য দিয়ে ফর্মটি পূরণ করুন</span>
+            </div>
+        </div>
+        <div class="top-right-controls">
+            <div class="muhuri-bar" id="muhuriBar">
+                <div class="muhuri-bar-info"><span>👤 প্রেরক:</span> <b id="muhuriNameDisplay">—</b></div>
+                <button type="button" class="muhuri-change-btn" onclick="openMuhuriGate(true)">✏️ নাম পরিবর্তন</button>
+            </div>
+            <button type="button" class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" aria-label="Toggle Dark Mode">🌙 ডার্ক</button>
+        </div>
     </div>
 
-    <div class="muhuri-bar" id="muhuriBar">
-        <div class="muhuri-bar-info"><span>👤 প্রেরক:</span> <b id="muhuriNameDisplay">—</b></div>
-        <button type="button" class="muhuri-change-btn" onclick="openMuhuriGate(true)">✏️ নাম পরিবর্তন</button>
-    </div>
-
+    <div class="main-workspace">
+    <div class="form-column">
     <div id="draftNotice" style="display:none; background:#eef7f2; border:1.5px solid #1b8a5a; border-radius:12px; padding:12px 14px; margin-bottom:16px; font-size:13px; color:#14213a;">
         <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
             <div id="draftNoticeText">📝 <b>আগের পূরণ করা তথ্য লোড করা হয়েছে।</b> ভুল থাকলে এডিট করে আবার পাঠাতে পারেন।</div>
             <button type="button" onclick="clearSavedDraft(true)" style="background:#c93a45; color:#fff; border:none; border-radius:8px; padding:7px 12px; font-size:12px; font-weight:700; cursor:pointer;">🆕 নতুন ফর্ম (Clear)</button>
         </div>
-    </div>
-
-    <div class="progress-card">
-        <div class="progress-meta"><span>📊 ফর্ম পূরণের অগ্রগতি</span><b id="progressText">0% সম্পন্ন</b></div>
-        <div class="progress-bar-bg"><div class="progress-bar-in" id="progressBarIn"></div></div>
     </div>
 
     <div class="form-group type-selector mode-selector">
@@ -1424,6 +1571,24 @@ html.dark .muhuri-change-btn{background:var(--gold);color:#0b1f3a}
         <option value="Boxanagar"><option value="Nalchar"><option value="Dhanpur">
     </datalist>
 
+    </div><!-- /form-column -->
+
+    <div class="summary-column">
+    <div class="live-summary-card" id="liveSummaryCard">
+        <div class="ls-head">
+            <h3>🔍 লাইভ তথ্য প্রিভিউ</h3>
+            <span class="ls-status" id="liveSummaryStatus">পূরণ হচ্ছে...</span>
+        </div>
+        <div class="ls-body">
+            <table class="ls-table"><tbody id="liveSummaryBody"></tbody></table>
+        </div>
+    </div>
+
+    <div class="progress-card">
+        <div class="progress-meta"><span>📊 ফর্ম পূরণের অগ্রগতি</span><b id="progressText">0% সম্পন্ন</b></div>
+        <div class="progress-bar-bg"><div class="progress-bar-in" id="progressBarIn"></div></div>
+    </div>
+
     <div id="postSendBox" style="display:none; background:#f3f9f6; border:2px solid #1b8a5a; border-radius:14px; padding:14px 16px; margin-bottom:14px; text-align:center;">
         <div style="color:#1b8a5a; font-weight:800; font-size:15px; margin-bottom:6px;">✅ আপনার তথ্য দোকানে পাঠানো হয়েছে!</div>
         <div style="font-size:13px; color:#46526b; margin-bottom:12px;">কোনো ভুল ধরা পড়লে নিচের বাটনে ক্লিক করে ফর্ম এডিট করুন এবং আবার পাঠান।</div>
@@ -1433,10 +1598,16 @@ html.dark .muhuri-change-btn{background:var(--gold);color:#0b1f3a}
         </div>
     </div>
     <button class="btn-submit-main" id="btnSheetSend" onclick="openReviewModal()"><span>🚀</span> যাচাই করে দোকানে পাঠান (Direct Submit)</button>
-    <p class="send-hint" style="margin-top:8px;">ক্লিক করলে আগে আপনার সব তথ্য যাচাই করার প্রিভিউ দেখাবে, তারপর দোকানে যাবে।</p>
-    <div class="alt-actions">
-        <button class="btn-whatsapp" onclick="sendToWhatsApp()"><span>📲</span> WhatsApp-এ পাঠান</button>
-        <button class="btn-copy" onclick="copyData()">📋 Copy Details</button>
+    <p class="send-hint" style="margin-top:8px;">✅ সবচেয়ে দ্রুত ও সহজ উপায় — ক্লিক করলে আগে প্রিভিউ দেখাবে, তারপর সরাসরি দোকানে যাবে।</p>
+    <div class="alt-send-wrap" id="altSendWrap">
+        <button type="button" class="alt-toggle-btn" id="altToggleBtn" onclick="toggleAltSendBox()" aria-expanded="false">⚙️ Direct পাঠাতে সমস্যা হলে এখানে ক্লিক করুন (বিকল্প উপায় ▾)</button>
+        <div class="alt-send-box" id="altSendBox">
+            <p class="alt-note" id="altNoteText">⚠️ শুধুমাত্র Direct Submit কাজ না করলেই নিচের ব্যাকআপ অপশন ব্যবহার করুন।</p>
+            <div class="alt-actions">
+                <button type="button" class="btn-whatsapp" onclick="sendToWhatsApp()"><span>📲</span> ব্যাকআপ: WhatsApp-এ পাঠান</button>
+                <button type="button" class="btn-copy" onclick="copyData()">📋 Copy Details</button>
+            </div>
+        </div>
     </div>
 
     <div class="contact-card">
@@ -1448,10 +1619,29 @@ html.dark .muhuri-change-btn{background:var(--gold);color:#0b1f3a}
             <a href="mailto:alamsnmcsc@gmail.com">✉️ alamsnmcsc@gmail.com</a>
         </div>
     </div>
+    </div><!-- /summary-column -->
+    </div><!-- /main-workspace -->
 
 </div>
 
 <div id="toastBox"></div>
+<div id="waConfirmModal" onclick="if(event.target===this) closeWaConfirmModal()">
+    <div class="wac-card" role="dialog" aria-modal="true" aria-labelledby="wacTitle">
+        <div class="wac-head">
+            <span id="wacTitle">⚠️ Direct Submit ব্যবহার করুন</span>
+            <button type="button" onclick="closeWaConfirmModal()" aria-label="Close">✕</button>
+        </div>
+        <div class="wac-body">
+            <div class="wac-badge">✅ দোকানের সুপারিশকৃত নিয়ম</div>
+            <p style="margin:0;">দয়া করে WhatsApp-এর বদলে <b>Direct Submit</b> বাটনে তথ্য পাঠান। এতে আপনার তথ্য সরাসরি দোকানের কম্পিউটারে জমা হয় এবং কাজ দ্রুত হয়।<br><br>ইন্টারনেট বা সার্ভার সমস্যায় Direct Submit না গেলেই কেবল WhatsApp ব্যবহার করুন।</p>
+        </div>
+        <div class="wac-foot">
+            <button type="button" class="wac-btn-direct" onclick="switchToDirectSubmit()">🚀 Direct Submit-এ পাঠান (সুপারিশকৃত)</button>
+            <button type="button" class="wac-btn-wa" onclick="proceedSendToWhatsApp()">তবুও WhatsApp-এ পাঠান</button>
+        </div>
+    </div>
+</div>
+
 
 <div id="reviewModal" onclick="if(event.target===this) closeReviewModal()">
     <div class="review-card">
@@ -1518,6 +1708,7 @@ html.dark .muhuri-change-btn{background:var(--gold);color:#0b1f3a}
         try { localStorage.setItem(MUHURI_NAME_KEY, name); } catch (_) {}
         if (err) err.textContent = '';
         syncMuhuriUI();
+        if (typeof updateLiveSummary === 'function') updateLiveSummary();
         if (typeof showToast === 'function') showToast('👋 স্বাগতম, ' + name + '!', 'ok');
         return false;
     }
@@ -3399,8 +3590,67 @@ html.dark .muhuri-change-btn{background:var(--gold);color:#0b1f3a}
 
     // ================= Send / Copy =================
     function collectData(){ return curMode() === 'marriage' ? collectMarriage() : collectAffidavit(); }
+    let _directSubmitFailed = false;
+    let _pendingWaText = null;
+
+    function openAltSendBox(isFallbackAlert) {
+        const box = document.getElementById('altSendBox');
+        const btn = document.getElementById('altToggleBtn');
+        const note = document.getElementById('altNoteText');
+        if (!box) return;
+        box.classList.add('open');
+        if (btn) {
+            btn.setAttribute('aria-expanded', 'true');
+            btn.textContent = '⚙️ বিকল্প উপায় লুকান ▴';
+        }
+        if (isFallbackAlert) {
+            box.classList.add('fallback-alert');
+            if (note) note.textContent = '⚠️ Direct Submit-এ নেটওয়ার্ক সমস্যা হয়েছে। এখন নিচের WhatsApp বাটনে ক্লিক করে পাঠাতে পারেন।';
+        }
+    }
+    function closeAltSendBox() {
+        const box = document.getElementById('altSendBox');
+        const btn = document.getElementById('altToggleBtn');
+        const note = document.getElementById('altNoteText');
+        if (!box) return;
+        box.classList.remove('open', 'fallback-alert');
+        if (btn) {
+            btn.setAttribute('aria-expanded', 'false');
+            btn.textContent = '⚙️ Direct পাঠাতে সমস্যা হলে এখানে ক্লিক করুন (বিকল্প উপায় ▾)';
+        }
+        if (note) note.textContent = '⚠️ শুধুমাত্র Direct Submit কাজ না করলেই নিচের ব্যাকআপ অপশন ব্যবহার করুন।';
+    }
+    function toggleAltSendBox() {
+        const box = document.getElementById('altSendBox');
+        if (!box) return;
+        if (box.classList.contains('open')) closeAltSendBox();
+        else openAltSendBox(false);
+    }
     function sendToWhatsApp() {
+        if (!getMuhuriName()) { openMuhuriGate(false); showToast("⚠️ আগে আপনার নাম লিখুন।", "err"); return; }
         const text = collectData();
+        if (!text) return;
+        _pendingWaText = text;
+        if (_directSubmitFailed) {
+            proceedSendToWhatsApp();
+            return;
+        }
+        const m = document.getElementById('waConfirmModal');
+        if (m) m.classList.add('open');
+        else proceedSendToWhatsApp();
+    }
+    function closeWaConfirmModal() {
+        const m = document.getElementById('waConfirmModal');
+        if (m) m.classList.remove('open');
+    }
+    function switchToDirectSubmit() {
+        closeWaConfirmModal();
+        openReviewModal();
+    }
+    function proceedSendToWhatsApp() {
+        closeWaConfirmModal();
+        const text = _pendingWaText || collectData();
+        _pendingWaText = null;
         if (text) window.open(`https://wa.me/${SHOP_WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
     }
     const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbwsXh37QDHtNg27DaTTWRYTB_5pCI3_Ya8zuDI0csOKneKEUDFiTBYUkQA6UkapKYCI/exec";
@@ -3559,45 +3809,58 @@ html.dark .muhuri-change-btn{background:var(--gold);color:#0b1f3a}
         if (bar) bar.style.width = pct + '%';
         if (topBar) topBar.style.width = pct + '%';
         if (txt) txt.textContent = pct === 100 ? '✅ ১০০% প্রস্তুত!' : (pct + '% সম্পন্ন');
+        const lsSt = document.getElementById('liveSummaryStatus');
+        if (lsSt) {
+            lsSt.textContent = pct === 100 ? '✅ প্রস্তুত' : (pct + '% সম্পন্ন');
+            lsSt.classList.toggle('ready', pct === 100);
+        }
+        updateLiveSummary();
     }
 
     // ================= Pre-Submit Review Modal =================
     let _pendingPayloadText = null;
     const _escHtml = s => String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-    function openReviewModal() {
-        if (!getMuhuriName()) { openMuhuriGate(false); showToast("⚠️ আগে আপনার নাম লিখুন।", "err"); return; }
-        const text = collectData();
-        if (!text) return;
-        _pendingPayloadText = text;
-        const tbody = document.getElementById("reviewTableBody");
+    function buildSummaryRows(showMissing) {
         const rows = [];
-        const addR = (k, v) => { if (v) rows.push(`<tr><td>${_escHtml(k)}</td><td>${_escHtml(v)}</td></tr>`); };
-        addR("প্রেরকের নাম", getMuhuriName());
+        const missHtml = '<span class="ls-miss">বাকি আছে</span>';
+        const addR = (k, v, req) => {
+            if (v) rows.push(`<tr><td>${_escHtml(k)}</td><td>${_escHtml(v)}</td></tr>`);
+            else if (showMissing && req) rows.push(`<tr><td>${_escHtml(k)}</td><td>${missHtml}</td></tr>`);
+        };
+        addR("প্রেরকের নাম", getMuhuriName(), true);
 
         if (curMode() === 'marriage') {
             addR("ডকুমেন্ট", "Marriage Declaration (ম্যারেজ)");
-            addR("বরের নাম", val('gName') + " (বয়স: " + val('gAge') + ")");
-            addR("বরের বাবা", val('gFather'));
-            addR("বরের ঠিকানা", addrStr('g'));
-            addR("কনের নাম", val('bName') + " (বয়স: " + val('bAge') + ")");
-            addR("কনের বাবা", val('bFather'));
-            addR("কনের ঠিকানা", addrStr('b'));
-            addR("ধর্ম ও বিয়ের তারিখ", mRelName() + " · " + marriageDate());
+            const gDisp = val('gName') ? (val('gName') + (val('gAge') ? " (বয়স: " + val('gAge') + ")" : "")) : "";
+            addR("বরের নাম", gDisp, true);
+            addR("বরের বাবা", val('gFather'), true);
+            addR("বরের ঠিকানা", addrOk('g') ? addrStr('g') : "", true);
+            const bDisp = val('bName') ? (val('bName') + (val('bAge') ? " (বয়স: " + val('bAge') + ")" : "")) : "";
+            addR("কনের নাম", bDisp, true);
+            addR("কনের বাবা", val('bFather'), true);
+            addR("কনের ঠিকানা", addrOk('b') ? addrStr('b') : "", true);
+            const mdDisp = marriageDate() ? (mRelName() + " · " + marriageDate()) : "";
+            addR("ধর্ম ও বিয়ের তারিখ", mdDisp, true);
             addR("মোবাইল নম্বর", val('mCustomerPhone'));
         } else {
             const t = document.getElementById("affidavitType").value;
             const label = document.getElementById("affidavitType").options[document.getElementById("affidavitType").selectedIndex].text;
             addR("অ্যাফিডেভিট", label);
-            addR("আবেদনকারীর নাম", val('name'));
+            addR("আবেদনকারীর নাম", val('name'), true);
             addR("মোবাইল নম্বর", val('customerPhone'));
             const gStr = val('gender') + (val('gender') === 'Female' && !isBirthChild() ? ' (' + val('maritalStatus') + ')' : '');
-            addR("লিঙ্গ ও বয়স", gStr + " · " + val('age') + " বছর");
-            if (!t.includes("OBC") && t !== "IshanUday") addR("জন্মতারিখ", `${val('dobDay')}/${val('dobMonth')}/${val('dobYear')}`);
-            addR("বাবার নাম", val('fatherName'));
+            const ageDisp = val('age') ? (gStr + " · " + val('age') + " বছর") : (t === "IshanUday" ? gStr : "");
+            addR("লিঙ্গ ও বয়স", ageDisp, t !== "IshanUday");
+            if (!t.includes("OBC") && t !== "IshanUday") {
+                const dobDisp = (val('dobDay') && val('dobMonth') && val('dobYear')) ? `${val('dobDay')}/${val('dobMonth')}/${val('dobYear')}` : "";
+                addR("জন্মতারিখ", dobDisp, true);
+            }
+            addR("বাবার নাম", val('fatherName'), fatherRequired());
             addR("মায়ের নাম", val('motherName'));
-            addR("স্বামী/স্ত্রীর নাম", val('spouseName'));
-            addR("ধর্ম ও পেশা", val('religion') + " · " + (val('professionSelect') === 'Other' ? val('customProfession') : val('professionSelect')));
+            addR("স্বামী/স্ত্রীর নাম", val('spouseName'), spouseRequired());
+            const profDisp = val('professionSelect') === 'Other' ? val('customProfession') : val('professionSelect');
+            addR("ধর্ম ও পেশা", profDisp ? (val('religion') + " · " + profDisp) : "", true);
             if (val('childName') && (isBirthChild() || t.includes("Parents"))) {
                 addR("সন্তানের নাম", val('childName') + (isBirthChild() ? ` (${val('c_dobDay')}/${val('c_dobMonth')}/${val('c_dobYear')})` : ''));
             }
@@ -3620,9 +3883,25 @@ html.dark .muhuri-change-btn{background:var(--gold);color:#0b1f3a}
             if (t === 'PanchayatRORNew') addR("ROR-এ নতুন নাম", `${val("rn_for") === "self" ? val("name") : val("rn_childName")} · Reg: ${val("rn_regNo")} (${val("rn_regDate")}) · ${val("rn_panchayat")}`);
             if (t === 'BirthCorrDigital') addR("জন্ম সার্টিফিকেট সংশোধন", `Reg: ${val("bc_regNo")} (${val("bc_regDate")}) · ${val("bc_issuerPlaceType") === "Home" ? val("bc_panchayat") + " (" + val("bc_block") + ")" : val("bc_issuerName")} · ${getBcItems().map(it => it.wrong + " → " + it.correct).join(", ")}`);
             if (t === 'IshanUday') addR("প্রার্থীর নাম (Ishan Uday)", `${val("iu_candidateName").toUpperCase()} (${val("iu_parentRole")})`);
-            addR(t === 'OwnershipTransfer' ? "বিক্রেতার ঠিকানা" : "বর্তমান ঠিকানা", `Vill: ${val('p_vill')}${val('p_po') ? ', PO: ' + val('p_po') : ''}, PS: ${val('p_ps')}, Dist: ${val('p_dist')}${val('p_pin') ? ', PIN: ' + val('p_pin') : ''}`);
+            const pAddrDisp = (val('p_vill') || val('p_ps')) ? `Vill: ${val('p_vill')}${val('p_po') ? ', PO: ' + val('p_po') : ''}, PS: ${val('p_ps')}, Dist: ${val('p_dist')}${val('p_pin') ? ', PIN: ' + val('p_pin') : ''}` : "";
+            addR(t === 'OwnershipTransfer' ? "বিক্রেতার ঠিকানা" : "বর্তমান ঠিকানা", pAddrDisp, true);
         }
-        tbody.innerHTML = rows.join("");
+        return rows.join("");
+    }
+
+    function updateLiveSummary() {
+        const tbody = document.getElementById("liveSummaryBody");
+        if (!tbody) return;
+        tbody.innerHTML = buildSummaryRows(true);
+    }
+
+    function openReviewModal() {
+        if (!getMuhuriName()) { openMuhuriGate(false); showToast("⚠️ আগে আপনার নাম লিখুন।", "err"); return; }
+        const text = collectData();
+        if (!text) return;
+        _pendingPayloadText = text;
+        const tbody = document.getElementById("reviewTableBody");
+        tbody.innerHTML = buildSummaryRows(false);
         document.getElementById("reviewModal").classList.add("open");
     }
 
@@ -3660,6 +3939,8 @@ html.dark .muhuri-change-btn{background:var(--gold);color:#0b1f3a}
                 body: JSON.stringify(payload)
             });
             if (!res.ok) throw new Error("HTTP " + res.status);
+            _directSubmitFailed = false;
+            closeAltSendBox();
             localStorage.setItem('ayatCustomerSent', '1');
             saveCustomerDraft();
             closeReviewModal();
@@ -3669,7 +3950,12 @@ html.dark .muhuri-change-btn{background:var(--gold);color:#0b1f3a}
                 ? "✅ সংশোধিত তথ্য আবার দোকানে পাঠানো হয়েছে!"
                 : "✅ আপনার তথ্য সফলভাবে AYAT GRAPHICS ZONE-এ পৌঁছে গেছে!", "ok");
         } catch (err) {
-            showToast("❌ পাঠাতে সমস্যা হয়েছে। ইন্টারনেট চেক করুন বা WhatsApp ব্যবহার করুন।", "err");
+            _directSubmitFailed = true;
+            closeReviewModal();
+            openAltSendBox(true);
+            const aw = document.getElementById('altSendWrap');
+            if (aw) aw.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            showToast("❌ Direct পাঠাতে সমস্যা হয়েছে। নিচে ব্যাকআপ WhatsApp অপশন খুলে দেওয়া হয়েছে।", "err");
         } finally {
             btn.disabled = false;
             btn.textContent = "✅ সব ঠিক আছে, পাঠান";

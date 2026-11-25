@@ -600,7 +600,7 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
     <div class="grid-2 form-group">
         <div>
             <label>Gender <span style="color:red;">*</span></label>
-            <select id="gender" onchange="updateSpouseRequirement()">
+            <select id="gender" onchange="onGenderSelectChange()">
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
             </select>
@@ -2323,6 +2323,12 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
         const f = document.getElementById('sc_for').value;
         const w = document.getElementById('scStudentNameWrap');
         if (w) w.style.display = (f === 'self') ? 'none' : '';
+        const gEl = document.getElementById('gender');
+        const mEl = document.getElementById('maritalStatus');
+        if (f !== 'self' && gEl && gEl.value === 'Female' && mEl) {
+            mEl.value = 'Married';
+        }
+        if (typeof updateSpouseRequirement === 'function') updateSpouseRequirement();
         scChanged();
     }
     function checkScDocType() {
@@ -2953,6 +2959,11 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
         syncSurvivalPreset(type);
         document.getElementById("rentNocSection").style.display = (type === "RentNOC") ? "block" : "none";
         document.getElementById("schoolCorrSection").style.display = (type === "SchoolCorr") ? "block" : "none";
+        if (type === "SchoolCorr" && val("sc_for") !== "self" && document.getElementById("gender").value === "Female") {
+            const _mSc = document.getElementById("maritalStatus");
+            if (_mSc) _mSc.value = "Married";
+            updateSpouseRequirement();
+        }
         document.getElementById("rorCorrSection").style.display = (type === "PanchayatROR") ? "block" : "none";
         document.getElementById("rorNewSection").style.display = (type === "PanchayatRORNew") ? "block" : "none";
         document.getElementById("birthCorrSection").style.display = (type === "BirthCorrDigital") ? "block" : "none";
@@ -3057,6 +3068,15 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
         if (isUnmarriedAff() || isFemaleUnmarried()) return true;
         if (isBirthSelf() || isNonStudy()) return true;
         return document.getElementById("gender").value === "Male";
+    }
+    function onGenderSelectChange() {
+        const g = document.getElementById("gender").value;
+        const t = document.getElementById("affidavitType").value;
+        const mSel = document.getElementById("maritalStatus");
+        if (g === "Female" && t === "SchoolCorr" && val("sc_for") !== "self" && mSel) {
+            mSel.value = "Married";
+        }
+        updateSpouseRequirement();
     }
     function updateSpouseRequirement() {
         updatePoPinUI();

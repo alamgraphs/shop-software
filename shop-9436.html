@@ -670,7 +670,7 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
         <div class="grid-2 form-group">
             <div>
                 <label>Gender <span style="color:red;">*</span></label>
-                <select id="gender" onchange="updateSpouseRequirement()">
+                <select id="gender" onchange="onGenderSelectChange()">
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                 </select>
@@ -2422,6 +2422,12 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
         const f = document.getElementById('sc_for').value;
         const w = document.getElementById('scStudentNameWrap');
         if (w) w.style.display = (f === 'self') ? 'none' : '';
+        const gEl = document.getElementById('gender');
+        const mEl = document.getElementById('maritalStatus');
+        if (f !== 'self' && gEl && gEl.value === 'Female' && mEl) {
+            mEl.value = 'Married';
+        }
+        if (typeof updateSpouseRequirement === 'function') updateSpouseRequirement();
         scChanged();
     }
     function checkScDocType() {
@@ -3052,6 +3058,11 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
         syncSurvivalPreset(type);
         document.getElementById("rentNocSection").style.display = (type === "RentNOC") ? "block" : "none";
         document.getElementById("schoolCorrSection").style.display = (type === "SchoolCorr") ? "block" : "none";
+        if (type === "SchoolCorr" && val("sc_for") !== "self" && document.getElementById("gender").value === "Female") {
+            const _mSc = document.getElementById("maritalStatus");
+            if (_mSc) _mSc.value = "Married";
+            updateSpouseRequirement();
+        }
         document.getElementById("rorCorrSection").style.display = (type === "PanchayatROR") ? "block" : "none";
         document.getElementById("rorNewSection").style.display = (type === "PanchayatRORNew") ? "block" : "none";
         document.getElementById("birthCorrSection").style.display = (type === "BirthCorrDigital") ? "block" : "none";
@@ -3161,6 +3172,15 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
         if (isUnmarriedAff() || isFemaleUnmarried()) return true;
         if (isBirthSelf() || isNonStudy()) return true;
         return document.getElementById("gender").value === "Male";
+    }
+    function onGenderSelectChange() {
+        const g = document.getElementById("gender").value;
+        const t = document.getElementById("affidavitType").value;
+        const mSel = document.getElementById("maritalStatus");
+        if (g === "Female" && t === "SchoolCorr" && val("sc_for") !== "self" && mSel) {
+            mSel.value = "Married";
+        }
+        updateSpouseRequirement();
     }
     function updateSpouseRequirement() {
         updatePoPinUI();
@@ -3889,7 +3909,7 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
             const childIntro = (!isSelf && !hasStu) ? `<b>${stuName}</b> is my ${childWord}, and ` : "";
             const para1 = `That ${childIntro}${joinOxford(p1Parts)}${p1RelTail}`;
 
-            // -------- Paragraph 2: Clerical Errors (merges father + mother cleanly like sample PDF) --------
+            // -------- Paragraph 2: Clerical Errors (merges father + mother cleanly with natural parent-applicant phrasing) --------
             const p2Target = isSelf ? `my <b>${docT}</b>` : `my ${childWord}’s (<b>${stuName}</b>) <b>${docT}</b>`;
             const p2ErrWord = ordered.length > 1 ? "inadvertent clerical errors have" : "an inadvertent clerical error has";
 
@@ -3906,7 +3926,9 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
                         parentsMerged = true;
                         const wf = esc(faItem.wrong || "[WRONG]"), cf = esc(faItem.correct || "[CORRECT]");
                         const wm = esc(moItem.wrong || "[WRONG]"), cm = esc(moItem.correct || "[CORRECT]");
-                        const pLead = isSelf ? "my father’s and mother’s names" : `${childPoss} father’s and mother’s names`;
+                        const pLead = isSelf
+                            ? "my father’s and mother’s names"
+                            : (isMotherApp ? "my husband’s and my names" : "my and my wife’s names");
                         const pInstead = isSelf ? "their actual correct names" : "our actual correct names";
                         p2Clauses.push(`${pLead} have been incorrectly recorded as "<b>${wf}</b>" and "<b>${wm}</b>" respectively (instead of ${pInstead}, "<b>${cf}</b>" and "<b>${cm}</b>")`);
                     }
@@ -3914,10 +3936,12 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
                     // Already merged with father_name above
                 } else if (it.field === "father_name") {
                     if (isSelf) p2Clauses.push(`my father’s name has been incorrectly recorded as "<b>${w}</b>" (instead of his actual correct name, "<b>${c}</b>")`);
-                    else p2Clauses.push(`${childPoss} father’s name has been incorrectly recorded as "<b>${w}</b>" (instead of ${isMotherApp ? "his" : "my"} actual correct name, "<b>${c}</b>")`);
+                    else if (isMotherApp) p2Clauses.push(`my husband’s name has been incorrectly recorded as "<b>${w}</b>" (instead of his actual correct name, "<b>${c}</b>")`);
+                    else p2Clauses.push(`my name has been incorrectly recorded as "<b>${w}</b>" (instead of my actual correct name, "<b>${c}</b>")`);
                 } else if (it.field === "mother_name") {
                     if (isSelf) p2Clauses.push(`my mother’s name has been incorrectly recorded as "<b>${w}</b>" (instead of her actual correct name, "<b>${c}</b>")`);
-                    else p2Clauses.push(`${childPoss} mother’s name has been incorrectly recorded as "<b>${w}</b>" (instead of ${isMotherApp ? "my" : "her"} actual correct name, "<b>${c}</b>")`);
+                    else if (isMotherApp) p2Clauses.push(`my name has been incorrectly recorded as "<b>${w}</b>" (instead of my actual correct name, "<b>${c}</b>")`);
+                    else p2Clauses.push(`my wife’s name has been incorrectly recorded as "<b>${w}</b>" (instead of her actual correct name, "<b>${c}</b>")`);
                 } else if (it.field === "dob") {
                     if (isSelf) p2Clauses.push(`my Date of Birth has been incorrectly recorded as "<b>${w}</b>" (instead of my actual correct Date of Birth, "<b>${c}</b>")`);
                     else p2Clauses.push(`${hasStu ? childPoss : `my ${childWord}’s`} Date of Birth has been incorrectly recorded as "<b>${w}</b>" (instead of ${childPoss} actual correct Date of Birth, "<b>${c}</b>")`);
@@ -3926,7 +3950,7 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
             const para2 = `That, however, ${p2ErrWord} occurred in ${p2Target}${schoolClause}${refClause}. Specifically, ${joinOxford(p2Clauses)}.`;
 
             // -------- Paragraph 3: Purpose & Correction Request --------
-            const p3Clauses = ordered.map((it, idx) => {
+            const p3Clauses = ordered.map(it => {
                 const c = esc(it.correct || "[CORRECT]");
                 if (isSelf) {
                     if (it.field === "student_name") return `my name to "<b>${c}</b>"`;
@@ -3934,11 +3958,10 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
                     if (it.field === "mother_name") return `my mother’s name to "<b>${c}</b>"`;
                     return `my Date of Birth to "<b>${c}</b>"`;
                 } else {
-                    const pfx = idx === 0 ? `my ${childWord}’s` : childPoss;
-                    if (it.field === "student_name") return `${pfx} name to "<b>${c}</b>"`;
-                    if (it.field === "father_name") return `${pfx} father’s name to "<b>${c}</b>"`;
-                    if (it.field === "mother_name") return `${pfx} mother’s name to "<b>${c}</b>"`;
-                    return `${pfx} Date of Birth to "<b>${c}</b>"`;
+                    if (it.field === "student_name") return `my ${childWord}’s name to "<b>${c}</b>"`;
+                    if (it.field === "father_name") return isMotherApp ? `my husband’s name to "<b>${c}</b>"` : `my name to "<b>${c}</b>"`;
+                    if (it.field === "mother_name") return isMotherApp ? `my name to "<b>${c}</b>"` : `my wife’s name to "<b>${c}</b>"`;
+                    return `${hasStu ? childPoss : `my ${childWord}’s`} Date of Birth to "<b>${c}</b>"`;
                 }
             });
             const recWord = isMultiDoc ? "school records" : "school record";

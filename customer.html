@@ -443,6 +443,166 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
 
 
 
+
+/* ===== v27: Big Thank You Popup Modal (from Alam Hossain) ===== */
+#thankYouModal{display:none;position:fixed;inset:0;z-index:9750;background:rgba(8,20,40,.78);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:16px}
+#thankYouModal.open{display:flex}
+.ty-card{background:var(--card);width:100%;max-width:520px;border-radius:24px;border-top:6px solid var(--gold);box-shadow:0 36px 80px -16px rgba(0,0,0,.68);overflow:hidden;text-align:center;animation:tyPopIn .32s cubic-bezier(.18,.89,.32,1.18) both}
+@keyframes tyPopIn{from{opacity:0;transform:scale(.86) translateY(18px)}to{opacity:1;transform:none}}
+.ty-head{background:radial-gradient(420px 180px at 80% -10%,rgba(201,162,75,.35),transparent 70%),linear-gradient(155deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:28px 22px 22px;position:relative;border-bottom:3px solid var(--gold)}
+.ty-close-x{position:absolute;top:12px;right:14px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;width:34px;height:34px;border-radius:50%;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.ty-close-x:hover{background:rgba(255,255,255,.24)}
+.ty-icon{width:76px;height:76px;margin:0 auto 12px;border-radius:50%;background:linear-gradient(135deg,#28c76f,#118a4c);display:flex;align-items:center;justify-content:center;font-size:38px;box-shadow:0 0 0 6px rgba(40,199,111,.24),0 14px 28px rgba(0,0,0,.35)}
+.ty-head h2{margin:0;font-size:24px;font-weight:800;color:#fff;letter-spacing:.3px}
+.ty-head .ty-sub{margin:5px 0 0;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:700}
+.ty-body{padding:24px 24px 18px}
+.ty-greet{font-size:21px;font-weight:800;color:var(--navy);margin:0 0 12px;line-height:1.35}
+.ty-greet span{color:#15804f}
+.ty-msg{font-size:15.5px;color:var(--ink);line-height:1.7;margin:0 0 16px;font-weight:500}
+.ty-msg b{color:var(--navy);font-weight:800}
+.ty-meta{background:var(--gold-xl);border:1.5px solid #e6d4a3;border-radius:12px;padding:10px 14px;font-size:13px;color:var(--gold-d);font-weight:700;margin-bottom:16px;line-height:1.5}
+.ty-sign{display:inline-flex;flex-direction:column;align-items:center;padding:10px 20px;border-radius:12px;background:#f4f7fc;border:1px solid var(--line);margin-bottom:4px}
+.ty-sign b{font-family:'Playfair Display',Georgia,serif;font-size:16.5px;letter-spacing:1.2px;color:var(--navy)}
+.ty-sign small{font-size:11px;letter-spacing:2px;color:var(--gold-d);font-weight:800;text-transform:uppercase;margin-top:2px}
+.ty-foot{padding:14px 22px 22px;background:#f7f9fc;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
+.ty-btn-ok{width:100%;background:linear-gradient(135deg,#1fa963 0%,#0f7d47 100%);color:#fff;border:none;border-radius:13px;padding:14px 18px;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 12px 22px -10px rgba(15,125,71,.75)}
+.ty-btn-ok:hover{filter:brightness(1.06)}
+.ty-foot-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ty-btn-sec{background:#fff;color:var(--navy);border:1.5px solid var(--navy);border-radius:11px;padding:10px 12px;font-size:13px;font-weight:800;cursor:pointer}
+.ty-btn-new{background:#fff;color:var(--danger);border:1.5px solid var(--danger);border-radius:11px;padding:10px 12px;font-size:13px;font-weight:800;cursor:pointer}
+@media screen and (max-width:460px){.ty-foot-row{grid-template-columns:1fr}.ty-greet{font-size:19px}.ty-msg{font-size:14.5px}}
+html.dark .ty-card{border:1px solid #263859;border-top:6px solid var(--gold)}
+html.dark .ty-greet{color:#faecc5}
+html.dark .ty-greet span{color:#4ade80}
+html.dark .ty-msg{color:#dbe6f7}
+html.dark .ty-msg b{color:#faecc5}
+html.dark .ty-meta{background:#211d13;border-color:#594822;color:#ebd088}
+html.dark .ty-sign{background:#162238;border-color:#2a3d5e}
+html.dark .ty-sign b{color:#fff}
+html.dark .ty-sign small{color:var(--gold)}
+html.dark .ty-foot{background:#0e1627;border-top-color:#22314c}
+html.dark .ty-btn-sec{background:#162238;color:var(--gold-l);border-color:var(--gold)}
+html.dark .ty-btn-new{background:#241317;color:#ff9aa2;border-color:#c93a45}
+
+
+/* ===== v28: Marriage DOB & Age Validation Inline Hints ===== */
+.m-age-msg{font-size:12.5px;font-weight:700;margin-top:5px;min-height:0;line-height:1.4;border-radius:8px}
+.m-age-msg.bad{color:#b91c1c;background:#fef2f2;border:1px solid #fecaca;padding:6px 10px}
+.m-age-msg.ok{color:#15803d;background:#f0fdf4;border:1px solid #bbf7d0;padding:6px 10px}
+html.dark .m-age-msg.bad{color:#fca5a5;background:#2b141a;border-color:#7f1d1d}
+html.dark .m-age-msg.ok{color:#86efac;background:#0f261b;border-color:#166534}
+
+
+/* ===== v29: Marriage Party Applicant Badge ===== */
+.party-role-badge{display:inline-block;margin-left:auto;padding:2px 9px;border-radius:999px;background:var(--gold-l);color:var(--gold-d);border:1px solid #dfc57d;font-size:10.5px;font-weight:800;letter-spacing:.4px}
+html.dark .party-role-badge{background:#292211;color:var(--gold);border-color:#695424}
+
+
+/* ===== v30: Browser Sent Files History (আমার পাঠানো ফাইলসমূহ) ===== */
+.sent-hist-top-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,#1b8a5a,#116641);color:#fff;
+  border:1px solid rgba(255,255,255,.25);border-radius:999px;
+  padding:8px 14px;font-size:12.5px;font-weight:800;cursor:pointer;
+  box-shadow:0 6px 16px -6px rgba(17,102,65,.65);transition:filter .18s,transform .15s;
+  white-space:nowrap;
+}
+.sent-hist-top-btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.sent-hist-count-pill{
+  background:#fff;color:#0f6b43;border-radius:999px;padding:1px 7px;
+  font-size:11px;font-weight:800;line-height:1.35;
+}
+@media screen and (max-width:979px){
+  .sent-hist-top-btn{width:100%;justify-content:center;border-radius:12px;padding:11px 14px;font-size:13.5px;margin-bottom:14px}
+}
+
+.sent-history-card{
+  background:var(--card);border:1.5px solid #c9d8ec;border-top:4px solid var(--navy2);
+  border-radius:16px;margin-bottom:20px;overflow:hidden;
+  box-shadow:0 10px 26px -14px rgba(11,31,58,.32);
+}
+.sh-head{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);
+  color:#fff;padding:12px 15px;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  cursor:pointer;user-select:none;
+}
+.sh-head-left{display:flex;align-items:center;gap:8px;min-width:0}
+.sh-head h3{margin:0;font-size:14.5px;font-weight:800;color:var(--gold-l);letter-spacing:.2px}
+.sh-badge{background:var(--gold);color:var(--navy);font-size:11px;font-weight:800;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.sh-toggle-btn{
+  background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.26);
+  border-radius:8px;padding:4px 10px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;
+}
+.sh-body{padding:12px 14px;background:#f7f9fc}
+.sh-body.collapsed{display:none}
+.sh-filters{display:grid;grid-template-columns:1.35fr 1fr auto;gap:8px;margin-bottom:10px;align-items:center}
+.sh-filters input{padding:8px 10px !important;font-size:12.5px !important;border-radius:9px !important;height:36px}
+.sh-clear-btn{
+  background:#fff;color:var(--danger);border:1.5px solid #e6b8bc;border-radius:9px;
+  padding:0 10px;height:36px;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap;
+}
+.sh-clear-btn:hover{background:#fff1f2}
+.sh-note{font-size:11.5px;color:var(--muted);margin:0 0 10px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.sh-list{max-height:310px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding-right:2px}
+.sh-list::-webkit-scrollbar{width:6px}
+.sh-list::-webkit-scrollbar-thumb{background:#c5cbd9;border-radius:6px}
+.sh-item{
+  background:#fff;border:1px solid #d9e2ef;border-left:4px solid #1b8a5a;
+  border-radius:12px;padding:11px 12px;display:flex;flex-direction:column;gap:7px;
+  box-shadow:0 2px 6px rgba(11,31,58,.05);
+}
+.sh-item-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.sh-item-name{font-size:14px;font-weight:800;color:var(--navy);line-height:1.3;word-break:break-word}
+.sh-via{
+  font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:999px;white-space:nowrap;
+  background:#e8f7ef;color:#0f6b43;border:1px solid #a7dfc1;
+}
+.sh-via.wa{background:#eef3fc;color:#1d4a85;border-color:#c4d6f2}
+.sh-rev{
+  display:inline-block;margin-left:5px;padding:1px 6px;border-radius:999px;
+  background:#fef3c7;color:#92400e;border:1px solid #f5d07a;font-size:10px;font-weight:800;vertical-align:middle;
+}
+.sh-item-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:11.5px;color:var(--ink2);font-weight:600}
+.sh-doc-pill{background:#eef3fc;color:#1d4a85;border:1px solid #d4e1f5;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700}
+.sh-item-actions{display:flex;flex-wrap:wrap;gap:6px;padding-top:7px;border-top:1px dashed #e6ecf5}
+.sh-act{
+  border:none;border-radius:8px;padding:6px 10px;font-size:11.5px;font-weight:800;cursor:pointer;
+  display:inline-flex;align-items:center;gap:4px;
+}
+.sh-act-view{background:#eef2fa;color:var(--navy);border:1px solid #cfd9ea}
+.sh-act-edit{background:linear-gradient(135deg,var(--navy),var(--navy2));color:var(--gold-l)}
+.sh-act-new{background:#e9f7f0;color:#0f6b43;border:1px solid #a7dfc1}
+.sh-act-del{background:#fff;color:var(--danger);border:1px solid #f0c2c6;margin-left:auto}
+.sh-act-del:hover{background:#fee2e2}
+.sh-empty{text-align:center;color:var(--muted);font-size:12.5px;font-weight:600;padding:18px 10px;background:#fff;border:1px dashed #cbd5e1;border-radius:10px}
+
+/* Sent Item Details Modal */
+#sentViewModal{display:none;position:fixed;inset:0;z-index:9650;background:rgba(11,31,58,.72);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:14px}
+#sentViewModal.open{display:flex}
+
+@media screen and (max-width:560px){
+  .sh-filters{grid-template-columns:1fr 1fr}
+  .sh-clear-btn{grid-column:1 / -1}
+  .sh-act{flex:1 1 auto;justify-content:center}
+  .sh-act-del{margin-left:0;flex:0 0 auto}
+}
+html.dark .sent-history-card{border-color:#263858;border-top-color:var(--gold)}
+html.dark .sh-body{background:#0e1729}
+html.dark .sh-clear-btn{background:#1c1419;border-color:#6b262e;color:#ff9aa2}
+html.dark .sh-list::-webkit-scrollbar-thumb{background:#2d3f61}
+html.dark .sh-item{background:#152238;border-color:#263959;border-left-color:#25a66e}
+html.dark .sh-item-name{color:#faecc5}
+html.dark .sh-via{background:#102b1f;color:#7ee3b3;border-color:#247350}
+html.dark .sh-via.wa{background:#182b4d;color:#93c5fd;border-color:#29467a}
+html.dark .sh-rev{background:#332409;color:#fcd34d;border-color:#785312}
+html.dark .sh-doc-pill{background:#182b4d;color:#93c5fd;border-color:#29467a}
+html.dark .sh-item-actions{border-top-color:#243552}
+html.dark .sh-act-view{background:#1b2a45;color:#dbe6f7;border-color:#304569}
+html.dark .sh-act-edit{background:linear-gradient(135deg,#e6c872,var(--gold));color:#0b1f3a}
+html.dark .sh-act-new{background:#102b1f;color:#7ee3b3;border-color:#247350}
+html.dark .sh-act-del{background:#241317;color:#ff9aa2;border-color:#6b262e}
+html.dark .sh-empty{background:#121d32;border-color:#253552;color:#94a8c9}
+
 </style>
 <script>try{if(localStorage.getItem('ayatDarkMode')==='1')document.documentElement.classList.add('dark');}catch(_){}</script>
 </head>
@@ -478,12 +638,34 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
                 <div class="muhuri-bar-info"><span>👤 প্রেরক:</span> <b id="muhuriNameDisplay">—</b></div>
                 <button type="button" class="muhuri-change-btn" onclick="openMuhuriGate(true)">✏️ নাম পরিবর্তন</button>
             </div>
+            <button type="button" class="sent-hist-top-btn hidden" id="btnTopSentHistory" onclick="jumpToSentHistory()">📂 পাঠানো ফাইল <span class="sent-hist-count-pill" id="topSentCount">0</span></button>
             <button type="button" class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" aria-label="Toggle Dark Mode">🌙 ডার্ক</button>
         </div>
     </div>
 
     <div class="main-workspace">
     <div class="form-column">
+    <section class="sent-history-card hidden" id="sentHistorySection" aria-label="আমার পাঠানো ফাইলসমূহ">
+        <div class="sh-head" onclick="toggleSentHistoryPanel()">
+            <div class="sh-head-left">
+                <h3>📂 আমার পাঠানো ফাইলসমূহ</h3>
+                <span class="sh-badge" id="sentHistoryBadge">0টি</span>
+            </div>
+            <button type="button" class="sh-toggle-btn" id="sentHistoryToggleBtn" onclick="event.stopPropagation(); toggleSentHistoryPanel()">লুকান ▴</button>
+        </div>
+        <div class="sh-body" id="sentHistoryBody">
+            <div class="sh-filters">
+                <input type="search" id="sentHistSearch" placeholder="🔍 নাম বা ডকুমেন্ট খুঁজুন..." oninput="renderSentHistory()" autocomplete="off">
+                <input type="date" id="sentHistDate" onchange="renderSentHistory()" title="তারিখ অনুযায়ী খুঁজুন">
+                <button type="button" class="sh-clear-btn hidden" id="sentHistResetBtn" onclick="clearSentHistoryFilters()">✕ রিসেট</button>
+            </div>
+            <div class="sh-note">
+                <span id="sentHistSummaryText">এই ব্রাউজারে সেভ করা আপনার পাঠানো ফাইলগুলো এখানে দেখাবে।</span>
+            </div>
+            <div class="sh-list" id="sentHistoryList"></div>
+        </div>
+    </section>
+
     <div id="draftNotice" style="display:none; background:#eef7f2; border:1.5px solid #1b8a5a; border-radius:12px; padding:12px 14px; margin-bottom:16px; font-size:13px; color:#14213a;">
         <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
             <div id="draftNoticeText">📝 <b>আগের পূরণ করা তথ্য লোড করা হয়েছে।</b> ভুল থাকলে এডিট করে আবার পাঠাতে পারেন।</div>
@@ -1474,11 +1656,51 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
     <!-- ================= MARRIAGE FORM ================= -->
     <div id="marriageForm" class="hidden">
 
-    <h4 class="section-title">🤵 বরের তথ্য <small>Groom Details</small></h4>
+    <div class="form-group type-selector">
+        <label>Applicant (আবেদন কারী) <span style="color:red;">*</span></label>
+        <select id="applicant" onchange="onApplicantChange()">
+            <option value="Groom">Groom version (বরের নামে)</option>
+            <option value="Bride">Bride version (কনের নামে)</option>
+        </select>
+        <div style="margin-top:12px;">
+            <label>Marriage Place (বিয়ের স্থান) <span style="color:red;">*</span></label>
+            <select id="mPlaceSrc" onchange="toggleMPlace()">
+                <option value="groom">বরের ঠিকানার মতোই (Groom's address)</option>
+                <option value="bride">কনের ঠিকানার মতোই (Bride's address)</option>
+                <option value="other">অন্য ঠিকানা (Different address)</option>
+            </select>
+        </div>
+    </div>
+    <fieldset id="mmAddrFS">
+        <legend>Marriage Place Address (বিয়ের স্থানের ঠিকানা)</legend>
+        <div class="grid-2">
+            <input type="text" id="mm_vill" placeholder="Vill / Ward *" list="mVillList">
+            <div style="display: flex; gap: 6px;"><input type="text" id="mm_gp" placeholder="Panchayat / Council *" list="panchayatList" style="flex:2">
+                <select id="mm_gpType" style="flex:1"><option value="G.P">G.P</option><option value="V.C">V.C</option><option value="N.P">N.P</option><option value="M.C">M.C</option></select></div>
+            <input type="text" id="mm_po" placeholder="P.O. *">
+            <input type="text" id="mm_ps" placeholder="P.S. *">
+            <input type="text" id="mm_sd" placeholder="Sub-Division *" list="mSdList">
+            <select id="mm_dist"><option value="Dhalai">Dhalai</option><option value="Gomati">Gomati</option><option value="Khowai">Khowai</option><option value="North Tripura">North Tripura</option><option value="Sepahijala" selected>Sepahijala</option><option value="South Tripura">South Tripura</option><option value="Unakoti">Unakoti</option><option value="West Tripura">West Tripura</option></select>
+            <input type="text" id="mm_pin" placeholder="PIN Code *">
+        </div>
+    </fieldset>
+
+    <div id="marriagePartyContainer">
+    <div id="groomSection">
+    <h4 class="section-title">🤵 বরের তথ্য <small>Groom Details</small><span class="party-role-badge" id="groomApplicantTag">আবেদনকারী</span></h4>
     <div class="form-group"><label>Groom's Name <span>*</span></label><input type="text" id="gName" placeholder="বরের নাম"></div>
     <div class="grid-2 form-group">
         <div><label>Father's Name <span>*</span></label><input type="text" id="gFather" placeholder="বরের বাবার নাম"></div>
-        <div><label>Age <span>*</span></label><input type="number" id="gAge" min="1" placeholder="বয়স (e.g. 38)"></div>
+        <div><label>Age (বয়স - অটো) <span>*</span></label><input type="number" id="gAge" readonly style="background-color: #e9ecef;" placeholder="Auto (২১+ হতে হবে)"></div>
+    </div>
+    <div class="form-group" id="gDobWrapper">
+        <label>Groom's Date of Birth (বরের জন্মতারিখ) <span>*</span></label>
+        <div style="display: flex; gap: 5px;">
+            <select id="gDobDay" style="flex: 1;" onchange="calculateMarriageAges()"></select>
+            <select id="gDobMonth" style="flex: 1;" onchange="calculateMarriageAges()"></select>
+            <select id="gDobYear" style="flex: 1.5;" onchange="calculateMarriageAges()"></select>
+        </div>
+        <div class="m-age-msg" id="gAgeWarn"></div>
     </div>
     <div class="form-group"><label>Profession <span>*</span></label>
         <select id="gProf" onchange="checkProf('g')"><option value="Student">Student</option><option value="Housewife">Housewife</option><option value="Day Labour">Day Labour</option><option value="Cultivator">Cultivator</option><option value="Self Employed">Self Employed</option><option value="Govt. Employee">Govt. Employee</option><option value="Private Job" selected>Private Job</option><option value="Un Employed">Un Employed</option><option value="Driver">Driver</option><option value="Business">Business</option><option value="Other">Add Option (Write Custom)</option></select>
@@ -1496,12 +1718,23 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
             <input type="text" id="mg_pin" placeholder="PIN Code *">
         </div>
     </fieldset>
+    </div>
 
-    <h4 class="section-title">👰 কনের তথ্য <small>Bride Details</small></h4>
+    <div id="brideSection">
+    <h4 class="section-title">👰 কনের তথ্য <small>Bride Details</small><span class="party-role-badge hidden" id="brideApplicantTag">আবেদনকারী</span></h4>
     <div class="form-group"><label>Bride's Name <span>*</span></label><input type="text" id="bName" placeholder="কনের নাম"></div>
     <div class="grid-2 form-group">
         <div><label>Father's Name <span>*</span></label><input type="text" id="bFather" placeholder="কনের বাবার নাম"></div>
-        <div><label>Age <span>*</span></label><input type="number" id="bAge" min="1" placeholder="বয়স (e.g. 34)"></div>
+        <div><label>Age (বয়স - অটো) <span>*</span></label><input type="number" id="bAge" readonly style="background-color: #e9ecef;" placeholder="Auto (১৮+ হতে হবে)"></div>
+    </div>
+    <div class="form-group" id="bDobWrapper">
+        <label>Bride's Date of Birth (কনের জন্মতারিখ) <span>*</span></label>
+        <div style="display: flex; gap: 5px;">
+            <select id="bDobDay" style="flex: 1;" onchange="calculateMarriageAges()"></select>
+            <select id="bDobMonth" style="flex: 1;" onchange="calculateMarriageAges()"></select>
+            <select id="bDobYear" style="flex: 1.5;" onchange="calculateMarriageAges()"></select>
+        </div>
+        <div class="m-age-msg" id="bAgeWarn"></div>
     </div>
     <div class="form-group"><label>Profession <span>*</span></label>
         <select id="bProf" onchange="checkProf('b')"><option value="Student">Student</option><option value="Housewife" selected>Housewife</option><option value="Day Labour">Day Labour</option><option value="Cultivator">Cultivator</option><option value="Self Employed">Self Employed</option><option value="Govt. Employee">Govt. Employee</option><option value="Private Job">Private Job</option><option value="Un Employed">Un Employed</option><option value="Driver">Driver</option><option value="Business">Business</option><option value="Other">Add Option (Write Custom)</option></select>
@@ -1519,6 +1752,8 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
             <input type="text" id="mb_pin" placeholder="PIN Code *">
         </div>
     </fieldset>
+    </div>
+    </div>
 
     <h4 class="section-title">💍 বিয়ের তথ্য <small>Marriage Details</small></h4>
     <div class="grid-2 form-group">
@@ -1528,24 +1763,10 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
                 <option value="Buddhist">Buddhist</option><option value="Sikh">Sikh</option><option value="Other">Other</option></select>
             <input type="text" id="mReligionCustom" placeholder="Write religion..." style="display:none;margin-top:6px"></div>
         <div><label>Marriage Date <span>*</span></label>
-            <div style="display: flex; gap: 5px;"><select id="mDay" style="flex:1"></select><select id="mMonth" style="flex:1.3"></select><select id="mYear" style="flex:1.5"></select></div></div>
+            <div style="display: flex; gap: 5px;"><select id="mDay" style="flex:1" onchange="calculateMarriageAges()"></select><select id="mMonth" style="flex:1.3" onchange="calculateMarriageAges()"></select><select id="mYear" style="flex:1.5" onchange="calculateMarriageAges()"></select></div></div>
     </div>
+    <div class="m-age-msg" id="mDateAgeWarn" style="margin:-8px 0 14px;"></div>
     <div class="form-group"><label>Contact Mobile Number (মোবাইল নম্বর - ঐচ্ছিক)</label><input type="tel" id="mCustomerPhone" inputmode="numeric" maxlength="10" placeholder="কাজ রেডি হলে জানাতে ১০ ডিজিটের নম্বর দিন"></div>
-    <div class="form-group"><label>Marriage Place (বিয়ের স্থান) <span>*</span></label>
-    <select id="mPlaceSrc" onchange="toggleMPlace()"><option value="groom">বরের ঠিকানার মতোই (Groom's address)</option><option value="bride">কনের ঠিকানার মতোই (Bride's address)</option><option value="other">অন্য ঠিকানা (Different address)</option></select></div>
-    <fieldset id="mmAddrFS">
-        <legend>Marriage Place Address (বিয়ের স্থানের ঠিকানা)</legend>
-        <div class="grid-2">
-            <input type="text" id="mm_vill" placeholder="Vill / Ward *" list="mVillList">
-            <div style="display: flex; gap: 6px;"><input type="text" id="mm_gp" placeholder="Panchayat / Council *" list="panchayatList" style="flex:2">
-                <select id="mm_gpType" style="flex:1"><option value="G.P">G.P</option><option value="V.C">V.C</option><option value="N.P">N.P</option><option value="M.C">M.C</option></select></div>
-            <input type="text" id="mm_po" placeholder="P.O. *">
-            <input type="text" id="mm_ps" placeholder="P.S. *">
-            <input type="text" id="mm_sd" placeholder="Sub-Division *" list="mSdList">
-            <select id="mm_dist"><option value="Dhalai">Dhalai</option><option value="Gomati">Gomati</option><option value="Khowai">Khowai</option><option value="North Tripura">North Tripura</option><option value="Sepahijala" selected>Sepahijala</option><option value="South Tripura">South Tripura</option><option value="Unakoti">Unakoti</option><option value="West Tripura">West Tripura</option></select>
-            <input type="text" id="mm_pin" placeholder="PIN Code *">
-        </div>
-    </fieldset>
     </div><!-- /marriageForm -->
 
     <datalist id="panchayatList">
@@ -1660,6 +1881,51 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
     </div>
 </div>
 
+<div id="thankYouModal" onclick="if(event.target===this) closeThankYouModal()">
+    <div class="ty-card" role="dialog" aria-modal="true" aria-labelledby="tyTitle">
+        <div class="ty-head">
+            <button type="button" class="ty-close-x" onclick="closeThankYouModal()" aria-label="Close">✕</button>
+            <div class="ty-icon">🙏</div>
+            <h2 id="tyTitle">অসংখ্য ধন্যবাদ!</h2>
+            <div class="ty-sub">AYAT GRAPHICS ZONE · File Received</div>
+        </div>
+        <div class="ty-body">
+            <div class="ty-greet">প্রিয় <span id="tyUserName">গ্রাহক</span>,</div>
+            <p class="ty-msg" id="tyMessage">আমি <b>Alam Hossain</b>, এই ফাইলটি পাঠানোর জন্য আপনাকে আন্তরিকভাবে ধন্যবাদ জানাচ্ছি। আপনার তথ্য সফলভাবে <b>AYAT GRAPHICS ZONE</b>-এ পৌঁছে গেছে।</p>
+            <div class="ty-meta" id="tyMetaBox"></div>
+            <div class="ty-sign">
+                <b>ALAM HOSSAIN</b>
+                <small>AYAT GRAPHICS ZONE · SONAMURA</small>
+            </div>
+        </div>
+        <div class="ty-foot">
+            <button type="button" class="ty-btn-ok" onclick="closeThankYouModal()">✅ ঠিক আছে (OK)</button>
+            <button type="button" class="ty-btn-sec" style="width:100%;" onclick="closeThankYouModal(); jumpToSentHistory();">📂 আমার পাঠানো সব ফাইল দেখুন</button>
+            <div class="ty-foot-row">
+                <button type="button" class="ty-btn-sec" onclick="closeThankYouModal(); scrollToEditForm();">✏️ ফর্ম এডিট করুন</button>
+                <button type="button" class="ty-btn-new" onclick="clearSavedDraft(true)">🆕 নতুন ফর্ম শুরু করুন</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="sentViewModal" onclick="if(event.target===this) closeSentViewModal()">
+    <div class="review-card" role="dialog" aria-modal="true" aria-labelledby="sentViewTitle">
+        <div class="review-head">
+            <h3 id="sentViewTitle">📄 পাঠানো ফাইলের বিস্তারিত</h3>
+            <button type="button" onclick="closeSentViewModal()" aria-label="Close">✕</button>
+        </div>
+        <div class="review-body">
+            <div class="review-tip" id="sentViewMeta"></div>
+            <table class="review-table"><tbody id="sentViewTableBody"></tbody></table>
+        </div>
+        <div class="review-foot">
+            <button type="button" class="btn-rev-edit" onclick="closeSentViewModal()">বন্ধ করুন</button>
+            <button type="button" class="btn-rev-send" id="sentViewEditBtn">✏️ ফর্মে লোড ও এডিট</button>
+        </div>
+    </div>
+</div>
+
 <script>
     const SHOP_WHATSAPP_NUMBER = "919436925172";
     const MUHURI_NAME_KEY = 'ayatMuhuriName';
@@ -1757,12 +2023,14 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
         document.getElementById('c_dobDay').innerHTML = dayOptions; document.getElementById('c_dobMonth').innerHTML = monthOptions; document.getElementById('c_dobYear').innerHTML = childYearOptions;
         document.getElementById('dodDay').innerHTML = dayOptions; document.getElementById('dodMonth').innerHTML = monthOptions; document.getElementById('dodYear').innerHTML = dodYearOptions;
         document.getElementById('regDay').innerHTML = dayOptions; document.getElementById('regMonth').innerHTML = monthOptions; document.getElementById('regYear').innerHTML = dodYearOptions;
+        document.getElementById('gDobDay').innerHTML = dayOptions; document.getElementById('gDobMonth').innerHTML = monthOptions; document.getElementById('gDobYear').innerHTML = yearOptions;
+        document.getElementById('bDobDay').innerHTML = dayOptions; document.getElementById('bDobMonth').innerHTML = monthOptions; document.getElementById('bDobYear').innerHTML = yearOptions;
         document.getElementById('mDay').innerHTML = dayOptions; document.getElementById('mMonth').innerHTML = monthOptions; document.getElementById('mYear').innerHTML = dodYearOptions;
 
         // ---- সহজ তারিখ ইনপুট: একটি ঘরে শুধু সংখ্যা লিখলেই হবে (DDMMYYYY), নিচে স্বয়ংক্রিয় যাচাই ----
         (function(){
             const MN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-            const trios = [['dobDay','dobMonth','dobYear'],['c_dobDay','c_dobMonth','c_dobYear'],['dodDay','dodMonth','dodYear'],['regDay','regMonth','regYear'],['mDay','mMonth','mYear']];
+            const trios = [['dobDay','dobMonth','dobYear'],['c_dobDay','c_dobMonth','c_dobYear'],['dodDay','dodMonth','dodYear'],['regDay','regMonth','regYear'],['gDobDay','gDobMonth','gDobYear'],['bDobDay','bDobMonth','bDobYear'],['mDay','mMonth','mYear']];
             trios.forEach(([d,m,y]) => {
                 const sd = document.getElementById(d), sm = document.getElementById(m), sy = document.getElementById(y);
                 if (!sd || !sm || !sy) return;
@@ -1804,7 +2072,7 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
 
         updateSpouseRequirement();
         toggleAffidavitType();
-        toggleMPlace(); checkProf('g'); checkProf('b'); checkMReligion();
+        reorderMarriageParties(); toggleMPlace(); checkProf('g'); checkProf('b'); checkMReligion();
         setMode();
     };
 
@@ -3534,13 +3802,42 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
 
     // ================= MARRIAGE =================
     const ADDR_KEYS = ['vill','gp','gpType','po','ps','sd','dist','pin'];
-    const M_FIELD_IDS = ['gName','gFather','gAge','gProf','gProfCustom','bName','bFather','bAge','bProf','bProfCustom','mReligion','mReligionCustom','mDay','mMonth','mYear','mPlaceSrc','mCustomerPhone']
+    const M_FIELD_IDS = ['applicant','gName','gFather','gDobDay','gDobMonth','gDobYear','gAge','gProf','gProfCustom','bName','bFather','bDobDay','bDobMonth','bDobYear','bAge','bProf','bProfCustom','mReligion','mReligionCustom','mDay','mMonth','mYear','mPlaceSrc','mCustomerPhone']
         .concat(['mg','mb','mm'].flatMap(p => ADDR_KEYS.map(k => p + '_' + k)));
 
     function checkProf(p){ document.getElementById(p + 'ProfCustom').style.display = document.getElementById(p + 'Prof').value === 'Other' ? 'block' : 'none'; }
     function checkMReligion(){ document.getElementById('mReligionCustom').style.display = document.getElementById('mReligion').value === 'Other' ? 'block' : 'none'; }
     function profOf(p){ let v = document.getElementById(p + 'Prof').value; if (v === 'Other') v = val(p + 'ProfCustom'); return v; }
     function mRelName(){ const v = document.getElementById('mReligion').value; return v === 'Other' ? val('mReligionCustom') : v; }
+    function reorderMarriageParties(){
+        const wrap = document.getElementById('marriagePartyContainer');
+        const groom = document.getElementById('groomSection');
+        const bride = document.getElementById('brideSection');
+        if (!wrap || !groom || !bride) return;
+        const isBride = document.getElementById('applicant').value === 'Bride';
+        if (isBride) {
+            wrap.appendChild(bride);
+            wrap.appendChild(groom);
+        } else {
+            wrap.appendChild(groom);
+            wrap.appendChild(bride);
+        }
+        const gTag = document.getElementById('groomApplicantTag');
+        const bTag = document.getElementById('brideApplicantTag');
+        if (gTag) gTag.classList.toggle('hidden', isBride);
+        if (bTag) bTag.classList.toggle('hidden', !isBride);
+    }
+    function onApplicantChange(){
+        const app = document.getElementById('applicant').value;
+        const mp = document.getElementById('mPlaceSrc');
+        if (mp) {
+            mp.value = (app === 'Bride') ? 'bride' : 'groom';
+            toggleMPlace();
+        }
+        reorderMarriageParties();
+        if (typeof updateProgress === 'function') updateProgress();
+        if (typeof saveCustomerDraft === 'function') saveCustomerDraft();
+    }
     function toggleMPlace(){
         document.getElementById('mmAddrFS').style.display = document.getElementById('mPlaceSrc').value === 'other' ? '' : 'none';
     }
@@ -3559,48 +3856,168 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
         const d = val('mDay'), m = val('mMonth'), y = val('mYear');
         return (d && m && y) ? `${d}/${m}/${y}` : '';
     }
+    function parseDmyDate(dId, mId, yId) {
+        const d = parseInt(val(dId), 10), m = parseInt(val(mId), 10), y = parseInt(val(yId), 10);
+        if (!d || !m || !y) return null;
+        return { d, m, y, date: new Date(y, m - 1, d) };
+    }
+    function calcExactAgeOn(dobObj, refDate) {
+        let a = refDate.getFullYear() - dobObj.y;
+        const md = (refDate.getMonth() + 1) - dobObj.m;
+        if (md < 0 || (md === 0 && refDate.getDate() < dobObj.d)) a--;
+        return a;
+    }
+    function addYearsDmy(dobObj, yrs) {
+        const dt = new Date(dobObj.y + yrs, dobObj.m - 1, dobObj.d);
+        const p = n => (n < 10 ? '0' : '') + n;
+        return `${p(dt.getDate())}/${p(dt.getMonth() + 1)}/${dt.getFullYear()}`;
+    }
+    function setAgeMsg(id, txt, cls) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.textContent = txt || '';
+        el.className = 'm-age-msg' + (cls ? ' ' + cls : '');
+    }
+    function groomDobStr(){ const d = val('gDobDay'), m = val('gDobMonth'), y = val('gDobYear'); return (d && m && y) ? `${d}/${m}/${y}` : ''; }
+    function brideDobStr(){ const d = val('bDobDay'), m = val('bDobMonth'), y = val('bDobYear'); return (d && m && y) ? `${d}/${m}/${y}` : ''; }
+    function calculateMarriageAges() {
+        const today = new Date(); today.setHours(0, 0, 0, 0);
+        const gDob = parseDmyDate('gDobDay', 'gDobMonth', 'gDobYear');
+        const bDob = parseDmyDate('bDobDay', 'bDobMonth', 'bDobYear');
+        const mDt = parseDmyDate('mDay', 'mMonth', 'mYear');
+        const res = { gOk: false, bOk: false, mOk: false, gMsg: '', bMsg: '', mMsg: '', gAtM: null, bAtM: null };
+
+        if (gDob) {
+            const gA = calcExactAgeOn(gDob, today);
+            document.getElementById('gAge').value = gA >= 0 ? gA : '';
+            if (gDob.date > today) {
+                res.gMsg = '❌ বরের জন্মতারিখ আজকের তারিখের পরে হতে পারবে না!';
+                setAgeMsg('gAgeWarn', res.gMsg, 'bad');
+            } else if (gA < 21) {
+                res.gMsg = `❌ বরের বয়স ২১+ হতে হবে (বর্তমানে ${gA} বছর · ২১ বছর হবে ${addYearsDmy(gDob, 21)})`;
+                setAgeMsg('gAgeWarn', res.gMsg, 'bad');
+            } else {
+                res.gOk = true;
+                setAgeMsg('gAgeWarn', `✅ বরের বর্তমান বয়স: ${gA} বছর`, 'ok');
+            }
+        } else {
+            document.getElementById('gAge').value = '';
+            setAgeMsg('gAgeWarn', '', '');
+        }
+
+        if (bDob) {
+            const bA = calcExactAgeOn(bDob, today);
+            document.getElementById('bAge').value = bA >= 0 ? bA : '';
+            if (bDob.date > today) {
+                res.bMsg = '❌ কনের জন্মতারিখ আজকের তারিখের পরে হতে পারবে না!';
+                setAgeMsg('bAgeWarn', res.bMsg, 'bad');
+            } else if (bA < 18) {
+                res.bMsg = `❌ কনের বয়স ১৮+ হতে হবে (বর্তমানে ${bA} বছর · ১৮ বছর হবে ${addYearsDmy(bDob, 18)})`;
+                setAgeMsg('bAgeWarn', res.bMsg, 'bad');
+            } else {
+                res.bOk = true;
+                setAgeMsg('bAgeWarn', `✅ কনের বর্তমান বয়স: ${bA} বছর`, 'ok');
+            }
+        } else {
+            document.getElementById('bAge').value = '';
+            setAgeMsg('bAgeWarn', '', '');
+        }
+
+        if (mDt) {
+            const errs = [];
+            if (mDt.date > today) {
+                errs.push('বিয়ের তারিখ আজকের তারিখের পরে হতে পারবে না');
+            } else {
+                if (gDob) {
+                    res.gAtM = calcExactAgeOn(gDob, mDt.date);
+                    if (res.gAtM < 21) {
+                        errs.push(res.gAtM < 0
+                            ? `বিয়ের তারিখ বরের জন্মের আগে! (সঠিক তারিখ: ${addYearsDmy(gDob, 21)} বা তার পরে)`
+                            : `বিয়ের তারিখে বরের বয়স ${res.gAtM} বছর হচ্ছে — কমপক্ষে ২১ বছর হতে হবে (${addYearsDmy(gDob, 21)} বা তার পরে)`);
+                    }
+                }
+                if (bDob) {
+                    res.bAtM = calcExactAgeOn(bDob, mDt.date);
+                    if (res.bAtM < 18) {
+                        errs.push(res.bAtM < 0
+                            ? `বিয়ের তারিখ কনের জন্মের আগে! (সঠিক তারিখ: ${addYearsDmy(bDob, 18)} বা তার পরে)`
+                            : `বিয়ের তারিখে কনের বয়স ${res.bAtM} বছর হচ্ছে — কমপক্ষে ১৮ বছর হতে হবে (${addYearsDmy(bDob, 18)} বা তার পরে)`);
+                    }
+                }
+                if (!errs.length && gDob && bDob) {
+                    res.mOk = true;
+                    setAgeMsg('mDateAgeWarn', `✅ বিয়ের সময় বয়স সঠিক (বর: ${res.gAtM} বছর, কনে: ${res.bAtM} বছর)`, 'ok');
+                } else if (!errs.length) {
+                    res.mOk = true;
+                    setAgeMsg('mDateAgeWarn', '', '');
+                }
+            }
+            if (errs.length) {
+                res.mMsg = '❌ ' + errs.join(' · ');
+                setAgeMsg('mDateAgeWarn', res.mMsg, 'bad');
+            }
+        } else {
+            setAgeMsg('mDateAgeWarn', '', '');
+        }
+        return res;
+    }
     function missingFields(){
+        const ageRes = calculateMarriageAges();
         const m = [];
         if (!val('gName')) m.push('বরের নাম');
         if (!val('gFather')) m.push('বরের বাবার নাম');
-        if (!(parseInt(val('gAge')) > 0)) m.push('বরের বয়স');
+        if (!groomDobStr()) m.push('বরের জন্মতারিখ');
+        else if (!ageRes.gOk) m.push('বরের বয়স ২১+ হতে হবে');
         if (!profOf('g')) m.push('বরের পেশা');
         if (!addrOk('g')) m.push('বরের ঠিকানা (সব ঘর)');
         if (!val('bName')) m.push('কনের নাম');
         if (!val('bFather')) m.push('কনের বাবার নাম');
-        if (!(parseInt(val('bAge')) > 0)) m.push('কনের বয়স');
+        if (!brideDobStr()) m.push('কনের জন্মতারিখ');
+        else if (!ageRes.bOk) m.push('কনের বয়স ১৮+ হতে হবে');
         if (!profOf('b')) m.push('কনের পেশা');
         if (!addrOk('b')) m.push('কনের ঠিকানা (সব ঘর)');
         if (!mRelName()) m.push('ধর্ম');
         if (!marriageDate()) m.push('বিয়ের তারিখ');
+        else if (!ageRes.mOk && ageRes.mMsg) m.push(ageRes.mMsg.replace(/^❌\s*/, ''));
         if (!addrOk('m')) m.push('বিয়ের স্থানের ঠিকানা (সব ঘর)');
         return m;
     }
     function collectMarriage(){
         clearFieldErrors();
+        const ageRes = calculateMarriageAges();
         const badEls = [];
         const addBad = (id, msg) => { const el = findErrorTarget(id); if (el) badEls.push({ el, msg }); };
-        if (!val('gName')) addBad('gName','বরের নাম');
-        if (!val('gFather')) addBad('gFather','বরের বাবার নাম');
-        if (!(parseInt(val('gAge')) > 0)) addBad('gAge','বরের বয়স');
-        if (!profOf('g')) addBad(document.getElementById('gProf').value==='Other'?'gProfCustom':'gProf','বরের পেশা');
-        ['vill','gp','po','ps','sd','pin'].forEach(k => { if (!val('mg_'+k)) addBad('mg_'+k,'বরের ঠিকানা'); });
-        if (!val('bName')) addBad('bName','কনের নাম');
-        if (!val('bFather')) addBad('bFather','কনের বাবার নাম');
-        if (!(parseInt(val('bAge')) > 0)) addBad('bAge','কনের বয়স');
-        if (!profOf('b')) addBad(document.getElementById('bProf').value==='Other'?'bProfCustom':'bProf','কনের পেশা');
-        ['vill','gp','po','ps','sd','pin'].forEach(k => { if (!val('mb_'+k)) addBad('mb_'+k,'কনের ঠিকানা'); });
+        const checkGroom = () => {
+            if (!val('gName')) addBad('gName','বরের নাম');
+            if (!val('gFather')) addBad('gFather','বরের বাবার নাম');
+            if (!groomDobStr()) addBad('gDobDay','বরের জন্মতারিখ');
+            else if (!ageRes.gOk) addBad('gDobDay','বরের বয়স ২১+ হতে হবে');
+            if (!profOf('g')) addBad(document.getElementById('gProf').value==='Other'?'gProfCustom':'gProf','বরের পেশা');
+            ['vill','gp','po','ps','sd','pin'].forEach(k => { if (!val('mg_'+k)) addBad('mg_'+k,'বরের ঠিকানা'); });
+        };
+        const checkBride = () => {
+            if (!val('bName')) addBad('bName','কনের নাম');
+            if (!val('bFather')) addBad('bFather','কনের বাবার নাম');
+            if (!brideDobStr()) addBad('bDobDay','কনের জন্মতারিখ');
+            else if (!ageRes.bOk) addBad('bDobDay','কনের বয়স ১৮+ হতে হবে');
+            if (!profOf('b')) addBad(document.getElementById('bProf').value==='Other'?'bProfCustom':'bProf','কনের পেশা');
+            ['vill','gp','po','ps','sd','pin'].forEach(k => { if (!val('mb_'+k)) addBad('mb_'+k,'কনের ঠিকানা'); });
+        };
+        if (val('applicant') === 'Bride') { checkBride(); checkGroom(); }
+        else { checkGroom(); checkBride(); }
         if (!mRelName()) addBad('mReligionCustom','ধর্ম');
         if (!marriageDate()) addBad('mDay','বিয়ের তারিখ');
+        else if (!ageRes.mOk) addBad('mDay', ageRes.mMsg ? ageRes.mMsg.replace(/^❌\s*/, '') : 'বিয়ের তারিখ সঠিক নয়');
         if (document.getElementById('mPlaceSrc').value === 'other') {
             ['vill','gp','po','ps','sd','pin'].forEach(k => { if (!val('mm_'+k)) addBad('mm_'+k,'বিয়ের স্থানের ঠিকানা'); });
         }
         if (badEls.length){ reportFieldErrors(badEls); return null; }
         const _muhuri = getMuhuriName();
         let t = `*Marriage Affidavit Data For AYAT GRAPHICS ZONE*\n\n`;
-        if (_muhuri) t += `*Sent By:* ${_muhuri}\n\n`;
-        t += `*-- Groom --*\n*Name:* ${val('gName')}\n*Father:* ${val('gFather')}\n*Age:* ${val('gAge')}\n*Profession:* ${profOf('g')}\n*Address:* ${addrStr('g')}\n\n`;
-        t += `*-- Bride --*\n*Name:* ${val('bName')}\n*Father:* ${val('bFather')}\n*Age:* ${val('bAge')}\n*Profession:* ${profOf('b')}\n*Address:* ${addrStr('b')}\n\n`;
+        if (_muhuri) t += `*Sent By:* ${_muhuri}\n`;
+        t += `*Applicant (আবেদন কারী):* ${val('applicant') === 'Bride' ? 'Bride (কনের নামে)' : 'Groom (বরের নামে)'}\n\n`;
+        t += `*-- Groom --*\n*Name:* ${val('gName')}\n*Father:* ${val('gFather')}\n*DOB:* ${groomDobStr()}\n*Age:* ${val('gAge')}\n*Profession:* ${profOf('g')}\n*Address:* ${addrStr('g')}\n\n`;
+        t += `*-- Bride --*\n*Name:* ${val('bName')}\n*Father:* ${val('bFather')}\n*DOB:* ${brideDobStr()}\n*Age:* ${val('bAge')}\n*Profession:* ${profOf('b')}\n*Address:* ${addrStr('b')}\n\n`;
         t += `*Religion:* ${mRelName()}\n*Marriage Date:* ${marriageDate()}\n*Marriage Place:* ${addrStr('m')}`;
         const data = { docKind: 'marriage', muhuriName: _muhuri, customerPhone: val('mCustomerPhone').replace(/\D/g,'').slice(0,10) };
         M_FIELD_IDS.forEach(id => { data[id] = document.getElementById(id).value; });
@@ -3667,11 +4084,47 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
         closeWaConfirmModal();
         openReviewModal();
     }
+    function openThankYouModal(isResend, viaWa) {
+        const isMar = curMode() === 'marriage';
+        const appName = isMar ? (val('gName') + " & " + val('bName')) : val('name');
+        const sender = getMuhuriName() || appName || "সম্মানিত গ্রাহক";
+        const docLabel = isMar
+            ? "Marriage Declaration (ম্যারেজ)"
+            : (document.getElementById("affidavitType").options[document.getElementById("affidavitType").selectedIndex]?.text || "Affidavit");
+
+        const nameEl = document.getElementById("tyUserName");
+        const msgEl = document.getElementById("tyMessage");
+        const metaEl = document.getElementById("tyMetaBox");
+        if (nameEl) nameEl.textContent = sender;
+        if (msgEl) {
+            if (viaWa) {
+                msgEl.innerHTML = `আমি <b>Alam Hossain</b>, WhatsApp-এর মাধ্যমে ফাইলটি পাঠানোর জন্য আপনাকে আন্তরিকভাবে ধন্যবাদ জানাচ্ছি। <b>AYAT GRAPHICS ZONE</b>-এর পক্ষ থেকে আপনার কাজটি দ্রুত সম্পন্ন করার চেষ্টা করা হবে।`;
+            } else if (isResend) {
+                msgEl.innerHTML = `আমি <b>Alam Hossain</b>, সংশোধিত ফাইলটি পাঠানোর জন্য আপনাকে আন্তরিকভাবে ধন্যবাদ জানাচ্ছি। আপনার আপডেট করা তথ্য সফলভাবে <b>AYAT GRAPHICS ZONE</b>-এ পৌঁছে গেছে।`;
+            } else {
+                msgEl.innerHTML = `আমি <b>Alam Hossain</b>, ফাইলটি পাঠানোর জন্য আপনাকে আন্তরিকভাবে ধন্যবাদ জানাচ্ছি। আপনার তথ্য সফলভাবে <b>AYAT GRAPHICS ZONE</b>-এ পৌঁছে গেছে।`;
+            }
+        }
+        if (metaEl) {
+            const showApp = appName && appName.toLowerCase() !== sender.toLowerCase();
+            metaEl.innerHTML = `📄 ডকুমেন্ট: ${_escHtml(docLabel)}` + (showApp ? `<br>👤 আবেদনকারী: ${_escHtml(appName)}` : '');
+        }
+        const modal = document.getElementById("thankYouModal");
+        if (modal) modal.classList.add("open");
+    }
+    function closeThankYouModal() {
+        const modal = document.getElementById("thankYouModal");
+        if (modal) modal.classList.remove("open");
+    }
     function proceedSendToWhatsApp() {
         closeWaConfirmModal();
         const text = _pendingWaText || collectData();
         _pendingWaText = null;
-        if (text) window.open(`https://wa.me/${SHOP_WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
+        if (text) {
+            saveToSentHistory({ via: 'WhatsApp', revised: localStorage.getItem('ayatCustomerSent') === '1' });
+            window.open(`https://wa.me/${SHOP_WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
+            openThankYouModal(false, true);
+        }
     }
     const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbwsXh37QDHtNg27DaTTWRYTB_5pCI3_Ya8zuDI0csOKneKEUDFiTBYUkQA6UkapKYCI/exec";
 
@@ -3740,11 +4193,12 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
         let total = 0, filled = 0;
         const chk = (ok) => { total++; if (ok) filled++; };
         if (isMar) {
-            chk(val('gName')); chk(val('gFather')); chk(parseInt(val('gAge')) > 0); chk(profOf('g'));
+            const ageRes = calculateMarriageAges();
+            chk(val('gName')); chk(val('gFather')); chk(groomDobStr() && ageRes.gOk); chk(profOf('g'));
             ['vill','gp','po','ps','sd','pin'].forEach(k => chk(val('mg_'+k)));
-            chk(val('bName')); chk(val('bFather')); chk(parseInt(val('bAge')) > 0); chk(profOf('b'));
+            chk(val('bName')); chk(val('bFather')); chk(brideDobStr() && ageRes.bOk); chk(profOf('b'));
             ['vill','gp','po','ps','sd','pin'].forEach(k => chk(val('mb_'+k)));
-            chk(mRelName()); chk(marriageDate());
+            chk(mRelName()); chk(marriageDate() && ageRes.mOk);
             if (document.getElementById('mPlaceSrc').value === 'other') {
                 ['vill','gp','po','ps','sd','pin'].forEach(k => chk(val('mm_'+k)));
             }
@@ -3852,14 +4306,25 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
 
         if (curMode() === 'marriage') {
             addR("ডকুমেন্ট", "Marriage Declaration (ম্যারেজ)");
-            const gDisp = val('gName') ? (val('gName') + (val('gAge') ? " (বয়স: " + val('gAge') + ")" : "")) : "";
-            addR("বরের নাম", gDisp, true);
-            addR("বরের বাবা", val('gFather'), true);
-            addR("বরের ঠিকানা", addrOk('g') ? addrStr('g') : "", true);
-            const bDisp = val('bName') ? (val('bName') + (val('bAge') ? " (বয়স: " + val('bAge') + ")" : "")) : "";
-            addR("কনের নাম", bDisp, true);
-            addR("কনের বাবা", val('bFather'), true);
-            addR("কনের ঠিকানা", addrOk('b') ? addrStr('b') : "", true);
+            addR("Applicant (আবেদন কারী)", val('applicant') === 'Bride' ? "Bride version (কনের নামে)" : "Groom version (বরের নামে)");
+            const mpDisp = val('mPlaceSrc') === 'groom' ? "বরের ঠিকানার মতোই (Groom's address)" : val('mPlaceSrc') === 'bride' ? "কনের ঠিকানার মতোই (Bride's address)" : (addrOk('m') ? addrStr('m') : "");
+            addR("Marriage Place (বিয়ের স্থান)", mpDisp, true);
+            const addGroomSum = () => {
+                const gDisp = val('gName') ? (val('gName') + (val('gAge') ? " (বয়স: " + val('gAge') + ")" : "")) : "";
+                addR("বরের নাম", gDisp, true);
+                addR("বরের জন্মতারিখ", groomDobStr(), true);
+                addR("বরের বাবা", val('gFather'), true);
+                addR("বরের ঠিকানা", addrOk('g') ? addrStr('g') : "", true);
+            };
+            const addBrideSum = () => {
+                const bDisp = val('bName') ? (val('bName') + (val('bAge') ? " (বয়স: " + val('bAge') + ")" : "")) : "";
+                addR("কনের নাম", bDisp, true);
+                addR("কনের জন্মতারিখ", brideDobStr(), true);
+                addR("কনের বাবা", val('bFather'), true);
+                addR("কনের ঠিকানা", addrOk('b') ? addrStr('b') : "", true);
+            };
+            if (val('applicant') === 'Bride') { addBrideSum(); addGroomSum(); }
+            else { addGroomSum(); addBrideSum(); }
             const mdDisp = marriageDate() ? (mRelName() + " · " + marriageDate()) : "";
             addR("ধর্ম ও বিয়ের তারিখ", mdDisp, true);
             addR("মোবাইল নম্বর", val('mCustomerPhone'));
@@ -3946,7 +4411,7 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
         const baseName = isMar ? (val('gName') + " & " + val('bName')) : val('name');
         const isResend = localStorage.getItem('ayatCustomerSent') === '1';
         const payload = {
-            name: isResend ? (baseName + " [সংশোধিত]") : baseName,
+            name: isResend ? (baseName + " [Revised]") : baseName,
             docType: isMar ? "Marriage Declaration" : document.getElementById("affidavitType").value,
             muhuriName: getMuhuriName(),
             code: match[1]
@@ -3961,11 +4426,13 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
             if (!res.ok) throw new Error("HTTP " + res.status);
             _directSubmitFailed = false;
             closeAltSendBox();
+            saveToSentHistory({ via: 'Direct', revised: isResend });
             localStorage.setItem('ayatCustomerSent', '1');
             saveCustomerDraft();
             closeReviewModal();
             const psb = document.getElementById('postSendBox');
-            if (psb) { psb.style.display = 'block'; psb.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+            if (psb) { psb.style.display = 'block'; }
+            openThankYouModal(isResend, false);
             showToast(isResend
                 ? "✅ সংশোধিত তথ্য আবার দোকানে পাঠানো হয়েছে!"
                 : "✅ আপনার তথ্য সফলভাবে AYAT GRAPHICS ZONE-এ পৌঁছে গেছে!", "ok");
@@ -3991,7 +4458,7 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
 
 
     // ================= Auto Capitalize Each Word (Smart Title Case + Acronyms) =================
-    const TC_SKIP_IDS = new Set(['lockPass', 'importBox', 'ot_reason', 'podPrefix', 'obcCategory', 'oldRegNo', 'customerPhone', 'mCustomerPhone', 'recordSearch', 'ld_docNo', 'ld_gdNo', 'gc_reason', 'ap_years', 'dc_wrongDob', 'nc_reason', 'sc_pageNo', 'sc_slNo', 'rn_childDob', 'rn_regDate', 'rn_reasonCustom', 'bc_holderDob', 'bc_regDate']);
+    const TC_SKIP_IDS = new Set(['lockPass', 'importBox', 'ot_reason', 'podPrefix', 'obcCategory', 'oldRegNo', 'customerPhone', 'mCustomerPhone', 'recordSearch', 'sentHistSearch', 'ld_docNo', 'ld_gdNo', 'gc_reason', 'ap_years', 'dc_wrongDob', 'nc_reason', 'sc_pageNo', 'sc_slNo', 'rn_childDob', 'rn_regDate', 'rn_reasonCustom', 'bc_holderDob', 'bc_regDate']);
     const TC_UPPER_IDS = new Set(['ot_vehicleNo', 'ot_engineNo', 'ot_chassisNo', 'ld_docNo', 'sc_regNo', 'ror_familyId', 'rn_regNo', 'rn_familyId', 'bc_regNo', 'iu_candidateName']);
     const TC_DOC_IDS = new Set(['ld_docName', 'dc_wrongDoc', 'dc_proofDoc', 'sc_docTypeCustom', 'sc_schoolName', 'sc_proofDoc', 'ror_proofDoc', 'gc_lastExam', 'gc_institution', 'gc_nextCourse', 'ap_purpose', 'ig_purpose', 'um_purpose', 'ue_qual', 'ue_purpose', 'fj_dept', 'noc_purposeCustom', 'noc_addr', 'rn_issuerName', 'bc_issuerName', 'bc_proofDoc']);
     const TC_ACRONYMS = new Set([
@@ -4068,16 +4535,66 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
 
     // ================= Auto-Save & Edit After Send (Customer Draft) =================
     const CUST_DRAFT_KEY = 'ayatCustomerDraft_v3';
+    const CUST_SENT_HISTORY_KEY = 'ayatCustomerSentHistory_v1';
+
+    function captureCustomerFormState() {
+        const state = {
+            docMode: curMode(),
+            fields: {},
+            checks: {},
+            spPersons: getSpPersons(),
+            svDeceased: getSvDeceased(),
+            svHeirs: getSvHeirs(),
+            scItems: getScItems(),
+            rorItems: getRorItems(),
+            bcItems: getBcItems()
+        };
+        document.querySelectorAll('#affForm input, #affForm select, #marriageForm input, #marriageForm select').forEach(el => {
+            if (!el.id || el.closest('.easy-date')) return;
+            if (el.type === 'checkbox') state.checks[el.id] = el.checked;
+            else state.fields[el.id] = el.value;
+        });
+        return state;
+    }
+
+    function applyCustomerFormState(state) {
+        if (!state || !state.fields) return false;
+        if (state.docMode) document.getElementById('docMode').value = state.docMode;
+        for (const id in state.fields) {
+            const el = document.getElementById(id);
+            if (el && el.type !== 'checkbox') el.value = state.fields[id];
+        }
+        for (const id in (state.checks || {})) {
+            const el = document.getElementById(id);
+            if (el && el.type === 'checkbox') el.checked = !!state.checks[id];
+        }
+        if (Array.isArray(state.spPersons) && state.spPersons.length) renderSpPersons(state.spPersons);
+        if (Array.isArray(state.svDeceased) && state.svDeceased.length) { renderSvDeceased(state.svDeceased); _svLastPreset = (state.fields && state.fields.affidavitType) || ''; }
+        if (Array.isArray(state.svHeirs) && state.svHeirs.length) renderSvHeirs(state.svHeirs);
+        if (Array.isArray(state.scItems) && state.scItems.length) renderScItems(state.scItems);
+        if (Array.isArray(state.rorItems) && state.rorItems.length) renderRorItems(state.rorItems);
+        if (Array.isArray(state.bcItems) && state.bcItems.length) renderBcItems(state.bcItems);
+        onScForChange(); checkScDocType(); onRorForChange(); onRnForChange(); onRnBirthTypeChange(); checkRnReason(); onBcForChange(); onBcIssuerTypeChange();
+        checkNocPurpose();
+
+        toggleAffidavitType();
+        checkProfession();
+        updateAuthLevel2();
+        updateSpouseRequirement();
+        calculateAge();
+        calculateMarriageAges();
+        reorderMarriageParties();
+        toggleMPlace();
+        checkProf('g');
+        checkProf('b');
+        checkMReligion();
+        setMode();
+        return true;
+    }
 
     function saveCustomerDraft() {
         try {
-            const state = { docMode: curMode(), fields: {}, checks: {}, spPersons: getSpPersons(), svDeceased: getSvDeceased(), svHeirs: getSvHeirs(), scItems: getScItems(), rorItems: getRorItems(), bcItems: getBcItems() };
-            document.querySelectorAll('#affForm input, #affForm select, #marriageForm input, #marriageForm select').forEach(el => {
-                if (!el.id || el.closest('.easy-date')) return;
-                if (el.type === 'checkbox') state.checks[el.id] = el.checked;
-                else state.fields[el.id] = el.value;
-            });
-            localStorage.setItem(CUST_DRAFT_KEY, JSON.stringify(state));
+            localStorage.setItem(CUST_DRAFT_KEY, JSON.stringify(captureCustomerFormState()));
         } catch (_) {}
     }
 
@@ -4090,34 +4607,7 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
             const hasAnyData = (state.fields.name && state.fields.name.trim()) || (state.fields.gName && state.fields.gName.trim());
             if (!hasAnyData) return;
 
-            if (state.docMode) document.getElementById('docMode').value = state.docMode;
-            for (const id in state.fields) {
-                const el = document.getElementById(id);
-                if (el && el.type !== 'checkbox') el.value = state.fields[id];
-            }
-            for (const id in (state.checks || {})) {
-                const el = document.getElementById(id);
-                if (el && el.type === 'checkbox') el.checked = !!state.checks[id];
-            }
-            if (Array.isArray(state.spPersons) && state.spPersons.length) renderSpPersons(state.spPersons);
-            if (Array.isArray(state.svDeceased) && state.svDeceased.length) { renderSvDeceased(state.svDeceased); _svLastPreset = (state.fields && state.fields.affidavitType) || ''; }
-            if (Array.isArray(state.svHeirs) && state.svHeirs.length) renderSvHeirs(state.svHeirs);
-            if (Array.isArray(state.scItems) && state.scItems.length) renderScItems(state.scItems);
-            if (Array.isArray(state.rorItems) && state.rorItems.length) renderRorItems(state.rorItems);
-            if (Array.isArray(state.bcItems) && state.bcItems.length) renderBcItems(state.bcItems);
-            onScForChange(); checkScDocType(); onRorForChange(); onRnForChange(); onRnBirthTypeChange(); checkRnReason(); onBcForChange(); onBcIssuerTypeChange();
-            checkNocPurpose();
-
-            toggleAffidavitType();
-            checkProfession();
-            updateAuthLevel2();
-            updateSpouseRequirement();
-            calculateAge();
-            toggleMPlace();
-            checkProf('g');
-            checkProf('b');
-            checkMReligion();
-            setMode();
+            applyCustomerFormState(state);
 
             const dn = document.getElementById('draftNotice');
             if (dn) dn.style.display = 'block';
@@ -4128,6 +4618,304 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
                 if (btn) btn.innerHTML = "<span>🔄</span> যাচাই করে সংশোধিত তথ্য পাঠান (Resend)";
             }
         } catch (_) {}
+    }
+
+    // ================= v30: Browser Sent Files History Engine =================
+    function getSentHistory() {
+        try {
+            const arr = JSON.parse(localStorage.getItem(CUST_SENT_HISTORY_KEY) || '[]');
+            return Array.isArray(arr) ? arr : [];
+        } catch (_) { return []; }
+    }
+    function writeSentHistory(arr) {
+        try { localStorage.setItem(CUST_SENT_HISTORY_KEY, JSON.stringify(arr.slice(0, 200))); } catch (_) {}
+    }
+    function formatLocalDateTime(ts) {
+        const dt = new Date(ts);
+        const pad2 = n => (n < 10 ? '0' : '') + n;
+        const MONS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        const isoDate = `${dt.getFullYear()}-${pad2(dt.getMonth() + 1)}-${pad2(dt.getDate())}`;
+        let h = dt.getHours();
+        const ampm = h >= 12 ? "PM" : "AM";
+        h = h % 12 || 12;
+        const display = `${pad2(dt.getDate())} ${MONS[dt.getMonth()]} ${dt.getFullYear()}, ${pad2(h)}:${pad2(dt.getMinutes())} ${ampm}`;
+        return { isoDate, display };
+    }
+    function extractSummaryPairs() {
+        const tmp = document.createElement('tbody');
+        tmp.innerHTML = buildSummaryRows(false);
+        return Array.from(tmp.querySelectorAll('tr')).map(tr => {
+            const tds = tr.querySelectorAll('td');
+            return [tds[0] ? tds[0].textContent : '', tds[1] ? tds[1].textContent : ''];
+        });
+    }
+    function saveToSentHistory(opts) {
+        opts = opts || {};
+        try {
+            const isMar = curMode() === 'marriage';
+            const appName = isMar ? (val('gName') + " & " + val('bName')) : val('name');
+            if (!appName) return;
+            const docType = isMar ? 'Marriage Declaration' : document.getElementById('affidavitType').value;
+            const docLabel = isMar
+                ? 'Marriage Declaration (ম্যারেজ)'
+                : (document.getElementById('affidavitType').options[document.getElementById('affidavitType').selectedIndex]?.text || docType);
+            const nowTs = Date.now();
+            const dtInfo = formatLocalDateTime(nowTs);
+            const state = captureCustomerFormState();
+            const entry = {
+                id: 'sh_' + nowTs + '_' + Math.random().toString(36).slice(2, 6),
+                ts: nowTs,
+                isoDate: dtInfo.isoDate,
+                dateDisplay: dtInfo.display,
+                name: appName,
+                docMode: curMode(),
+                docType: docType,
+                docLabel: docLabel,
+                sender: getMuhuriName(),
+                via: opts.via || 'Direct',
+                revised: !!opts.revised,
+                summary: extractSummaryPairs(),
+                state: state
+            };
+            const list = getSentHistory();
+            list.unshift(entry);
+            writeSentHistory(list);
+            renderSentHistory();
+        } catch (_) {}
+    }
+
+    function toggleSentHistoryPanel(forceOpen) {
+        const body = document.getElementById('sentHistoryBody');
+        const btn = document.getElementById('sentHistoryToggleBtn');
+        if (!body || !btn) return;
+        const willOpen = (forceOpen === true) ? true : (forceOpen === false ? false : body.classList.contains('collapsed'));
+        body.classList.toggle('collapsed', !willOpen);
+        btn.textContent = willOpen ? 'লুকান ▴' : 'দেখুন ▾';
+    }
+
+    function jumpToSentHistory() {
+        const sec = document.getElementById('sentHistorySection');
+        if (!sec) return;
+        toggleSentHistoryPanel(true);
+        sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function clearSentHistoryFilters() {
+        const s = document.getElementById('sentHistSearch');
+        const d = document.getElementById('sentHistDate');
+        if (s) s.value = '';
+        if (d) d.value = '';
+        renderSentHistory();
+    }
+
+    function renderSentHistory() {
+        const all = getSentHistory();
+        const sec = document.getElementById('sentHistorySection');
+        const topBtn = document.getElementById('btnTopSentHistory');
+        const topCnt = document.getElementById('topSentCount');
+        const badge = document.getElementById('sentHistoryBadge');
+        const listBox = document.getElementById('sentHistoryList');
+        const sumTxt = document.getElementById('sentHistSummaryText');
+        const resetBtn = document.getElementById('sentHistResetBtn');
+
+        if (topCnt) topCnt.textContent = String(all.length);
+        if (badge) badge.textContent = all.length + 'টি ফাইল';
+        if (sec) sec.classList.toggle('hidden', all.length === 0);
+        if (topBtn) topBtn.classList.toggle('hidden', all.length === 0);
+        if (!listBox || all.length === 0) return;
+
+        const q = (document.getElementById('sentHistSearch') ? document.getElementById('sentHistSearch').value.trim().toLowerCase() : '');
+        const df = (document.getElementById('sentHistDate') ? document.getElementById('sentHistDate').value.trim() : '');
+        const hasFilter = Boolean(q || df);
+        if (resetBtn) resetBtn.classList.toggle('hidden', !hasFilter);
+
+        const filtered = all.filter(it => {
+            if (df && it.isoDate !== df) return false;
+            if (q) {
+                const hay = ((it.name || '') + ' ' + (it.docLabel || '') + ' ' + (it.docType || '') + ' ' + (it.sender || '') + ' ' + (it.dateDisplay || '')).toLowerCase();
+                if (!hay.includes(q)) return false;
+            }
+            return true;
+        });
+
+        if (sumTxt) {
+            sumTxt.textContent = hasFilter
+                ? `মোট ${all.length}টির মধ্যে ${filtered.length}টি ফাইল পাওয়া গেছে`
+                : `এই ব্রাউজারে সেভ করা আপনার পাঠানো ${all.length}টি ফাইল (নতুন ফর্ম নিলেও এগুলো মুছবে না)`;
+        }
+
+        listBox.innerHTML = '';
+        if (!filtered.length) {
+            listBox.innerHTML = '<div class="sh-empty">এই সার্চ বা তারিখে কোনো পাঠানো ফাইল পাওয়া যায়নি।</div>';
+            return;
+        }
+
+        filtered.forEach(it => {
+            const card = document.createElement('div');
+            card.className = 'sh-item';
+            const isWa = it.via === 'WhatsApp';
+            card.innerHTML = `
+                <div class="sh-item-top">
+                    <div class="sh-item-name">${_escHtml(it.name || 'Unnamed')}${it.revised ? '<span class="sh-rev">সংশোধিত</span>' : ''}</div>
+                    <span class="sh-via ${isWa ? 'wa' : ''}">${isWa ? '📲 WhatsApp' : '✅ Direct'}</span>
+                </div>
+                <div class="sh-item-meta">
+                    <span class="sh-doc-pill">${_escHtml(it.docLabel || it.docType || 'Document')}</span>
+                    <span>🕒 ${_escHtml(it.dateDisplay || '')}</span>
+                </div>
+                <div class="sh-item-actions">
+                    <button type="button" class="sh-act sh-act-view" data-act="view">👁️ দেখুন</button>
+                    <button type="button" class="sh-act sh-act-edit" data-act="edit">✏️ এডিট ও Resend</button>
+                    <button type="button" class="sh-act sh-act-new" data-act="new">➕ নতুন কাজ</button>
+                    <button type="button" class="sh-act sh-act-del" data-act="del" title="তালিকা থেকে মুছুন">🗑️</button>
+                </div>
+            `;
+            card.querySelector('[data-act="view"]').onclick = () => viewSentHistoryItem(it.id);
+            card.querySelector('[data-act="edit"]').onclick = () => loadSentHistoryToEdit(it.id);
+            card.querySelector('[data-act="new"]').onclick = () => newWorkFromSentHistory(it.id);
+            card.querySelector('[data-act="del"]').onclick = () => deleteSentHistoryItem(it.id);
+            listBox.appendChild(card);
+        });
+    }
+
+    function viewSentHistoryItem(id) {
+        const it = getSentHistory().find(x => x.id === id);
+        if (!it) return;
+        const meta = document.getElementById('sentViewMeta');
+        const tbody = document.getElementById('sentViewTableBody');
+        const editBtn = document.getElementById('sentViewEditBtn');
+        if (meta) {
+            meta.innerHTML = `📄 <b>${_escHtml(it.docLabel || it.docType)}</b> · 🕒 ${_escHtml(it.dateDisplay)} · ${it.via === 'WhatsApp' ? '📲 WhatsApp' : '✅ Direct Submit'}`;
+        }
+        if (tbody) {
+            const pairs = Array.isArray(it.summary) && it.summary.length
+                ? it.summary
+                : [['নাম', it.name], ['ডকুমেন্ট', it.docLabel], ['তারিখ', it.dateDisplay]];
+            tbody.innerHTML = pairs.map(([k, v]) => `<tr><td>${_escHtml(k)}</td><td>${_escHtml(v)}</td></tr>`).join('');
+        }
+        if (editBtn) {
+            editBtn.onclick = () => { closeSentViewModal(); loadSentHistoryToEdit(id); };
+        }
+        const m = document.getElementById('sentViewModal');
+        if (m) m.classList.add('open');
+    }
+    function closeSentViewModal() {
+        const m = document.getElementById('sentViewModal');
+        if (m) m.classList.remove('open');
+    }
+
+    function loadSentHistoryToEdit(id) {
+        const it = getSentHistory().find(x => x.id === id);
+        if (!it || !it.state) { showToast("❌ এই ফাইলের ডাটা লোড করা যায়নি।", "err"); return; }
+        applyCustomerFormState(it.state);
+        try { localStorage.setItem('ayatCustomerSent', '1'); } catch (_) {}
+        saveCustomerDraft();
+        const dn = document.getElementById('draftNotice');
+        const dnt = document.getElementById('draftNoticeText');
+        if (dn) dn.style.display = 'block';
+        if (dnt) dnt.innerHTML = `✏️ <b>${_escHtml(it.name)}</b>-এর পাঠানো ফাইল লোড করা হয়েছে। সংশোধন করে আবার পাঠান।`;
+        const mainBtn = document.getElementById('btnSheetSend');
+        if (mainBtn) mainBtn.innerHTML = "<span>🔄</span> যাচাই করে সংশোধিত তথ্য পাঠান (Resend)";
+        const psb = document.getElementById('postSendBox');
+        if (psb) psb.style.display = 'none';
+        toggleSentHistoryPanel(false);
+        scrollToEditForm();
+        showToast("✏️ ফাইলটি ফর্মে লোড হয়েছে! সংশোধন করে Resend করুন।", "ok");
+    }
+
+    function newWorkFromSentHistory(id) {
+        const it = getSentHistory().find(x => x.id === id);
+        if (!it || !it.state || !it.state.fields) { showToast("❌ তথ্য কপি করা যায়নি।", "err"); return; }
+        const f = it.state.fields;
+        const _now = new Date();
+        const _MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+        // Reset #affForm cleanly
+        document.querySelectorAll('#affForm input').forEach(inp => {
+            if (inp.type === 'checkbox') inp.checked = false;
+            else if (inp.id === 'obcCategory') inp.value = 'OBC';
+            else if (inp.id === 'podPrefix') inp.value = 'my own residence';
+            else if (inp.id === 'signYear') inp.value = _now.getFullYear();
+            else if (!inp.closest('.easy-date')) inp.value = '';
+        });
+        ['b','d'].forEach(pre => {
+            ['vill','po','ps','dist','pin'].forEach(k => {
+                const el = document.getElementById(pre + '_' + k);
+                if (!el) return;
+                el.readOnly = false; el.style.backgroundColor = '';
+                el.value = k === 'dist' ? 'Sepahijala' : '';
+            });
+        });
+        ['dobDay','dobMonth','dobYear','c_dobDay','c_dobMonth','c_dobYear','dodDay','dodMonth','dodYear','regDay','regMonth','regYear'].forEach(fid => {
+            const el = document.getElementById(fid); if (el) el.value = '';
+        });
+        document.getElementById('ot_dist').value = 'Sepahijala';
+        document.getElementById('p_dist').value = 'Sepahijala';
+        document.getElementById('appType').value = 'Self';
+        document.getElementById('pobType').value = 'Home';
+        document.getElementById('signMonth').value = _MONTHS[_now.getMonth()];
+        document.getElementById('signYear').value = _now.getFullYear();
+        renderSpPersons();
+        renderSvDeceased(svDefaultDeceased('SurvivalFather'));
+        renderSvHeirs();
+        _svLastPreset = '';
+        renderScItems();
+        renderRorItems();
+        renderBcItems();
+        onScForChange(); checkScDocType(); onRorForChange(); onRnForChange(); onRnBirthTypeChange(); checkRnReason(); onBcForChange(); onBcIssuerTypeChange(); checkNocPurpose();
+
+        // Copy reusable applicant profile & address
+        document.getElementById('docMode').value = 'affidavit';
+        const setV = (eid, v) => { const el = document.getElementById(eid); if (el && v !== undefined && v !== null) el.value = v; };
+        let copiedName = '';
+        if (it.docMode === 'marriage') {
+            const isBrideApp = f.applicant === 'Bride';
+            setV('name', isBrideApp ? f.bName : f.gName);
+            setV('gender', isBrideApp ? 'Female' : 'Male');
+            setV('maritalStatus', 'Married');
+            setV('dobDay', isBrideApp ? f.bDobDay : f.gDobDay);
+            setV('dobMonth', isBrideApp ? f.bDobMonth : f.gDobMonth);
+            setV('dobYear', isBrideApp ? f.bDobYear : f.gDobYear);
+            setV('age', isBrideApp ? f.bAge : f.gAge);
+            setV('fatherName', isBrideApp ? f.bFather : f.gFather);
+            setV('spouseName', isBrideApp ? f.gName : f.bName);
+            const relOpts = Array.from(document.getElementById('religion').options).map(o => o.value);
+            setV('religion', relOpts.includes(f.mReligion) ? f.mReligion : 'Other');
+            setV('professionSelect', isBrideApp ? (f.bProf || 'Housewife') : (f.gProf || 'Private Job'));
+            setV('customProfession', isBrideApp ? f.bProfCustom : f.gProfCustom);
+            const pre = isBrideApp ? 'mb_' : 'mg_';
+            setV('p_vill', f[pre + 'vill']); setV('p_po', f[pre + 'po']); setV('p_ps', f[pre + 'ps']);
+            setV('p_dist', f[pre + 'dist'] || 'Sepahijala'); setV('p_pin', f[pre + 'pin']);
+            setV('auth1_name', f[pre + 'gp']); setV('auth2_name', f[pre + 'sd']);
+            copiedName = (isBrideApp ? f.bName : f.gName) || it.name;
+        } else {
+            ['name','customerPhone','gender','maritalStatus','dobDay','dobMonth','dobYear','age','fatherName','motherName','religion','spouseName','professionSelect','customProfession','p_vill','p_po','p_ps','p_dist','p_pin','auth1_name','auth1_type','auth2_name','auth2_type'].forEach(k => {
+                if (f[k] !== undefined) setV(k, f[k]);
+            });
+            copiedName = f.name || it.name;
+        }
+
+        try { localStorage.removeItem('ayatCustomerSent'); } catch (_) {}
+        const mainBtn = document.getElementById('btnSheetSend');
+        if (mainBtn) mainBtn.innerHTML = "<span>🚀</span> যাচাই করে দোকানে পাঠান (Direct Submit)";
+        const psb = document.getElementById('postSendBox');
+        if (psb) psb.style.display = 'none';
+
+        toggleAffidavitType(); checkProfession(); updateAuthLevel2(); updateSpouseRequirement(); calculateAge(); setMode();
+        saveCustomerDraft();
+        toggleSentHistoryPanel(false);
+        scrollToEditForm();
+        const grp = document.getElementById('affidavitGroup');
+        if (grp) setTimeout(() => { try { grp.focus(); } catch (_) {} }, 350);
+        showToast("➕ " + copiedName + "-এর তথ্য কপি হয়েছে! এখন নতুন অ্যাফিডেভিটের ধরণ বেছে নিন।", "ok");
+    }
+
+    function deleteSentHistoryItem(id) {
+        if (!confirm("আপনি কি তালিকা থেকে এই পাঠানো ফাইলটি মুছতে চান?")) return;
+        const next = getSentHistory().filter(x => x.id !== id);
+        writeSentHistory(next);
+        renderSentHistory();
+        showToast("🗑️ তালিকা থেকে ফাইলটি মুছে ফেলা হয়েছে।", "info");
     }
 
     function scrollToEditForm() {
@@ -4204,6 +4992,7 @@ html.dark .wac-btn-wa{color:#9eb0ce;border-color:#2a3c5c}
     window.onload = function() {
         if (typeof _origCustOnload === 'function') _origCustOnload();
         restoreCustomerDraft();
+        renderSentHistory();
         updateProgress();
         syncMuhuriUI();
         if (!getMuhuriName()) { const mi = document.getElementById("muhuriNameInput"); if (mi) setTimeout(() => mi.focus(), 60); }

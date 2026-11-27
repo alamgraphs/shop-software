@@ -191,7 +191,7 @@ body.locked #lockScreen{display:flex !important;position:fixed;inset:0;z-index:9
   #actionButtons{animation:fxPop .5s ease both}
   #warningMsg{animation:fxIn .4s ease both}
 
-  .app-header,.brand-header{position:relative}
+  .brand-header{position:relative}
   .app-header::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:3px;background:linear-gradient(90deg,transparent,#f1d98a,transparent);transform-origin:left;animation:fxLine 1.2s .2s ease both}
   .brand-header{animation:fxIn .8s ease both}
   .brand-header>*{animation:fxUp .7s cubic-bezier(.2,.7,.2,1) both}
@@ -493,6 +493,181 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
 
 
 
+
+/* ===== v27: Shop -> Online List Sync Button ===== */
+.btn-online{background:linear-gradient(135deg,#0f8b8d,#0a6163);color:#fff;flex:1;min-width:150px;box-shadow:0 12px 20px -10px rgba(15,139,141,.7)}
+.btn-online:disabled{opacity:.65;cursor:wait;transform:none}
+
+/* ===== v28: Fixed Top Header, Separate Left Sidebar (Online List), Fixed Bottom Action Bar & Marriage Age Hints ===== */
+body{padding:76px 0 112px !important;background:linear-gradient(180deg,var(--navy) 0,var(--navy) 260px,var(--bg) 260px)}
+.app-header{position:fixed !important;top:0;left:0;right:0;z-index:1000;height:auto}
+
+.container{
+  display:flex;gap:18px;max-width:100% !important;width:100%;
+  margin:0 auto;padding:20px 18px 0;align-items:flex-start;
+}
+.left-sidebar{
+  flex:0 0 320px;width:320px;min-width:290px;
+  position:sticky;top:86px;max-height:calc(100vh - 178px);
+  display:flex;flex-direction:column;
+}
+.left-sidebar .import-hub{
+  margin-bottom:0;display:flex;flex-direction:column;flex:1;min-height:0;
+  max-height:calc(100vh - 178px);
+  box-shadow:var(--shadow);border-radius:18px;border:1.5px solid #cfd9ea;
+}
+.left-sidebar .imp-pane{
+  display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;
+}
+.left-sidebar #sheetCustomerList{
+  flex:1;min-height:180px;max-height:none !important;overflow-y:auto;padding-right:3px;
+}
+.left-sidebar #sheetCustomerList::-webkit-scrollbar{width:6px}
+.left-sidebar #sheetCustomerList::-webkit-scrollbar-thumb{background:#c5cbd9;border-radius:6px}
+html.dark .left-sidebar #sheetCustomerList::-webkit-scrollbar-thumb{background:#2d3f61}
+html.dark .left-sidebar .import-hub{border-color:#273a5c}
+
+.form-panel{
+  flex:1 1 390px;min-width:340px;
+  position:sticky;top:86px;max-height:calc(100vh - 178px);overflow-y:auto;
+  padding:22px;
+}
+.output-panel{
+  flex:1.4 1 540px;min-width:0;
+  display:flex;flex-direction:column;align-items:center;
+  padding-bottom:20px;overflow-x:auto;
+}
+.history-panel{width:calc(100% - 36px);max-width:100%}
+
+/* Fixed Bottom Print / Save Bar */
+.action-container{
+  position:fixed !important;bottom:0;left:0;right:0;z-index:950;
+  margin:0 !important;width:100% !important;max-width:none !important;
+  background:rgba(255,255,255,.95);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border-top:3px solid var(--gold);
+  box-shadow:0 -10px 28px -10px rgba(11,31,58,.32);
+  padding:10px 18px;text-align:center;
+}
+.action-container .action-buttons{
+  max-width:1220px;margin:0 auto !important;justify-content:center;gap:10px;
+}
+.action-container .action-buttons button{
+  padding:11px 16px;font-size:13.5px;min-width:135px;flex:1 1 140px;max-width:230px;
+}
+.action-container #warningMsg{
+  max-width:1220px;margin:0 auto !important;padding:9px 14px;font-size:13px;line-height:1.45;
+}
+html.dark .action-container{
+  background:rgba(12,22,40,.95);
+  border-top-color:var(--gold);
+  box-shadow:0 -12px 32px -8px rgba(0,0,0,.78);
+}
+#toastBox{bottom:84px !important}
+
+/* Marriage Age Validation Inline Messages */
+.m-age-msg{font-size:12.5px;font-weight:700;margin-top:5px;min-height:0;line-height:1.4;border-radius:8px}
+.m-age-msg.bad{color:#b91c1c;background:#fef2f2;border:1px solid #fecaca;padding:6px 10px}
+.m-age-msg.ok{color:#15803d;background:#f0fdf4;border:1px solid #bbf7d0;padding:6px 10px}
+html.dark .m-age-msg.bad{color:#fca5a5;background:#2b141a;border-color:#7f1d1d}
+html.dark .m-age-msg.ok{color:#86efac;background:#0f261b;border-color:#166534}
+
+@media screen and (max-width:1180px){
+  .container{flex-direction:column;padding:14px 12px 0}
+  .left-sidebar{width:100%;flex:none;position:static;max-height:none}
+  .left-sidebar .import-hub{max-height:none}
+  .left-sidebar #sheetCustomerList{max-height:280px !important}
+  .form-panel{width:100%;min-width:0;position:static;max-height:none;padding:18px}
+  .output-panel{width:100%;align-items:flex-start}
+  .history-panel{width:calc(100% - 24px)}
+}
+@media screen and (max-width:640px){
+  body{padding:72px 0 132px !important}
+  .app-header{padding:10px 12px !important}
+  .app-title{font-size:15.5px}
+  .app-sub{font-size:9.5px;letter-spacing:1.8px}
+  .btn-theme,.btn-logout{padding:6px 10px;font-size:11.5px;margin-left:6px}
+  .action-container{padding:8px 10px}
+  .action-container .action-buttons{flex-direction:row !important;flex-wrap:wrap;gap:6px}
+  .action-container .action-buttons button{padding:9px 10px;font-size:12px;min-width:105px;flex:1 1 44%;max-width:none}
+}
+@media print{
+  body{padding:0 !important;background:white !important}
+  .left-sidebar,.action-container{display:none !important}
+}
+
+/* ===== v29: Standard English Online List Sidebar + Date & Sender Filter ===== */
+.left-sidebar{flex:0 0 340px !important;width:340px !important;min-width:305px !important}
+.left-sidebar .import-hub{background:#f8fafd;border:1.5px solid #d4dde9;border-radius:16px;overflow:hidden}
+.left-sidebar .imp-tabs{padding:6px;gap:6px;background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%)}
+.left-sidebar .imp-tab{padding:9px 8px;font-size:12.5px;letter-spacing:.2px;border-radius:10px}
+.left-sidebar .imp-pane{padding:12px}
+
+.sheet-toolbar{display:flex;flex-direction:column;gap:8px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #e3e8f0}
+.sheet-btn-row{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:6px}
+.sheet-btn-row button{padding:7px 6px;font-size:11.5px;font-weight:800;border-radius:8px;box-shadow:none;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:4px;letter-spacing:.1px}
+.sheet-btn-row .btn-sheet-refresh{background:linear-gradient(135deg,#158056,#0f6342);color:#fff;min-width:0}
+.sheet-btn-row .btn-sheet-toggle{background:#fff;color:var(--navy2);border:1.5px solid #cbd5e1}
+.sheet-btn-row .btn-sheet-toggle.on{background:#e9f7f0;color:#0f6b43;border-color:#93d1b3}
+
+.sheet-filter-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;align-items:center}
+.sheet-filter-field{position:relative;display:flex;flex-direction:column;gap:3px;min-width:0}
+.sheet-filter-field label{margin:0;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#5b6982}
+.sheet-filter-field input{width:100%;padding:7px 9px !important;font-size:12px !important;border-radius:8px !important;border:1.5px solid #cfd8e6 !important;background:#fff !important;color:var(--ink) !important;box-shadow:none !important;height:34px}
+.sheet-filter-field input:focus{border-color:var(--navy3) !important;box-shadow:0 0 0 3px rgba(29,74,133,.12) !important;transform:none !important}
+
+.sheet-meta-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11.5px;font-weight:700;color:#64748b;padding:0 2px}
+.sheet-reset-link{background:transparent;border:none;color:var(--danger);font-size:11.5px;font-weight:800;padding:2px 6px;border-radius:6px;cursor:pointer;box-shadow:none}
+.sheet-reset-link:hover{background:#fee2e2;transform:none;filter:none}
+
+/* Standard Polished Online List Cards */
+.left-sidebar .sheet-item{
+  display:flex;flex-direction:column;align-items:stretch;gap:7px;
+  background:#fff;padding:11px 12px;border:1px solid #dce4ef;border-left:4px solid #158056;
+  border-radius:12px;margin-bottom:8px;box-shadow:0 2px 6px rgba(11,31,58,.05);
+  transition:border-color .18s,box-shadow .18s,transform .15s;
+}
+.left-sidebar .sheet-item:hover{border-color:#b8c8df;border-left-color:#158056;box-shadow:0 6px 16px -8px rgba(11,31,58,.2)}
+.left-sidebar .sheet-item.done{background:#f6f8fb;border-color:#e2e8f0;border-left-color:#94a3b8;opacity:.76}
+.si-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.si-title-wrap{min-width:0;flex:1;line-height:1.3}
+.si-name{font-size:13.5px;font-weight:800;color:var(--navy);word-break:break-word}
+.si-rev{display:inline-block;margin-left:5px;padding:1px 6px;border-radius:999px;background:#fef3c7;color:#92400e;border:1px solid #f5d07a;font-size:10px;font-weight:800;vertical-align:middle;text-transform:uppercase;letter-spacing:.4px}
+.si-tags{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.si-doc-tag{display:inline-flex;align-items:center;padding:2px 8px;border-radius:6px;background:#eef3fc;color:#1d4a85;border:1px solid #d4e1f5;font-size:11px;font-weight:700}
+.si-sender-tag{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:6px;background:#fbf5e6;color:#7c580c;border:1px solid #e6cfa0;font-size:11px;font-weight:700}
+.si-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:6px;border-top:1px dashed #e6ecf5}
+.si-date{font-size:11px;font-weight:600;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.si-actions{display:flex;align-items:center;gap:5px;flex-shrink:0}
+.btn-fill-card{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:var(--gold-l);border:none;border-radius:8px;padding:5px 11px;font-size:11.5px;font-weight:800;cursor:pointer;box-shadow:none;white-space:nowrap;letter-spacing:.2px}
+.btn-fill-card:hover{filter:brightness(1.12)}
+.left-sidebar .btn-mini-done{padding:4px 7px;font-size:11px;border-radius:7px;line-height:1}
+.left-sidebar .btn-mini-wa{padding:5px 7px;font-size:11px;border-radius:7px;line-height:1}
+
+.sheet-empty{color:#64748b;font-size:12.5px;font-weight:600;text-align:center;padding:22px 10px;background:#fff;border:1px dashed #cbd5e1;border-radius:10px}
+.sheet-err{color:#b91c1c;font-size:12.5px;font-weight:700;text-align:center;padding:12px 10px;background:#fef2f2;border:1px solid #fecaca;border-radius:10px}
+
+.party-role-badge{display:inline-block;margin-left:auto;padding:2px 9px;border-radius:999px;background:var(--gold-l);color:var(--gold-d);border:1px solid #dfc57d;font-size:10.5px;font-weight:800;letter-spacing:.4px}
+html.dark .party-role-badge{background:#292211;color:var(--gold);border-color:#695424}
+
+html.dark .left-sidebar .import-hub{background:#121d32;border-color:#263858}
+html.dark .sheet-toolbar{border-bottom-color:#243552}
+html.dark .sheet-filter-field label{color:#94a8c9}
+html.dark .sheet-filter-field input{background:#0d1627 !important;border-color:#283b5c !important;color:#e6eefc !important}
+html.dark .sheet-meta-bar{color:#94a8c9}
+html.dark .sheet-reset-link:hover{background:#2c1419}
+html.dark .left-sidebar .sheet-item{background:#152238;border-color:#263959;border-left-color:#25a66e}
+html.dark .left-sidebar .sheet-item:hover{border-color:#3a527a;border-left-color:#25a66e}
+html.dark .left-sidebar .sheet-item.done{background:#0f1829;border-color:#202f4a;border-left-color:#53647f}
+html.dark .si-name{color:#f1f5f9}
+html.dark .si-rev{background:#332409;color:#fcd34d;border-color:#785312}
+html.dark .si-doc-tag{background:#182b4d;color:#93c5fd;border-color:#29467a}
+html.dark .si-sender-tag{background:#2a2211;color:#f3d27a;border-color:#695424}
+html.dark .si-foot{border-top-color:#243552}
+html.dark .si-date{color:#94a8c9}
+html.dark .btn-fill-card{background:linear-gradient(135deg,#e6c872,var(--gold));color:#0b1f3a}
+html.dark .sheet-empty{background:#0f1829;border-color:#253552;color:#94a8c9}
+html.dark .sheet-err{background:#2b141a;border-color:#7f1d1d;color:#fca5a5}
 </style>
 <style id="dynamicPrintStyle"></style>
 <script>try{if(localStorage.getItem('ayatDarkMode')==='1')document.documentElement.classList.add('dark');}catch(_){}</script>
@@ -531,30 +706,49 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
 
 <div class="container">
 
-    <div class="form-panel">
-
+    <aside class="left-sidebar">
         <div class="import-hub">
             <div class="imp-tabs">
                 <button type="button" class="imp-tab active" id="tabSheet" onclick="switchImportTab('sheet')">
-                    🌐 অনলাইন লিস্ট <span id="sheetNewBadge" class="new-badge hidden">0</span>
+                    🌐 Online List <span id="sheetNewBadge" class="new-badge hidden">0</span>
                 </button>
                 <button type="button" class="imp-tab" id="tabWa" onclick="switchImportTab('wa')">
-                    📥 WhatsApp কোড
+                    📥 WhatsApp Code
                 </button>
             </div>
             <div id="paneSheet" class="imp-pane">
-                <div class="sheet-controls">
-                    <button type="button" class="btn-sheet-refresh" id="btnLoadSheet" onclick="loadFromSheet(false)">🔄 তালিকা রিফ্রেশ</button>
-                    <button type="button" class="btn-sheet-toggle on" id="btnAutoPoll" onclick="toggleAutoPoll()" title="প্রতি ৩০ সেকেন্ড পর পর নতুন কাস্টমার চেক করবে">⏱️ অটো: চালু</button>
-                    <button type="button" class="btn-sheet-toggle" id="btnFilterPending" onclick="togglePendingFilter()" title="শুধু বাকি কাজগুলো দেখান">📋 সব</button>
+                <div class="sheet-toolbar">
+                    <div class="sheet-btn-row">
+                        <button type="button" class="btn-sheet-refresh" id="btnLoadSheet" onclick="loadFromSheet(false)" title="Refresh online submissions">🔄 Refresh</button>
+                        <button type="button" class="btn-sheet-toggle on" id="btnAutoPoll" onclick="toggleAutoPoll()" title="Auto-refresh every 30 seconds">⏱️ Auto: ON</button>
+                        <button type="button" class="btn-sheet-toggle on" id="btnAutoShopSync" onclick="toggleAutoShopSync()" title="Auto-sync shop files to Online List on Save/Print">☁️ Sync: ON</button>
+                    </div>
+                    <div class="sheet-filter-grid">
+                        <div class="sheet-filter-field">
+                            <label for="sheetDateFilter">Date</label>
+                            <input type="date" id="sheetDateFilter" onchange="renderSheetList()" title="Filter submissions by date">
+                        </div>
+                        <div class="sheet-filter-field">
+                            <label for="sheetSenderSearch">Sender</label>
+                            <input type="search" id="sheetSenderSearch" list="sheetSenderList" placeholder="Search sender..." oninput="renderSheetList()" autocomplete="off" title="Search by sender or customer name">
+                            <datalist id="sheetSenderList"></datalist>
+                        </div>
+                    </div>
+                    <div class="sheet-meta-bar">
+                        <span id="sheetCountInfo">0 records</span>
+                        <button type="button" id="btnResetFiltersLink" class="sheet-reset-link hidden" onclick="clearSheetFilters()">✕ Clear Filters</button>
+                    </div>
                 </div>
-                <div id="sheetCustomerList" style="max-height:240px; overflow-y:auto;"></div>
+                <div id="sheetCustomerList"></div>
             </div>
             <div id="paneWa" class="imp-pane hidden">
-                <textarea id="importBox" rows="3" placeholder="কাস্টমারের পাঠানো মেসেজ পেস্ট করুন..."></textarea>
-                <button class="btn-fill" onclick="importCustomerData()">🚀 Auto Fill Form (ম্যাজিক!)</button>
+                <textarea id="importBox" rows="4" placeholder="Paste customer's WhatsApp message here..."></textarea>
+                <button class="btn-fill" onclick="importCustomerData()">🚀 Auto Fill Form</button>
             </div>
         </div>
+    </aside>
+
+    <div class="form-panel">
 
         <div class="form-group type-selector mode-selector">
             <label>ডকুমেন্টের ধরণ (Document Category) <span>*</span></label>
@@ -1533,17 +1727,43 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
         <div id="marriageForm" class="hidden">
         <h2>Enter Details</h2>
         <div class="grid-2 form-group options-grid">
-            <div><label>Document for (কার নামে)</label>
-                <select id="applicant"><option value="Groom">Groom version (বরের নামে)</option><option value="Bride">Bride version (কনের নামে)</option></select></div>
+            <div><label>Applicant (আবেদন কারী)</label>
+                <select id="applicant" onchange="onApplicantChange()"><option value="Groom">Groom version (বরের নামে)</option><option value="Bride">Bride version (কনের নামে)</option></select></div>
             <div><label>Certificate Copies</label>
                 <select id="certCopies"><option value="2" selected>2 copies (PDF-এর মতো)</option><option value="1">1 copy</option></select></div>
         </div>
+        <div class="form-group"><label>Marriage Place (বিয়ের স্থান) <span>*</span></label>
+            <select id="mPlaceSrc" onchange="toggleMPlace()"><option value="groom">বরের ঠিকানার মতোই (Groom's address)</option><option value="bride">কনের ঠিকানার মতোই (Bride's address)</option><option value="other">অন্য ঠিকানা (Different address)</option></select></div>
+        <fieldset id="mmAddrFS">
+            <legend>Marriage Place Address (বিয়ের স্থানের ঠিকানা)</legend>
+            <div class="grid-2">
+                <input type="text" id="mm_vill" placeholder="Vill / Ward *" list="mVillList">
+                <div style="display: flex; gap: 6px;"><input type="text" id="mm_gp" placeholder="Panchayat / Council *" style="flex:2">
+                    <select id="mm_gpType" style="flex:1"><option value="G.P">G.P</option><option value="V.C">V.C</option><option value="N.P">N.P</option><option value="M.C">M.C</option></select></div>
+                <input type="text" id="mm_po" placeholder="P.O. *">
+                <input type="text" id="mm_ps" placeholder="P.S. *">
+                <input type="text" id="mm_sd" placeholder="Sub-Division *" list="mSdList">
+                <select id="mm_dist"><option value="Dhalai">Dhalai</option><option value="Gomati">Gomati</option><option value="Khowai">Khowai</option><option value="North Tripura">North Tripura</option><option value="Sepahijala" selected>Sepahijala</option><option value="South Tripura">South Tripura</option><option value="Unakoti">Unakoti</option><option value="West Tripura">West Tripura</option></select>
+                <input type="text" id="mm_pin" placeholder="PIN Code *">
+            </div>
+        </fieldset>
 
-        <h4 class="section-title">🤵 বরের তথ্য <small>Groom Details</small></h4>
+        <div id="marriagePartyContainer">
+        <div id="groomSection">
+        <h4 class="section-title">🤵 বরের তথ্য <small>Groom Details</small><span class="party-role-badge" id="groomApplicantTag">Applicant</span></h4>
         <div class="form-group"><label>Groom's Name <span>*</span></label><input type="text" id="gName" placeholder="বরের নাম"></div>
         <div class="grid-2 form-group">
             <div><label>Father's Name <span>*</span></label><input type="text" id="gFather" placeholder="বরের বাবার নাম"></div>
-            <div><label>Age <span>*</span></label><input type="number" id="gAge" min="1" placeholder="বয়স (e.g. 38)"></div>
+            <div><label>Age (বয়স - অটো) <span>*</span></label><input type="number" id="gAge" readonly style="background-color: #e9ecef;" placeholder="Auto (২১+ হতে হবে)"></div>
+        </div>
+        <div class="form-group" id="gDobWrapper">
+            <label>Groom's Date of Birth (বরের জন্মতারিখ) <span>*</span></label>
+            <div style="display: flex; gap: 5px;">
+                <select id="gDobDay" style="flex: 1;"></select>
+                <select id="gDobMonth" style="flex: 1;"></select>
+                <select id="gDobYear" style="flex: 1.5;"></select>
+            </div>
+            <div class="m-age-msg" id="gAgeWarn"></div>
         </div>
         <div class="form-group"><label>Profession <span>*</span></label>
             <select id="gProf" onchange="checkProf('g')"><option value="Student">Student</option><option value="Housewife">Housewife</option><option value="Day Labour">Day Labour</option><option value="Cultivator">Cultivator</option><option value="Self Employed">Self Employed</option><option value="Govt. Employee">Govt. Employee</option><option value="Private Job" selected>Private Job</option><option value="Un Employed">Un Employed</option><option value="Driver">Driver</option><option value="Business">Business</option><option value="Other">Add Option (Write Custom)</option></select>
@@ -1561,12 +1781,23 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
                 <input type="text" id="mg_pin" placeholder="PIN Code *">
             </div>
         </fieldset>
+        </div>
 
-        <h4 class="section-title">👰 কনের তথ্য <small>Bride Details</small></h4>
+        <div id="brideSection">
+        <h4 class="section-title">👰 কনের তথ্য <small>Bride Details</small><span class="party-role-badge hidden" id="brideApplicantTag">Applicant</span></h4>
         <div class="form-group"><label>Bride's Name <span>*</span></label><input type="text" id="bName" placeholder="কনের নাম"></div>
         <div class="grid-2 form-group">
             <div><label>Father's Name <span>*</span></label><input type="text" id="bFather" placeholder="কনের বাবার নাম"></div>
-            <div><label>Age <span>*</span></label><input type="number" id="bAge" min="1" placeholder="বয়স (e.g. 34)"></div>
+            <div><label>Age (বয়স - অটো) <span>*</span></label><input type="number" id="bAge" readonly style="background-color: #e9ecef;" placeholder="Auto (১৮+ হতে হবে)"></div>
+        </div>
+        <div class="form-group" id="bDobWrapper">
+            <label>Bride's Date of Birth (কনের জন্মতারিখ) <span>*</span></label>
+            <div style="display: flex; gap: 5px;">
+                <select id="bDobDay" style="flex: 1;"></select>
+                <select id="bDobMonth" style="flex: 1;"></select>
+                <select id="bDobYear" style="flex: 1.5;"></select>
+            </div>
+            <div class="m-age-msg" id="bAgeWarn"></div>
         </div>
         <div class="form-group"><label>Profession <span>*</span></label>
             <select id="bProf" onchange="checkProf('b')"><option value="Student">Student</option><option value="Housewife" selected>Housewife</option><option value="Day Labour">Day Labour</option><option value="Cultivator">Cultivator</option><option value="Self Employed">Self Employed</option><option value="Govt. Employee">Govt. Employee</option><option value="Private Job">Private Job</option><option value="Un Employed">Un Employed</option><option value="Driver">Driver</option><option value="Business">Business</option><option value="Other">Add Option (Write Custom)</option></select>
@@ -1584,6 +1815,8 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
                 <input type="text" id="mb_pin" placeholder="PIN Code *">
             </div>
         </fieldset>
+        </div>
+        </div>
 
         <h4 class="section-title">💍 বিয়ের তথ্য <small>Marriage Details</small></h4>
         <div class="grid-2 form-group">
@@ -1595,22 +1828,8 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
             <div><label>Marriage Date <span>*</span></label>
                 <div style="display: flex; gap: 5px;"><select id="mDay" style="flex:1"></select><select id="mMonth" style="flex:1.3"></select><select id="mYear" style="flex:1.5"></select></div></div>
         </div>
+        <div class="m-age-msg" id="mDateAgeWarn" style="margin:-8px 0 14px;"></div>
         <div class="form-group"><label>Customer Mobile (Optional)</label><input type="tel" id="mCustomerPhone" inputmode="numeric" maxlength="10" placeholder="10-digit Mobile (কাজ রেডি জানাতে)"></div>
-        <div class="form-group"><label>Marriage Place (বিয়ের স্থান) <span>*</span></label>
-        <select id="mPlaceSrc" onchange="toggleMPlace()"><option value="groom">বরের ঠিকানার মতোই (Groom's address)</option><option value="bride">কনের ঠিকানার মতোই (Bride's address)</option><option value="other">অন্য ঠিকানা (Different address)</option></select></div>
-        <fieldset id="mmAddrFS">
-            <legend>Marriage Place Address (বিয়ের স্থানের ঠিকানা)</legend>
-            <div class="grid-2">
-                <input type="text" id="mm_vill" placeholder="Vill / Ward *" list="mVillList">
-                <div style="display: flex; gap: 6px;"><input type="text" id="mm_gp" placeholder="Panchayat / Council *" style="flex:2">
-                    <select id="mm_gpType" style="flex:1"><option value="G.P">G.P</option><option value="V.C">V.C</option><option value="N.P">N.P</option><option value="M.C">M.C</option></select></div>
-                <input type="text" id="mm_po" placeholder="P.O. *">
-                <input type="text" id="mm_ps" placeholder="P.S. *">
-                <input type="text" id="mm_sd" placeholder="Sub-Division *" list="mSdList">
-                <select id="mm_dist"><option value="Dhalai">Dhalai</option><option value="Gomati">Gomati</option><option value="Khowai">Khowai</option><option value="North Tripura">North Tripura</option><option value="Sepahijala" selected>Sepahijala</option><option value="South Tripura">South Tripura</option><option value="Unakoti">Unakoti</option><option value="West Tripura">West Tripura</option></select>
-                <input type="text" id="mm_pin" placeholder="PIN Code *">
-            </div>
-        </fieldset>
         </div><!-- /marriageForm -->
     </div>
 
@@ -1626,18 +1845,6 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
         </div>
         <div id="output" contenteditable="true"></div>
         <div id="outputM" class="hidden" contenteditable="true"></div>
-
-        <div class="action-container">
-            <div id="warningMsg" style="margin-top: 15px;">
-                প্রিন্ট বা রেকর্ড সেভ করার জন্য ফর্মের লাল তারা (*) দেওয়া সব বক্স পূরণ করুন।
-            </div>
-            <div class="action-buttons" id="actionButtons" style="display: none;">
-                <button class="btn-print" onclick="printAndSave()">🖨️ Print / PDF</button>
-                <button class="btn-word" onclick="downloadCurrentWord()">📄 Word Download</button>
-                <button class="btn-record" onclick="saveCurrent()">💾 Save to Record</button>
-                <button class="btn-wa-ready" id="btnWaReady" onclick="sendReadyWhatsApp()">💬 কাজ রেডি (WhatsApp)</button>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -1844,6 +2051,8 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
         document.getElementById('regDay').innerHTML = dayOptions; document.getElementById('regMonth').innerHTML = monthOptions; document.getElementById('regYear').innerHTML = dodYearOptions;
 
         // Marriage selects
+        document.getElementById('gDobDay').innerHTML = dayOptions; document.getElementById('gDobMonth').innerHTML = monthOptions; document.getElementById('gDobYear').innerHTML = yearOptions;
+        document.getElementById('bDobDay').innerHTML = dayOptions; document.getElementById('bDobMonth').innerHTML = monthOptions; document.getElementById('bDobYear').innerHTML = yearOptions;
         document.getElementById('mDay').innerHTML = dayOptions;
         document.getElementById('mMonth').innerHTML = monthOptions;
         document.getElementById('mYear').innerHTML = '<option value="">Year</option>' + Array.from({length:81}, (_, i) => `<option value="${2030-i}">${2030-i}</option>`).join('');
@@ -1851,7 +2060,7 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
         // ---- সহজ তারিখ ইনপুট: একটি ঘরে শুধু সংখ্যা লিখলেই হবে (DDMMYYYY), নিচে স্বয়ংক্রিয় যাচাই ----
         (function(){
             const MN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-            const trios = [['dobDay','dobMonth','dobYear'],['c_dobDay','c_dobMonth','c_dobYear'],['dodDay','dodMonth','dodYear'],['regDay','regMonth','regYear'],['mDay','mMonth','mYear']];
+            const trios = [['dobDay','dobMonth','dobYear'],['c_dobDay','c_dobMonth','c_dobYear'],['dodDay','dodMonth','dodYear'],['regDay','regMonth','regYear'],['gDobDay','gDobMonth','gDobYear'],['bDobDay','bDobMonth','bDobYear'],['mDay','mMonth','mYear']];
             trios.forEach(([d,m,y]) => {
                 const sd = document.getElementById(d), sm = document.getElementById(m), sy = document.getElementById(y);
                 if (!sd || !sm || !sy) return;
@@ -1893,9 +2102,10 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
 
         updateSpouseRequirement();
         toggleAffidavitType();
-        toggleMPlace(); checkProf('g'); checkProf('b'); checkMReligion();
+        reorderMarriageParties(); toggleMPlace(); checkProf('g'); checkProf('b'); checkMReligion();
 
         ['dobDay', 'dobMonth', 'dobYear'].forEach(id => { document.getElementById(id).addEventListener('change', calculateAge); });
+        ['gDobDay','gDobMonth','gDobYear','bDobDay','bDobMonth','bDobYear','mDay','mMonth','mYear'].forEach(id => { document.getElementById(id).addEventListener('change', calculateMarriageAges); });
 
         document.querySelectorAll('#affForm input, #affForm select, #marriageForm input, #marriageForm select').forEach(el => {
             el.addEventListener('input', refresh);
@@ -4832,6 +5042,9 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
             history.unshift({ name: subjectTitle, rawName: name, muhuriName: _muhuriN, date: currentDateTime, ts: Date.now(), content: contentHTML, data: dataObj });
             localStorage.setItem('affidavitHistory', JSON.stringify(history));
         }
+        if (_autoShopSyncOn && !window._activeSheetKey) {
+            pushToOnlineList({ name: name, docType: affidavitType, muhuriName: _muhuriN || "Alam Hossain (Shop)", dataObj: dataObj }, { silent: true });
+        }
 
         if (keepForm) { renderHistory(); return; }
 
@@ -4871,13 +5084,41 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
 
     // ================= MARRIAGE =================
     const ADDR_KEYS = ['vill','gp','gpType','po','ps','sd','dist','pin'];
-    const M_FIELD_IDS = ['gName','gFather','gAge','gProf','gProfCustom','bName','bFather','bAge','bProf','bProfCustom','mReligion','mReligionCustom','mDay','mMonth','mYear','mPlaceSrc','mCustomerPhone']
+    const M_FIELD_IDS = ['applicant','gName','gFather','gDobDay','gDobMonth','gDobYear','gAge','gProf','gProfCustom','bName','bFather','bDobDay','bDobMonth','bDobYear','bAge','bProf','bProfCustom','mReligion','mReligionCustom','mDay','mMonth','mYear','mPlaceSrc','mCustomerPhone']
         .concat(['mg','mb','mm'].flatMap(p => ADDR_KEYS.map(k => p + '_' + k)));
 
     function checkProf(p){ document.getElementById(p + 'ProfCustom').style.display = document.getElementById(p + 'Prof').value === 'Other' ? 'block' : 'none'; }
     function checkMReligion(){ document.getElementById('mReligionCustom').style.display = document.getElementById('mReligion').value === 'Other' ? 'block' : 'none'; }
     function profOf(p){ let v = document.getElementById(p + 'Prof').value; if (v === 'Other') v = val(p + 'ProfCustom'); return v; }
     function mRelName(){ const v = document.getElementById('mReligion').value; return v === 'Other' ? val('mReligionCustom') : v; }
+    function reorderMarriageParties(){
+        const wrap = document.getElementById('marriagePartyContainer');
+        const groom = document.getElementById('groomSection');
+        const bride = document.getElementById('brideSection');
+        if (!wrap || !groom || !bride) return;
+        const isBride = document.getElementById('applicant').value === 'Bride';
+        if (isBride) {
+            wrap.appendChild(bride);
+            wrap.appendChild(groom);
+        } else {
+            wrap.appendChild(groom);
+            wrap.appendChild(bride);
+        }
+        const gTag = document.getElementById('groomApplicantTag');
+        const bTag = document.getElementById('brideApplicantTag');
+        if (gTag) gTag.classList.toggle('hidden', isBride);
+        if (bTag) bTag.classList.toggle('hidden', !isBride);
+    }
+    function onApplicantChange(){
+        const app = document.getElementById('applicant').value;
+        const mp = document.getElementById('mPlaceSrc');
+        if (mp) {
+            mp.value = (app === 'Bride') ? 'bride' : 'groom';
+            toggleMPlace();
+        }
+        reorderMarriageParties();
+        if (typeof refresh === 'function') refresh();
+    }
     function toggleMPlace(){
         document.getElementById('mmAddrFS').style.display = document.getElementById('mPlaceSrc').value === 'other' ? '' : 'none';
     }
@@ -4898,20 +5139,135 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
         const d = val('mDay'), m = val('mMonth'), y = val('mYear');
         return (d && m && y) ? `${d}/${m}/${y}` : (ph ? '[DD/MM/YYYY]' : '');
     }
+    function parseDmyDate(dId, mId, yId) {
+        const d = parseInt(val(dId), 10), m = parseInt(val(mId), 10), y = parseInt(val(yId), 10);
+        if (!d || !m || !y) return null;
+        return { d, m, y, date: new Date(y, m - 1, d) };
+    }
+    function calcExactAgeOn(dobObj, refDate) {
+        let a = refDate.getFullYear() - dobObj.y;
+        const md = (refDate.getMonth() + 1) - dobObj.m;
+        if (md < 0 || (md === 0 && refDate.getDate() < dobObj.d)) a--;
+        return a;
+    }
+    function addYearsDmy(dobObj, yrs) {
+        const dt = new Date(dobObj.y + yrs, dobObj.m - 1, dobObj.d);
+        const p = n => (n < 10 ? '0' : '') + n;
+        return `${p(dt.getDate())}/${p(dt.getMonth() + 1)}/${dt.getFullYear()}`;
+    }
+    function setAgeMsg(id, txt, cls) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.textContent = txt || '';
+        el.className = 'm-age-msg' + (cls ? ' ' + cls : '');
+    }
+    function calculateMarriageAges(preserveLegacyAge) {
+        const today = new Date(); today.setHours(0, 0, 0, 0);
+        const gDob = parseDmyDate('gDobDay', 'gDobMonth', 'gDobYear');
+        const bDob = parseDmyDate('bDobDay', 'bDobMonth', 'bDobYear');
+        const mDt = parseDmyDate('mDay', 'mMonth', 'mYear');
+        const res = { gOk: false, bOk: false, mOk: false, gMsg: '', bMsg: '', mMsg: '' };
+
+        if (gDob) {
+            const gA = calcExactAgeOn(gDob, today);
+            document.getElementById('gAge').value = gA >= 0 ? gA : '';
+            if (gDob.date > today) {
+                res.gMsg = '❌ বরের জন্মতারিখ আজকের তারিখের পরে হতে পারবে না!';
+                setAgeMsg('gAgeWarn', res.gMsg, 'bad');
+            } else if (gA < 21) {
+                res.gMsg = `❌ বরের বয়স ২১+ হতে হবে (বর্তমানে ${gA} বছর · ২১ বছর হবে ${addYearsDmy(gDob, 21)})`;
+                setAgeMsg('gAgeWarn', res.gMsg, 'bad');
+            } else {
+                res.gOk = true;
+                setAgeMsg('gAgeWarn', `✅ বরের বর্তমান বয়স: ${gA} বছর`, 'ok');
+            }
+        } else {
+            if (!preserveLegacyAge) document.getElementById('gAge').value = '';
+            setAgeMsg('gAgeWarn', '', '');
+        }
+
+        if (bDob) {
+            const bA = calcExactAgeOn(bDob, today);
+            document.getElementById('bAge').value = bA >= 0 ? bA : '';
+            if (bDob.date > today) {
+                res.bMsg = '❌ কনের জন্মতারিখ আজকের তারিখের পরে হতে পারবে না!';
+                setAgeMsg('bAgeWarn', res.bMsg, 'bad');
+            } else if (bA < 18) {
+                res.bMsg = `❌ কনের বয়স ১৮+ হতে হবে (বর্তমানে ${bA} বছর · ১৮ বছর হবে ${addYearsDmy(bDob, 18)})`;
+                setAgeMsg('bAgeWarn', res.bMsg, 'bad');
+            } else {
+                res.bOk = true;
+                setAgeMsg('bAgeWarn', `✅ কনের বর্তমান বয়স: ${bA} বছর`, 'ok');
+            }
+        } else {
+            if (!preserveLegacyAge) document.getElementById('bAge').value = '';
+            setAgeMsg('bAgeWarn', '', '');
+        }
+
+        if (mDt) {
+            const errs = [];
+            if (mDt.date > today) {
+                errs.push('বিয়ের তারিখ আজকের তারিখের পরে হতে পারবে না');
+            } else {
+                let gAtM = null, bAtM = null;
+                if (gDob) {
+                    gAtM = calcExactAgeOn(gDob, mDt.date);
+                    if (gAtM < 21) {
+                        errs.push(gAtM < 0
+                            ? `বিয়ের তারিখ বরের জন্মের আগে! (সঠিক তারিখ: ${addYearsDmy(gDob, 21)} বা তার পরে)`
+                            : `বিয়ের তারিখে বরের বয়স ${gAtM} বছর হচ্ছে — কমপক্ষে ২১ বছর হতে হবে (${addYearsDmy(gDob, 21)} বা তার পরে)`);
+                    }
+                }
+                if (bDob) {
+                    bAtM = calcExactAgeOn(bDob, mDt.date);
+                    if (bAtM < 18) {
+                        errs.push(bAtM < 0
+                            ? `বিয়ের তারিখ কনের জন্মের আগে! (সঠিক তারিখ: ${addYearsDmy(bDob, 18)} বা তার পরে)`
+                            : `বিয়ের তারিখে কনের বয়স ${bAtM} বছর হচ্ছে — কমপক্ষে ১৮ বছর হতে হবে (${addYearsDmy(bDob, 18)} বা তার পরে)`);
+                    }
+                }
+                if (!errs.length && gDob && bDob) {
+                    res.mOk = true;
+                    setAgeMsg('mDateAgeWarn', `✅ বিয়ের সময় বয়স সঠিক (বর: ${gAtM} বছর, কনে: ${bAtM} বছর)`, 'ok');
+                } else if (!errs.length) {
+                    res.mOk = true;
+                    setAgeMsg('mDateAgeWarn', '', '');
+                }
+            }
+            if (errs.length) {
+                res.mMsg = '❌ ' + errs.join(' · ');
+                setAgeMsg('mDateAgeWarn', res.mMsg, 'bad');
+            }
+        } else {
+            setAgeMsg('mDateAgeWarn', '', '');
+        }
+        return res;
+    }
+
     function missingFields(){
+        const ageRes = calculateMarriageAges(true);
         const m = [];
-        if (!val('gName')) m.push('বরের নাম');
-        if (!val('gFather')) m.push('বরের বাবার নাম');
-        if (!(parseInt(val('gAge')) > 0)) m.push('বরের বয়স');
-        if (!profOf('g')) m.push('বরের পেশা');
-        if (!val('bName')) m.push('কনের নাম');
-        if (!val('bFather')) m.push('কনের বাবার নাম');
-        if (!(parseInt(val('bAge')) > 0)) m.push('কনের বয়স');
-        if (!profOf('b')) m.push('কনের পেশা');
+        const addGroom = () => {
+            if (!val('gName')) m.push('বরের নাম');
+            if (!val('gFather')) m.push('বরের বাবার নাম');
+            if (!parseDmyDate('gDobDay','gDobMonth','gDobYear')) m.push('বরের জন্মতারিখ');
+            else if (!ageRes.gOk) m.push('বরের বয়স ২১+ হতে হবে');
+            if (!profOf('g')) m.push('বরের পেশা');
+            if (!addrOk('g')) m.push('বরের ঠিকানা (সব ঘর)');
+        };
+        const addBride = () => {
+            if (!val('bName')) m.push('কনের নাম');
+            if (!val('bFather')) m.push('কনের বাবার নাম');
+            if (!parseDmyDate('bDobDay','bDobMonth','bDobYear')) m.push('কনের জন্মতারিখ');
+            else if (!ageRes.bOk) m.push('কনের বয়স ১৮+ হতে হবে');
+            if (!profOf('b')) m.push('কনের পেশা');
+            if (!addrOk('b')) m.push('কনের ঠিকানা (সব ঘর)');
+        };
+        if (val('applicant') === 'Bride') { addBride(); addGroom(); }
+        else { addGroom(); addBride(); }
         if (!mRelName()) m.push('ধর্ম');
         if (!marriageDate(false)) m.push('বিয়ের তারিখ');
-        if (!addrOk('g')) m.push('বরের ঠিকানা (সব ঘর)');
-        if (!addrOk('b')) m.push('কনের ঠিকানা (সব ঘর)');
+        else if (!ageRes.mOk && ageRes.mMsg) m.push(ageRes.mMsg.replace(/^❌\s*/, ''));
         if (!addrOk('m')) m.push('বিয়ের স্থানের ঠিকানা (সব ঘর)');
         return m;
     }
@@ -5005,12 +5361,16 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
             history.unshift({ name: subject, rawName: val('gName'), muhuriName: _muhuriN, date: new Date().toLocaleString('en-IN'), ts: Date.now(), content: contentHTML, data: dataObj });
             localStorage.setItem('marriageHistory', JSON.stringify(history));
         }
+        if (_autoShopSyncOn && !window._activeSheetKey) {
+            pushToOnlineList({ name: val('gName') + " & " + val('bName'), docType: "Marriage Declaration", muhuriName: _muhuriN || "Alam Hossain (Shop)", dataObj: dataObj }, { silent: true });
+        }
         if (keepForm) { renderHistory(); return; }
         showToast("💾 কাজটি রেকর্ড খাতায় সেভ হয়েছে!", "ok");
         document.querySelectorAll('#marriageForm input[type="text"], #marriageForm input[type="number"], #marriageForm input[type="tel"]').forEach(i => i.value = '');
         const _sm = document.getElementById("shopMuhuriName"); if (_sm) _sm.value = "";
         window._activeSheetKey = null;
-        ['mDay','mMonth','mYear'].forEach(id => document.getElementById(id).value = '');
+        ['gDobDay','gDobMonth','gDobYear','bDobDay','bDobMonth','bDobYear','mDay','mMonth','mYear'].forEach(id => document.getElementById(id).value = '');
+        setAgeMsg('gAgeWarn','',''); setAgeMsg('bAgeWarn','',''); setAgeMsg('mDateAgeWarn','','');
         document.getElementById("importBox").value = "";
         checkProf('g'); checkProf('b'); checkMReligion();
         renderHistory(); generateMarriage();
@@ -5045,11 +5405,13 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
                 const el = document.getElementById(key);
                 if (el) el.value = data[key];
             }
+            if (!data.applicant) document.getElementById('applicant').value = 'Groom';
             if (data.customerPhone && !data.mCustomerPhone) {
                 const mp = document.getElementById('mCustomerPhone');
                 if (mp) mp.value = data.customerPhone;
             }
-            toggleMPlace(); checkProf('g'); checkProf('b'); checkMReligion();
+            calculateMarriageAges(true);
+            reorderMarriageParties(); toggleMPlace(); checkProf('g'); checkProf('b'); checkMReligion();
         } else {
             document.getElementById('docMode').value = 'affidavit';
             for (const key in data) {
@@ -5156,6 +5518,7 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
                         <button class="btn-edit btn-sm" onclick="editHistory('${k}',${i})">✏️ Edit</button>
                         <button class="btn-new-work btn-sm" onclick="newWorkForCustomer('${k}',${i})" title="একই কাস্টমারের তথ্য কপি করে নতুন কাজ শুরু করুন">➕ নতুন কাজ</button>
                         <button class="btn-word btn-sm" onclick="downloadHistoryWord('${k}',${i})">📄 Word</button>
+                        <button class="btn-online btn-sm" onclick="syncHistoryToOnline('${k}',${i},this)" title="এই রেকর্ডটি অনলাইন লিস্টে পাঠান">☁️ Online</button>
                         <button class="btn-sm" style="background:#dc3545; color:white;" onclick="deleteHistory('${k}',${i})">🗑️ Delete</button>
                     </td>
                 </tr>`;
@@ -5252,7 +5615,7 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
 
 
     // ================= Auto Capitalize Each Word (Smart Title Case + Acronyms) =================
-    const TC_SKIP_IDS = new Set(['lockPass', 'importBox', 'ot_reason', 'podPrefix', 'obcCategory', 'oldRegNo', 'customerPhone', 'mCustomerPhone', 'recordSearch', 'ld_docNo', 'ld_gdNo', 'gc_reason', 'ap_years', 'dc_wrongDob', 'nc_reason', 'sc_pageNo', 'sc_slNo', 'rn_childDob', 'rn_regDate', 'rn_reasonCustom', 'bc_holderDob', 'bc_regDate']);
+    const TC_SKIP_IDS = new Set(['lockPass', 'importBox', 'ot_reason', 'podPrefix', 'obcCategory', 'oldRegNo', 'customerPhone', 'mCustomerPhone', 'recordSearch', 'sheetSenderSearch', 'ld_docNo', 'ld_gdNo', 'gc_reason', 'ap_years', 'dc_wrongDob', 'nc_reason', 'sc_pageNo', 'sc_slNo', 'rn_childDob', 'rn_regDate', 'rn_reasonCustom', 'bc_holderDob', 'bc_regDate']);
     const TC_UPPER_IDS = new Set(['ot_vehicleNo', 'ot_engineNo', 'ot_chassisNo', 'ld_docNo', 'sc_regNo', 'ror_familyId', 'rn_regNo', 'rn_familyId', 'bc_regNo', 'iu_candidateName']);
     const TC_DOC_IDS = new Set(['ld_docName', 'dc_wrongDoc', 'dc_proofDoc', 'sc_docTypeCustom', 'sc_schoolName', 'sc_proofDoc', 'ror_proofDoc', 'gc_lastExam', 'gc_institution', 'gc_nextCourse', 'ap_purpose', 'ig_purpose', 'um_purpose', 'ue_qual', 'ue_purpose', 'fj_dept', 'noc_purposeCustom', 'noc_addr', 'rn_issuerName', 'bc_issuerName', 'bc_proofDoc']);
     const TC_ACRONYMS = new Set([
@@ -5526,6 +5889,124 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
     let _onlyPending = false;
     let _pollTimer = null;
     window._activeSheetKey = null;
+    let _autoShopSyncOn = (function(){ try { return localStorage.getItem('ayatAutoShopSync') !== '0'; } catch (_) { return true; } })();
+    const _selfUploadedPrefixes = new Set();
+
+    function syncAutoShopSyncBtn() {
+        const btn = document.getElementById("btnAutoShopSync");
+        if (!btn) return;
+        btn.classList.toggle("on", _autoShopSyncOn);
+        btn.textContent = _autoShopSyncOn ? "☁️ Sync: ON" : "☁️ Sync: OFF";
+    }
+    function toggleAutoShopSync() {
+        _autoShopSyncOn = !_autoShopSyncOn;
+        try { localStorage.setItem('ayatAutoShopSync', _autoShopSyncOn ? '1' : '0'); } catch (_) {}
+        syncAutoShopSyncBtn();
+        showToast(_autoShopSyncOn ? "☁️ Auto-Sync ON: Shop files will sync automatically on Save/Print." : "⏸️ Auto-Sync OFF: Use the Online button to sync manually.", "info");
+    }
+    function getSyncedShopCodes() {
+        try { const arr = JSON.parse(localStorage.getItem('ayatShopSyncedCodes') || '[]'); return Array.isArray(arr) ? arr : []; } catch (_) { return []; }
+    }
+    function rememberSyncedCode(code) {
+        try {
+            const arr = getSyncedShopCodes();
+            if (!arr.includes(code)) {
+                arr.unshift(code);
+                localStorage.setItem('ayatShopSyncedCodes', JSON.stringify(arr.slice(0, 200)));
+            }
+        } catch (_) {}
+    }
+    function buildCurrentShopPayload() {
+        const _muhuriN = val("shopMuhuriName") || "Alam Hossain (Shop)";
+        if (curMode() === 'marriage') {
+            const dataObj = { docKind: 'marriage', muhuriName: _muhuriN, customerPhone: val('mCustomerPhone').replace(/\D/g,'').slice(0,10) };
+            M_FIELD_IDS.forEach(id => { const el = document.getElementById(id); if (el) dataObj[id] = el.value; });
+            return { name: val('gName') + " & " + val('bName'), docType: "Marriage Declaration", muhuriName: _muhuriN, dataObj: dataObj };
+        }
+        const affidavitType = document.getElementById("affidavitType").value;
+        const dataObj = {
+            muhuriName: _muhuriN,
+            affidavitType: affidavitType, appType: document.getElementById("appType").value, pobType: document.getElementById("pobType").value, hospitalName: document.getElementById("hospitalName").value,
+            name: val("name"), customerPhone: val("customerPhone"), gender: document.getElementById("gender").value, maritalStatus: document.getElementById("maritalStatus").value, age: document.getElementById("age").value, fatherName: document.getElementById("fatherName").value, motherName: document.getElementById("motherName").value, religion: document.getElementById("religion").value, spouseName: document.getElementById("spouseName").value,
+            professionSelect: document.getElementById("professionSelect").value, customProfession: document.getElementById("customProfession").value,
+            dobDay: document.getElementById("dobDay").value, dobMonth: document.getElementById("dobMonth").value, dobYear: document.getElementById("dobYear").value,
+            childName: document.getElementById("childName").value, childGender: document.getElementById("childGender").value, c_dobDay: document.getElementById("c_dobDay").value, c_dobMonth: document.getElementById("c_dobMonth").value, c_dobYear: document.getElementById("c_dobYear").value,
+            oldRegNo: document.getElementById("oldRegNo").value, regDay: document.getElementById("regDay").value, regMonth: document.getElementById("regMonth").value, regYear: document.getElementById("regYear").value,
+            obcCommunity: document.getElementById("obcCommunity").value, obcIncomeNum: document.getElementById("obcIncomeNum").value.trim(), obcIncomeWords: document.getElementById("obcIncomeWords").value.trim(),
+            decRelation: document.getElementById("decRelation").value, decName: document.getElementById("decName").value, decGuardianType: document.getElementById("decGuardianType").value, decGuardianName: document.getElementById("decGuardianName").value, dodDay: document.getElementById("dodDay").value, dodMonth: document.getElementById("dodMonth").value, dodYear: document.getElementById("dodYear").value, podPrefix: document.getElementById("podPrefix").value,
+            p_vill: document.getElementById("p_vill").value, p_po: document.getElementById("p_po").value, p_ps: document.getElementById("p_ps").value, p_dist: document.getElementById("p_dist").value, p_pin: document.getElementById("p_pin").value,
+            b_vill: document.getElementById("b_vill").value, b_po: document.getElementById("b_po").value, b_ps: document.getElementById("b_ps").value, b_dist: document.getElementById("b_dist").value, b_pin: document.getElementById("b_pin").value,
+            d_vill: document.getElementById("d_vill").value, d_po: document.getElementById("d_po").value, d_ps: document.getElementById("d_ps").value, d_dist: document.getElementById("d_dist").value, d_pin: document.getElementById("d_pin").value,
+            auth1_name: document.getElementById("auth1_name").value, auth1_type: document.getElementById("auth1_type").value, auth2_name: document.getElementById("auth2_name").value, auth2_type: document.getElementById("auth2_type").value,
+            signMonth: document.getElementById("signMonth").value, signYear: document.getElementById("signYear").value,
+            spPersonsData: JSON.stringify(getSpPersons()),
+            ...otFields()
+        };
+        return { name: val("name"), docType: affidavitType, muhuriName: _muhuriN, dataObj: dataObj };
+    }
+    async function pushToOnlineList(info, opts) {
+        opts = opts || {};
+        if (!info || !info.dataObj) return false;
+        const cleanData = Object.assign({}, info.dataObj);
+        if (!cleanData.muhuriName) cleanData.muhuriName = info.muhuriName || "Alam Hossain (Shop)";
+        const code = btoa(encodeURIComponent(JSON.stringify(cleanData)));
+        const already = getSyncedShopCodes().includes(code);
+        if (already) {
+            if (!opts.silent) showToast("ℹ️ এই ফাইলটি ইতিমধ্যেই অনলাইন লিস্টে যুক্ত আছে।", "info");
+            return true;
+        }
+        const btn = opts.btn;
+        const origTxt = btn ? btn.textContent : "";
+        if (btn) { btn.disabled = true; btn.textContent = "⏳ পাঠানো হচ্ছে..."; }
+        try {
+            const payload = {
+                name: info.name || "Unnamed",
+                docType: info.docType || (cleanData.docKind === 'marriage' ? 'Marriage Declaration' : (cleanData.affidavitType || 'Affidavit')),
+                muhuriName: cleanData.muhuriName,
+                code: code
+            };
+            const res = await fetch(SHEET_API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify(payload)
+            });
+            if (!res.ok) throw new Error("HTTP " + res.status);
+            rememberSyncedCode(code);
+            _selfUploadedPrefixes.add(code.slice(0, 24));
+            showToast("☁️ ফাইলটি অনলাইন লিস্টে যুক্ত হয়েছে!", "ok");
+            setTimeout(() => loadFromSheet(true), 600);
+            return true;
+        } catch (err) {
+            if (!opts.silent) showToast("❌ অনলাইন লিস্টে পাঠানো যায়নি। ইন্টারনেট চেক করুন।", "err");
+            else showToast("⚠️ লোকাল রেকর্ডে সেভ হয়েছে, তবে অনলাইন সিঙ্ক ব্যর্থ হয়েছে।", "err");
+            return false;
+        } finally {
+            if (btn) { btn.disabled = false; btn.textContent = origTxt; }
+        }
+    }
+    async function syncCurrentToOnlineList() {
+        const ab = document.getElementById("actionButtons");
+        if (ab && ab.style.display === "none") {
+            showToast("⚠️ আগে ফর্মের সব আবশ্যক তথ্য পূরণ করুন।", "err");
+            return;
+        }
+        const info = buildCurrentShopPayload();
+        const btn = document.getElementById("btnSyncOnline");
+        await pushToOnlineList(info, { silent: false, btn: btn });
+    }
+    async function syncHistoryToOnline(k, i, btn) {
+        const r = getRec(k, i);
+        if (!r || !r.data) {
+            showToast("❌ এই পুরোনো রেকর্ডের ডাটা অনলাইন লিস্টে পাঠানো যাবে না।", "err");
+            return;
+        }
+        const d = r.data;
+        const isMar = (k === 'm' || d.docKind === 'marriage');
+        const nm = isMar ? ((d.gName || r.rawName || '') + (d.bName ? ' & ' + d.bName : '')) : (d.name || r.rawName || r.name);
+        const dt = isMar ? 'Marriage Declaration' : (d.affidavitType || 'Affidavit');
+        const mn = (r.muhuriName || d.muhuriName || "Alam Hossain (Shop)").trim();
+        await pushToOnlineList({ name: nm, docType: dt, muhuriName: mn, dataObj: d }, { silent: false, btn: btn });
+    }
 
     function sheetItemKey(item) {
         return (item.date || '') + '|' + (item.name || '') + '|' + String(item.code || '').slice(0, 24);
@@ -5556,24 +6037,117 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
         } catch (_) {}
     }
 
+    const DOC_TYPE_LABELS = {
+        Birth: "Delayed Birth",
+        DigiBirth: "Digital Birth",
+        DigiBirthSelf: "Digital Birth",
+        DigiBirthParents: "Digital Birth",
+        BirthCorrDigital: "Birth Corr & Digital",
+        Death: "Delayed Death",
+        NonStudyBen: "Non-Study (Bengali)",
+        NonStudyEng: "Non-Study (English)",
+        NonStudyThumb: "Non-Study (Thumb)",
+        OBCSelf: "Central OBC (Self)",
+        OBCParents: "Central OBC (Child)",
+        OBCNCLSelf: "OBC NCL (Self)",
+        OBCNCLParents: "OBC NCL (Child)",
+        SamePerson: "Same Person",
+        OwnershipTransfer: "Ownership Transfer",
+        LostDoc: "Lost Document",
+        GapCert: "Gap Certificate",
+        AddressProof: "Address Proof",
+        IncomeGen: "Income Affidavit",
+        DobCorrection: "DOB Correction",
+        NameChange: "Name Change",
+        Unmarried: "Unmarried",
+        Unemployment: "Unemployment",
+        FirstJob: "Character / Job",
+        SurvivalFather: "Survival (Father)",
+        SurvivalMother: "Survival (Mother)",
+        SurvivalWife: "Survival (Husband)",
+        RentNOC: "NOC Affidavit",
+        SchoolCorr: "School Correction",
+        PanchayatROR: "Panchayat ROR",
+        PanchayatRORNew: "ROR New Name",
+        IshanUday: "Ishan Uday"
+    };
+
+    function formatDocTypeLabel(dt) {
+        const s = String(dt || "").trim();
+        return DOC_TYPE_LABELS[s] || s || "Document";
+    }
+
+    function parseSheetDateInfo(raw) {
+        const s = String(raw || "").trim();
+        if (!s) return { isoDate: "", display: "—" };
+        const pad2 = n => (n < 10 ? "0" : "") + n;
+        const MONS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        let dt = null;
+        // Handle DD/MM/YYYY format (e.g. en-IN locale)
+        const dmy = /^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:[,\s]+(\d{1,2}):(\d{2})(?::\d{2})?\s*(am|pm)?)?/i.exec(s);
+        if (dmy) {
+            let hh = dmy[4] ? parseInt(dmy[4], 10) : 0;
+            const mi = dmy[5] ? parseInt(dmy[5], 10) : 0;
+            const ap = (dmy[6] || "").toLowerCase();
+            if (ap === "pm" && hh < 12) hh += 12;
+            if (ap === "am" && hh === 12) hh = 0;
+            dt = new Date(parseInt(dmy[3], 10), parseInt(dmy[2], 10) - 1, parseInt(dmy[1], 10), hh, mi);
+        } else {
+            const parsed = new Date(s);
+            if (!isNaN(parsed.getTime())) dt = parsed;
+        }
+        if (!dt || isNaN(dt.getTime())) {
+            const isoM = /^(\d{4}-\d{2}-\d{2})/.exec(s);
+            return { isoDate: isoM ? isoM[1] : "", display: s };
+        }
+        const isoDate = `${dt.getFullYear()}-${pad2(dt.getMonth() + 1)}-${pad2(dt.getDate())}`;
+        let h = dt.getHours();
+        const ampm = h >= 12 ? "PM" : "AM";
+        h = h % 12 || 12;
+        const display = `${pad2(dt.getDate())} ${MONS[dt.getMonth()]} ${dt.getFullYear()}, ${pad2(h)}:${pad2(dt.getMinutes())} ${ampm}`;
+        return { isoDate, display };
+    }
+
+    function parseSheetDisplayName(raw) {
+        const s = String(raw || "Unnamed").trim();
+        const isRev = /\[(?:সংশোধিত|Revised)\]/i.test(s);
+        const clean = s.replace(/\s*\[(?:সংশোধিত|Revised)\]/ig, "").trim() || "Unnamed";
+        return { clean, isRev };
+    }
+
     function toggleAutoPoll() {
         _autoPollOn = !_autoPollOn;
         const btn = document.getElementById("btnAutoPoll");
         if (btn) {
             btn.classList.toggle("on", _autoPollOn);
-            btn.textContent = _autoPollOn ? "⏱️ অটো: চালু" : "⏱️ অটো: বন্ধ";
+            btn.textContent = _autoPollOn ? "⏱️ Auto: ON" : "⏱️ Auto: OFF";
         }
-        showToast(_autoPollOn ? "⏱️ অটো-রিফ্রেশ চালু (প্রতি ৩০ সেকেন্ড)" : "⏸️ অটো-রিফ্রেশ বন্ধ", "info");
+        showToast(_autoPollOn ? "⏱️ Auto-Refresh ON (every 30s)" : "⏸️ Auto-Refresh OFF", "info");
     }
 
-    function togglePendingFilter() {
-        _onlyPending = !_onlyPending;
-        const btn = document.getElementById("btnFilterPending");
-        if (btn) {
-            btn.classList.toggle("on", _onlyPending);
-            btn.textContent = _onlyPending ? "⏳ শুধু বাকি" : "📋 সব";
-        }
+    function clearSheetFilters() {
+        const dEl = document.getElementById("sheetDateFilter");
+        const sEl = document.getElementById("sheetSenderSearch");
+        if (dEl) dEl.value = "";
+        if (sEl) sEl.value = "";
         renderSheetList();
+    }
+
+    function updateSheetSenderDatalist() {
+        const dl = document.getElementById("sheetSenderList");
+        if (!dl) return;
+        const set = new Set();
+        _sheetCache.forEach(item => {
+            let m = (item.muhuriName || "").trim();
+            if (!m && item.code) {
+                try {
+                    const dec = JSON.parse(decodeURIComponent(atob(item.code)));
+                    if (dec.muhuriName) m = String(dec.muhuriName).trim();
+                } catch (_) {}
+            }
+            if (m) set.add(m);
+        });
+        dl.innerHTML = Array.from(set).sort((a, b) => a.localeCompare(b)).map(s => `<option value="${esc(s)}"></option>`).join("");
     }
 
     function renderSheetList() {
@@ -5581,49 +6155,83 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
         const box = document.getElementById("sheetCustomerList");
         if (!box) return;
         const doneMap = getSheetDoneMap();
-        const filtered = _sheetCache.filter(item => !_onlyPending || !doneMap[sheetItemKey(item)]);
-        box.innerHTML = "";
+        const dateFilter = (document.getElementById("sheetDateFilter") ? document.getElementById("sheetDateFilter").value.trim() : "");
+        const senderQuery = (document.getElementById("sheetSenderSearch") ? document.getElementById("sheetSenderSearch").value.trim().toLowerCase() : "");
+        const hasFilter = Boolean(dateFilter || senderQuery);
 
-        if (!filtered.length) {
-            box.innerHTML = `<div style='color:#666; font-size:13px; text-align:center; padding:10px;'>${_onlyPending ? '🎉 কোনো বাকি কাজ নেই!' : 'কোনো নতুন কাস্টমার নেই।'}</div>`;
-            return;
-        }
-
-        filtered.forEach(item => {
-            const key = sheetItemKey(item);
-            const isDone = !!doneMap[key];
+        const enriched = _sheetCache.map(item => {
             let phone = "", muhuri = (item.muhuriName || "").trim();
             try {
                 const decoded = JSON.parse(decodeURIComponent(atob(item.code)));
                 phone = (decoded.customerPhone || decoded.mCustomerPhone || "").replace(/\D/g, "");
                 if (!muhuri && decoded.muhuriName) muhuri = String(decoded.muhuriName).trim();
             } catch (_) {}
+            const dtInfo = parseSheetDateInfo(item.date);
+            const nmInfo = parseSheetDisplayName(item.name);
+            const docLabel = formatDocTypeLabel(item.docType);
+            return { item, phone, muhuri, dtInfo, nmInfo, docLabel };
+        });
+
+        const filtered = enriched.filter(e => {
+            if (dateFilter && e.dtInfo.isoDate !== dateFilter) return false;
+            if (senderQuery) {
+                const hay = (e.muhuri + " " + e.nmInfo.clean + " " + e.docLabel).toLowerCase();
+                if (!hay.includes(senderQuery)) return false;
+            }
+            return true;
+        });
+
+        const countEl = document.getElementById("sheetCountInfo");
+        if (countEl) {
+            countEl.textContent = hasFilter
+                ? `Showing ${filtered.length} of ${enriched.length} records`
+                : `${enriched.length} record${enriched.length === 1 ? '' : 's'}`;
+        }
+        const resetLink = document.getElementById("btnResetFiltersLink");
+        if (resetLink) resetLink.classList.toggle("hidden", !hasFilter);
+
+        box.innerHTML = "";
+        if (!filtered.length) {
+            box.innerHTML = `<div class="sheet-empty">${hasFilter ? 'No matching submissions found for the selected filter.' : 'No online submissions yet.'}</div>`;
+            return;
+        }
+
+        filtered.forEach(({ item, phone, muhuri, dtInfo, nmInfo, docLabel }) => {
+            const key = sheetItemKey(item);
+            const isDone = !!doneMap[key];
 
             const row = document.createElement("div");
             row.className = "sheet-item" + (isDone ? " done" : "");
             row.innerHTML = `
-                <div style="font-size:12.5px; line-height:1.35; min-width:0;">
-                    <b class="si-name">${esc(item.name || "Unnamed")}</b> <span style="color:#1d4a85;">(${esc(item.docType || "")})</span>
-                    ${muhuri ? `<br><span class="muhuri-badge">👤 প্রেরক: ${esc(muhuri)}</span>` : ''}<br>
-                    <small style="color:#777;">${esc(item.date || "")}${phone ? ' · 📞 ' + esc(phone) : ''}</small>
+                <div class="si-top">
+                    <div class="si-title-wrap">
+                        <b class="si-name">${esc(nmInfo.clean)}</b>${nmInfo.isRev ? '<span class="si-rev">Revised</span>' : ''}
+                    </div>
+                    <button type="button" class="btn-mini-done ${isDone ? 'is-done' : ''}" title="${isDone ? 'Mark as Pending' : 'Mark as Completed'}">${isDone ? '✅' : '○'}</button>
                 </div>
-                <div class="sheet-item-actions">
-                    ${phone ? `<button type="button" class="btn-mini-wa" title="কাজ রেডি WhatsApp পাঠান">💬</button>` : ''}
-                    <button type="button" class="btn-mini-done ${isDone ? 'is-done' : ''}" title="${isDone ? 'আবার বাকি হিসেবে চিহ্নিত করুন' : 'কাজ সম্পন্ন (Done) চিহ্নিত করুন'}">${isDone ? '✅' : '○'}</button>
-                    <button type="button" class="btn-sm btn-autofill" style="background:#0b1f3a; color:#f8f0d9; white-space:nowrap; margin-right:0;">✨ ফিল</button>
+                <div class="si-tags">
+                    <span class="si-doc-tag">${esc(docLabel)}</span>
+                    ${muhuri ? `<span class="si-sender-tag">👤 Sender: ${esc(muhuri)}</span>` : ''}
+                </div>
+                <div class="si-foot">
+                    <span class="si-date" title="${esc(item.date || '')}">🕒 ${esc(dtInfo.display)}${phone ? ' · 📞 ' + esc(phone) : ''}</span>
+                    <div class="si-actions">
+                        ${phone ? `<button type="button" class="btn-mini-wa" title="Send Ready Notification (WhatsApp)">💬</button>` : ''}
+                        <button type="button" class="btn-fill-card">✨ Fill</button>
+                    </div>
                 </div>
             `;
             const waBtn = row.querySelector(".btn-mini-wa");
-            if (waBtn) waBtn.onclick = () => sendReadyWhatsApp(phone, item.name, item.docType);
+            if (waBtn) waBtn.onclick = () => sendReadyWhatsApp(phone, nmInfo.clean, docLabel);
             row.querySelector(".btn-mini-done").onclick = () => markSheetItemDone(key, !isDone);
-            row.querySelector(".btn-autofill").onclick = function() {
+            row.querySelector(".btn-fill-card").onclick = function() {
                 try {
                     const data = JSON.parse(decodeURIComponent(atob(item.code)));
                     window._activeSheetKey = key;
                     loadFormData(data);
-                    showToast("✨ " + (item.name || "কাস্টমার") + "-এর তথ্য বসে গেছে" + (muhuri ? " (প্রেরক: " + muhuri + ")" : "") + "!", "ok");
+                    showToast("✨ Loaded " + nmInfo.clean + (muhuri ? " (Sender: " + muhuri + ")" : "") + "!", "ok");
                 } catch (e) {
-                    showToast("❌ ডাটা লোড করতে সমস্যা হয়েছে।", "err");
+                    showToast("❌ Failed to load submission data.", "err");
                 }
             };
             box.appendChild(row);
@@ -5636,7 +6244,7 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
         if (!box || !btn) return;
         if (!silent) {
             btn.disabled = true;
-            btn.textContent = "⏳ লোড হচ্ছে...";
+            btn.textContent = "⏳ Loading...";
         }
 
         try {
@@ -5648,7 +6256,10 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
             let newCount = 0, latestNewMuhuri = "";
             list.forEach(item => {
                 const k = sheetItemKey(item);
-                if (_sheetFirstLoaded && !_knownSheetKeys.has(k)) {
+                const codePref = String(item.code || '').slice(0, 24);
+                const isSelfUpload = _selfUploadedPrefixes.has(codePref);
+                if (isSelfUpload) _selfUploadedPrefixes.delete(codePref);
+                if (_sheetFirstLoaded && !_knownSheetKeys.has(k) && !isSelfUpload) {
                     newCount++;
                     if (!latestNewMuhuri) {
                         try {
@@ -5661,6 +6272,7 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
             });
             _sheetFirstLoaded = true;
             _sheetCache = list;
+            updateSheetSenderDatalist();
             renderSheetList();
 
             if (newCount > 0) {
@@ -5671,16 +6283,16 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
                     b.textContent = String(prev + newCount);
                     b.classList.remove("hidden");
                 }
-                showToast(newCount === 1 && latestNewMuhuri ? `🔔 নতুন কাজ এসেছে! (প্রেরক: ${latestNewMuhuri})` : `🔔 ${newCount}টি নতুন কাজ এসেছে!`, "ok");
+                showToast(newCount === 1 && latestNewMuhuri ? `🔔 New submission received! (Sender: ${latestNewMuhuri})` : `🔔 ${newCount} new submissions received!`, "ok");
             }
         } catch (err) {
             if (!silent) {
-                box.innerHTML = "<div style='color:#c93a45; font-size:13px; padding:6px;'>❌ লিস্ট লোড করা যায়নি। ইন্টারনেট কানেকশন বা Google Script পারমিশন চেক করুন।</div>";
+                box.innerHTML = "<div class='sheet-err'>❌ Failed to load list. Please check your internet connection or Google Script permissions.</div>";
             }
         } finally {
             if (!silent) {
                 btn.disabled = false;
-                btn.textContent = "🔄 তালিকা রিফ্রেশ";
+                btn.textContent = "🔄 Refresh";
             }
         }
     }
@@ -5690,6 +6302,7 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
     window.onload = function() {
         if (typeof _origIdxOnload === 'function') _origIdxOnload();
         applyLayoutFit();
+        syncAutoShopSyncBtn();
         loadFromSheet(true);
         _pollTimer = setInterval(() => {
             if (_autoPollOn && !document.body.classList.contains('locked') && !document.hidden) {
@@ -5780,6 +6393,9 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
             setV('customerPhone', d.mCustomerPhone || d.customerPhone || '');
             setV('gender', 'Male');
             setV('maritalStatus', 'Married');
+            setV('dobDay', d.gDobDay || '');
+            setV('dobMonth', d.gDobMonth || '');
+            setV('dobYear', d.gDobYear || '');
             setV('age', d.gAge || '');
             setV('fatherName', d.gFather || '');
             setV('spouseName', d.bName || '');
@@ -5877,6 +6493,18 @@ html.dark .muhuri-shop-bar label{color:var(--gold)}
         el.addEventListener('change', fixYear);
     });
 </script>
+<div class="action-container">
+    <div id="warningMsg">
+        প্রিন্ট বা রেকর্ড সেভ করার জন্য ফর্মের লাল তারা (*) দেওয়া সব বক্স পূরণ করুন।
+    </div>
+    <div class="action-buttons" id="actionButtons" style="display: none;">
+        <button class="btn-print" onclick="printAndSave()">🖨️ Print / PDF</button>
+        <button class="btn-word" onclick="downloadCurrentWord()">📄 Word Download</button>
+        <button class="btn-record" onclick="saveCurrent()">💾 Save to Record</button>
+        <button class="btn-online" id="btnSyncOnline" onclick="syncCurrentToOnlineList()">☁️ অনলাইন লিস্টে পাঠান</button>
+        <button class="btn-wa-ready" id="btnWaReady" onclick="sendReadyWhatsApp()">💬 কাজ রেডি (WhatsApp)</button>
+    </div>
+</div>
 <div id="toastBox"></div>
 </body>
 </html>
